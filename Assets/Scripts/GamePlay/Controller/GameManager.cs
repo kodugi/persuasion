@@ -18,18 +18,17 @@ namespace GamePlay
             _boardController = new BoardController();
 
             IBlock[] blockList = { new BasicBlock() };
-            Cell[][] exampleBoard = new Cell[5][];
+            Cell[,] exampleBoard = new Cell[5, 5];
             for(int i = 0; i < 5; i++) {
-                exampleBoard[i] = new Cell[5];
                 for(int j = 0; j < 5; j++)
                 {
                     if((i + j) % 2 == 0)
                     {
-                        exampleBoard[i][j] = new BlackCell(new Vector2Int(i, j));
+                        exampleBoard[i, j] = new BlackCell(new Vector2Int(i, j));
                     }
                     else
                     {
-                        exampleBoard[i][j] = new EmptyCell(new Vector2Int(i, j));
+                        exampleBoard[i, j] = new EmptyCell(new Vector2Int(i, j));
                     }
                 }
             }

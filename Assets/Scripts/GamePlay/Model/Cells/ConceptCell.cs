@@ -3,7 +3,7 @@ using Unity.VisualScripting;
 
 namespace GamePlay
 {
-    public class ConceptCell : Cell, IFlippableCell, IFlipperCell
+    public class ConceptCell : Cell, IFlippableCell, IWeakFlipperCell
     {
         public bool CanBeFlippedBy(Cell first, Cell second)
         {

@@ -3,10 +3,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoardView : MonoBehaviour
+public class BoardView : SelfInitializingMonoBehaviourSingleton<BoardView>
 {
-    public static BoardView Instance { get; private set; }
-
     private enum CellPrefabKind
     {
         Empty,
@@ -32,35 +30,6 @@ public class BoardView : MonoBehaviour
     private readonly Dictionary<Type, GameObject> _prefabsByCellType = new Dictionary<Type, GameObject>();
     private readonly List<GameObject> _spawnedCells = new List<GameObject>();
     private GameObject[,] _spawnedCellsByCoord;
-    private bool _isInitialized;
-
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Debug.LogWarning("Multiple BoardView instances were found. The first instance will be used.", this);
-            return;
-        }
-
-        Instance = this;
-    }
-
-    private void Start()
-    {
-        if (!_isInitialized)
-        {
-            Initialize();
-        }
-    }
-
-    private void OnDestroy()
-    {
-        if (Instance == this)
-        {
-            Instance = null;
-        }
-    }
-
     private void OnValidate()
     {
         if (_cellSize <= 0f)
@@ -69,37 +38,37 @@ public class BoardView : MonoBehaviour
         }
     }
 
-    public void Initialize()
+    protected override bool InitializeCore()
     {
         if (GameInfoManager.Instance == null)
         {
             Debug.LogWarning("BoardView could not initialize because GameInfoManager.Instance is null.", this);
-            return;
+            return false;
         }
 
         _gameInfo = GameInfoManager.Instance.GetGameInfo();
         if (_gameInfo == null)
         {
             Debug.LogWarning("BoardView could not initialize because GameInfo is null.", this);
-            return;
+            return false;
         }
 
         BuildPrefabMap();
         RenderBoard();
-        _isInitialized = _spawnedCellsByCoord != null;
+        return _spawnedCellsByCoord != null;
     }
 
     public void Refresh()
     {
         if (_gameInfo == null)
         {
-            Initialize();
+            EnsureInitialized();
             return;
         }
 
         BuildPrefabMap();
         RenderBoard();
-        _isInitialized = _spawnedCellsByCoord != null;
+        SetInitialized(_spawnedCellsByCoord != null);
     }
 
     public void SetCell(GamePlay.Vector2Int coord, Cell cell)
@@ -112,7 +81,7 @@ public class BoardView : MonoBehaviour
 
         if (_spawnedCellsByCoord == null)
         {
-            Initialize();
+            EnsureInitialized();
         }
 
         if (_spawnedCellsByCoord == null)
@@ -150,7 +119,6 @@ public class BoardView : MonoBehaviour
             return;
         }
 
-        Debug.Log(coord.ToString() + " clicked");
         BoardController.Instance.HandleCellPlacementInput(coord);
     }
 
@@ -177,7 +145,7 @@ public class BoardView : MonoBehaviour
 
     private void RenderBoard()
     {
-        Cell[][] board = _gameInfo.GetBoard();
+        Cell[,] board = _gameInfo.GetBoard();
         if (board == null)
         {
             Debug.LogWarning("BoardView could not render because GameInfo board is null.", this);
@@ -200,7 +168,7 @@ public class BoardView : MonoBehaviour
 
         for (int x = 0; x < width; x++)
         {
-            if (x >= board.Length || board[x] == null)
+            if (x >= board.GetLength(0))
             {
                 Debug.LogWarning("BoardView skipped column " + x + " because the board data is missing.", this);
                 continue;
@@ -208,13 +176,13 @@ public class BoardView : MonoBehaviour
 
             for (int y = 0; y < height; y++)
             {
-                if (y >= board[x].Length)
+                if (y >= board.GetLength(1))
                 {
                     Debug.LogWarning("BoardView skipped cell (" + x + ", " + y + ") because the board data is missing.", this);
                     continue;
                 }
 
-                SpawnCell(board[x][y], x, y, width, height);
+                SpawnCell(board[x, y], x, y, width, height);
             }
         }
     }
@@ -355,18 +323,11 @@ public class BoardView : MonoBehaviour
             && coord.Y < _spawnedCellsByCoord.GetLength(1);
     }
 
-    private static bool TryGetBoardDimensions(Cell[][] board, out int width, out int height)
+    private static bool TryGetBoardDimensions(Cell[,] board, out int width, out int height)
     {
-        width = board.Length;
-        height = 0;
-
-        if (width == 0 || board[0] == null)
-        {
-            return false;
-        }
-
-        height = board[0].Length;
-        return height > 0;
+        width = board.GetLength(0);
+        height = board.GetLength(1);
+        return width > 0 && height > 0;
     }
 
     private static Type GetCellType(CellPrefabKind kind)

@@ -4,7 +4,7 @@ namespace GamePlay
     {
         private int _width{ get; }
         private int _height{ get; }
-        private Cell[][] _board{ get; }
+        private Cell[,] _board{ get; }
 
         public int GetWidth()
         {
@@ -16,14 +16,14 @@ namespace GamePlay
             return _height;
         }
 
-        public Cell[][] GetBoard()
+        public Cell[,] GetBoard()
         {
             return _board;
         }
         private int _maxTurns{ get; }
         private int _targetNumber{ get; }
 
-        public GameInfo(int width, int height, Cell[][] board, int maxTurns, int targetNumber)
+        public GameInfo(int width, int height, Cell[,] board, int maxTurns, int targetNumber)
         {
             _width = width;
             _height = height;

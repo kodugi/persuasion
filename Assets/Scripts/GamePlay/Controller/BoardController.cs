@@ -4,18 +4,8 @@ using UnityEngine;
 
 namespace GamePlay
 {
-    public class BoardController
+    public class BoardController : Singleton<BoardController>
     {
-        public static BoardController Instance { get; private set; }
-        public BoardController()
-        {
-            if (Instance != null)
-            {
-                throw new System.Exception("BoardController instance already exists!");
-            }
-            Instance = this;
-        }
-
         private GameInfoManager _gameInfoManager;
         private Board _board;
         private TurnManager _turnManager;
@@ -26,47 +16,51 @@ namespace GamePlay
             _blockSelectionManager = BlockSelectionManager.Instance;
             _board = new Board(_gameInfoManager.GetGameInfo().GetBoard());
             _turnManager = TurnManager.Instance;
+            _turnManager.RaiseSetTurnEvent += HandleSetTurnEvent;
         }
 
         public void HandleCellPlacementInput(Vector2Int coord)
         {
-            if (_turnManager.GetTurnState() == TurnState.PlayerIdle)
-            {
-                // 추후 로직 추가
-            }
-            else if (_turnManager.GetTurnState() == TurnState.PlayerPlacingContinue)
-            {
-                // 추후 로직 추가
-            }
-            else
+            if (_turnManager.GetTurnState() != TurnState.PlayerIdle && _turnManager.GetTurnState() == TurnState.PlayerPlacingContinue)
             {
                 return;
             }
 
-            CellPlacementResult placementResult = _blockSelectionManager.GetSelectedBlock().TryPlacement(_board.GetBoard(), coord);
+            IBlock selectedBlock = _blockSelectionManager.GetSelectedBlock();
+
+            CellPlacementResult placementResult = selectedBlock.TryPlacement(_board.GetBoard(), coord);
             if (placementResult.GetSuccess())
             {
-                PlayerPlaceCell(coord, _blockSelectionManager.GetSelectedBlock().GetCellType());
+                if (_blockSelectionManager.IsSelectedBlockAvailable())
+                {
+                    PlayerPlaceCell(coord, selectedBlock.GetCellType());
+                    _blockSelectionManager.PlaceSelectedBlock();
+                    _turnManager.SetTurnState(selectedBlock.GetNextTurnState());
+                }
             }
         }
 
-        private void PlayerPlaceCell(Vector2Int coord, Type cellType)
+        private void ProcessCellPlacement(Vector2Int coord, Type cellType, Func<Vector2Int, List<(Vector2Int, Type)>> func)
         {
-            Queue<(Vector2Int, Type)> toFlipQueue = new Queue<(Vector2Int, Type)> ();
+            Queue<(Vector2Int, Type)> toFlipQueue = new Queue<(Vector2Int, Type)>();
             toFlipQueue.Enqueue((coord, cellType));
 
-            while(toFlipQueue.Count > 0)
+            while (toFlipQueue.Count > 0)
             {
                 (Vector2Int curCoord, Type curCellType) = toFlipQueue.Dequeue();
                 SetCell(curCoord, curCellType);
-                Debug.Log("flipped" + curCoord.ToString());
-                List<(Vector2Int, Type)> toFlipCoordsAndTypes = PlayerGetToFlipCoordsAndTypes(coord);
+                List<(Vector2Int, Type)> toFlipCoordsAndTypes = func(coord);
                 IFlipperCell curCell = (IFlipperCell)_board.GetCell(curCoord);
                 foreach ((Vector2Int toFlipCoord, Type toFlipType) in toFlipCoordsAndTypes)
                 {
                     toFlipQueue.Enqueue((toFlipCoord, toFlipType));
                 }
             }
+        }
+
+        private void PlayerPlaceCell(Vector2Int coord, Type cellType)
+        {
+            ProcessCellPlacement(coord, cellType, PlayerGetToFlipCoordsAndTypes);
         }
 
         private void SetCell(Vector2Int coord, Type cellType)
@@ -102,23 +96,18 @@ namespace GamePlay
                     Cell otherCell = _board.GetCell(origin + dir);
                     if (otherCell is WeakBlackCell)
                     {
-                        toFlipCoordsAndTypes.Add((origin + dir, ((IFlipperCell)originCell).TryFlipWeakCell(otherCell)));
+                        toFlipCoordsAndTypes.Add((origin + dir, ((IWeakFlipperCell)originCell).TryFlipWeakCell(otherCell)));
                     }
                 }
             }
 
             // 일반 오셀로 규칙에 따른 처리
-            toFlipCoordsAndTypes.AddRange(GetToFlipCoordsAndTypes(origin, typeof(BlackCell)));
-
-            foreach((Vector2Int coord, Type type) in toFlipCoordsAndTypes)
-            {
-                Debug.Log("added " + coord.ToString() + " for " + origin.ToString());
-            }
+            toFlipCoordsAndTypes.AddRange(GetToFlipCoordsAndTypes(origin, typeof(BlackCell), typeof(ConceptCell)));
 
             return toFlipCoordsAndTypes;
         }
 
-        private List<(Vector2Int, Type)> GetToFlipCoordsAndTypes(Vector2Int origin, Type targetType)
+        private List<(Vector2Int, Type)> GetToFlipCoordsAndTypes(Vector2Int origin, Type targetType, Type otherType)
         {
             List<(Vector2Int, Type)> toFlipCoordsAndTypes = new List<(Vector2Int, Type)>();
             Cell originCell = _board.GetCell(origin);
@@ -126,8 +115,7 @@ namespace GamePlay
             new Vector2Int(-1, 0), new Vector2Int(-1, -1), new Vector2Int(0, -1), new Vector2Int(1, -1)};
             foreach (Vector2Int dir in dirs)
             {
-                Vector2Int otherCellCoord = GetNearestOtherCellCoord(origin, dir, typeof(ConceptCell));
-                Debug.Log("nearest other cell from " + origin.ToString() + " in direction " + dir.ToString() + ": " + otherCellCoord?.ToString());
+                Vector2Int otherCellCoord = GetNearestOtherCellCoord(origin, dir, otherType);
                 if (otherCellCoord != null)
                 {
                     Cell otherCell = _board.GetCell(otherCellCoord);
@@ -178,14 +166,50 @@ namespace GamePlay
             return null;
         }
 
-        public void HandleEnemyFlipInput()
+        public void HandleEnemyTurn()
         {
             EnemyFlipCells();
+            _turnManager.SetTurnState(TurnState.End);
         }
 
         private void EnemyFlipCells()
         {
+            List<(Vector2Int, Type)> toFlipCoordsAndTypes = new List<(Vector2Int, Type)> ();
+            for(int i = 0; i < _board.GetWidth(); i++) {
+                for(int j = 0; j < _board.GetHeight(); j++)
+                {
+                    if(_board.GetCell(new Vector2Int(i, j)) is BlackCell)
+                    {
+                        toFlipCoordsAndTypes.AddRange(GetToFlipCoordsAndTypes(new Vector2Int(i, j), typeof(ConceptCell), typeof(BlackCell)));
+                        
+                    }
+                }
+            }
+            foreach ((Vector2Int coord, Type cellType) in toFlipCoordsAndTypes)
+            {
+                SetCell(coord, cellType);
+            }
+        }
 
+        public void HandlePlayerPlacingEnd()
+        {
+            // TODO: 애니메이션 재생 구현
+            _turnManager.SetTurnState(TurnState.PlayerIdle);
+        }
+
+        private void HandleSetTurnEvent(object sender, SetTurnEventArgs e)
+        {
+            switch (e.turnState)
+            {
+                case TurnState.PlayerPlacingEnd:
+                    HandlePlayerPlacingEnd();
+                    break;
+                case TurnState.EnemyIdle:
+                    HandleEnemyTurn();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
