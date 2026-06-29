@@ -2,9 +2,9 @@
 
 namespace GamePlay
 {
-    public class BasicBlock : IBlock
+    public class BasicBlock : BlockBase
     {
-        public CellPlacementResult TryPlacement(Cell[,] board, Vector2Int coord)
+        public override CellPlacementResult TryPlacement(Cell[,] board, Vector2Int coord)
         {
             if (board[coord.X, coord.Y] is EmptyCell || board[coord.X, coord.Y] is ConceptCell)
             {
@@ -12,19 +12,29 @@ namespace GamePlay
             }
             return new CellPlacementResult(false, CellPlacementResultType.OCCUPIED);
         }
-        public Type GetCellType()
+        public override Type GetCellType()
         {
             return typeof(ConceptCell);
         }
 
-        public TurnState GetNextTurnState()
+        public override int MaxNumTotal { get; } = 0;
+        public override int MaxNumPerTurn { get; } = 3;
+
+        public override String Name { get; } = "무해함";
+
+        protected override int GetSuspicionByCount(int countPerTurn)
         {
-            return TurnState.PlayerIdle;
+            switch (countPerTurn)
+            {
+                case 0:
+                    return 18;
+                case 1:
+                    return 34;
+                case 2:
+                    return 40;
+                default:
+                    return 0;
+            }
         }
-
-        public int MaxNumTotal { get; } = 0;
-        public int MaxNumPerTurn { get; } = 3;
-
-        public String Name { get; } = "무해함";
     }
 }

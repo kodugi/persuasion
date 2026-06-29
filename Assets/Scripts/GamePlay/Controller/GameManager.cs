@@ -10,19 +10,23 @@ namespace GamePlay
         private GameInfoManager _gameInfoManager;
         private BlockSelectionManager _blockSelectionManager;
         private BoardController _boardController;
+        private SuspicionManager _suspicionManager;
+        private WinConditionManager _winConditionManager;
         private void Awake()
         {
             _turnManager = new TurnManager();
             _gameInfoManager = new GameInfoManager();
             _blockSelectionManager = new BlockSelectionManager();
             _boardController = new BoardController();
-
-            IBlock[] blockList = { new BasicBlock() };
+            _suspicionManager = new SuspicionManager();
+            _winConditionManager = new WinConditionManager();
+            // TODO: 하드코딩을 실제 값으로 대체
+            IBlock[] blockList = { new BasicBlock(), new LieBlock(), new ThreatBlock() };
             Cell[,] exampleBoard = new Cell[5, 5];
             for(int i = 0; i < 5; i++) {
                 for(int j = 0; j < 5; j++)
                 {
-                    if((i + j) % 2 == 0)
+                    if((i + j) % 3 == 0)
                     {
                         exampleBoard[i, j] = new BlackCell(new Vector2Int(i, j));
                     }
@@ -38,6 +42,8 @@ namespace GamePlay
             _gameInfoManager.Initialize(exampleGameInfo);
             _blockSelectionManager.Initialize(blockList.ToList());
             _boardController.Initialize();
+            _suspicionManager.Initialize(100,38);
+            _winConditionManager.Initialize();
         }
 
         // Use this for initialization

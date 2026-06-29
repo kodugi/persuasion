@@ -29,5 +29,10 @@ namespace GamePlay
             clone._coord = _coord == null ? null : new Vector2Int(_coord);
             return clone;
         }
+
+        public Vector2Int GetCoord()
+        {
+            return _coord;
+        }
     }
 }

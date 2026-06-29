@@ -25,6 +25,10 @@ namespace GamePlay
     public enum CellPlacementResultType
     {
         SUCCESS,
-        OCCUPIED
+        STATE_NOT_ALLOWED,
+        OCCUPIED,
+        LIE_NOT_ADJACENT,
+        THREAT_NO_ADJACENT_CELL_EMPTY,
+        THREAT_NOT_ADJACENT
     }
 }

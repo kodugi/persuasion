@@ -10,6 +10,8 @@ namespace GamePlay
         private Board _board;
         private TurnManager _turnManager;
         private BlockSelectionManager _blockSelectionManager;
+
+        public event EventHandler RaiseCellPlacementEvent;
         public void Initialize()
         {
             _gameInfoManager = GameInfoManager.Instance;
@@ -21,26 +23,47 @@ namespace GamePlay
 
         public void HandleCellPlacementInput(Vector2Int coord)
         {
-            if (_turnManager.GetTurnState() != TurnState.PlayerIdle && _turnManager.GetTurnState() == TurnState.PlayerPlacingContinue)
+            TurnState turnState = _turnManager.GetTurnState();
+            if (turnState != TurnState.PlayerIdle && turnState != TurnState.PlayerPlacingContinue)
             {
                 return;
             }
 
             IBlock selectedBlock = _blockSelectionManager.GetSelectedBlock();
 
-            CellPlacementResult placementResult = selectedBlock.TryPlacement(_board.GetBoard(), coord);
-            if (placementResult.GetSuccess())
+            if (turnState == TurnState.PlayerIdle)
             {
-                if (_blockSelectionManager.IsSelectedBlockAvailable())
+                CellPlacementResult placementResult = selectedBlock.TryPlacement(_board.GetBoard(), coord);
+                if (placementResult.GetSuccess())
                 {
-                    PlayerPlaceCell(coord, selectedBlock.GetCellType());
-                    _blockSelectionManager.PlaceSelectedBlock();
-                    _turnManager.SetTurnState(selectedBlock.GetNextTurnState());
+                    if (_blockSelectionManager.IsSelectedBlockAvailable())
+                    {
+                        PlayerPlaceCell(coord, selectedBlock.GetCellType());
+                        _blockSelectionManager.PlaceSelectedBlock(coord);
+                        _turnManager.SetTurnState(selectedBlock is IMultipleBlock ? TurnState.PlayerPlacingContinue : TurnState.PlayerIdle);
+                        RaiseCellPlacementEvent.Invoke(this, null);
+                    }
                 }
+                return;
             }
+
+            if (selectedBlock is IMultipleBlock multipleBlock)
+            {
+                CellPlacementResult placementResult = multipleBlock.TryContinuedPlacement(_board.GetBoard(), coord);
+                if (placementResult.GetSuccess())
+                {
+                    PlayerPlaceCell(coord, multipleBlock.GetCellType());
+                    _blockSelectionManager.PlaceContinuedBlock(coord);
+                    _turnManager.SetTurnState((multipleBlock.InputState == MultipleBlockInputState.AwaitingContinuedPlacement) ? TurnState.PlayerPlacingContinue : TurnState.PlayerIdle);
+                    RaiseCellPlacementEvent.Invoke(this, null);
+                }
+                return;
+            }
+
+            Debug.LogError("Selected block does not support continued placement!");
         }
 
-        private void ProcessCellPlacement(Vector2Int coord, Type cellType, Func<Vector2Int, List<(Vector2Int, Type)>> func)
+        private void PlayerPlaceCell(Vector2Int coord, Type cellType)
         {
             Queue<(Vector2Int, Type)> toFlipQueue = new Queue<(Vector2Int, Type)>();
             toFlipQueue.Enqueue((coord, cellType));
@@ -49,18 +72,13 @@ namespace GamePlay
             {
                 (Vector2Int curCoord, Type curCellType) = toFlipQueue.Dequeue();
                 SetCell(curCoord, curCellType);
-                List<(Vector2Int, Type)> toFlipCoordsAndTypes = func(coord);
+                List<(Vector2Int, Type)> toFlipCoordsAndTypes = PlayerGetToFlipCoordsAndTypes(coord);
                 IFlipperCell curCell = (IFlipperCell)_board.GetCell(curCoord);
                 foreach ((Vector2Int toFlipCoord, Type toFlipType) in toFlipCoordsAndTypes)
                 {
                     toFlipQueue.Enqueue((toFlipCoord, toFlipType));
                 }
             }
-        }
-
-        private void PlayerPlaceCell(Vector2Int coord, Type cellType)
-        {
-            ProcessCellPlacement(coord, cellType, PlayerGetToFlipCoordsAndTypes);
         }
 
         private void SetCell(Vector2Int coord, Type cellType)
@@ -125,9 +143,10 @@ namespace GamePlay
                         Cell cell = _board.GetCell(cur);
                         if (targetType.IsAssignableFrom(cell.GetType()))
                         {
-                            if (!((IFlippableCell)cell).CanBeFlippedBy(originCell, otherCell))
+                            if (((IFlippableCell)cell).TryBeFlipped(originCell, otherCell) == null)
                             {
                                 canBeFlipped = false;
+                                break;
                             }
                         }
                         else
@@ -144,12 +163,56 @@ namespace GamePlay
 
                     for (Vector2Int cur = new Vector2Int(origin) + dir; cur != otherCellCoord; cur += dir)
                     {
-                        toFlipCoordsAndTypes.Add((cur, ((IFlipperCell)originCell).TryFlip(otherCell, _board.GetCell(cur))));
+                        toFlipCoordsAndTypes.Add((cur, GetFlippedCellType(originCell, otherCell, _board.GetCell(cur))));
                     }
                 }
             }
 
             return toFlipCoordsAndTypes;
+        }
+
+        private Type GetFlippedCellType(Cell first, Cell second, Cell cellToFlip)
+        {
+            if(!(first is IFlipperCell && second is IFlipperCell && cellToFlip is IFlippableCell))
+            {
+                Debug.LogError("input type for GetFlippedCellType not correct");
+                return null;
+            }
+
+            Type firstType = ((IFlipperCell)first).TryFlip(second, cellToFlip);
+            Type secondType = ((IFlipperCell)second).TryFlip(first, cellToFlip);
+            Type cellToFlipType = ((IFlippableCell)cellToFlip).TryBeFlipped(first, second);
+
+            int firstPrecedence = ((IFlipperCell)first).FlipperPrecedence;
+            int secondPrecedence = ((IFlipperCell)second).FlipperPrecedence;
+            int cellToFlipPrecedence = ((IFlippableCell)cellToFlip).FlippedPrecedence;
+
+            int highestPrecedence = Math.Max(firstPrecedence, Math.Max(secondPrecedence, cellToFlipPrecedence));
+            bool firstHasHighestPrecedence = firstPrecedence == highestPrecedence;
+            bool secondHasHighestPrecedence = secondPrecedence == highestPrecedence;
+            bool cellToFlipHasHighestPrecedence = cellToFlipPrecedence == highestPrecedence;
+
+            bool hasDifferentTypeTie =
+                (firstHasHighestPrecedence && secondHasHighestPrecedence && firstType != secondType) ||
+                (firstHasHighestPrecedence && cellToFlipHasHighestPrecedence && firstType != cellToFlipType) ||
+                (secondHasHighestPrecedence && cellToFlipHasHighestPrecedence && secondType != cellToFlipType);
+
+            if (hasDifferentTypeTie)
+            {
+                Debug.LogWarning("GetFlippedCellType found different flip types with the same precedence. Resolving by first > second > cellToFlip.");
+            }
+
+            if (firstHasHighestPrecedence)
+            {
+                return firstType;
+            }
+
+            if (secondHasHighestPrecedence)
+            {
+                return secondType;
+            }
+
+            return cellToFlipType;
         }
 
         private Vector2Int GetNearestOtherCellCoord(Vector2Int origin, Vector2Int dir, Type cellType) // ConceptCell 또는 BlackCell
@@ -210,6 +273,23 @@ namespace GamePlay
                 default:
                     break;
             }
+        }
+
+        public int GetConvertedBlackCellCount()
+        {
+            Cell[,] originalBoard = _gameInfoManager.GetGameInfo().GetBoard();
+            int cnt = 0;
+            for(int i = 0; i < _board.GetWidth(); i++)
+            {
+                for(int j = 0; j < _board.GetHeight(); j++)
+                {
+                    if (originalBoard[i, j] is BlackCell && _board.GetCell(new Vector2Int(i, j)) is ConceptCell)
+                    {
+                        cnt++;
+                    }
+                }
+            }
+            return cnt;
         }
     }
 }

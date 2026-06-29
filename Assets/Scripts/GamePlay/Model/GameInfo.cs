@@ -31,5 +31,15 @@ namespace GamePlay
             _maxTurns = maxTurns;
             _targetNumber = targetNumber;
         }
+
+        public int GetMaxTurns()
+        {
+            return _maxTurns;
+        }
+
+        public int GetTargetNumber()
+        {
+            return _targetNumber;
+        }
     }
 }

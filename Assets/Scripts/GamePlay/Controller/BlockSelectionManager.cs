@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace GamePlay
@@ -9,10 +10,10 @@ namespace GamePlay
         private BlockSelectionView _blockSelectionView;
 
         private int _selectedBlockIdx;
-        private List<BlockEntry> _blockEntries;
+        private List<IBlock> _blocks;
         public IBlock GetSelectedBlock()
         {
-            return _blockEntries[_selectedBlockIdx].block;
+            return _blocks[_selectedBlockIdx];
         }
         public void SetSelectedBlockIdx(int selectedBlockIdx) {
             if(_turnManager.GetTurnState() == TurnState.PlayerIdle)
@@ -25,32 +26,32 @@ namespace GamePlay
         public void Initialize(List<IBlock> blockList)
         {
             _selectedBlockIdx = 0;
-            _blockEntries = new List<BlockEntry>();
+            _blocks = new List<IBlock>(blockList);
             foreach(IBlock block in blockList)
             {
-                _blockEntries.Add(new BlockEntry(block));
+                block.Reset();
             }
             _turnManager = TurnManager.Instance;
             _blockSelectionView = BlockSelectionView.Instance;
 
             _turnManager.RaiseSetTurnEvent += HandleSetTurnEvent;
 
-            _blockSelectionView.SetBlockEntryUI(_blockEntries);
+            _blockSelectionView.SetBlockUI(_blocks);
         }
 
         public bool IsSelectedBlockAvailable()
         {
-            BlockEntry selectedBlockEntry = _blockEntries[_selectedBlockIdx];
-            if(selectedBlockEntry == null)
+            IBlock selectedBlock = _blocks[_selectedBlockIdx];
+            if(selectedBlock == null)
             {
                 return false;
             }
-            if(selectedBlockEntry.block.MaxNumTotal > 0 && selectedBlockEntry.countTotal >= selectedBlockEntry.block.MaxNumTotal)
+            if(selectedBlock.MaxNumTotal > 0 && selectedBlock.CountTotal >= selectedBlock.MaxNumTotal)
             {
                 Debug.Log("Exceeded maximum total block limit");
                 return false;
             }
-            if(selectedBlockEntry.block.MaxNumPerTurn > 0 && selectedBlockEntry.countPerTurn >= selectedBlockEntry.block.MaxNumPerTurn)
+            if(selectedBlock.MaxNumPerTurn > 0 && selectedBlock.CountPerTurn >= selectedBlock.MaxNumPerTurn)
             {
                 Debug.Log("Exceeded maximum block limit per turn");
                 return false;
@@ -58,23 +59,44 @@ namespace GamePlay
             return true;
         }
 
-        public void PlaceSelectedBlock()
+        public event EventHandler<PlaceBlockEventArgs> RaisePlaceBlock;
+
+        public void PlaceSelectedBlock(Vector2Int coord)
         {
-            BlockEntry selectedBlockEntry = _blockEntries[_selectedBlockIdx];
+            IBlock selectedBlock = _blocks[_selectedBlockIdx];
             if (!IsSelectedBlockAvailable())
             {
                 Debug.LogError("Selected block is not available!");
                 return;
             }
-            selectedBlockEntry.countTotal++;
-            selectedBlockEntry.countPerTurn++;
+            int incrementAmount = selectedBlock.GetSuspicion();
+            Debug.Log("PlaceSelectedBlock called");
+            RaisePlaceBlock?.Invoke(this, new PlaceBlockEventArgs(selectedBlock, incrementAmount));
+            selectedBlock.RegisterPlacement(coord);
+        }
+
+        public void PlaceContinuedBlock(Vector2Int coord)
+        {
+            IBlock selectedBlock = _blocks[_selectedBlockIdx];
+            if (selectedBlock is MultipleBlockBase multipleBlock)
+            {
+                Debug.Log("PlaceContinuedBlock called");
+                multipleBlock.RegisterContinuedPlacement(coord);
+                if(multipleBlock.InputState == MultipleBlockInputState.Completed)
+                {
+                    multipleBlock.ResetBlockPlacementState();
+                }
+                return;
+            }
+
+            Debug.LogError("Selected block does not support continued placement!");
         }
 
         private void ResetCountPerTurn()
         {
-            foreach(BlockEntry blockEntry in _blockEntries)
+            foreach(IBlock block in _blocks)
             {
-                blockEntry.countPerTurn = 0;
+                block.ResetTurn();
             }
         }
 
@@ -91,17 +113,15 @@ namespace GamePlay
         }
     }
 
-    public class BlockEntry
+    public class PlaceBlockEventArgs : EventArgs
     {
-        public IBlock block;
-        public int countTotal;
-        public int countPerTurn;
+        public IBlock Block { get; }
+        public int IncrementAmount { get; }
 
-        public BlockEntry(IBlock block)
+        public PlaceBlockEventArgs(IBlock block, int incrementAmount)
         {
-            this.block = block;
-            countTotal = 0;
-            countPerTurn = 0;
+            Block = block;
+            IncrementAmount = incrementAmount;
         }
     }
 }

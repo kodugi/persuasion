@@ -97,5 +97,15 @@ namespace GamePlay
         {
             return new Vector2Int(-vector.X, -vector.Y);
         }
+
+        public static int TaxiDist(Vector2Int left, Vector2Int right)
+        {
+            return Math.Abs(left.X - right.X) + Math.Abs(left.Y - right.Y);
+        }
+
+        public static bool IsAdjacent(Vector2Int left, Vector2Int right)
+        {
+            return Math.Abs(left.X - right.X) <= 1 && Math.Abs(left.Y - right.Y) <= 1;
+        }
     }
 }

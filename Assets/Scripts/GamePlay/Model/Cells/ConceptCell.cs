@@ -5,15 +5,16 @@ namespace GamePlay
 {
     public class ConceptCell : Cell, IFlippableCell, IWeakFlipperCell
     {
-        public bool CanBeFlippedBy(Cell first, Cell second)
+        public virtual Type TryBeFlipped(Cell first, Cell second)
         {
-            if(first is BlackCell && second is BlackCell) {
-                return true;
+            if(first is BlackCell && second is BlackCell)
+            {
+                return typeof(WeakBlackCell);
             }
-            return false;
+            return null;
         }
 
-        public Type TryFlip(Cell otherCell, Cell cellToFlip)
+        public virtual Type TryFlip(Cell otherCell, Cell cellToFlip)
         {
             if(otherCell is ConceptCell)
             {
@@ -22,7 +23,7 @@ namespace GamePlay
             return null;
         }
 
-        public Type TryFlipWeakCell(Cell cellToFlip)
+        public virtual Type TryFlipWeakCell(Cell cellToFlip)
         {
             return typeof(ConceptCell);
         }
@@ -30,5 +31,8 @@ namespace GamePlay
         public ConceptCell(int placedTurn, Vector2Int coord) : base(placedTurn, coord)
         {
         }
+
+        public virtual int FlippedPrecedence { get; } = 0;
+        public virtual int FlipperPrecedence { get; } = 0;
     }
 }

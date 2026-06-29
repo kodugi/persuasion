@@ -4,13 +4,13 @@ namespace GamePlay
 {
     public class BlackCell : Cell, IFlippableCell, IFlipperCell
     {
-        public virtual bool CanBeFlippedBy(Cell first, Cell second)
+        public virtual Type TryBeFlipped(Cell first, Cell second)
         {
             if(first is ConceptCell && second is ConceptCell)
             {
-                return true;
+                return typeof(ConceptCell);
             }
-            return false;
+            return null;
         }
 
         public BlackCell(int placedTurn, Vector2Int coord) : base(placedTurn, coord) { }
@@ -23,10 +23,13 @@ namespace GamePlay
             {
                 if(cellToFlip is ConceptCell)
                 {
-                    return typeof(WeakBlackCell); // TODO: WeakBlackCell 구현 후 WeakBlackCell로 대체
+                    return typeof(WeakBlackCell);
                 }
             }
             return null;
         }
+
+        public int FlippedPrecedence { get; } = 0;
+        public int FlipperPrecedence { get; } = 0;
     }
 }
