@@ -7,7 +7,6 @@ namespace GamePlay
     public class GameManager : MonoBehaviour
     {
         private TurnManager _turnManager;
-        private GameInfoManager _gameInfoManager;
         private BlockSelectionManager _blockSelectionManager;
         private BoardController _boardController;
         private SuspicionManager _suspicionManager;
@@ -15,7 +14,6 @@ namespace GamePlay
         private void Awake()
         {
             _turnManager = new TurnManager();
-            _gameInfoManager = new GameInfoManager();
             _blockSelectionManager = new BlockSelectionManager();
             _boardController = new BoardController();
             _suspicionManager = new SuspicionManager();
@@ -44,7 +42,7 @@ namespace GamePlay
             GameInfo exampleGameInfo = new GameInfo(5, 5, exampleBoard, 10, 2);
 
             _turnManager.Initialize();
-            _gameInfoManager.Initialize(exampleGameInfo);
+            GameInfoManager.Initialize(exampleGameInfo);
             _blockSelectionManager.Initialize(blockList.ToList());
             _boardController.Initialize();
             _suspicionManager.Initialize(100,38);

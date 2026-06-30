@@ -1,15 +1,15 @@
 ﻿namespace GamePlay
 {
-    public class GameInfoManager : Singleton<GameInfoManager>
+    public static class GameInfoManager
     {
-        private GameInfo _gameInfo;
+        private static GameInfo _gameInfo;
 
-        public GameInfo GetGameInfo()
+        public static GameInfo GetGameInfo()
         {
             return _gameInfo;
         }
 
-        public void Initialize(GameInfo gameInfo)
+        public static void Initialize(GameInfo gameInfo)
         {
             _gameInfo = gameInfo;
         }

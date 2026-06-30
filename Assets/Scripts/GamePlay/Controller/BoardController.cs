@@ -6,7 +6,6 @@ namespace GamePlay
 {
     public class BoardController : Singleton<BoardController>
     {
-        private GameInfoManager _gameInfoManager;
         private Board _board;
         private TurnManager _turnManager;
         private BlockSelectionManager _blockSelectionManager;
@@ -14,9 +13,8 @@ namespace GamePlay
         public event EventHandler RaiseCellPlacementEvent;
         public void Initialize()
         {
-            _gameInfoManager = GameInfoManager.Instance;
             _blockSelectionManager = BlockSelectionManager.Instance;
-            _board = new Board(_gameInfoManager.GetGameInfo().GetBoard());
+            _board = new Board(GameInfoManager.GetGameInfo().GetBoard());
             _turnManager = TurnManager.Instance;
             _turnManager.RaiseSetTurnEvent += HandleSetTurnEvent;
         }
@@ -277,7 +275,7 @@ namespace GamePlay
 
         public int GetConvertedBlackCellCount()
         {
-            Cell[,] originalBoard = _gameInfoManager.GetGameInfo().GetBoard();
+            Cell[,] originalBoard = GameInfoManager.GetGameInfo().GetBoard();
             int cnt = 0;
             for(int i = 0; i < _board.GetWidth(); i++)
             {

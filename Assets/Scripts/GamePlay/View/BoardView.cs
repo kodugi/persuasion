@@ -44,13 +44,7 @@ public class BoardView : SelfInitializingMonoBehaviourSingleton<BoardView>
 
     protected override bool InitializeCore()
     {
-        if (GameInfoManager.Instance == null)
-        {
-            Debug.LogWarning("BoardView could not initialize because GameInfoManager.Instance is null.", this);
-            return false;
-        }
-
-        _gameInfo = GameInfoManager.Instance.GetGameInfo();
+        _gameInfo = GameInfoManager.GetGameInfo();
         if (_gameInfo == null)
         {
             Debug.LogWarning("BoardView could not initialize because GameInfo is null.", this);

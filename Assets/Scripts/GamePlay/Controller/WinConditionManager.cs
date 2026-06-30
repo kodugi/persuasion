@@ -7,13 +7,11 @@ namespace GamePlay
     {
         private BoardController _boardController;
         private SuspicionManager _suspicionManager;
-        private GameInfoManager _gameInfoManager;
         private bool _isGameEnded;
         public void Initialize()
         {
             _boardController = BoardController.Instance;
             _suspicionManager = SuspicionManager.Instance;
-            _gameInfoManager = GameInfoManager.Instance;
             _isGameEnded = false;
 
             _boardController.RaiseCellPlacementEvent += HandleCellPlacementEvent;
@@ -45,7 +43,7 @@ namespace GamePlay
                 return;
             }
 
-            if(_boardController.GetConvertedBlackCellCount() >= _gameInfoManager.GetGameInfo().GetTargetNumber())
+            if(_boardController.GetConvertedBlackCellCount() >= GameInfoManager.GetGameInfo().GetTargetNumber())
             {
                 // TODO: 승리 판정
                 _isGameEnded = true;
