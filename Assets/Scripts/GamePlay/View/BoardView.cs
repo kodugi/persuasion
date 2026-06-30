@@ -12,7 +12,9 @@ public class BoardView : SelfInitializingMonoBehaviourSingleton<BoardView>
         WeakBlack,
         Concept,
         Lie,
-        Threat
+        Threat,
+        Disdain,
+        Religious
     }
 
     [Serializable]
@@ -348,6 +350,10 @@ public class BoardView : SelfInitializingMonoBehaviourSingleton<BoardView>
                 return typeof(LieCell);
             case CellPrefabKind.Threat:
                 return typeof(ThreatCell);
+            case CellPrefabKind.Disdain:
+                return typeof(DisdainCell);
+            case CellPrefabKind.Religious:
+                return typeof(ReligiousCell);
             default:
                 throw new ArgumentOutOfRangeException("kind", kind, null);
         }

@@ -25,5 +25,10 @@ public class ButtonUIView : MonoBehaviour
         {
             TurnManager.Instance.SetTurnState(TurnState.EnemyIdle);
         }
+        else if(TurnManager.Instance.GetTurnState() == TurnState.PlayerPlacingContinue)
+        {
+            TurnManager.Instance.SetTurnState(TurnState.PlayerPlacingEnd);
+            TurnManager.Instance.SetTurnState(TurnState.EnemyIdle);
+        }
     }
 }

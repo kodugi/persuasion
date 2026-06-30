@@ -21,11 +21,16 @@ namespace GamePlay
             _suspicionManager = new SuspicionManager();
             _winConditionManager = new WinConditionManager();
             // TODO: 하드코딩을 실제 값으로 대체
-            IBlock[] blockList = { new BasicBlock(), new LieBlock(), new ThreatBlock() };
+            IBlock[] blockList = { new BasicBlock(), new LieBlock(), new ThreatBlock(), new ReligiousBlock() };
             Cell[,] exampleBoard = new Cell[5, 5];
             for(int i = 0; i < 5; i++) {
                 for(int j = 0; j < 5; j++)
                 {
+                    if(i == 1 && j == 2)
+                    {
+                        exampleBoard[i, j] = new DisdainCell(new Vector2Int(i, j));
+                        continue;
+                    }
                     if((i + j) % 3 == 0)
                     {
                         exampleBoard[i, j] = new BlackCell(new Vector2Int(i, j));

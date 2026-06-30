@@ -18,7 +18,7 @@ namespace GamePlay
                 return new CellPlacementResult(false, CellPlacementResultType.LIE_NOT_ADJACENT);
             }
 
-            if (board[coord.X, coord.Y] is BlackCell)
+            if (board[coord.X, coord.Y] is BlackCell && !(board[coord.X, coord.Y] is DisdainCell)) // TODO: 타일이 추가될 경우 다른 식으로 처리해야 할 수도 있음
             {
                 return new CellPlacementResult(true, CellPlacementResultType.SUCCESS);
             }

@@ -1127,6 +1127,10 @@ MonoBehaviour:
     Prefab: {fileID: 1400539342615795762, guid: 214470e448ccefe4f952c4fefbaa2262, type: 3}
   - CellKind: 5
     Prefab: {fileID: 1400539342615795762, guid: b31aea980df9f29418dfb470da19c2a5, type: 3}
+  - CellKind: 6
+    Prefab: {fileID: 70453183321131600, guid: 86bcea13c8e714d46ac8bab9db4be157, type: 3}
+  - CellKind: 7
+    Prefab: {fileID: 2512126162189956713, guid: 485462a442f043c469a669090c554406, type: 3}
   _cellSize: 1
   _origin: {x: 0, y: 0}
   _centerBoard: 1

@@ -17,7 +17,7 @@ namespace GamePlay
 
         public BlackCell(Vector2Int coord) : base(coord) { }
 
-        public Type TryFlip(Cell otherCell, Cell cellToFlip)
+        public virtual Type TryFlip(Cell otherCell, Cell cellToFlip)
         {
             if (otherCell is BlackCell)
             {
@@ -29,7 +29,7 @@ namespace GamePlay
             return null;
         }
 
-        public int FlippedPrecedence { get; } = 0;
-        public int FlipperPrecedence { get; } = 0;
+        public virtual int FlippedPrecedence { get; } = 0;
+        public virtual int FlipperPrecedence { get; } = 0;
     }
 }
