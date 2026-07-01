@@ -1118,6 +1118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BoardView
   _cellRoot: {fileID: 1627562692}
+  _markerRoot: {fileID: 1627562692}
   _cellPrefabs:
   - CellKind: 1
     Prefab: {fileID: 9176317101700136124, guid: 94546766b1184924cb4c732a082f1d39, type: 3}
@@ -1135,6 +1136,19 @@ MonoBehaviour:
     Prefab: {fileID: 70453183321131600, guid: 86bcea13c8e714d46ac8bab9db4be157, type: 3}
   - CellKind: 7
     Prefab: {fileID: 2512126162189956713, guid: 485462a442f043c469a669090c554406, type: 3}
+  _cellPreviewSprites:
+  - CellKind: 0
+    Sprite: {fileID: 0}
+  - CellKind: 3
+    Sprite: {fileID: 7482667652216324306, guid: 45cd6f6c53c07f046b8a7d8edfc795dc, type: 3}
+  - CellKind: 4
+    Sprite: {fileID: 7482667652216324306, guid: a513360cfe814834c93bc86bc2fa9434, type: 3}
+  - CellKind: 5
+    Sprite: {fileID: 7482667652216324306, guid: 8020f0c318aa9e049af92b9878e94b54, type: 3}
+  - CellKind: 7
+    Sprite: {fileID: 7482667652216324306, guid: efc780248bc5c0648ba1885d17eaced3, type: 3}
+  _markerPrefab: {fileID: 6915691452449960741, guid: ebfa2fe3522cc6342b793861aac94b20, type: 3}
+  _previewColor: {r: 1, g: 1, b: 1, a: 0.45}
   _cellSize: 1
   _origin: {x: 0, y: 0}
   _centerBoard: 1

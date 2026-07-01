@@ -61,6 +61,22 @@ namespace GamePlay
             Debug.LogError("Selected block does not support continued placement!");
         }
 
+        public bool CanPlaceBlock(IBlock block, Vector2Int coord)
+        {
+            if (_turnManager.GetTurnState() == TurnState.PlayerIdle)
+            {
+                return block.TryPlacement(_board.GetBoard(), coord).GetSuccess();
+            }
+            
+            if (_turnManager.GetTurnState() == TurnState.PlayerPlacingContinue &&
+                     block is IMultipleBlock multipleBlock)
+            {
+                return multipleBlock.TryContinuedPlacement(_board.GetBoard(), coord).GetSuccess();
+            }
+
+            return false;
+        }
+
         private void PlayerPlaceCell(Vector2Int coord, Type cellType)
         {
             Queue<(Vector2Int, Type)> toFlipQueue = new Queue<(Vector2Int, Type)>();
