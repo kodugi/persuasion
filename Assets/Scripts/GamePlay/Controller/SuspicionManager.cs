@@ -5,6 +5,7 @@ namespace GamePlay
     public class SuspicionManager: Singleton<SuspicionManager>
     {
         private int _currentSuspicion;
+        private int _currentSuspicionPreview;
         private int _maxSuspicion;
         private int _decrementAmount;
 
@@ -12,6 +13,7 @@ namespace GamePlay
         private TurnManager _turnManager;
 
         public event EventHandler<SetSuspicionEventArgs> RaiseSetSuspicionEvent;
+        public event EventHandler<SetSuspicionEventArgs> RaiseSetSuspicionPreviewEvent;
 
         public void Initialize(int maxSuspicion, int decrementAmount)
         {
@@ -22,13 +24,20 @@ namespace GamePlay
             _turnManager = TurnManager.Instance;
 
             _blockSelectionManager.RaisePlaceBlock += HandlePlaceBlockEvent;
+            _blockSelectionManager.RaiseSelectBlockEvent += HandleSelectBlockEvent;
             _turnManager.RaiseSetTurnEvent += HandleSetTurnEvent;
             SetSuspicion(0);
+            SetSuspicionPreview(_blockSelectionManager.GetSelectedBlock().GetSuspicion());
         }
 
         public int GetCurrentSuspicion()
         {
             return _currentSuspicion;
+        }
+
+        public int GetCurrentSuspicionPreview()
+        {
+            return _currentSuspicionPreview;
         }
 
         public int GetMaxSuspicion()
@@ -52,9 +61,20 @@ namespace GamePlay
             RaiseSetSuspicionEvent?.Invoke(this, new SetSuspicionEventArgs(suspicion));
         }
 
+        private void SetSuspicionPreview(int suspicion)
+        {
+            _currentSuspicionPreview = suspicion;
+            RaiseSetSuspicionPreviewEvent?.Invoke(this, new SetSuspicionEventArgs(suspicion));
+        }
+
         private void HandlePlaceBlockEvent(object sender, PlaceBlockEventArgs e)
         {
             IncrementSuspicion(e.IncrementAmount);
+        }
+
+        private void HandleSelectBlockEvent(object sender, SelectBlockEventArgs e)
+        {
+            SetSuspicionPreview(_currentSuspicion + e.IncrementAmount);
         }
 
         private void HandleSetTurnEvent(object sender, SetTurnEventArgs e)

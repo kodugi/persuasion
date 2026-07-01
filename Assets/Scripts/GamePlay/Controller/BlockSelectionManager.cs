@@ -15,11 +15,15 @@ namespace GamePlay
         {
             return _blocks[_selectedBlockIdx];
         }
+
+        public event EventHandler<SelectBlockEventArgs> RaiseSelectBlockEvent;
+
         public void SetSelectedBlockIdx(int selectedBlockIdx) {
             if(_turnManager.GetTurnState() == TurnState.PlayerIdle)
             {
                 _selectedBlockIdx = selectedBlockIdx;
                 _blockSelectionView.SetSelectedBlockUI(selectedBlockIdx);
+                RaiseSelectBlockEvent.Invoke(this, new SelectBlockEventArgs(GetSelectedBlock().GetSuspicion()));
             }
         }
 
@@ -73,6 +77,7 @@ namespace GamePlay
             Debug.Log("PlaceSelectedBlock called");
             RaisePlaceBlock?.Invoke(this, new PlaceBlockEventArgs(selectedBlock, incrementAmount));
             selectedBlock.RegisterPlacement(coord);
+            RaiseSelectBlockEvent.Invoke(this, new SelectBlockEventArgs(selectedBlock.GetSuspicion()));
         }
 
         public void PlaceContinuedBlock(Vector2Int coord)
@@ -121,6 +126,16 @@ namespace GamePlay
         public PlaceBlockEventArgs(IBlock block, int incrementAmount)
         {
             Block = block;
+            IncrementAmount = incrementAmount;
+        }
+    }
+
+    public class SelectBlockEventArgs : EventArgs
+    {
+        public int IncrementAmount { get; }
+
+        public SelectBlockEventArgs(int incrementAmount)
+        {
             IncrementAmount = incrementAmount;
         }
     }

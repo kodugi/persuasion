@@ -42,7 +42,10 @@ namespace GamePlay
             GameInfo exampleGameInfo = new GameInfo(5, 5, exampleBoard, 10, 2);
 
             _turnManager.Initialize();
-            GameInfoManager.Initialize(exampleGameInfo);
+            if(GameInfoManager.GetGameInfo() == null)
+            {
+                GameInfoManager.SetGameInfo(exampleGameInfo);
+            }
             _blockSelectionManager.Initialize(blockList.ToList());
             _boardController.Initialize();
             _suspicionManager.Initialize(100,38);
