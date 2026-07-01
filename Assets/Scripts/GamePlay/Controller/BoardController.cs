@@ -86,8 +86,7 @@ namespace GamePlay
             {
                 (Vector2Int curCoord, Type curCellType) = toFlipQueue.Dequeue();
                 SetCell(curCoord, curCellType);
-                List<(Vector2Int, Type)> toFlipCoordsAndTypes = PlayerGetToFlipCoordsAndTypes(coord);
-                IFlipperCell curCell = (IFlipperCell)_board.GetCell(curCoord);
+                List<(Vector2Int, Type)> toFlipCoordsAndTypes = PlayerGetToFlipCoordsAndTypes(curCoord);
                 foreach ((Vector2Int toFlipCoord, Type toFlipType) in toFlipCoordsAndTypes)
                 {
                     toFlipQueue.Enqueue((toFlipCoord, toFlipType));
@@ -106,26 +105,32 @@ namespace GamePlay
             }
         }
 
+        private void PsuedoSetCell(Vector2Int coord, Type cellType, Board board)
+        {
+            Cell cell = CreateCell(coord, cellType);
+            board.SetCell(coord, cell);
+        }
+
         private Cell CreateCell(Vector2Int coord, Type cellType)
         {
             Cell cell = (Cell)Activator.CreateInstance(cellType, _turnManager.GetCurrentTurn(), coord);
             return cell;
         }
 
-        private List<(Vector2Int, Type)> PlayerGetToFlipCoordsAndTypes(Vector2Int origin)
+        private List<(Vector2Int, Type)> PlayerGetToFlipCoordsAndTypes(Vector2Int origin, Board board)
         {
-            Cell originCell = _board.GetCell(origin);
+            Cell originCell = board.GetCell(origin);
             List<(Vector2Int, Type)> toFlipCoordsAndTypes = new List<(Vector2Int, Type)>();
             Vector2Int[] dirs = {new Vector2Int(1, 0), new Vector2Int(1, 1), new Vector2Int(0, 1), new Vector2Int(-1, 1),
-            new Vector2Int(-1, 0), new Vector2Int(-1, -1), new Vector2Int(0, -1), new Vector2Int(1, -1)};
+                new Vector2Int(-1, 0), new Vector2Int(-1, -1), new Vector2Int(0, -1), new Vector2Int(1, -1)};
 
             // 약한 생각 처리
             foreach(Vector2Int dir in dirs)
             {
                 Vector2Int otherCoord = origin + dir;
-                if (_board.IsWithinBound(otherCoord))
+                if (board.IsWithinBound(otherCoord))
                 {
-                    Cell otherCell = _board.GetCell(origin + dir);
+                    Cell otherCell = board.GetCell(origin + dir);
                     if (otherCell is WeakBlackCell)
                     {
                         toFlipCoordsAndTypes.Add((origin + dir, ((IWeakFlipperCell)originCell).TryFlipWeakCell(otherCell)));
@@ -134,27 +139,32 @@ namespace GamePlay
             }
 
             // 일반 오셀로 규칙에 따른 처리
-            toFlipCoordsAndTypes.AddRange(GetToFlipCoordsAndTypes(origin, typeof(BlackCell), typeof(ConceptCell)));
+            toFlipCoordsAndTypes.AddRange(GetToFlipCoordsAndTypes(origin, typeof(BlackCell), typeof(ConceptCell), board));
 
             return toFlipCoordsAndTypes;
         }
 
-        private List<(Vector2Int, Type)> GetToFlipCoordsAndTypes(Vector2Int origin, Type targetType, Type otherType)
+        private List<(Vector2Int, Type)> PlayerGetToFlipCoordsAndTypes(Vector2Int origin)
+        {
+            return PlayerGetToFlipCoordsAndTypes(origin, _board);
+        }
+        
+        private List<(Vector2Int, Type)> GetToFlipCoordsAndTypes(Vector2Int origin, Type targetType, Type otherType, Board board)
         {
             List<(Vector2Int, Type)> toFlipCoordsAndTypes = new List<(Vector2Int, Type)>();
-            Cell originCell = _board.GetCell(origin);
+            Cell originCell = board.GetCell(origin);
             Vector2Int[] dirs = {new Vector2Int(1, 0), new Vector2Int(1, 1), new Vector2Int(0, 1), new Vector2Int(-1, 1),
             new Vector2Int(-1, 0), new Vector2Int(-1, -1), new Vector2Int(0, -1), new Vector2Int(1, -1)};
             foreach (Vector2Int dir in dirs)
             {
-                Vector2Int otherCellCoord = GetNearestOtherCellCoord(origin, dir, otherType);
+                Vector2Int otherCellCoord = GetNearestOtherCellCoord(origin, dir, otherType, board);
                 if (otherCellCoord != null)
                 {
-                    Cell otherCell = _board.GetCell(otherCellCoord);
+                    Cell otherCell = board.GetCell(otherCellCoord);
                     bool canBeFlipped = true;
                     for (Vector2Int cur = new Vector2Int(origin) + dir; cur != otherCellCoord; cur += dir)
                     {
-                        Cell cell = _board.GetCell(cur);
+                        Cell cell = board.GetCell(cur);
                         if (targetType.IsAssignableFrom(cell.GetType()))
                         {
                             if (((IFlippableCell)cell).TryBeFlipped(originCell, otherCell) == null)
@@ -177,12 +187,17 @@ namespace GamePlay
 
                     for (Vector2Int cur = new Vector2Int(origin) + dir; cur != otherCellCoord; cur += dir)
                     {
-                        toFlipCoordsAndTypes.Add((cur, GetFlippedCellType(originCell, otherCell, _board.GetCell(cur))));
+                        toFlipCoordsAndTypes.Add((cur, GetFlippedCellType(originCell, otherCell, board.GetCell(cur))));
                     }
                 }
             }
 
             return toFlipCoordsAndTypes;
+        }
+
+        private List<(Vector2Int, Type)> GetToFlipCoordsAndTypes(Vector2Int origin, Type targetType, Type otherType)
+        {
+            return GetToFlipCoordsAndTypes(origin, targetType, otherType, _board);
         }
 
         private Type GetFlippedCellType(Cell first, Cell second, Cell cellToFlip)
@@ -229,18 +244,23 @@ namespace GamePlay
             return cellToFlipType;
         }
 
-        private Vector2Int GetNearestOtherCellCoord(Vector2Int origin, Vector2Int dir, Type cellType) // ConceptCell 또는 BlackCell
+        private Vector2Int GetNearestOtherCellCoord(Vector2Int origin, Vector2Int dir, Type cellType,Board board) // ConceptCell 또는 BlackCell
         {
             Vector2Int current = origin + dir;
-            while(_board.IsWithinBound(current))
+            while(board.IsWithinBound(current))
             {
-                Cell currentCell = _board.GetCell(current);
+                Cell currentCell = board.GetCell(current);
                 if (cellType.IsAssignableFrom(currentCell.GetType())) {
                     return current;
                 }
                 current += dir;
             }
             return null;
+        }
+        
+        private Vector2Int GetNearestOtherCellCoord(Vector2Int origin, Vector2Int dir, Type cellType) // ConceptCell 또는 BlackCell
+        {
+            return GetNearestOtherCellCoord(origin, dir, cellType, _board);
         }
 
         public void HandleEnemyTurn()
@@ -258,7 +278,6 @@ namespace GamePlay
                     if(_board.GetCell(new Vector2Int(i, j)) is BlackCell)
                     {
                         toFlipCoordsAndTypes.AddRange(GetToFlipCoordsAndTypes(new Vector2Int(i, j), typeof(ConceptCell), typeof(BlackCell)));
-                        
                     }
                 }
             }
@@ -304,6 +323,87 @@ namespace GamePlay
                 }
             }
             return cnt;
+        }
+        
+        public bool[,] CanBeReached()
+        {
+            Board psuedoBoard = new Board(_board.GetBoard());
+            Queue<(Vector2Int, Type)> toFlipQueue = new Queue<(Vector2Int, Type)>();
+            IBlock selectedBlock = _blockSelectionManager.GetSelectedBlock();
+            bool[,] visited = new bool[psuedoBoard.GetWidth(), psuedoBoard.GetHeight()];
+            
+            for (int i = 0; i < psuedoBoard.GetWidth(); i++)
+            {
+                for (int j = 0; j < psuedoBoard.GetHeight(); j++)
+                {
+                    selectedBlock.Reset();
+                    CellPlacementResult cellPlacementResult =
+                        selectedBlock.TryPlacement(psuedoBoard.GetBoard(), new Vector2Int(i, j));
+                    if (cellPlacementResult.GetSuccess())
+                    {
+                        toFlipQueue.Enqueue((new Vector2Int(i, j), selectedBlock.GetCellType()));
+                        
+                        if (selectedBlock is IMultipleBlock multipleBlock)
+                        {
+                            multipleBlock.RegisterPlacement(new Vector2Int(i, j));
+                            for (int k = 0; k < psuedoBoard.GetWidth(); k++)
+                            {
+                                for (int l = 0; l < psuedoBoard.GetHeight(); l++)
+                                {
+                                    CellPlacementResult multipleCellPlacementResult = multipleBlock.TryContinuedPlacement(psuedoBoard.GetBoard(), new Vector2Int(k, l));
+                                    if (multipleCellPlacementResult.GetSuccess())
+                                    {
+                                        toFlipQueue.Enqueue((new Vector2Int(k, l), selectedBlock.GetCellType()));
+                                        PsuedoSetCell(new Vector2Int(k, l), selectedBlock.GetCellType(), psuedoBoard);
+                                        visited[k, l] = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            while (toFlipQueue.Count > 0)
+            {
+                selectedBlock.Reset();
+                (Vector2Int curCoord, Type curCellType) = toFlipQueue.Dequeue();
+                if (visited[curCoord.X, curCoord.Y])
+                {
+                    continue;
+                }
+                
+                PsuedoSetCell(curCoord, curCellType, psuedoBoard);
+                visited[curCoord.X, curCoord.Y] = true;
+                Debug.Log("set " + curCoord.X + " " + curCoord.Y + " to " + curCellType);
+                
+                List<(Vector2Int, Type)> toFlipCoordsAndTypes = PlayerGetToFlipCoordsAndTypes(curCoord, psuedoBoard);
+                foreach ((Vector2Int toFlipCoord, Type toFlipType) in toFlipCoordsAndTypes)
+                {
+                    Debug.Log("enqueued " + toFlipCoord);
+                    toFlipQueue.Enqueue((toFlipCoord, toFlipType));
+                    
+                    if (selectedBlock is IMultipleBlock multipleBlock)
+                    {
+                        multipleBlock.RegisterPlacement(toFlipCoord);
+                        for (int k = 0; k < psuedoBoard.GetWidth(); k++)
+                        {
+                            for (int l = 0; l < psuedoBoard.GetHeight(); l++)
+                            {
+                                CellPlacementResult multipleCellPlacementResult = multipleBlock.TryContinuedPlacement(psuedoBoard.GetBoard(), new Vector2Int(k, l));
+                                if (multipleCellPlacementResult.GetSuccess())
+                                {
+                                    toFlipQueue.Enqueue((new Vector2Int(k, l), selectedBlock.GetCellType()));
+                                    PsuedoSetCell(new Vector2Int(k, l), selectedBlock.GetCellType(), psuedoBoard);
+                                    visited[k, l] = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return visited;
         }
     }
 }

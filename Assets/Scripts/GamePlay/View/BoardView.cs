@@ -59,6 +59,7 @@ public class BoardView : SelfInitializingMonoBehaviourSingleton<BoardView>
     private BoardCellMarkerView[,] _spawnedMarkersByCoord;
     private BoardCellMarker[,] _baseMarkersByCoord;
     private GamePlay.Vector2Int _previewedCoord;
+    private BlockSelectionManager _subscribedBlockSelectionManager;
 
     private void OnValidate()
     {
@@ -79,6 +80,7 @@ public class BoardView : SelfInitializingMonoBehaviourSingleton<BoardView>
 
         BuildPrefabMap();
         BuildPreviewSpriteMap();
+        SubscribeToBlockSelectionEvents();
         RenderBoard();
         return _spawnedCellsByCoord != null;
     }
@@ -93,6 +95,7 @@ public class BoardView : SelfInitializingMonoBehaviourSingleton<BoardView>
 
         BuildPrefabMap();
         BuildPreviewSpriteMap();
+        SubscribeToBlockSelectionEvents();
         RenderBoard();
         SetInitialized(_spawnedCellsByCoord != null);
     }
@@ -123,6 +126,7 @@ public class BoardView : SelfInitializingMonoBehaviourSingleton<BoardView>
         }
 
         ReplaceCellObject(coord.X, coord.Y, cell);
+        RefreshCellMarkers();
     }
 
     public void HandleCellClick(GamePlay.Vector2Int coord)
@@ -238,6 +242,8 @@ public class BoardView : SelfInitializingMonoBehaviourSingleton<BoardView>
                 SpawnCell(board[x, y], x, y, width, height);
             }
         }
+
+        RefreshCellMarkers();
     }
 
     public void RefreshCellMarkers()
@@ -254,6 +260,7 @@ public class BoardView : SelfInitializingMonoBehaviourSingleton<BoardView>
         }
 
         ClearBlockPreview();
+        bool hasReachableCells = TryGetReachableCells(out bool[,] reachableCells);
 
         int width = _baseMarkersByCoord.GetLength(0);
         int height = _baseMarkersByCoord.GetLength(1);
@@ -271,9 +278,22 @@ public class BoardView : SelfInitializingMonoBehaviourSingleton<BoardView>
                     continue;
                 }
 
-                SetBaseMarker(x, y, GetInitialMarker(originalBoard[x, y]));
+                SetBaseMarker(x, y, GetMarkerForOriginalCell(originalBoard[x, y], x, y, hasReachableCells, reachableCells));
             }
         }
+    }
+
+    private bool TryGetReachableCells(out bool[,] reachableCells)
+    {
+        reachableCells = null;
+
+        if (BoardController.Instance == null)
+        {
+            return false;
+        }
+
+        reachableCells = BoardController.Instance.CanBeReached();
+        return reachableCells != null;
     }
 
     private void SpawnCell(Cell cell, int x, int y, int width, int height)
@@ -654,17 +674,6 @@ public class BoardView : SelfInitializingMonoBehaviourSingleton<BoardView>
         ApplyMarker(boardCellMarkerView, marker, previewSprite);
     }
 
-    public void SetBaseCellMarker(GamePlay.Vector2Int coord, BoardCellMarker marker)
-    {
-        if (coord == null || !IsInRenderedBoard(coord) || _baseMarkersByCoord == null)
-        {
-            return;
-        }
-
-        _baseMarkersByCoord[coord.X, coord.Y] = marker & ~BoardCellMarker.Preview;
-        SetCellMarker(coord, _baseMarkersByCoord[coord.X, coord.Y]);
-    }
-
     private void SetBaseMarker(int x, int y, BoardCellMarker marker)
     {
         if (_baseMarkersByCoord == null)
@@ -697,6 +706,66 @@ public class BoardView : SelfInitializingMonoBehaviourSingleton<BoardView>
         }
 
         return BoardCellMarker.None;
+    }
+
+    private BoardCellMarker GetMarkerForOriginalCell(Cell originalCell, int x, int y, bool hasReachableCells, bool[,] reachableCells)
+    {
+        BoardCellMarker marker = GetInitialMarker(originalCell);
+        if (!marker.HasFlag(BoardCellMarker.OriginalBlack))
+        {
+            return marker;
+        }
+
+        if (hasReachableCells && IsInReachableCells(reachableCells, x, y) && !reachableCells[x, y])
+        {
+            marker |= BoardCellMarker.Locked;
+        }
+
+        return marker;
+    }
+
+    private static bool IsInReachableCells(bool[,] reachableCells, int x, int y)
+    {
+        return reachableCells != null
+            && x >= 0
+            && x < reachableCells.GetLength(0)
+            && y >= 0
+            && y < reachableCells.GetLength(1);
+    }
+
+    private void SubscribeToBlockSelectionEvents()
+    {
+        BlockSelectionManager blockSelectionManager = BlockSelectionManager.Instance;
+        if (blockSelectionManager == null || ReferenceEquals(_subscribedBlockSelectionManager, blockSelectionManager))
+        {
+            return;
+        }
+
+        UnsubscribeFromBlockSelectionEvents();
+        _subscribedBlockSelectionManager = blockSelectionManager;
+        _subscribedBlockSelectionManager.RaiseSelectBlockEvent += HandleSelectBlockEvent;
+    }
+
+    private void UnsubscribeFromBlockSelectionEvents()
+    {
+        if (_subscribedBlockSelectionManager == null)
+        {
+            return;
+        }
+
+        _subscribedBlockSelectionManager.RaiseSelectBlockEvent -= HandleSelectBlockEvent;
+        _subscribedBlockSelectionManager = null;
+    }
+
+    private void HandleSelectBlockEvent(object sender, SelectBlockEventArgs e)
+    {
+        RefreshCellMarkers();
+    }
+
+    protected override void OnDestroy()
+    {
+        UnsubscribeFromBlockSelectionEvents();
+        base.OnDestroy();
     }
 
     private void ApplyMarker(BoardCellMarkerView markerView, BoardCellMarker marker)

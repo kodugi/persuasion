@@ -29,7 +29,7 @@ namespace GamePlay
                         exampleBoard[i, j] = new DisdainCell(new Vector2Int(i, j));
                         continue;
                     }
-                    if((i + j) % 3 == 0)
+                    if((i + j) % 2 == 0)
                     {
                         exampleBoard[i, j] = new BlackCell(new Vector2Int(i, j));
                     }
