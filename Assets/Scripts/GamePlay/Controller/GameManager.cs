@@ -50,6 +50,8 @@ namespace GamePlay
             _boardController.Initialize();
             _suspicionManager.Initialize(100,38);
             _winConditionManager.Initialize();
+            
+            _turnManager.SetTurnState(TurnState.Start);
         }
 
         // Use this for initialization

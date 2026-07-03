@@ -89,7 +89,7 @@ namespace GamePlay
                 multipleBlock.RegisterContinuedPlacement(coord);
                 if(multipleBlock.InputState == MultipleBlockInputState.Completed)
                 {
-                    multipleBlock.ResetBlockPlacementState();
+                    _turnManager.SetTurnState(TurnState.PlayerPlacingEnd);
                 }
                 return;
             }
@@ -105,12 +105,26 @@ namespace GamePlay
             }
         }
 
+        private void ResetBlockPlacementState()
+        {
+            foreach (IBlock block in _blocks)
+            {
+                if (block is MultipleBlockBase multipleBlock)
+                {
+                    multipleBlock.ResetBlockPlacementState();
+                }
+            }
+        }
+
         private void HandleSetTurnEvent(object sender, SetTurnEventArgs e)
         {
             switch (e.turnState)
             {
                 case TurnState.Start:
                     ResetCountPerTurn();
+                    break;
+                case TurnState.PlayerPlacingEnd:
+                    ResetBlockPlacementState();
                     break;
                 default:
                     break;
