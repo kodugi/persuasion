@@ -63,7 +63,7 @@ namespace Investigation
             InteractionGuideUpdate("off");
 
             Inv_InteractionObj interactingObj = interactables.transform.Find(name).GetComponent<Inv_InteractionObj>();
-            string path = "Assets/Scripts/Investigation/Dialogue/" + name+interactingObj.state + ".json";
+            string path = "Assets/Scripts/Investigation/Dialogue/" + name + "/Dialogue" + interactingObj.state + ".json";
             interactingObj.variation();
             string json = File.ReadAllText(path);
             JObject data = JObject.Parse(json);
