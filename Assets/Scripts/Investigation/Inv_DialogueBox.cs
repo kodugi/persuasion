@@ -48,5 +48,12 @@ namespace Investigation
                 }
             }
         }
+        void OnDestroy()
+        {
+            if (interactionScript != null)
+            {
+                interactionScript.InteractionEnd();
+            }
+        }
     }   
 }

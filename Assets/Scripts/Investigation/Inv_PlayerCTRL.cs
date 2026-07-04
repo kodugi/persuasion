@@ -17,7 +17,6 @@ namespace Investigation
         void Start()
         {
             interactionScript = GetComponent<Inv_Interact>();
-            print(interactionScript);
         }
 
         // Update is called once per frame
@@ -30,7 +29,14 @@ namespace Investigation
         {
             if (collision.gameObject.CompareTag("Inv_Interactable"))
             {
-                interactionScript.Interact(collision.gameObject.name);
+                interactionScript.QueueInteraction(collision.GetComponent<Inv_InteractionObj>().name, true);
+            }
+        }
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.gameObject.CompareTag("Inv_Interactable"))
+            {
+                interactionScript.QueueInteraction(collision.GetComponent<Inv_InteractionObj>().name, false);
             }
         }
     }
