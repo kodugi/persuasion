@@ -4,11 +4,11 @@ namespace Investigation
 {
 public class Inv_InteractionObj : MonoBehaviour
     {
-        public string name;
+        public string obj_name;
         public int state=0;
         void Start()
         {
-            name = gameObject.name;
+            obj_name = gameObject.name;
         }
         virtual public void variation()
         {

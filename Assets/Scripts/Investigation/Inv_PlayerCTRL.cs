@@ -29,14 +29,14 @@ namespace Investigation
         {
             if (collision.gameObject.CompareTag("Inv_Interactable"))
             {
-                interactionScript.QueueInteraction(collision.GetComponent<Inv_InteractionObj>().name, true);
+                interactionScript.QueueInteraction(collision.GetComponent<Inv_InteractionObj>().obj_name, true);
             }
         }
         private void OnTriggerExit2D(Collider2D collision)
         {
             if (collision.gameObject.CompareTag("Inv_Interactable"))
             {
-                interactionScript.QueueInteraction(collision.GetComponent<Inv_InteractionObj>().name, false);
+                interactionScript.QueueInteraction(collision.GetComponent<Inv_InteractionObj>().obj_name, false);
             }
         }
     }
