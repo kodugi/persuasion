@@ -30,7 +30,7 @@ namespace Investigation
             {
                 GameObject button = Instantiate(buttonPrefab, transform.Find("Buttons"));
                 button.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = dialogue["buttons"][i]["title"].ToString();
-                button.GetComponent<RectTransform>().anchoredPosition = new Vector2(315, 50-50* i);
+                button.GetComponent<RectTransform>().anchoredPosition = new Vector2(275, 25-50* i);
                 
                 int nextIndex = (int)dialogue["buttons"][i]["next"];
                 for(int j = 0; j < ((JArray)dialogue["buttons"][i]["effects"]).Count; j++)
