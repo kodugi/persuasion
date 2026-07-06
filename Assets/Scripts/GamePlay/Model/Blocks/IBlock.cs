@@ -44,7 +44,7 @@ namespace GamePlay
 
         public virtual CellPlacementResult TryPlacement(Cell[,] board, Vector2Int coord)
         {
-            if (board[coord.X, coord.Y] is EmptyCell || board[coord.X, coord.Y] is ConceptCell)
+            if (board[coord.X, coord.Y] is EmptyCell)
             {
                 return new CellPlacementResult(true, CellPlacementResultType.SUCCESS);
             }
