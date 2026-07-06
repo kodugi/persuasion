@@ -3,6 +3,29 @@ using UnityEngine;
 
 namespace GamePlay
 {
+    public interface IPlacementTargetPolicy
+    {
+        public CellPlacementResult TryPlaceOn(Cell cell);
+    }
+
+    public sealed class EmptyCellPlacementTargetPolicy : IPlacementTargetPolicy
+    {
+        public CellPlacementResult TryPlaceOn(Cell cell)
+        {
+            if (cell is EmptyCell)
+            {
+                return new CellPlacementResult(true, CellPlacementResultType.SUCCESS);
+            }
+
+            return new CellPlacementResult(false, CellPlacementResultType.OCCUPIED);
+        }
+    }
+
+    public static class PlacementTargetPolicies
+    {
+        public static readonly IPlacementTargetPolicy EmptyCellOnly = new EmptyCellPlacementTargetPolicy();
+    }
+
     public interface IBlock
     {
         public CellPlacementResult TryPlacement(Cell[,] board, Vector2Int coord);
@@ -41,15 +64,13 @@ namespace GamePlay
         public int CountTotal { get; private set; }
         public int CountPerTurn { get; private set; }
         public abstract String Name { get; }
+        protected virtual IPlacementTargetPolicy InitialPlacementTargetPolicy => PlacementTargetPolicies.EmptyCellOnly;
 
         public virtual CellPlacementResult TryPlacement(Cell[,] board, Vector2Int coord)
         {
-            if (board[coord.X, coord.Y] is EmptyCell)
-            {
-                return new CellPlacementResult(true, CellPlacementResultType.SUCCESS);
-            }
-            return new CellPlacementResult(false, CellPlacementResultType.OCCUPIED);
+            return InitialPlacementTargetPolicy.TryPlaceOn(board[coord.X, coord.Y]);
         }
+        
         public abstract Type GetCellType();
 
         public int GetSuspicion()
