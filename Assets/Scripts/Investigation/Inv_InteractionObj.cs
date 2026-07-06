@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Investigation
 {
@@ -10,7 +11,7 @@ public class Inv_InteractionObj : MonoBehaviour
         {
             obj_name = gameObject.name;
         }
-        virtual public void variation()
+        virtual public void variation(List<string> parameters=null)
         {
             if (state==0) state=1;
         }

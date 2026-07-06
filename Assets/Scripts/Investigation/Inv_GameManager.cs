@@ -56,6 +56,7 @@ namespace Investigation
         }
         public void AddNote(string noteName, List<string> contents)
         {
+            print("hi");
             if (!notes.ContainsKey(noteName))
             {
                 notes.Add(noteName, contents);

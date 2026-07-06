@@ -1,5 +1,6 @@
 using UnityEngine;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using System.IO;
 using System.Collections.Generic;
 
@@ -64,7 +65,7 @@ namespace Investigation
 
             Inv_InteractionObj interactingObj = interactables.transform.Find(name).GetComponent<Inv_InteractionObj>();
             string path = "Assets/Scripts/Investigation/Dialogue/" + name + "/Dialogue" + interactingObj.state + ".json";
-            interactingObj.variation();
+            //interactingObj.variation();
             string json = File.ReadAllText(path);
             JObject data = JObject.Parse(json);
             GameObject obj = Instantiate(dialogueBox, GameObject.Find("Canvas").transform);
@@ -89,6 +90,11 @@ namespace Investigation
                     List<string> notes = new List<string>();
                     foreach (var note in (JArray)effect["content"]) notes.Add((string)note);
                     manager.AddNote(topic, notes);
+                    break;
+                case "variation":
+                    string target = (string)effect["target"];
+                    List<string> parameters = JsonConvert.DeserializeObject<List<string>>(effect["parameters"].ToString());
+                    GameObject.Find("Interactables").transform.Find(target).GetComponent<Inv_InteractionObj>().variation(parameters);
                     break;
             }
         }
