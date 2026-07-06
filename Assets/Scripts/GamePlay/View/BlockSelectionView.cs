@@ -20,8 +20,7 @@ namespace GamePlay
         public void SetBlockUI(List<IBlock> blocks)
         {
             _blockUIList = new List<GameObject>();
-
-            // 기존 Block UI 삭제
+            
             for (int i = transform.childCount - 1; i >= 0; i--)
             {
                 Transform child = transform.GetChild(i);
@@ -47,13 +46,11 @@ namespace GamePlay
 
         private Vector2 GetBlockUIPosition(int totalCount, int idx)
         {
-            // TODO: UI 디자인 확정 시 맞춰서 변경
             return new Vector3(0, -idx * 200 - 100);
         }
 
         private void ModifyBlockUI(GameObject blockUI, IBlock block)
         {
-            // TODO: block의 설정에 따라 UI 컴포넌트 변경
             TextMeshProUGUI text = GetButtonFromBlockUI(blockUI).GetComponentInChildren<TextMeshProUGUI>();
             if(text == null)
             {
@@ -74,7 +71,6 @@ namespace GamePlay
             {
                 return;
             }
-            // TODO: 선택된 버튼 표시 방법에 따라 변경
             GameObject prevButton = GetButtonFromBlockUI(_blockUIList[_selectedBlockIdx]);
             prevButton.GetComponent<Image>().color = Color.white;
 

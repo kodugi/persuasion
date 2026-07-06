@@ -15,11 +15,15 @@ namespace GamePlay
         {
             return _blocks[_selectedBlockIdx];
         }
+
+        public event EventHandler<SelectBlockEventArgs> RaiseSelectBlockEvent;
+
         public void SetSelectedBlockIdx(int selectedBlockIdx) {
             if(_turnManager.GetTurnState() == TurnState.PlayerIdle)
             {
                 _selectedBlockIdx = selectedBlockIdx;
                 _blockSelectionView.SetSelectedBlockUI(selectedBlockIdx);
+                RaiseSelectBlockEvent.Invoke(this, new SelectBlockEventArgs(GetSelectedBlock().GetSuspicion()));
             }
         }
 
@@ -73,6 +77,7 @@ namespace GamePlay
             Debug.Log("PlaceSelectedBlock called");
             RaisePlaceBlock?.Invoke(this, new PlaceBlockEventArgs(selectedBlock, incrementAmount));
             selectedBlock.RegisterPlacement(coord);
+            RaiseSelectBlockEvent.Invoke(this, new SelectBlockEventArgs(selectedBlock.GetSuspicion()));
         }
 
         public void PlaceContinuedBlock(Vector2Int coord)
@@ -84,7 +89,7 @@ namespace GamePlay
                 multipleBlock.RegisterContinuedPlacement(coord);
                 if(multipleBlock.InputState == MultipleBlockInputState.Completed)
                 {
-                    multipleBlock.ResetBlockPlacementState();
+                    _turnManager.SetTurnState(TurnState.PlayerPlacingEnd);
                 }
                 return;
             }
@@ -100,12 +105,26 @@ namespace GamePlay
             }
         }
 
+        private void ResetBlockPlacementState()
+        {
+            foreach (IBlock block in _blocks)
+            {
+                if (block is MultipleBlockBase multipleBlock)
+                {
+                    multipleBlock.ResetBlockPlacementState();
+                }
+            }
+        }
+
         private void HandleSetTurnEvent(object sender, SetTurnEventArgs e)
         {
             switch (e.turnState)
             {
                 case TurnState.Start:
                     ResetCountPerTurn();
+                    break;
+                case TurnState.PlayerPlacingEnd:
+                    ResetBlockPlacementState();
                     break;
                 default:
                     break;
@@ -121,6 +140,16 @@ namespace GamePlay
         public PlaceBlockEventArgs(IBlock block, int incrementAmount)
         {
             Block = block;
+            IncrementAmount = incrementAmount;
+        }
+    }
+
+    public class SelectBlockEventArgs : EventArgs
+    {
+        public int IncrementAmount { get; }
+
+        public SelectBlockEventArgs(int incrementAmount)
+        {
             IncrementAmount = incrementAmount;
         }
     }

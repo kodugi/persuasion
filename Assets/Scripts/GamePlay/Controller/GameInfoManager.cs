@@ -9,7 +9,7 @@
             return _gameInfo;
         }
 
-        public static void Initialize(GameInfo gameInfo)
+        public static void SetGameInfo(GameInfo gameInfo)
         {
             _gameInfo = gameInfo;
         }

@@ -29,7 +29,7 @@ namespace GamePlay
                         exampleBoard[i, j] = new DisdainCell(new Vector2Int(i, j));
                         continue;
                     }
-                    if((i + j) % 3 == 0)
+                    if((i + j) % 2 == 0)
                     {
                         exampleBoard[i, j] = new BlackCell(new Vector2Int(i, j));
                     }
@@ -42,11 +42,16 @@ namespace GamePlay
             GameInfo exampleGameInfo = new GameInfo(5, 5, exampleBoard, 10, 2);
 
             _turnManager.Initialize();
-            GameInfoManager.Initialize(exampleGameInfo);
+            if(GameInfoManager.GetGameInfo() == null)
+            {
+                GameInfoManager.SetGameInfo(exampleGameInfo);
+            }
             _blockSelectionManager.Initialize(blockList.ToList());
             _boardController.Initialize();
             _suspicionManager.Initialize(100,38);
             _winConditionManager.Initialize();
+            
+            _turnManager.SetTurnState(TurnState.Start);
         }
 
         // Use this for initialization
