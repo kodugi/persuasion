@@ -1,0 +1,13 @@
+{
+    "title": "Map1",
+    "interactables": [
+        {
+            "title": "신자들",
+            "position": {
+                "x": 0,
+                "y": 4
+            },
+            "image": ""
+        }
+    ]
+}
