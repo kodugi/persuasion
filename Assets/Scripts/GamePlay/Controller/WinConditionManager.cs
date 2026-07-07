@@ -7,13 +7,13 @@ namespace GamePlay
     {
         private BoardController _boardController;
         private SuspicionManager _suspicionManager;
-        private TurnManager _turnManager;
+        private GameStateManager _gameStateManager;
         private bool _isGameEnded;
         public void Initialize()
         {
             _boardController = BoardController.Instance;
             _suspicionManager = SuspicionManager.Instance;
-            _turnManager = TurnManager.Instance;
+            _gameStateManager = GameStateManager.Instance;
             _isGameEnded = false;
 
             _boardController.RaiseCellPlacementEvent += HandleCellPlacementEvent;
@@ -42,7 +42,7 @@ namespace GamePlay
                 // TODO: 패배 판정
                 _isGameEnded = true;
                 Debug.Log("설득 실패!");
-                _turnManager.SetTurnState(TurnState.GameLose);
+                _gameStateManager.SetGameState(GameState.End);
                 return;
             }
 
@@ -51,7 +51,7 @@ namespace GamePlay
                 // TODO: 승리 판정
                 _isGameEnded = true;
                 Debug.Log("설득 성공!");
-                _turnManager.SetTurnState(TurnState.GameWin);
+                _gameStateManager.SetGameState(GameState.End);
             }
         }
     }

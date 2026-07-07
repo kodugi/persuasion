@@ -11,6 +11,7 @@ namespace GamePlay
         private BoardController _boardController;
         private SuspicionManager _suspicionManager;
         private WinConditionManager _winConditionManager;
+        private GameStateManager  _gameStateManager;
         private void Awake()
         {
             _turnManager = new TurnManager();
@@ -18,6 +19,7 @@ namespace GamePlay
             _boardController = new BoardController();
             _suspicionManager = new SuspicionManager();
             _winConditionManager = new WinConditionManager();
+            _gameStateManager = new GameStateManager();
             // TODO: 하드코딩을 실제 값으로 대체
             IBlock[] blockList = { new BasicBlock(), new LieBlock(), new ThreatBlock(), new ReligiousBlock() };
             Cell[,] exampleBoard = new Cell[5, 5];
@@ -39,7 +41,7 @@ namespace GamePlay
                     }
                 }
             }
-            GameInfo exampleGameInfo = new GameInfo(5, 5, exampleBoard, 10, 2);
+            GameInfo exampleGameInfo = new GameInfo(5, 5, exampleBoard, 10, 5);
 
             _turnManager.Initialize();
             if(GameInfoManager.GetGameInfo() == null)
@@ -50,8 +52,10 @@ namespace GamePlay
             _boardController.Initialize();
             _suspicionManager.Initialize(100,38);
             _winConditionManager.Initialize();
+            _gameStateManager.Initialize();
             
             _turnManager.SetTurnState(TurnState.Start);
+            _gameStateManager.SetGameState(GameState.Playing);
         }
 
         // Use this for initialization

@@ -787,4 +787,9 @@ public class BoardView : SelfInitializingMonoBehaviourSingleton<BoardView>
             markerView.ClearPreview();
         }
     }
+    
+    public void ShowTutorialHint(GamePlay.Vector2Int coord, Sprite sprite)
+    {
+        SetCellMarker(coord, BoardCellMarker.Preview, sprite);
+    }
 }

@@ -22,6 +22,7 @@ namespace GamePlay
         }
         private int _maxTurns{ get; }
         private int _targetNumber{ get; }
+        private DialogueData _dialogueData{ get; }
 
         public GameInfo(int width, int height, Cell[,] board, int maxTurns, int targetNumber)
         {
@@ -30,6 +31,17 @@ namespace GamePlay
             _board = board;
             _maxTurns = maxTurns;
             _targetNumber = targetNumber;
+            _dialogueData = null;
+        }
+        
+        public GameInfo(int width, int height, Cell[,] board, int maxTurns, int targetNumber, DialogueData dialogueData)
+        {
+            _width = width;
+            _height = height;
+            _board = board;
+            _maxTurns = maxTurns;
+            _targetNumber = targetNumber;
+            _dialogueData = dialogueData;
         }
 
         public int GetMaxTurns()
@@ -40,6 +52,11 @@ namespace GamePlay
         public int GetTargetNumber()
         {
             return _targetNumber;
+        }
+
+        public DialogueData GetDialogueData()
+        {
+            return _dialogueData;
         }
     }
 }

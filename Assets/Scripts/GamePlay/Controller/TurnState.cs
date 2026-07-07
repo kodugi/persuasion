@@ -9,7 +9,6 @@ namespace GamePlay
         EnemyIdle, // 적 턴 대기 상태
         EnemyFlippingTransition, // 적 블록 변환 애니메이션 재생 중
         End,
-        GameWin,
-        GameLose
+        Paused
     }
 }

@@ -10,7 +10,7 @@ namespace GamePlay
         private TurnManager _turnManager;
         private BlockSelectionManager _blockSelectionManager;
 
-        public event EventHandler RaiseCellPlacementEvent;
+        public event EventHandler<CellPlacementEventArgs> RaiseCellPlacementEvent;
         public void Initialize()
         {
             _blockSelectionManager = BlockSelectionManager.Instance;
@@ -27,6 +27,11 @@ namespace GamePlay
                 return;
             }
 
+            if (TutorialController.Instance != null && !TutorialController.Instance.CanPlaceCellAt(coord))
+            {
+                return;
+            }
+
             IBlock selectedBlock = _blockSelectionManager.GetSelectedBlock();
 
             if (turnState == TurnState.PlayerIdle)
@@ -36,10 +41,11 @@ namespace GamePlay
                 {
                     if (_blockSelectionManager.IsSelectedBlockAvailable())
                     {
-                        PlayerPlaceCell(coord, selectedBlock.GetCellType());
+                        Type cellType =  selectedBlock.GetCellType();
+                        PlayerPlaceCell(coord, cellType);
                         _blockSelectionManager.PlaceSelectedBlock(coord);
                         _turnManager.SetTurnState(selectedBlock is IMultipleBlock ? TurnState.PlayerPlacingContinue : TurnState.PlayerIdle);
-                        RaiseCellPlacementEvent.Invoke(this, null);
+                        RaiseCellPlacementEvent.Invoke(this, new CellPlacementEventArgs(coord, cellType));
                     }
                 }
                 return;
@@ -50,10 +56,11 @@ namespace GamePlay
                 CellPlacementResult placementResult = multipleBlock.TryContinuedPlacement(_board.GetBoard(), coord);
                 if (placementResult.GetSuccess())
                 {
-                    PlayerPlaceCell(coord, multipleBlock.GetCellType());
+                    Type cellType =  multipleBlock.GetCellType();
+                    PlayerPlaceCell(coord, cellType);
                     _blockSelectionManager.PlaceContinuedBlock(coord);
                     _turnManager.SetTurnState((multipleBlock.InputState == MultipleBlockInputState.AwaitingContinuedPlacement) ? TurnState.PlayerPlacingContinue : TurnState.PlayerIdle);
-                    RaiseCellPlacementEvent.Invoke(this, null);
+                    RaiseCellPlacementEvent.Invoke(this, new CellPlacementEventArgs(coord, cellType));
                 }
                 return;
             }
@@ -326,7 +333,7 @@ namespace GamePlay
         
         public bool[,] CanBeReached()
         {
-            Board psuedoBoard = new Board(_board.GetBoard());
+            Board psuedoBoard = new Board(GameInfoManager.GetGameInfo().GetBoard());
             Queue<(Vector2Int, Type, bool)> toFlipQueue = new Queue<(Vector2Int, Type, bool)>();
             IBlock selectedBlock = Activator.CreateInstance(_blockSelectionManager.GetSelectedBlock().GetType()) as IBlock;
             bool[,] canBeReached = new bool[psuedoBoard.GetWidth(), psuedoBoard.GetHeight()];
@@ -438,6 +445,16 @@ namespace GamePlay
                     }
                 }
             }
+        }
+    }
+    
+    public class CellPlacementEventArgs: EventArgs{
+        private Vector2Int _coord;
+        private Type _cellType;
+        public CellPlacementEventArgs(Vector2Int coord, Type cellType)
+        {
+            _coord = coord;
+            _cellType = cellType;
         }
     }
 }
