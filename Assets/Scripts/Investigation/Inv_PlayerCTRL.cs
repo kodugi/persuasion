@@ -16,7 +16,7 @@ namespace Investigation
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-            interactionScript = GetComponent<Inv_Interact>();
+            interactionScript = GameObject.FindFirstObjectByType<Inv_Interact>().GetComponent<Inv_Interact>();
         }
 
         // Update is called once per frame

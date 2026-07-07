@@ -20,6 +20,7 @@ namespace Investigation
         {
             interactionGuide.SetActive(false);
             anchorPos = new Vector2(anchorPosition[0], anchorPosition[1]);
+            manager = GameObject.Find("GameManager").GetComponent<Inv_GameManager>();
         }
         void Update()
         {
@@ -95,6 +96,10 @@ namespace Investigation
                     string target = (string)effect["target"];
                     List<string> parameters = JsonConvert.DeserializeObject<List<string>>(effect["parameters"].ToString());
                     GameObject.Find("Interactables").transform.Find(target).GetComponent<Inv_InteractionObj>().variation(parameters);
+                    break;
+                case "item":
+                    string item = (string)effect["name"];
+                    manager.AddItem(item);
                     break;
             }
         }
