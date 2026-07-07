@@ -13,15 +13,13 @@ namespace Investigation
         public GameObject noteTitlePrefab;
         public GameObject noteContentPrefab;
         public GameObject interactablePrefab;
-        private void Awake()
-        {
-            //LoadDataFromFile();
-            
-        }
+        private SaveManager saveManager;
         private void Start()
         {
             GameObject.FindFirstObjectByType<Canvas>().transform.Find("NoteButton").GetComponent<Button>().onClick.AddListener(ViewNotes);
             SetScene();
+            saveManager = GameObject.Find("SaveManager").GetComponent<SaveManager>();
+            notes = saveManager.LoadData<Dictionary<string, List<string>>>("notes");
         }
         private class Position
         {
@@ -33,6 +31,7 @@ namespace Investigation
             public string title;
             public Position Position;
             public string image;
+            public string script;
         }
         void SetScene()
         {
@@ -48,6 +47,22 @@ namespace Investigation
                 GameObject interactable = Instantiate(interactablePrefab,position, Quaternion.identity, interactableParent.transform);
                 interactable.name = obj.title;
                 //interactable.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(obj.image);
+                if (!string.IsNullOrEmpty(obj.script))
+                {
+                    System.Type scriptType = System.Type.GetType("Investigation." + obj.script);
+                    if (scriptType != null)
+                    {
+                        interactable.AddComponent(scriptType);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Script not found: " + "Investigation."+obj.script);
+                    }
+                }
+                else
+                {
+                    interactable.AddComponent<Inv_InteractionObj>();
+                }
             }
         }
         string getID()
@@ -56,7 +71,6 @@ namespace Investigation
         }
         public void AddNote(string noteName, List<string> contents)
         {
-            print("hi");
             if (!notes.ContainsKey(noteName))
             {
                 notes.Add(noteName, contents);
@@ -89,24 +103,9 @@ namespace Investigation
                 }
             }
         }
-        private void LoadDataFromFile()
-        {
-            string path = "Assets/notes.json";
-            if (System.IO.File.Exists(path))
-            {
-                string json = System.IO.File.ReadAllText(path);
-                notes = JsonUtility.FromJson<Dictionary<string, List<string>>>(json);
-            }
-        }
         private void OnApplicationQuit()
         {
-            //SaveDataToFile();
-        }
-        private void SaveDataToFile()
-        {
-            string path = "Assets/notes.json";
-            string json = JsonUtility.ToJson(notes, true);
-            System.IO.File.WriteAllText(path, json);
+            saveManager.SaveData("notes", notes);
         }
     }
 }

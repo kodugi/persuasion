@@ -7,7 +7,8 @@
                 "x": 0,
                 "y": 4
             },
-            "image": ""
+            "image": "",
+            "script": "Inv_Interaction_Believers"
         }
     ]
 }

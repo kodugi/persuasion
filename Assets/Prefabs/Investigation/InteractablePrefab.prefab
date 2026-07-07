@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6287669338331212683}
   - component: {fileID: 2823449239867280563}
   - component: {fileID: 1362913268104539904}
-  - component: {fileID: 2681858045368158447}
   m_Layer: 0
   m_Name: InteractablePrefab
   m_TagString: Inv_Interactable
@@ -139,17 +138,3 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &2681858045368158447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3928896895775994901}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 684623d841aa54a589ac1d722de953b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Investigation.Inv_InteractionObj
-  obj_name: 
-  state: 0
