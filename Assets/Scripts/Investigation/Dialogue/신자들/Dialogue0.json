@@ -1,0 +1,51 @@
+{
+    "title": "신자들",
+    "path": [
+        {
+            "description": "신자 몇이 모여 수군대고 있다",
+            "buttons":[
+                {
+                    "title": "엿들을까?",
+                    "next": 1,
+                    "effects": []
+                },
+                {
+                    "title": "그냥 지나간다",
+                    "next": -1,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "\"…그 작자 말이야, 경비원. 오늘도 집회에 코빼기도 안 비쳤어.\"\n\"딸이 아프다나 뭐라나. 핑계겠지.\"\n\"쯧, 제 자식이 교리보다 중하다는 거 아냐. 불경한 것.\"",
+            "buttons":[
+                {
+                    "title": "(정보를 기록한다)",
+                    "next": -1,
+                    "effects": [
+                        {
+                            "type": "note",
+                            "topic": "경비원 A",
+                            "content":[
+                                "아픈 딸을 극진히 아낀다.",
+                                "사이비 종교의 신자이다."
+                            ]
+                        },
+                        {
+                            "type": "variation",
+                            "target": "신자들",
+                            "parameters":[
+                                
+                            ]
+                        },
+                        {
+                            "type": "item",
+                            "name": "Player_Temp"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+
+}
