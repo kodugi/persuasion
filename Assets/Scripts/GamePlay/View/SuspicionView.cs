@@ -10,6 +10,8 @@ namespace GamePlay
         [SerializeField] private TextMeshProUGUI _suspicionText;
         [SerializeField] private Image _suspicionPreviewGauge;
         [SerializeField] private TextMeshProUGUI _suspicionPreviewText;
+        [SerializeField] private RectTransform _focusTarget;
+
         protected override bool InitializeCore()
         {
             if (SuspicionManager.Instance == null)
@@ -29,6 +31,7 @@ namespace GamePlay
             if (SuspicionManager.Instance != null)
             {
                 SuspicionManager.Instance.RaiseSetSuspicionEvent -= HandleSetSuspicionEvent;
+                SuspicionManager.Instance.RaiseSetSuspicionPreviewEvent -= HandleSetSuspicionPreviewEvent;
             }
 
             base.OnDestroy();
@@ -55,6 +58,11 @@ namespace GamePlay
         private void HandleSetSuspicionPreviewEvent(object sender, SetSuspicionEventArgs e)
         {
             SetSuspicionPreviewUI(e.Suspicion);
+        }
+
+        public RectTransform GetFocusTarget()
+        {
+            return _focusTarget != null ? _focusTarget : GetComponent<RectTransform>();
         }
     }
 }

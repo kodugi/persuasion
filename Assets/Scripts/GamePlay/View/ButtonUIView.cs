@@ -2,7 +2,7 @@ using GamePlay;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ButtonUIView : MonoBehaviour
+public class ButtonUIView : MonoBehaviourSingleton<ButtonUIView>
 {
     [SerializeField] private Button _endTurnButton;
     [SerializeField] private Button _endPlacementButton;
@@ -12,7 +12,7 @@ public class ButtonUIView : MonoBehaviour
     {
         _endTurnButton.onClick.AddListener(OnEndTurnButtonClick);
         _endPlacementButton.onClick.AddListener(OnEndPlacementButtonClick);
-        TurnManager.Instance.RaiseSetTurnEvent += HandleSetTurnEvent;
+        TurnManager.Instance.RaiseSetTurnStateEvent += HandleSetTurnStateEvent;
     }
 
     // Update is called once per frame
@@ -23,24 +23,41 @@ public class ButtonUIView : MonoBehaviour
 
     private void OnEndTurnButtonClick()
     {
+        if (TutorialController.Instance != null && !TutorialController.Instance.CanClickEndTurn())
+        {
+            return;
+        }
+
         if(TurnManager.Instance.GetTurnState() == TurnState.PlayerIdle)
         {
             TurnManager.Instance.SetTurnState(TurnState.EnemyIdle);
+            TutorialController.Instance?.NotifyEndTurnClicked();
         }
         else if(TurnManager.Instance.GetTurnState() == TurnState.PlayerPlacingContinue)
         {
             TurnManager.Instance.SetTurnState(TurnState.PlayerPlacingEnd);
             TurnManager.Instance.SetTurnState(TurnState.EnemyIdle);
+            TutorialController.Instance?.NotifyEndTurnClicked();
         }
     }
 
     private void OnEndPlacementButtonClick()
     {
+        if (TutorialController.Instance != null && !TutorialController.Instance.CanClickEndPlacement())
+        {
+            return;
+        }
+
         TurnManager.Instance.SetTurnState(TurnState.PlayerPlacingEnd);
     }
 
-    private void HandleSetTurnEvent(object sender, SetTurnEventArgs e)
+    private void HandleSetTurnStateEvent(object sender, SetTurnStateEventArgs e)
     {
+        if (TurnManager.Instance.GetTurnState() != e.turnState)
+        {
+            return;
+        }
+
         switch (e.turnState)
         {
             case TurnState.PlayerPlacingContinue:
@@ -50,5 +67,15 @@ public class ButtonUIView : MonoBehaviour
                 _endPlacementButton.interactable = false;
                 break;
         }
+    }
+
+    public RectTransform GetEndTurnButtonTarget()
+    {
+        return _endTurnButton == null ? null : _endTurnButton.GetComponent<RectTransform>();
+    }
+
+    public RectTransform GetEndPlacementButtonTarget()
+    {
+        return _endPlacementButton == null ? null : _endPlacementButton.GetComponent<RectTransform>();
     }
 }

@@ -117,13 +117,11 @@ namespace GamePlay
         public override void RegisterPlacement(Vector2Int coord)
         {
             base.RegisterPlacement(coord);
-            Debug.Log("set state to AwaitingContinuedPlacement");
             InputState = MultipleBlockInputState.AwaitingContinuedPlacement;
         }
 
         public virtual void RegisterContinuedPlacement(Vector2Int coord)
         {
-            Debug.Log("set state to Completed");
             InputState = MultipleBlockInputState.Completed;
         }
 
@@ -147,7 +145,6 @@ namespace GamePlay
         protected virtual void ResetInputState()
         {
             InputState = MultipleBlockInputState.Ready;
-            Debug.Log("set state to Ready");
         }
     }
 }

@@ -16,7 +16,7 @@ namespace GamePlay
             _blockSelectionManager = BlockSelectionManager.Instance;
             _board = new Board(GameInfoManager.GetGameInfo().GetBoard());
             _turnManager = TurnManager.Instance;
-            _turnManager.RaiseSetTurnEvent += HandleSetTurnEvent;
+            _turnManager.RaiseSetTurnStateEvent += HandleSetTurnStateEvent;
         }
 
         public void HandleCellPlacementInput(Vector2Int coord)
@@ -132,7 +132,7 @@ namespace GamePlay
             }
         }
 
-        private void PsuedoSetCell(Vector2Int coord, Type cellType, Board board)
+        private void PseudoSetCell(Vector2Int coord, Type cellType, Board board)
         {
             Cell cell = CreateCell(coord, cellType);
             board.SetCell(coord, cell);
@@ -299,8 +299,13 @@ namespace GamePlay
             _turnManager.SetTurnState(TurnState.PlayerIdle);
         }
 
-        private void HandleSetTurnEvent(object sender, SetTurnEventArgs e)
+        private void HandleSetTurnStateEvent(object sender, SetTurnStateEventArgs e)
         {
+            if (_turnManager.GetTurnState() != e.turnState)
+            {
+                return;
+            }
+
             switch (e.turnState)
             {
                 case TurnState.PlayerPlacingEnd:
@@ -333,15 +338,15 @@ namespace GamePlay
         
         public bool[,] CanBeReached()
         {
-            Board psuedoBoard = new Board(GameInfoManager.GetGameInfo().GetBoard());
+            Board pseudoBoard = new Board(GameInfoManager.GetGameInfo().GetBoard());
             Queue<(Vector2Int, Type, bool)> toFlipQueue = new Queue<(Vector2Int, Type, bool)>();
             IBlock selectedBlock = Activator.CreateInstance(_blockSelectionManager.GetSelectedBlock().GetType()) as IBlock;
-            bool[,] canBeReached = new bool[psuedoBoard.GetWidth(), psuedoBoard.GetHeight()];
-            bool[,] processedReachableOrigins = new bool[psuedoBoard.GetWidth(), psuedoBoard.GetHeight()];
+            bool[,] canBeReached = new bool[pseudoBoard.GetWidth(), pseudoBoard.GetHeight()];
+            bool[,] processedReachableOrigins = new bool[pseudoBoard.GetWidth(), pseudoBoard.GetHeight()];
             
-            for (int i = 0; i < psuedoBoard.GetWidth(); i++)
+            for (int i = 0; i < pseudoBoard.GetWidth(); i++)
             {
-                for (int j = 0; j < psuedoBoard.GetHeight(); j++)
+                for (int j = 0; j < pseudoBoard.GetHeight(); j++)
                 {
                     Vector2Int coord = new Vector2Int(i, j);
                     Cell currentCell = _board.GetCell(coord);
@@ -355,14 +360,14 @@ namespace GamePlay
                         if (selectedBlock is IMultipleBlock multipleBlockFromConcept)
                         {
                             multipleBlockFromConcept.RegisterPlacement(coord);
-                            EnqueueContinuedPlacementCandidates(psuedoBoard, selectedBlock, multipleBlockFromConcept, toFlipQueue, canBeReached);
+                            EnqueueContinuedPlacementCandidates(pseudoBoard, selectedBlock, multipleBlockFromConcept, toFlipQueue, canBeReached);
                         }
                         
                         continue;
                     }
 
                     CellPlacementResult cellPlacementResult =
-                        selectedBlock.TryPlacement(psuedoBoard.GetBoard(), coord);
+                        selectedBlock.TryPlacement(pseudoBoard.GetBoard(), coord);
                     if (cellPlacementResult.GetSuccess())
                     {
                         EnqueueReachableCell(toFlipQueue, canBeReached, coord, selectedBlock.GetCellType(), true);
@@ -370,7 +375,7 @@ namespace GamePlay
                         if (selectedBlock is IMultipleBlock multipleBlock)
                         {
                             multipleBlock.RegisterPlacement(coord);
-                            EnqueueContinuedPlacementCandidates(psuedoBoard, selectedBlock, multipleBlock, toFlipQueue, canBeReached);
+                            EnqueueContinuedPlacementCandidates(pseudoBoard, selectedBlock, multipleBlock, toFlipQueue, canBeReached);
                         }
                     }
 
@@ -394,12 +399,12 @@ namespace GamePlay
                 
                 if (shouldSetCell)
                 {
-                    PsuedoSetCell(curCoord, curCellType, psuedoBoard);
+                    PseudoSetCell(curCoord, curCellType, pseudoBoard);
                 }
 
                 canBeReached[curCoord.X, curCoord.Y] = true;
                 
-                List<(Vector2Int, Type)> toFlipCoordsAndTypes = PlayerGetToFlipCoordsAndTypes(curCoord, psuedoBoard);
+                List<(Vector2Int, Type)> toFlipCoordsAndTypes = PlayerGetToFlipCoordsAndTypes(curCoord, pseudoBoard);
                 foreach ((Vector2Int toFlipCoord, Type toFlipType) in toFlipCoordsAndTypes)
                 {
                     EnqueueReachableCell(toFlipQueue, canBeReached, toFlipCoord, toFlipType, true);
@@ -407,7 +412,7 @@ namespace GamePlay
                     if (selectedBlock is IMultipleBlock multipleBlock)
                     {
                         multipleBlock.RegisterPlacement(toFlipCoord);
-                        EnqueueContinuedPlacementCandidates(psuedoBoard, selectedBlock, multipleBlock, toFlipQueue, canBeReached);
+                        EnqueueContinuedPlacementCandidates(pseudoBoard, selectedBlock, multipleBlock, toFlipQueue, canBeReached);
                     }
                 }
             }
@@ -427,18 +432,18 @@ namespace GamePlay
         }
 
         private void EnqueueContinuedPlacementCandidates(
-            Board psuedoBoard,
+            Board pseudoBoard,
             IBlock selectedBlock,
             IMultipleBlock multipleBlock,
             Queue<(Vector2Int, Type, bool)> queue,
             bool[,] canBeReached)
         {
-            for (int k = 0; k < psuedoBoard.GetWidth(); k++)
+            for (int k = 0; k < pseudoBoard.GetWidth(); k++)
             {
-                for (int l = 0; l < psuedoBoard.GetHeight(); l++)
+                for (int l = 0; l < pseudoBoard.GetHeight(); l++)
                 {
                     Vector2Int coord = new Vector2Int(k, l);
-                    CellPlacementResult multipleCellPlacementResult = multipleBlock.TryContinuedPlacement(psuedoBoard.GetBoard(), coord);
+                    CellPlacementResult multipleCellPlacementResult = multipleBlock.TryContinuedPlacement(pseudoBoard.GetBoard(), coord);
                     if (multipleCellPlacementResult.GetSuccess())
                     {
                         EnqueueReachableCell(queue, canBeReached, coord, selectedBlock.GetCellType(), true);
@@ -455,6 +460,16 @@ namespace GamePlay
         {
             _coord = coord;
             _cellType = cellType;
+        }
+
+        public Vector2Int GetCoord()
+        {
+            return _coord;
+        }
+
+        public Type GetCellType()
+        {
+            return _cellType;
         }
     }
 }

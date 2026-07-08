@@ -4,7 +4,7 @@ namespace MapEditor
 {
     public class EditorUtils
     {
-        public GameInfo ParseGameInfo(string json)
+        /*public GameInfo ParseGameInfo(string json)
         {
             JObject jObject = JObject.Parse(json);
             int width = (int)jObject["cols"];
@@ -86,6 +86,6 @@ namespace MapEditor
             }
 
             return "empty";
-        }
+        }*/
     }
 }

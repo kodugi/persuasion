@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,6 +7,7 @@ namespace GamePlay
 {
     public class DialogueView: SelfInitializingMonoBehaviourSingleton<DialogueView>
     {
+        [SerializeField] private GameObject _dialoguePanel;
         [SerializeField] private Button _nextButton;
         [SerializeField] private TextMeshProUGUI _speakerNameText;
         [SerializeField] private TextMeshProUGUI _dialogueText;
@@ -36,6 +38,12 @@ namespace GamePlay
             }
             _nextButton.onClick.AddListener(OnNextButtonClick);
             DialogueManager.Instance.RaiseSetDialogueEntryEvent += HandleSetDialogueEntryEvent;
+            DialogueManager.Instance.RaiseDialoguePageEndEvent += HandleDialogueEndEvent;
+
+            if (DialogueManager.Instance.GetCurrentDialogueData() != null)
+            {
+                DialogueManager.Instance.SetDialoguePage(0);
+            }
             return true;
         }
 
@@ -46,8 +54,14 @@ namespace GamePlay
 
         private void HandleSetDialogueEntryEvent(object sender, SetDialogueEntryEventArgs e)
         {
+            _dialoguePanel.SetActive(true);
             _speakerNameText.text = e.GetDialogueEntry().SpeakerName;
             _dialogueText.text = e.GetDialogueEntry().DialogueText;
+        }
+
+        private void HandleDialogueEndEvent(object sender, EventArgs e)
+        {
+            _dialoguePanel.SetActive(false);
         }
     }
 }

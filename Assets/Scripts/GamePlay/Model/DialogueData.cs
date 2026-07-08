@@ -6,7 +6,6 @@ namespace GamePlay
     public class DialogueData
     {
         public List<List<DialogueEntry>> DialogueList;
-        // List<DialogueEntry>: dialogue entries for this turn
 
         public DialogueData(List<List<DialogueEntry>> dialogueList)
         {

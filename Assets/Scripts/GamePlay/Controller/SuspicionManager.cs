@@ -25,7 +25,7 @@ namespace GamePlay
 
             _blockSelectionManager.RaisePlaceBlock += HandlePlaceBlockEvent;
             _blockSelectionManager.RaiseSelectBlockEvent += HandleSelectBlockEvent;
-            _turnManager.RaiseSetTurnEvent += HandleSetTurnEvent;
+            _turnManager.RaiseSetTurnStateEvent += HandleSetTurnStateEvent;
             SetSuspicion(0);
             SetSuspicionPreview(_blockSelectionManager.GetSelectedBlock().GetSuspicion());
         }
@@ -77,8 +77,13 @@ namespace GamePlay
             SetSuspicionPreview(_currentSuspicion + e.IncrementAmount);
         }
 
-        private void HandleSetTurnEvent(object sender, SetTurnEventArgs e)
+        private void HandleSetTurnStateEvent(object sender, SetTurnStateEventArgs e)
         {
+            if (_turnManager.GetTurnState() != e.turnState)
+            {
+                return;
+            }
+
             if(e.turnState == TurnState.Start)
             {
                 DecrementSuspicion();

@@ -38,7 +38,7 @@ namespace GamePlay
             _turnManager = TurnManager.Instance;
             _blockSelectionView = BlockSelectionView.Instance;
 
-            _turnManager.RaiseSetTurnEvent += HandleSetTurnEvent;
+            _turnManager.RaiseSetTurnStateEvent += HandleSetTurnStateEvent;
 
             _blockSelectionView.SetBlockUI(_blocks);
         }
@@ -116,8 +116,13 @@ namespace GamePlay
             }
         }
 
-        private void HandleSetTurnEvent(object sender, SetTurnEventArgs e)
+        private void HandleSetTurnStateEvent(object sender, SetTurnStateEventArgs e)
         {
+            if (_turnManager.GetTurnState() != e.turnState)
+            {
+                return;
+            }
+
             switch (e.turnState)
             {
                 case TurnState.Start:

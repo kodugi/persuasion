@@ -58,7 +58,9 @@ public class BoardView : SelfInitializingMonoBehaviourSingleton<BoardView>
     private GameObject[,] _spawnedCellsByCoord;
     private BoardCellMarkerView[,] _spawnedMarkersByCoord;
     private BoardCellMarker[,] _baseMarkersByCoord;
+    private Sprite[,] _tutorialHintSpritesByCoord;
     private GamePlay.Vector2Int _previewedCoord;
+    private Sprite _previewedSprite;
     private BlockSelectionManager _subscribedBlockSelectionManager;
 
     private void OnValidate()
@@ -125,6 +127,7 @@ public class BoardView : SelfInitializingMonoBehaviourSingleton<BoardView>
             return;
         }
 
+        ClearTutorialHint(coord);
         ReplaceCellObject(coord.X, coord.Y, cell);
         RefreshCellMarkers();
     }
@@ -219,7 +222,9 @@ public class BoardView : SelfInitializingMonoBehaviourSingleton<BoardView>
         _spawnedCellsByCoord = new GameObject[width, height];
         _spawnedMarkersByCoord = new BoardCellMarkerView[width, height];
         _baseMarkersByCoord = new BoardCellMarker[width, height];
+        EnsureTutorialHintGrid(width, height);
         _previewedCoord = null;
+        _previewedSprite = null;
 
         for (int x = 0; x < width; x++)
         {
@@ -520,6 +525,7 @@ public class BoardView : SelfInitializingMonoBehaviourSingleton<BoardView>
         _spawnedMarkersByCoord = null;
         _baseMarkersByCoord = null;
         _previewedCoord = null;
+        _previewedSprite = null;
     }
 
     private void DestroyCellObject(GameObject cellObject)
@@ -622,14 +628,14 @@ public class BoardView : SelfInitializingMonoBehaviourSingleton<BoardView>
             return;
         }
 
-        _previewedCoord = new GamePlay.Vector2Int(coord);
-
         if (!BoardController.Instance.CanPlaceBlock(selectedBlock, coord))
         {
             return;
         }
 
-        SetCellMarker(coord, GetBaseMarker(coord) | BoardCellMarker.Preview, previewSprite);
+        _previewedCoord = new GamePlay.Vector2Int(coord);
+        _previewedSprite = previewSprite;
+        ApplyMarkerForCoord(coord);
     }
 
     private void ClearBlockPreview()
@@ -641,10 +647,11 @@ public class BoardView : SelfInitializingMonoBehaviourSingleton<BoardView>
 
         GamePlay.Vector2Int coord = _previewedCoord;
         _previewedCoord = null;
+        _previewedSprite = null;
 
         if (IsInRenderedBoard(coord))
         {
-            SetCellMarker(coord, GetBaseMarker(coord));
+            ApplyMarkerForCoord(coord);
         }
     }
 
@@ -684,7 +691,7 @@ public class BoardView : SelfInitializingMonoBehaviourSingleton<BoardView>
         _baseMarkersByCoord[x, y] = marker & ~BoardCellMarker.Preview;
         if (_spawnedMarkersByCoord != null && _spawnedMarkersByCoord[x, y] != null)
         {
-            ApplyMarker(_spawnedMarkersByCoord[x, y], _baseMarkersByCoord[x, y]);
+            ApplyMarkerForCoord(new GamePlay.Vector2Int(x, y));
         }
     }
 
@@ -788,8 +795,120 @@ public class BoardView : SelfInitializingMonoBehaviourSingleton<BoardView>
         }
     }
     
-    public void ShowTutorialHint(GamePlay.Vector2Int coord, Sprite sprite)
+    public void ShowTutorialHint(GamePlay.Vector2Int coord, Type cellType)
     {
-        SetCellMarker(coord, BoardCellMarker.Preview, sprite);
+        if (coord == null || cellType == null)
+        {
+            return;
+        }
+
+        if (_spawnedCellsByCoord == null)
+        {
+            EnsureInitialized();
+        }
+
+        if (!IsInRenderedBoard(coord))
+        {
+            return;
+        }
+
+        if (!TryGetPreviewSprite(cellType, out Sprite previewSprite))
+        {
+            Debug.LogWarning("BoardView could not show tutorial hint because there is no preview sprite for " + cellType.Name + ".", this);
+            return;
+        }
+
+        EnsureTutorialHintGrid(_spawnedCellsByCoord.GetLength(0), _spawnedCellsByCoord.GetLength(1));
+        _tutorialHintSpritesByCoord[coord.X, coord.Y] = previewSprite;
+        ApplyMarkerForCoord(coord);
+    }
+
+    public void ClearTutorialHint(GamePlay.Vector2Int coord)
+    {
+        if (coord == null || _tutorialHintSpritesByCoord == null || !IsInRenderedBoard(coord))
+        {
+            return;
+        }
+
+        _tutorialHintSpritesByCoord[coord.X, coord.Y] = null;
+        ApplyMarkerForCoord(coord);
+    }
+
+    public void ClearTutorialHints()
+    {
+        if (_tutorialHintSpritesByCoord == null)
+        {
+            return;
+        }
+
+        int width = _tutorialHintSpritesByCoord.GetLength(0);
+        int height = _tutorialHintSpritesByCoord.GetLength(1);
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                _tutorialHintSpritesByCoord[x, y] = null;
+                ApplyMarkerForCoord(new GamePlay.Vector2Int(x, y));
+            }
+        }
+    }
+
+    private void EnsureTutorialHintGrid(int width, int height)
+    {
+        if (_tutorialHintSpritesByCoord != null
+            && _tutorialHintSpritesByCoord.GetLength(0) == width
+            && _tutorialHintSpritesByCoord.GetLength(1) == height)
+        {
+            return;
+        }
+
+        _tutorialHintSpritesByCoord = new Sprite[width, height];
+    }
+
+    private void ApplyMarkerForCoord(GamePlay.Vector2Int coord)
+    {
+        if (coord == null || !IsInRenderedBoard(coord) || _spawnedMarkersByCoord == null)
+        {
+            return;
+        }
+
+        BoardCellMarkerView markerView = _spawnedMarkersByCoord[coord.X, coord.Y];
+        if (markerView == null)
+        {
+            return;
+        }
+
+        BoardCellMarker marker = GetBaseMarker(coord);
+        Sprite previewSprite = null;
+
+        if (_previewedCoord != null && _previewedCoord == coord && _previewedSprite != null)
+        {
+            marker |= BoardCellMarker.Preview;
+            previewSprite = _previewedSprite;
+        }
+        else if (TryGetTutorialHintSprite(coord, out Sprite tutorialHintSprite))
+        {
+            marker |= BoardCellMarker.Preview;
+            previewSprite = tutorialHintSprite;
+        }
+
+        ApplyMarker(markerView, marker, previewSprite);
+    }
+
+    private bool TryGetTutorialHintSprite(GamePlay.Vector2Int coord, out Sprite sprite)
+    {
+        sprite = null;
+        if (coord == null
+            || _tutorialHintSpritesByCoord == null
+            || coord.X < 0
+            || coord.X >= _tutorialHintSpritesByCoord.GetLength(0)
+            || coord.Y < 0
+            || coord.Y >= _tutorialHintSpritesByCoord.GetLength(1))
+        {
+            return false;
+        }
+
+        sprite = _tutorialHintSpritesByCoord[coord.X, coord.Y];
+        return sprite != null;
     }
 }
