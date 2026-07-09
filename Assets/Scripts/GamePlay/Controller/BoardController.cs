@@ -349,7 +349,7 @@ namespace GamePlay
                 for (int j = 0; j < pseudoBoard.GetHeight(); j++)
                 {
                     Vector2Int coord = new Vector2Int(i, j);
-                    Cell currentCell = _board.GetCell(coord);
+                    Cell currentCell = pseudoBoard.GetCell(coord);
 
                     selectedBlock.Reset();
 
