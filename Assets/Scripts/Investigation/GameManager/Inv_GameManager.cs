@@ -28,7 +28,7 @@ namespace Investigation
         }
         private void OnApplicationQuit()
         {
-            saveManager.SaveData("notes", notes);
+            NoteOnApplicationQuit();
         }
 
         void SetScene()

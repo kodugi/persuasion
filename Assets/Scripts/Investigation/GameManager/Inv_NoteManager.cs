@@ -24,6 +24,10 @@ namespace Investigation
             GameObject.FindFirstObjectByType<Canvas>().transform.Find("NoteButton").GetComponent<Button>().onClick.AddListener(ViewNotes);
             SetScene();
         }
+        void NoteOnApplicationQuit()
+        {
+            saveManager.SaveData("notes", notes);
+        }
         private class Position
         {
             public float x;
