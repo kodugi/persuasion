@@ -1,6 +1,7 @@
 using GamePlay;
 using UnityEngine;
 using UnityEngine.UI;
+using SingletonUtils;
 
 public class ButtonUIView : MonoBehaviourSingleton<ButtonUIView>
 {

@@ -2,6 +2,7 @@ using GamePlay;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using SingletonUtils;
 
 public class BoardView : SelfInitializingMonoBehaviourSingleton<BoardView>
 {

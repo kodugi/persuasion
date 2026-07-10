@@ -1,4 +1,4 @@
-namespace GamePlay
+namespace SingletonUtils
 {
     public abstract class SelfInitializingMonoBehaviourSingleton<T> : MonoBehaviourSingleton<T>
         where T : SelfInitializingMonoBehaviourSingleton<T>
