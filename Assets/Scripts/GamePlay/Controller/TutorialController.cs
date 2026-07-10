@@ -98,7 +98,7 @@ namespace GamePlay
             {
                 if (BoardView.Instance != null)
                 {
-                    BoardView.Instance.ClearTutorialHints();
+                    ((BoardView)BoardView.Instance).ClearTutorialHints();
                 }
 
                 return;
@@ -120,7 +120,7 @@ namespace GamePlay
                     _currentCellCoords.Add(cellCoord);
                     if (BoardView.Instance != null)
                     {
-                        BoardView.Instance.ShowTutorialHint(cellCoord, cellType);
+                        ((BoardView)BoardView.Instance).ShowTutorialHint(cellCoord, cellType);
                     }
                 }
                 else if (gameObjectToMark != null)
