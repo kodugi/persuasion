@@ -1,4 +1,6 @@
 using System;
+using GamePlay;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,9 +9,10 @@ namespace MapEditor
     public class CellEntryView: MonoBehaviour
     {
         private Button _button;
-        public Type CellType { get; private set; }
+        private TextMeshProUGUI _label;
+        public CellKind CellKind { get; private set; }
 
-        public void Initialize(int idx, Action<int> handler, Type cellType)
+        public void Initialize(int idx, Action<int> handler, CellKind cellKind)
         {
             _button = gameObject.GetComponent<Button>();
             if (_button == null)
@@ -18,7 +21,15 @@ namespace MapEditor
                 return;
             }
             _button.onClick.AddListener(() => handler(idx));
-            CellType = cellType;
+            CellKind = cellKind;
+            
+            _label = gameObject.GetComponentInChildren<TextMeshProUGUI>();
+            if (_label == null)
+            {
+                Debug.LogWarning("cell entry prefab does not have a TextMeshProUGUI component");
+                return;
+            }
+            _label.text = CellUtils.CellKindToName(CellKind);
         }
 
         public void SetSelected(bool selected)

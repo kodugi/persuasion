@@ -1,6 +1,6 @@
 ﻿namespace GamePlay
 {
-    public static class GameInfoManager
+    public static class GameInfoHolder
     {
         private static GameInfo _gameInfo;
 

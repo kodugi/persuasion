@@ -1,6 +1,8 @@
 using System;
 using SingletonUtils;
 using GamePlay;
+using UnityEngine;
+using Vector2Int = GamePlay.Vector2Int;
 
 namespace MapEditor
 {
@@ -11,6 +13,13 @@ namespace MapEditor
         
         public void Initialize(int width, int height)
         {
+            CreateBlankBoard(width, height);
+            
+            _cellSelectionManager = CellSelectionManager.Instance;
+        }
+
+        private void CreateBlankBoard(int width, int height)
+        {
             _board = new Board(width, height);
             for (int i = 0; i < width; i++)
             {
@@ -19,14 +28,23 @@ namespace MapEditor
                     _board.SetCell(new Vector2Int(i, j), new EmptyCell(0, new Vector2Int(i, j)));
                 }
             }
-            
-            _cellSelectionManager = CellSelectionManager.Instance;
         }
 
         public void HandleCellPlacementInput(Vector2Int coord)
         {
-            _board.SetCell(coord, (Cell)Activator.CreateInstance(_cellSelectionManager.GetCurrentCellType()));
-            
+            SetCell(coord, _cellSelectionManager.GetCurrentCellKind());
+        }
+
+        private void SetCell(Vector2Int coord, CellKind cellKind)
+        {
+            Cell cell = (Cell)Activator.CreateInstance(CellUtils.CellKindToType(cellKind), coord);
+            _board.SetCell(coord, cell);
+            BoardView.Instance.SetCell(coord, cell);
+        }
+
+        public Board GetBoard()
+        {
+            return _board;
         }
     }
 }

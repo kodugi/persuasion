@@ -1617,7 +1617,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9cac45a616006941a99c132c180a48f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GamePlay.GameManager
-  _gameInfo: {fileID: 11400000, guid: d26492b389615d843b54a04e41ef13ff, type: 2}
+  _gameInfo: {fileID: 0}
   _tutorialEntryGroups:
   - State: 0
     Entries:
@@ -2040,7 +2040,7 @@ Transform:
   m_GameObject: {fileID: 1627562690}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

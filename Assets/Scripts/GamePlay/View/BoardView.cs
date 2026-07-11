@@ -16,13 +16,29 @@ public class BoardView : BoardViewBase
 
     protected override GameInfo GetGameInfo()
     {
-        return GameInfoManager.GetGameInfo();
+        return GameInfoHolder.GetGameInfo();
     }
 
     public override void Refresh()
     {
         base.Refresh();
         SubscribeToBlockSelectionEvents();
+    }
+
+    protected override bool IsCellPlacementAllowed(Vector2Int coord)
+    {
+        IBlock selectedBlock = BlockSelectionManager.Instance.GetSelectedBlock();
+        if (selectedBlock == null)
+        {
+            return false;
+        }
+        return BoardController.Instance.CanPlaceBlock(selectedBlock, coord);
+    }
+
+    protected override Type GetCellType()
+    {
+        IBlock selectedBlock = BlockSelectionManager.Instance.GetSelectedBlock();
+        return selectedBlock.GetCellType();
     }
 
     public override void SetCell(GamePlay.Vector2Int coord, Cell cell)
@@ -99,21 +115,6 @@ public class BoardView : BoardViewBase
 
         reachableCells = BoardController.Instance.CanBeReached();
         return reachableCells != null;
-    }
-
-    protected override IBlock GetSelectedBlock()
-    {
-        if (BlockSelectionManager.Instance == null)
-        {
-            return null;
-        }
-        
-        return BlockSelectionManager.Instance.GetSelectedBlock();
-    }
-    
-    protected override bool CanPlaceBlock(IBlock block, GamePlay.Vector2Int coord)
-    {
-        return BoardController.Instance.CanPlaceBlock(block, coord);
     }
 
     protected override BoardCellMarker GetInitialMarker(Cell originalCell)

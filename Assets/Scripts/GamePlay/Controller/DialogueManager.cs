@@ -37,12 +37,17 @@ namespace GamePlay
 
         public DialogueEntry GetCurrentDialogueEntry()
         {
-            return GetCurrentDialogueData().DialogueList[_currentPage][_currentEntry];
+            if (!HasCurrentDialogueEntry())
+            {
+                return null;
+            }
+
+            return _currentDialogueData.DialogueList[_currentPage][_currentEntry];
         }
 
         public void SetDialoguePage(int page)
         {
-            if (GetCurrentDialogueData() == null)
+            if (!HasCurrentDialogueData() || page < 0 || page >= _currentDialogueData.DialogueList.Count)
             {
                 return;
             }
@@ -53,6 +58,16 @@ namespace GamePlay
 
         public void SetDialogueEntry(int entry)
         {
+            if (!HasCurrentDialogueData() ||
+                _currentPage < 0 ||
+                _currentPage >= _currentDialogueData.DialogueList.Count ||
+                _currentDialogueData.DialogueList[_currentPage] == null ||
+                entry < 0 ||
+                entry >= _currentDialogueData.DialogueList[_currentPage].Count)
+            {
+                return;
+            }
+
             if (_turnManager.GetTurnState() != TurnState.Dialogue)
             {
                 _turnManager.SetTurnState(TurnState.Dialogue);
@@ -64,7 +79,12 @@ namespace GamePlay
 
         public void ToNextPage()
         {
-            if (_currentPage + 1 < GetCurrentDialogueData().DialogueList.Count)
+            if (!HasCurrentDialogueData())
+            {
+                return;
+            }
+
+            if (_currentPage + 1 < _currentDialogueData.DialogueList.Count)
             {
                 SetDialoguePage(_currentPage + 1);
             }
@@ -76,7 +96,12 @@ namespace GamePlay
 
         public void ToNextEntry()
         {
-            if (_currentEntry + 1 < GetCurrentDialogueData().DialogueList[_currentPage].Count)
+            if (!HasCurrentDialogueEntry())
+            {
+                return;
+            }
+
+            if (_currentEntry + 1 < _currentDialogueData.DialogueList[_currentPage].Count)
             {
                 SetDialogueEntry(_currentEntry + 1);
             }
@@ -90,17 +115,50 @@ namespace GamePlay
 
         public bool IsEndOfDialoguePage()
         {
-            return _currentEntry + 1 >= GetCurrentDialogueData().DialogueList[_currentPage].Count;
+            return HasCurrentDialogueEntry() &&
+                   _currentEntry + 1 >= _currentDialogueData.DialogueList[_currentPage].Count;
         }
 
         public bool IsEndOfDialogue()
         {
-            return _currentPage + 1 >= GetCurrentDialogueData().DialogueList.Count;
+            return HasCurrentDialogueData() &&
+                   _currentPage + 1 >= _currentDialogueData.DialogueList.Count;
         }
 
         public DialogueData GetCurrentDialogueData()
         {
             return _currentDialogueData;
+        }
+
+        public bool HasCurrentDialogueData()
+        {
+            return HasDialogueEntries(_currentDialogueData);
+        }
+
+        public bool HasDialogueData()
+        {
+            if (_dialogueDataDict == null)
+            {
+                return false;
+            }
+
+            foreach (Dictionary<TurnState, DialogueData> dialogueDataByState in _dialogueDataDict.Values)
+            {
+                if (dialogueDataByState == null)
+                {
+                    continue;
+                }
+
+                foreach (DialogueData dialogueData in dialogueDataByState.Values)
+                {
+                    if (HasDialogueEntries(dialogueData))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         private void HandleSetTurnStateEvent(object sender, SetTurnStateEventArgs e)
@@ -138,7 +196,35 @@ namespace GamePlay
 
             return dialogueDataByState != null &&
                    dialogueDataByState.TryGetValue(turnState, out dialogueData) &&
-                   dialogueData != null;
+                   HasDialogueEntries(dialogueData);
+        }
+
+        private bool HasDialogueEntries(DialogueData dialogueData)
+        {
+            if (dialogueData == null || dialogueData.DialogueList == null)
+            {
+                return false;
+            }
+
+            foreach (List<DialogueEntry> dialoguePage in dialogueData.DialogueList)
+            {
+                if (dialoguePage != null && dialoguePage.Count > 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool HasCurrentDialogueEntry()
+        {
+            return HasCurrentDialogueData() &&
+                   _currentPage >= 0 &&
+                   _currentPage < _currentDialogueData.DialogueList.Count &&
+                   _currentDialogueData.DialogueList[_currentPage] != null &&
+                   _currentEntry >= 0 &&
+                   _currentEntry < _currentDialogueData.DialogueList[_currentPage].Count;
         }
 
         private void ResumeTurnState()

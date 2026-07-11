@@ -98,6 +98,15 @@ namespace GamePlay
             SetDialogueData(dialogueData);
         }
 
+        public void Initialize(
+            Cell[,] board,
+            int maxTurns,
+            int targetNumber
+        )
+        {
+            Initialize(board.GetLength(0), board.GetLength(1), board, maxTurns, targetNumber);
+        }
+
         private void OnEnable()
         {
             ResizeBoardRows();

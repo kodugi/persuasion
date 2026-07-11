@@ -1,38 +1,40 @@
 using System;
 using SingletonUtils;
 using GamePlay;
+using UnityEngine;
 
 namespace MapEditor
 {
     public class CellSelectionManager: Singleton<CellSelectionManager>
     {
-        private Type _currentCellType;
+        private CellKind _currentCellKind;
 
-        public event EventHandler<SetCurrentCellTypeEventArgs> RaiseSetCurrentCellTypeEvent; 
+        public event EventHandler<SetCurrentCellKindEventArgs> RaiseSetCurrentCellKindEvent; 
         
         public void Initialize()
         {
-            _currentCellType = typeof(EmptyCell);
+            _currentCellKind = CellKind.Empty;
         }
 
-        public Type GetCurrentCellType()
+        public CellKind GetCurrentCellKind()
         {
-            return _currentCellType;
+            return _currentCellKind;
         }
         
-        public void SetCurrentCellType(Type type)
+        public void SetCurrentCellKind(CellKind cellKind)
         {
-            _currentCellType = type;
-            RaiseSetCurrentCellTypeEvent?.Invoke(this, new SetCurrentCellTypeEventArgs(_currentCellType));
+            Debug.Log("set current cell kind to " + cellKind);
+            _currentCellKind = cellKind;
+            RaiseSetCurrentCellKindEvent?.Invoke(this, new SetCurrentCellKindEventArgs(_currentCellKind));
         }
     }
 
-    public class SetCurrentCellTypeEventArgs : EventArgs
+    public class SetCurrentCellKindEventArgs : EventArgs
     {
-        public Type CellType { get; private set; }
-        public SetCurrentCellTypeEventArgs(Type cellType)
+        public CellKind CellKind { get; private set; }
+        public SetCurrentCellKindEventArgs(CellKind cellKind)
         {
-            CellType = cellType;
+            CellKind = cellKind;
         }
     }
 }

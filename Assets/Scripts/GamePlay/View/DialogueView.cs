@@ -14,6 +14,12 @@ namespace GamePlay
         [SerializeField] private TextMeshProUGUI _dialogueText;
         protected override bool InitializeCore()
         {
+            if (_dialoguePanel == null)
+            {
+                Debug.LogError("Dialogue panel is null");
+                return false;
+            }
+
             if (_nextButton == null)
             {
                 Debug.LogError("Next button is null");
@@ -41,7 +47,14 @@ namespace GamePlay
             DialogueManager.Instance.RaiseSetDialogueEntryEvent += HandleSetDialogueEntryEvent;
             DialogueManager.Instance.RaiseDialoguePageEndEvent += HandleDialogueEndEvent;
 
-            if (DialogueManager.Instance.GetCurrentDialogueData() != null)
+            Hide();
+
+            if (!DialogueManager.Instance.HasDialogueData())
+            {
+                return true;
+            }
+
+            if (DialogueManager.Instance.HasCurrentDialogueData())
             {
                 DialogueManager.Instance.SetDialoguePage(0);
             }
@@ -50,18 +63,41 @@ namespace GamePlay
 
         private void OnNextButtonClick()
         {
+            if (!DialogueManager.Instance.HasCurrentDialogueData())
+            {
+                Hide();
+                return;
+            }
+
             DialogueManager.Instance.ToNextEntry();
         }
 
         private void HandleSetDialogueEntryEvent(object sender, SetDialogueEntryEventArgs e)
         {
+            DialogueEntry dialogueEntry = e.GetDialogueEntry();
+            if (dialogueEntry == null)
+            {
+                Hide();
+                return;
+            }
+
             _dialoguePanel.SetActive(true);
-            _speakerNameText.text = e.GetDialogueEntry().SpeakerName;
-            _dialogueText.text = e.GetDialogueEntry().DialogueText;
+            _speakerNameText.text = dialogueEntry.SpeakerName;
+            _dialogueText.text = dialogueEntry.DialogueText;
         }
 
         private void HandleDialogueEndEvent(object sender, EventArgs e)
         {
+            Hide();
+        }
+
+        public void Hide()
+        {
+            if (_dialoguePanel == null)
+            {
+                return;
+            }
+
             _dialoguePanel.SetActive(false);
         }
     }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using GamePlay;
 using UnityEngine;
 using SingletonUtils;
 using UnityEngine.UI;
@@ -8,16 +9,16 @@ namespace MapEditor
 {
     public class CellSelectionView : SelfInitializingMonoBehaviourSingleton<CellSelectionView>
     {
-        [SerializeField] private List<Type> _cellTypes;
+        [SerializeField] private CellKind[] _cellKinds;
         [SerializeField] private GameObject _cellEntryPrefab;
 
         private List<CellEntryView> _spawnedCellEntryViews;
 
         protected override bool InitializeCore()
         {
-            if (_cellTypes == null)
+            if (_cellKinds == null)
             {
-                Debug.LogError("CellSelectionView: _cellTypes is null");
+                Debug.LogError("CellSelectionView: _cellKinds is null");
                 return false;
             }
             if (_cellEntryPrefab == null)
@@ -28,13 +29,13 @@ namespace MapEditor
             
             _spawnedCellEntryViews = new List<CellEntryView>();
 
-            for (int i = 0; i < _cellTypes.Count; i++)
+            for (int i = 0; i < _cellKinds.Length; i++)
             {
                 int cellEntryIdx = i;
-                GameObject cellEntryGO = GameObject.Instantiate(_cellEntryPrefab);
+                GameObject cellEntryGO = GameObject.Instantiate(_cellEntryPrefab, gameObject.transform);
                 CellEntryView cellEntryView = cellEntryGO.GetComponent<CellEntryView>();
                 _spawnedCellEntryViews.Add(cellEntryView);
-                cellEntryView.Initialize(cellEntryIdx, HandleCellEntryClick, _cellTypes[i]);
+                cellEntryView.Initialize(cellEntryIdx, HandleCellEntryClick, _cellKinds[i]);
             }
 
             if (CellSelectionManager.Instance == null)
@@ -42,21 +43,21 @@ namespace MapEditor
                 return false;
             }
 
-            CellSelectionManager.Instance.RaiseSetCurrentCellTypeEvent += HandleSetCurrentCellTypeEvent;
+            CellSelectionManager.Instance.RaiseSetCurrentCellKindEvent += HandleSetCurrentCellKindEvent;
             
             return true;
         }
 
         private void HandleCellEntryClick(int idx)
         {
-            CellSelectionManager.Instance.SetCurrentCellType(_cellTypes[idx]);
+            CellSelectionManager.Instance.SetCurrentCellKind(_cellKinds[idx]);
         }
 
-        private void HandleSetCurrentCellTypeEvent(object sender, SetCurrentCellTypeEventArgs e)
+        private void HandleSetCurrentCellKindEvent(object sender, SetCurrentCellKindEventArgs e)
         {
             foreach (CellEntryView cellEntryView in _spawnedCellEntryViews)
             {
-                if (cellEntryView.CellType == e.CellType)
+                if (cellEntryView.CellKind == e.CellKind)
                 {
                     cellEntryView.SetSelected(true);
                 }

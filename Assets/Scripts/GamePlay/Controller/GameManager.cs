@@ -76,13 +76,13 @@ namespace GamePlay
             _turnManager.Initialize();
             if(_gameInfo != null)
             {
-                GameInfoManager.SetGameInfo(_gameInfo);
+                GameInfoHolder.SetGameInfo(_gameInfo);
             }
-            else if(GameInfoManager.GetGameInfo() == null)
+            else if(GameInfoHolder.GetGameInfo() == null)
             {
-                GameInfoManager.SetGameInfo(exampleGameInfo);
+                GameInfoHolder.SetGameInfo(exampleGameInfo);
             }
-            _dialogueManager.Initialize(GameInfoManager.GetGameInfo().GetDialogueDataDict());
+            _dialogueManager.Initialize(GameInfoHolder.GetGameInfo().GetDialogueDataDict());
             _blockSelectionManager.Initialize(blockList.ToList());
             _boardController.Initialize();
             _suspicionManager.Initialize(maxSuspicion, decrementAmount);

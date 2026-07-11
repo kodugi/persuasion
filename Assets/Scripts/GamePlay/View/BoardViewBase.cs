@@ -540,14 +540,12 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
     protected void RenderBlockPreview(GamePlay.Vector2Int coord)
     {
         ClearBlockPreview();
-        
-        IBlock selectedBlock = GetSelectedBlock();
-        if (selectedBlock == null || !TryGetPreviewSprite(selectedBlock.GetCellType(), out Sprite previewSprite))
+
+        if (!IsCellPlacementAllowed(coord))
         {
             return;
         }
-
-        if (!CanPlaceBlock(selectedBlock, coord))
+        if (!TryGetPreviewSprite(GetCellType(), out Sprite previewSprite))
         {
             return;
         }
@@ -557,9 +555,9 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
         ApplyMarkerForCoord(coord);
     }
 
-    protected abstract IBlock GetSelectedBlock();
+    protected abstract Type GetCellType();
 
-    protected abstract bool CanPlaceBlock(IBlock block, Vector2Int coord);
+    protected abstract bool IsCellPlacementAllowed(Vector2Int coord);
 
     protected void ClearBlockPreview()
     {

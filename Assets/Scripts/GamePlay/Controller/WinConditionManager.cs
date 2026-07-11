@@ -9,16 +9,19 @@ namespace GamePlay
         private BoardController _boardController;
         private SuspicionManager _suspicionManager;
         private GameStateManager _gameStateManager;
+        private TurnManager _turnManager;
         private bool _isGameEnded;
         public void Initialize()
         {
             _boardController = BoardController.Instance;
             _suspicionManager = SuspicionManager.Instance;
             _gameStateManager = GameStateManager.Instance;
+            _turnManager = TurnManager.Instance;
             _isGameEnded = false;
 
             _boardController.RaiseCellPlacementEvent += HandleCellPlacementEvent;
             _suspicionManager.RaiseSetSuspicionEvent += HandleSetSuspicionEvent;
+            _turnManager.RaiseSetTurnEvent += HandleSetTurnEvent;
         }
 
         private void HandleCellPlacementEvent(object sender, EventArgs e)
@@ -31,6 +34,11 @@ namespace GamePlay
             EvaluateGameResult();
         }
 
+        private void HandleSetTurnEvent(object sender, SetTurnEventArgs e)
+        {
+            EvaluateGameResult();
+        }
+
         private void EvaluateGameResult()
         {
             if (_isGameEnded)
@@ -38,7 +46,8 @@ namespace GamePlay
                 return;
             }
 
-            if (_suspicionManager.GetCurrentSuspicion() > _suspicionManager.GetMaxSuspicion())
+            if (_suspicionManager.GetCurrentSuspicion() > _suspicionManager.GetMaxSuspicion() ||
+                _turnManager.GetCurrentTurn() >= GameInfoHolder.GetGameInfo().GetMaxTurns())
             {
                 // TODO: 패배 판정
                 _isGameEnded = true;
@@ -47,7 +56,7 @@ namespace GamePlay
                 return;
             }
 
-            if(_boardController.GetConvertedBlackCellCount() >= GameInfoManager.GetGameInfo().GetTargetNumber())
+            if(_boardController.GetConvertedBlackCellCount() >= GameInfoHolder.GetGameInfo().GetTargetNumber())
             {
                 // TODO: 승리 판정
                 _isGameEnded = true;
