@@ -1,5 +1,6 @@
 using SingletonUtils;
 using GamePlay;
+using MapEditor.Model;
 using UnityEngine;
 
 namespace MapEditor
@@ -32,6 +33,7 @@ namespace MapEditor
 
             _boardController.RefreshBoard(gameInfo.GetBoard());
             _gameSettingsController.Refresh(gameInfo.GetMaxTurns(), gameInfo.GetTargetNumber());
+            EditorInfoHolder.SetGameInfo(gameInfo);
         }
     }
 }

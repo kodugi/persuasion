@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace SingletonUtils
 {
@@ -10,7 +11,7 @@ namespace SingletonUtils
         {
             if (Instance != null)
             {
-                throw new Exception(typeof(T).Name + " instance already exists!");
+                Debug.LogWarning(typeof(T).Name + " instance already exists!");
             }
 
             Instance = (T)this;

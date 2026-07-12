@@ -1,5 +1,6 @@
 using FileUtils;
 using GamePlay;
+using MapEditor.Model;
 using SingletonUtils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -41,7 +42,7 @@ namespace MapEditor
 
         private void HandlePlayButtonClick()
         {
-            GameInfoHolder.SetGameInfo(GameInfoController.Instance.AssembleGameInfo());
+            EditorInfoHolder.SetGameInfo(GameInfoController.Instance.AssembleGameInfo());
             SceneManager.LoadScene("GamePlayScene");
         }
 

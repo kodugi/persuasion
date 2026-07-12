@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MapEditor.Model;
 using UnityEngine;
 using SingletonUtils;
 using Vector2Int = VectorUtils.Vector2Int;
@@ -78,6 +79,10 @@ namespace GamePlay
             if(_gameInfo != null)
             {
                 GameInfoHolder.SetGameInfo(_gameInfo);
+            }
+            else if (EditorInfoHolder.GetGameInfo() != null)
+            {
+                GameInfoHolder.SetGameInfo(EditorInfoHolder.GetGameInfo());
             }
             else if(GameInfoHolder.GetGameInfo() == null)
             {
