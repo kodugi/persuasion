@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using SingletonUtils;
+using Vector2Int = VectorUtils.Vector2Int;
 
 namespace GamePlay
 {

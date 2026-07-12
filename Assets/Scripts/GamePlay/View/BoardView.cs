@@ -2,7 +2,7 @@ using GamePlay;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Vector2Int = GamePlay.Vector2Int;
+using Vector2Int = VectorUtils.Vector2Int;
 
 public class BoardView : BoardViewBase
 {
@@ -41,13 +41,13 @@ public class BoardView : BoardViewBase
         return selectedBlock.GetCellType();
     }
 
-    public override void SetCell(GamePlay.Vector2Int coord, Cell cell)
+    public override void SetCell(Vector2Int coord, Cell cell)
     {
         base.SetCell(coord, cell);
         ClearTutorialHint(coord);
     }
 
-    public override void HandleCellClick(GamePlay.Vector2Int coord)
+    public override void HandleCellClick(Vector2Int coord)
     {
         if (coord == null)
         {
@@ -187,7 +187,7 @@ public class BoardView : BoardViewBase
         base.OnDestroy();
     }
     
-    public void ShowTutorialHint(GamePlay.Vector2Int coord, Type cellType)
+    public void ShowTutorialHint(Vector2Int coord, Type cellType)
     {
         if (coord == null || cellType == null)
         {
@@ -233,7 +233,7 @@ public class BoardView : BoardViewBase
         return (marker, previewSprite);
     }
 
-    public void ClearTutorialHint(GamePlay.Vector2Int coord)
+    public void ClearTutorialHint(Vector2Int coord)
     {
         if (coord == null || _tutorialHintSpritesByCoord == null || !IsInRenderedBoard(coord))
         {
@@ -258,7 +258,7 @@ public class BoardView : BoardViewBase
             for (int y = 0; y < height; y++)
             {
                 _tutorialHintSpritesByCoord[x, y] = null;
-                ApplyMarkerForCoord(new GamePlay.Vector2Int(x, y));
+                ApplyMarkerForCoord(new Vector2Int(x, y));
             }
         }
     }
@@ -275,7 +275,7 @@ public class BoardView : BoardViewBase
         _tutorialHintSpritesByCoord = new Sprite[width, height];
     }
 
-    private bool TryGetTutorialHintSprite(GamePlay.Vector2Int coord, out Sprite sprite)
+    private bool TryGetTutorialHintSprite(Vector2Int coord, out Sprite sprite)
     {
         sprite = null;
         if (coord == null

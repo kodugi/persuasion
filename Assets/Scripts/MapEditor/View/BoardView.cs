@@ -2,7 +2,7 @@ using System;
 using GamePlay;
 using UnityEngine;
 using SingletonUtils;
-using Vector2Int = GamePlay.Vector2Int;
+using Vector2Int = VectorUtils.Vector2Int;
 
 namespace MapEditor
 {
@@ -11,22 +11,7 @@ namespace MapEditor
         protected override GameInfo GetGameInfo()
         {
             // TODO: board size subject to change; also implement changing the board size
-            return CreateInitialGameInfo(5, 5);
-        }
-
-        private GameInfo CreateInitialGameInfo(int width, int height)
-        {
-            Cell[,] board = new Cell[width, height];
-            for (int i = 0; i < width; i++)
-            {
-                for (int j = 0; j < height; j++)
-                {
-                    board[i, j] = new EmptyCell(new Vector2Int(i, j));
-                }
-            }
-            GameInfo gameInfo = ScriptableObject.CreateInstance<GameInfo>();
-            gameInfo.Initialize(width, height, board, 0, 0);
-            return gameInfo;
+            return GameInfoController.Instance.AssembleGameInfo();
         }
 
         public override void HandleCellClick(Vector2Int coord)

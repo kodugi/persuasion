@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Vector2Int = VectorUtils.Vector2Int;
 
 namespace GamePlay
 {

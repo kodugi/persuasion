@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using SingletonUtils;
+using Vector2Int = VectorUtils.Vector2Int;
 
 namespace GamePlay
 {

@@ -1,4 +1,5 @@
 ﻿using System;
+using Vector2Int = VectorUtils.Vector2Int;
 
 namespace GamePlay
 {
@@ -9,5 +10,6 @@ namespace GamePlay
         }
 
         public EmptyCell(Vector2Int coord) : base(coord) { }
+        public override CellKind CellKind { get; } = CellKind.Empty;
     }
 }

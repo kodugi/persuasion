@@ -528,8 +528,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 883397239}
-  - {fileID: 1074237139}
   - {fileID: 1265483324}
+  - {fileID: 1074237139}
   m_Father: {fileID: 1938521237}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -614,6 +614,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapEditor.ButtonUIView
   _playButton: {fileID: 883397240}
+  _importButton: {fileID: 1265483325}
+  _exportButton: {fileID: 1074237140}
 --- !u!1 &627502615
 GameObject:
   m_ObjectHideFlags: 0
@@ -3276,7 +3278,7 @@ MonoBehaviour:
     Sprite: {fileID: 7482667652216324306, guid: 8676c532270034844aa960fb27bca7b7, type: 3}
   - CellKind: 6
     Sprite: {fileID: 7482667652216324306, guid: b427fe85aac151148b2ed0972918d8b4, type: 3}
-  _markerPrefab: {fileID: 0}
+  _markerPrefab: {fileID: 6915691452449960741, guid: ebfa2fe3522cc6342b793861aac94b20, type: 3}
   _previewColor: {r: 1, g: 1, b: 1, a: 0.45}
   _cellSize: 1
   _origin: {x: 0, y: 0}

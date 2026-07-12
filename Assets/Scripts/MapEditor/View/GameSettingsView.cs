@@ -12,9 +12,9 @@ namespace MapEditor
         [SerializeField] private TMP_InputField _targetNumberInputField;
         protected override bool InitializeCore()
         {
-            if (GameInfoController.Instance == null)
+            if (GameSettingsController.Instance == null)
             {
-                Debug.LogError("GameInfoController.Instance == null");
+                Debug.LogError("GameSettingsController.Instance == null");
                 return false;
             }
 
@@ -30,10 +30,10 @@ namespace MapEditor
                 return false;
             }
             
-            _maxTurnsInputField.text = "";
+            _maxTurnsInputField.text = GameSettingsController.Instance.GetMaxTurns().ToString();
             _maxTurnsInputField.onEndEdit.AddListener(HandleMaxTurnsChanged);
             
-            _targetNumberInputField.text = "";
+            _targetNumberInputField.text = GameSettingsController.Instance.GetTargetNumber().ToString();
             _targetNumberInputField.onEndEdit.AddListener(HandleTargetNumberChanged);
             return true;
         }
@@ -43,12 +43,12 @@ namespace MapEditor
             try
             {
                 int maxTurns = int.Parse(maxTurnsString);
-                GameInfoController.Instance.SetMaxTurns(maxTurns);
+                GameSettingsController.Instance.SetMaxTurns(maxTurns);
             }
             catch(FormatException e)
             {
-                Debug.LogWarning("input value ignored due to format error");
-                _maxTurnsInputField.text = "";
+                Debug.LogWarning("input value ignored due to format error: " + e.Message);
+                _maxTurnsInputField.text = GameSettingsController.Instance.GetMaxTurns().ToString();
             }
         }
 
@@ -57,13 +57,19 @@ namespace MapEditor
             try
             {
                 int targetNumber = int.Parse(targetNumberString);
-                GameInfoController.Instance.SetTargetNumber(targetNumber);
+                GameSettingsController.Instance.SetTargetNumber(targetNumber);
             }
             catch(FormatException e)
             {
-                Debug.LogWarning("input value ignored due to format error");
-                _targetNumberInputField.text = "";
+                Debug.LogWarning("input value ignored due to format error: " + e.Message);
+                _targetNumberInputField.text = GameSettingsController.Instance.GetTargetNumber().ToString();
             }
+        }
+
+        public void Refresh()
+        {
+            _maxTurnsInputField.text = GameSettingsController.Instance.GetMaxTurns().ToString();
+            _targetNumberInputField.text = GameSettingsController.Instance.GetTargetNumber().ToString();
         }
     }
 }

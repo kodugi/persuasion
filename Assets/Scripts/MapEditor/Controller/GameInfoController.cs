@@ -1,47 +1,37 @@
-using GamePlay;
 using SingletonUtils;
+using GamePlay;
 using UnityEngine;
 
 namespace MapEditor
 {
     public class GameInfoController: Singleton<GameInfoController>
     {
-        private int _maxTurns;
-        private int _targetNumber;
         private BoardController _boardController;
+        private GameSettingsController _gameSettingsController;
 
         public void Initialize()
         {
             _boardController = BoardController.Instance;
-            _maxTurns = 10;
-            _targetNumber = 5;
+            _gameSettingsController = GameSettingsController.Instance;
         }
         
         public GameInfo AssembleGameInfo()
         {
             GameInfo gameInfo = ScriptableObject.CreateInstance<GameInfo>();
-            gameInfo.Initialize(_boardController.GetBoard().GetBoard(), _maxTurns, _targetNumber);
+            gameInfo.Initialize(_boardController.GetBoard().GetBoard(), _gameSettingsController.GetMaxTurns(), _gameSettingsController.GetTargetNumber());
             return gameInfo;
         }
-        
-        public int GetMaxTurns()
-        {
-            return _maxTurns;
-        }
 
-        public int GetTargetNumber()
+        public void SetGameInfo(GameInfo gameInfo)
         {
-            return _targetNumber;
-        }
+            if (gameInfo == null)
+            {
+                Debug.LogWarning("GameInfoController ignored null GameInfo.");
+                return;
+            }
 
-        public void SetMaxTurns(int maxTurns)
-        {
-            _maxTurns = maxTurns;
-        }
-
-        public void SetTargetNumber(int targetNumber)
-        {
-            _targetNumber = targetNumber;
+            _boardController.RefreshBoard(gameInfo.GetBoard());
+            _gameSettingsController.Refresh(gameInfo.GetMaxTurns(), gameInfo.GetTargetNumber());
         }
     }
 }

@@ -1,6 +1,6 @@
 using System;
 
-namespace GamePlay
+namespace VectorUtils
 {
     public sealed class Vector2Int : IEquatable<Vector2Int>
     {

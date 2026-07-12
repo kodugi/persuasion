@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using SingletonUtils;
-using Vector2Int = GamePlay.Vector2Int;
+using Vector2Int = VectorUtils.Vector2Int;
 
 public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<BoardViewBase>
 {
@@ -49,7 +49,7 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
     protected BoardCellMarkerView[,] _spawnedMarkersByCoord;
     protected BoardCellMarker[,] _baseMarkersByCoord;
     protected Sprite[,] _tutorialHintSpritesByCoord;
-    protected GamePlay.Vector2Int _previewedCoord;
+    protected Vector2Int _previewedCoord;
     protected Sprite _previewedSprite;
 
     protected void OnValidate()
@@ -79,6 +79,7 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
 
     public virtual void Refresh()
     {
+        _gameInfo = GetGameInfo();
         if (_gameInfo == null)
         {
             EnsureInitialized();
@@ -91,7 +92,7 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
         SetInitialized(_spawnedCellsByCoord != null);
     }
 
-    public virtual void SetCell(GamePlay.Vector2Int coord, Cell cell)
+    public virtual void SetCell(Vector2Int coord, Cell cell)
     {
         if (coord == null)
         {
@@ -120,7 +121,7 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
         RefreshCellMarkers();
     }
 
-    public abstract void HandleCellClick(GamePlay.Vector2Int coord);
+    public abstract void HandleCellClick(Vector2Int coord);
 
     protected void BuildPrefabMap()
     {
@@ -267,7 +268,7 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
 
     protected void ConfigureCellClick(GameObject cellObject, int x, int y)
     {
-        GamePlay.Vector2Int coord = new GamePlay.Vector2Int(x, y);
+        Vector2Int coord = new Vector2Int(x, y);
         BoxCollider2D[] clickColliders = cellObject.GetComponentsInChildren<BoxCollider2D>(true);
         if (clickColliders.Length == 0)
         {
@@ -281,7 +282,7 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
         }
     }
 
-    protected void ConfigureClickHandler(GameObject target, GamePlay.Vector2Int coord)
+    protected void ConfigureClickHandler(GameObject target, Vector2Int coord)
     {
         BoardCellView cellView = target.GetComponent<BoardCellView>();
         if (cellView == null)
@@ -469,7 +470,7 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
         }
     }
 
-    protected bool IsInRenderedBoard(GamePlay.Vector2Int coord)
+    protected bool IsInRenderedBoard(Vector2Int coord)
     {
         return _spawnedCellsByCoord != null
             && coord.X >= 0
@@ -510,7 +511,7 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
         }
     }
 
-    public void HandleCellEnter(GamePlay.Vector2Int coord)
+    public void HandleCellEnter(Vector2Int coord)
     {
         if (coord == null)
         {
@@ -527,7 +528,7 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
         RenderBlockPreview(coord);
     }
 
-    public void HandleCellExit(GamePlay.Vector2Int coord)
+    public void HandleCellExit(Vector2Int coord)
     {
         if (coord == null || _previewedCoord == null || coord != _previewedCoord)
         {
@@ -537,7 +538,7 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
         ClearBlockPreview();
     }
 
-    protected void RenderBlockPreview(GamePlay.Vector2Int coord)
+    protected void RenderBlockPreview(Vector2Int coord)
     {
         ClearBlockPreview();
 
@@ -550,7 +551,7 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
             return;
         }
 
-        _previewedCoord = new GamePlay.Vector2Int(coord);
+        _previewedCoord = new Vector2Int(coord);
         _previewedSprite = previewSprite;
         ApplyMarkerForCoord(coord);
     }
@@ -566,7 +567,7 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
             return;
         }
 
-        GamePlay.Vector2Int coord = _previewedCoord;
+        Vector2Int coord = _previewedCoord;
         _previewedCoord = null;
         _previewedSprite = null;
 
@@ -576,7 +577,7 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
         }
     }
 
-    public void SetCellMarker(GamePlay.Vector2Int coord, BoardCellMarker marker, Sprite previewSprite)
+    public void SetCellMarker(Vector2Int coord, BoardCellMarker marker, Sprite previewSprite)
     {
         if (coord == null || !IsInRenderedBoard(coord))
         {
@@ -607,11 +608,11 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
         _baseMarkersByCoord[x, y] = marker & ~BoardCellMarker.Preview;
         if (_spawnedMarkersByCoord != null && _spawnedMarkersByCoord[x, y] != null)
         {
-            ApplyMarkerForCoord(new GamePlay.Vector2Int(x, y));
+            ApplyMarkerForCoord(new Vector2Int(x, y));
         }
     }
 
-    protected BoardCellMarker GetBaseMarker(GamePlay.Vector2Int coord)
+    protected BoardCellMarker GetBaseMarker(Vector2Int coord)
     {
         if (coord == null || _baseMarkersByCoord == null || !IsInRenderedBoard(coord))
         {
@@ -646,7 +647,7 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
         }
     }
 
-    protected void ApplyMarkerForCoord(GamePlay.Vector2Int coord)
+    protected void ApplyMarkerForCoord(Vector2Int coord)
     {
         if (coord == null || !IsInRenderedBoard(coord) || _spawnedMarkersByCoord == null)
         {

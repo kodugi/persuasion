@@ -1,12 +1,13 @@
 using GamePlay;
 using UnityEngine;
+using Vector2Int = VectorUtils.Vector2Int;
 
 public class BoardCellView : MonoBehaviour
 {
     private BoardViewBase _boardView;
-    private GamePlay.Vector2Int _coord;
+    private Vector2Int _coord;
 
-    public void Initialize(BoardViewBase boardView, GamePlay.Vector2Int coord)
+    public void Initialize(BoardViewBase boardView, Vector2Int coord)
     {
         _boardView = boardView;
         _coord = coord;

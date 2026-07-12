@@ -1,4 +1,5 @@
 ﻿using System;
+using Vector2Int = VectorUtils.Vector2Int;
 
 namespace GamePlay
 {

@@ -2,7 +2,7 @@ using System;
 using SingletonUtils;
 using GamePlay;
 using UnityEngine;
-using Vector2Int = GamePlay.Vector2Int;
+using Vector2Int = VectorUtils.Vector2Int;
 
 namespace MapEditor
 {
@@ -37,7 +37,7 @@ namespace MapEditor
 
         private void SetCell(Vector2Int coord, CellKind cellKind)
         {
-            Cell cell = (Cell)Activator.CreateInstance(CellUtils.CellKindToType(cellKind), coord);
+            Cell cell = (Cell)Activator.CreateInstance(CellUtils.CellKindToType(cellKind), 0, coord);
             _board.SetCell(coord, cell);
             BoardView.Instance.SetCell(coord, cell);
         }
@@ -45,6 +45,12 @@ namespace MapEditor
         public Board GetBoard()
         {
             return _board;
+        }
+
+        public void RefreshBoard(Cell[,] board)
+        {
+            _board = new Board(board);
+            BoardView.Instance.Refresh();
         }
     }
 }
