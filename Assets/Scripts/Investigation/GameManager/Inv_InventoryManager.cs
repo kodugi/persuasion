@@ -17,7 +17,7 @@ namespace Investigation
 
         void InventoryAwake()
         {
-            inventoryItems = saveManager.LoadData<List<string>>("inventory");
+            saveManager.LoadData<List<string>>("inventory", out inventoryItems);
         }
         void InventoryStart()
         {

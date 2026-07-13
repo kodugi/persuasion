@@ -11,12 +11,13 @@ namespace Investigation
     public partial class Inv_GameManager
     {
         private Dictionary<string, List<string>> notes = new Dictionary<string, List<string>>();
-        public GameObject notePanel;
-        public GameObject noteTitlePrefab;
-        public GameObject noteContentPrefab;
+        [SerializeField] private GameObject noteButton;
+        [SerializeField] private GameObject notePanel;
+        [SerializeField] private GameObject noteTitlePrefab;
+        [SerializeField] private GameObject noteContentPrefab;
         void NoteAwake()
         {
-            notes = saveManager.LoadData<Dictionary<string, List<string>>>("notes");
+            saveManager.LoadData<Dictionary<string, List<string>>>("notes", out notes);
         }
         void NoteStart()
         {
@@ -38,6 +39,10 @@ namespace Investigation
             public Position Position;
             public string image;
             public string script;
+        }
+        public void NoteLock(bool doLock)
+        {
+            noteButton.SetActive(!doLock);
         }
         public void AddNote(string noteName, List<string> contents)
         {

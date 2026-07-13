@@ -516,7 +516,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.5, y: 9.45}
+    oldSize: {x: 1.75, y: 4.725}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -1243,6 +1243,7 @@ MonoBehaviour:
   backgroundPrefab: {fileID: 3928896895775994901, guid: 549f809be467848758824142f6978ca5, type: 3}
   inventoryPanel: {fileID: 139109048}
   inventoryItemPrefab: {fileID: 5124437373693812359, guid: d095e0c82abe548aaa53a7e9b0bddd2a, type: 3}
+  noteButton: {fileID: 773248706}
   notePanel: {fileID: 1405770748650178747}
   noteTitlePrefab: {fileID: 7569517289463913548, guid: 45fc8c4a290e04390864aa3f89f4edce, type: 3}
   noteContentPrefab: {fileID: 735144260935552970, guid: 20432788f82bf4aa08300f5f080871fb, type: 3}

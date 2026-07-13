@@ -4,22 +4,45 @@ using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Investigation;
 
 public class SaveManager : MonoBehaviour
 {
     public bool reseting = false;
+    private Inv_GameManager gameManager;
     public Dictionary<string, object> progress = new Dictionary<string, object>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
-        progress = LoadData<Dictionary<string, object>>("progress");
+        gameManager = GameObject.FindFirstObjectByType<Inv_GameManager>();
+        if(LoadData<Dictionary<string, object>>("progress", out Dictionary<string, object> result))
+        {
+            progress = result;
+            InitializedBasedOnProgress();
+        }
+        else
+        {
+            progress = result;
+            InitializeEverything();
+        }
     }
     void Start()
     {
         
     }
-
+    private void InitializeEverything()
+    {
+        SaveData("notes", new Dictionary<string, object>());
+        SaveData("inventory", new List<string>());
+        //Progress Initialization
+        progress["noteLock"] = true;
+        SaveData("progress", progress);
+    }
+    private void InitializedBasedOnProgress()
+    {
+        gameManager.NoteLock((bool)progress["noteLock"]);
+    }
     // Update is called once per frame
     void Update()
     {
@@ -44,19 +67,18 @@ public class SaveManager : MonoBehaviour
         string json = JsonConvert.SerializeObject(data, Formatting.Indented);
         System.IO.File.WriteAllText(PathGen(fileName), json);
     }
-    public T LoadData<T>(string fileName) where T : new()
+    public bool LoadData<T>(string fileName, out T result) where T : new()
     {        
         string path = PathGen(fileName);
-        if (System.IO.File.Exists(path))
+        if (File.Exists(path))
         {
-            string json = System.IO.File.ReadAllText(path);
-            return JsonConvert.DeserializeObject<T>(json);
+            string json = File.ReadAllText(path);
+            result = JsonConvert.DeserializeObject<T>(json);
+            return true;
         }
-        else
-        {
-            Debug.LogWarning("File not found: " + path);
-            return new T();
-        }
+        Debug.LogWarning("File not found: " + path);
+        result = new T();
+        return false;
     }
 
     // overwrite=false는 object타입이 List일때만: add로 작용
@@ -90,11 +112,11 @@ public class SaveManager : MonoBehaviour
     public void ResetProgressData<T>(string fileName)where T : new()
     {
         string path = PathGen(fileName);
-        /*if (File.Exists(path))
+        if (File.Exists(path))
         {
             File.Delete(path);
             Debug.Log("Deleted save file: " + path);
-        }*/
-        SaveData(fileName, new T());
+        }
+        //SaveData(fileName, new T());
     }
 }
