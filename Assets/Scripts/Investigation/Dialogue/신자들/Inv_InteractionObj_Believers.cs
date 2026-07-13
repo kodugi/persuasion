@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Investigation
 {
-public class Inv_Interaction_Believers: Inv_InteractionObj
+public class Inv_InteractionObj_Believers: Inv_InteractionObj
     {
         override public void variation(List<string> parameters=null)
         {

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.IO;
@@ -13,9 +14,10 @@ namespace Investigation
         [SerializeField] private GameObject interactionGuide;
         [SerializeField] private List<int> anchorPosition;
         [SerializeField] private GameObject interactables;
+        [SerializeField] private GameObject previewMap;
         private Vector2 anchorPos;
         private List<string> interactionQueue = new List<string>();
-        private bool isInteracting = false;
+        public bool isInteracting = false;
         void Start()
         {
             interactionGuide.SetActive(false);
@@ -51,22 +53,35 @@ namespace Investigation
             
             if (targetState)
             {
-                interactionGuide.SetActive(true);
-                interactionGuide.transform.Find("Text").GetComponent<TMPro.TextMeshProUGUI>().text = "Press X to interact with " + interactionQueue[interactionQueue.Count - 1];
+                if (!isInteracting)
+                {
+                    interactionGuide.SetActive(true);
+                    interactionGuide.transform.Find("Text").GetComponent<TMPro.TextMeshProUGUI>().text = "Press X to interact";
+                }
             }
             else
             {
                 interactionGuide.SetActive(false);
             }
         }
+        public void ForceInteraction(string name)
+        {
+            Interact(name);/*
+            if (interactionQueue.Contains(name)) Interact(name);
+            else Debug.LogWarning("Attempted to force an interaction that was not in the queue: " + name);*/
+        }
         private void Interact(string name)
         {
             isInteracting = true;
             InteractionGuideUpdate("off");
 
-            Inv_InteractionObj interactingObj = interactables.transform.Find(name).GetComponent<Inv_InteractionObj>();
-            string path = "Assets/Scripts/Investigation/Dialogue/" + name + "/Dialogue" + interactingObj.state + ".json";
-            //interactingObj.variation();
+            int state = 0;
+            if(FindInteractableObj(name) != null)
+            {
+                Inv_InteractionObj interactingObj = FindInteractableObj(name).GetComponent<Inv_InteractionObj>();
+                state = interactingObj.state;
+            }
+            string path = "Assets/Scripts/Investigation/Dialogue/" + name + "/Dialogue" + state.ToString() + ".json";
             string json = File.ReadAllText(path);
             JObject data = JObject.Parse(json);
             GameObject obj = Instantiate(dialogueBox, GameObject.Find("Canvas").transform);
@@ -80,6 +95,15 @@ namespace Investigation
         {
             isInteracting = false;
             InteractionGuideUpdate();
+        }
+        Transform FindInteractableObj(string target)
+        {
+            Transform targetT = null;
+            foreach (Transform child in GameObject.Find("Interactables").transform)
+            {
+                if(child.gameObject.name==target) targetT = child;
+            }
+            return targetT;
         }
         public void Effects(JObject effect)
         {
@@ -95,11 +119,20 @@ namespace Investigation
                 case "variation":
                     string target = (string)effect["target"];
                     List<string> parameters = JsonConvert.DeserializeObject<List<string>>(effect["parameters"].ToString());
-                    GameObject.Find("Interactables").transform.Find(target).GetComponent<Inv_InteractionObj>().variation(parameters);
+                    FindInteractableObj(target).GetComponent<Inv_InteractionObj>().variation(parameters);
                     break;
                 case "item":
                     string item = (string)effect["name"];
                     manager.AddItem(item);
+                    break;
+                case "persuade":
+                    previewMap.SetActive(true);
+                    previewMap.transform.Find("ProgressButton").GetComponent<Button>().onClick.RemoveAllListeners();
+                    previewMap.transform.Find("ProgressButton").GetComponent<Button>().onClick.AddListener(()=>manager.LoadGameScene((string)effect["title"]));
+                    break;
+                case "delete":
+                    string target_deletion = (string)effect["target"];
+                    Destroy(FindInteractableObj(target_deletion).gameObject);
                     break;
             }
         }

@@ -2,13 +2,31 @@
     "title": "Map1",
     "interactables": [
         {
-            "title": "신자들",
+            "title": "background",
             "position": {
+                "x": -2,
+                "y": 50
+            },
+            "image": "Map1",
+            "script": "None"
+        },
+        {
+            "title": "Map1/Guard1",
+            "position": {
+                "x": -10,
+                "y": 10
+            },
+            "image": "Guard1",
+            "script": "Inv_InteractionObj_Map1_Guard1"
+        },
+        {
+            "title": "Map1/Guard1_Trigger",
+            "position":{
                 "x": 0,
-                "y": 4
+                "y": 5
             },
             "image": "",
-            "script": "Inv_Interaction_Believers"
+            "script": "Inv_InteractionObj_Map1_Guard1_Trigger"
         }
     ]
 }

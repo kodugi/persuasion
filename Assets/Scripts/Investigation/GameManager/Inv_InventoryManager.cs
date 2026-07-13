@@ -13,15 +13,14 @@ namespace Investigation
         [SerializeField] private GameObject inventoryPanel;
         [SerializeField] private GameObject inventoryItemPrefab;
         List<string> inventoryItems = new List<string>();
-        List<AsyncOperationHandle<Sprite>> handles = new List<AsyncOperationHandle<Sprite>>();
+        List<AsyncOperationHandle<Sprite>> inventoryHandles = new List<AsyncOperationHandle<Sprite>>();
+
         void InventoryAwake()
         {
             inventoryItems = saveManager.LoadData<List<string>>("inventory");
         }
         void InventoryStart()
         {
-            inputAction = new InputActions();
-            inputAction.Player.Enable();
             PreviewInventory();
         }
         void CheckInventoryKey()
@@ -46,14 +45,7 @@ namespace Investigation
                 RectTransform rt = newItem.GetComponent<RectTransform>();
                 rt.anchoredPosition = InventoryItemPosCalc(i);
                 newItem.name = item;
-                Addressables.LoadAssetAsync<Sprite>(item).Completed += handle =>
-                {
-                    if (handle.Status == AsyncOperationStatus.Succeeded)
-                    {
-                        newItem.GetComponent<Image>().sprite = handle.Result;
-                        handles.Add(handle);
-                    }
-                };
+                SetSpriteImage<Image>(newItem, item, inventoryHandles);
             }
             inventoryPanel.SetActive(true);
         }
@@ -67,14 +59,7 @@ namespace Investigation
                     Destroy(child.gameObject);
                 }
             }
-            foreach (var handle in handles)
-            {
-                if(handle.IsValid())
-                {
-                    Addressables.Release(handle);
-                }
-            }
-            handles.Clear();
+            ClearHandles(inventoryHandles);
         }
         public void AddItem(string itemName)
         {

@@ -8,6 +8,7 @@ namespace Investigation
         public InputActions inputAction;
         [SerializeField] private float moveSpeed = 5f;
         private Inv_Interact interactionScript;
+        private Vector2 movementInput;
         void Awake()
         {
             inputAction = new InputActions();
@@ -22,8 +23,10 @@ namespace Investigation
         // Update is called once per frame
         void Update()
         {
-            Vector2 movementInput = inputAction.Player.Move.ReadValue<Vector2>();
-            transform.Translate(new Vector3(movementInput.x, movementInput.y, 0) * Time.deltaTime * moveSpeed);
+            if(!interactionScript.isInteracting){
+                movementInput = inputAction.Player.Move.ReadValue<Vector2>();
+                transform.Translate(new Vector3(movementInput.x, movementInput.y, 0) * Time.deltaTime * moveSpeed);
+            }
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {

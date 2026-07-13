@@ -13,6 +13,7 @@ public class Inv_InteractionObj : MonoBehaviour
             obj_name = gameObject.name;
             saveManager = GameObject.Find("SaveManager").GetComponent<SaveManager>();
             CheckState();
+            Starter();
         }
         virtual protected void CheckState()
         {
@@ -26,9 +27,12 @@ public class Inv_InteractionObj : MonoBehaviour
                 state = 0;
             }
         }
+        virtual protected void Starter()
+        {
+            
+        }
         virtual public void variation(List<string> parameters=null)
         {
-            //if (state==0) state=1;
             saveManager.AddProgress(obj_name+"state", state);
         }
     }

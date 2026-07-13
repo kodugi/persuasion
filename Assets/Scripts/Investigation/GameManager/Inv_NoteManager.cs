@@ -14,7 +14,6 @@ namespace Investigation
         public GameObject notePanel;
         public GameObject noteTitlePrefab;
         public GameObject noteContentPrefab;
-        public GameObject interactablePrefab;
         void NoteAwake()
         {
             notes = saveManager.LoadData<Dictionary<string, List<string>>>("notes");

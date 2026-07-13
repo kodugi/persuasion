@@ -28,8 +28,9 @@ public class SaveManager : MonoBehaviour
     void OnApplicationQuit()
     {
         if (reseting) {
-            ResetProgressData("progress");
-            ResetProgressData("notes");
+            ResetProgressData<Dictionary<string, object>>("progress");
+            ResetProgressData<Dictionary<string, object>>("notes");
+            ResetProgressData<List<string>>("inventory");
         }
         else SaveData("progress", progress);
     }
@@ -86,7 +87,7 @@ public class SaveManager : MonoBehaviour
     }
 
     //temp
-    public void ResetProgressData(string fileName)
+    public void ResetProgressData<T>(string fileName)where T : new()
     {
         string path = PathGen(fileName);
         /*if (File.Exists(path))
@@ -94,6 +95,6 @@ public class SaveManager : MonoBehaviour
             File.Delete(path);
             Debug.Log("Deleted save file: " + path);
         }*/
-        SaveData(fileName, new Dictionary<string, object>());
+        SaveData(fileName, new T());
     }
 }
