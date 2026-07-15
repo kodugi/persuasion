@@ -24,6 +24,14 @@
                 "x": -10,
                 "y": 10
             },
+            "size": {
+                "x": 3,
+                "y": 3
+            },
+            "colliderSize": {
+                "x": 1,
+                "y": 1
+            },
             "image": "Guard1",
             "script": "Inv_InteractionObj_Map1_Guard1"
         },
@@ -32,6 +40,14 @@
             "position":{
                 "x": 0,
                 "y": 5
+            },
+            "size": {
+                "x": 6,
+                "y": 6
+            },
+            "colliderSize": {
+                "x": 1,
+                "y": 1
             },
             "image": "",
             "script": "Inv_InteractionObj_Map1_Guard1_Trigger"
@@ -42,6 +58,14 @@
                 "x": -10,
                 "y": 30
             },
+            "size": {
+                "x": 1,
+                "y": 1
+            },
+            "colliderSize": {
+                "x": 12,
+                "y": 8
+            },
             "image": "집1",
             "script": "Inv_InteractionObj_Map1_Houses"
         },
@@ -51,6 +75,14 @@
                 "x": 10,
                 "y": 40
             },
+            "size": {
+                "x": 1,
+                "y": 1
+            },
+            "colliderSize": {
+                "x": 1,
+                "y": 1
+            },
             "image": "Note_Obtain",
             "script": "Inv_InteractionObj_Map1_Note_Obtain"
         },
@@ -59,6 +91,14 @@
             "position": {
                 "x": 15,
                 "y": 50
+            },
+            "size": {
+                "x": 2,
+                "y": 2
+            },
+            "colliderSize": {
+                "x": 1,
+                "y": 1
             },
             "image": "Writer",
             "script": "Inv_InteractionObj_Map1_Writer"

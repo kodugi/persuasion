@@ -33,6 +33,10 @@ namespace Investigation
         {
             return new Vector2(v.x, v.y);
         }
+        private Vector3 Vector_2D_to_Vector3(Vector_2D v)
+        {
+            return new Vector3(v.x, v.y, 1);
+        }
         void Awake()
         {
             saveManager = GameObject.Find("SaveManager").GetComponent<SaveManager>();
@@ -114,7 +118,7 @@ namespace Investigation
                 {
                     interactable.AddComponent<Inv_InteractionObj>();
                 }
-                interactable.transform.localScale = Vector_2D_to_Vector2(obj.size);
+                interactable.transform.localScale = Vector_2D_to_Vector3(obj.size);
                 interactable.GetComponent<BoxCollider2D>().size = Vector_2D_to_Vector2(obj.colliderSize);
             }
         }

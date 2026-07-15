@@ -10,6 +10,7 @@ namespace Investigation
         [SerializeField] private GameObject thoughtObj;
         private Inv_Interact interactionScript;
         private Vector2 movementInput;
+        Rigidbody2D rigidbody;
         void Awake()
         {
             inputAction = new InputActions();
@@ -19,14 +20,15 @@ namespace Investigation
         void Start()
         {
             interactionScript = GameObject.FindFirstObjectByType<Inv_Interact>().GetComponent<Inv_Interact>();
+            rigidbody = GetComponent<Rigidbody2D>();
         }
 
         // Update is called once per frame
-        void Update()
+        void FixedUpdate()
         {
             if(!interactionScript.isInteracting){
                 movementInput = inputAction.Player.Move.ReadValue<Vector2>();
-                transform.Translate(new Vector3(movementInput.x, movementInput.y, 0) * Time.deltaTime * moveSpeed);
+                rigidbody.MovePosition(rigidbody.position +new Vector2(movementInput.x, movementInput.y) * Time.deltaTime * moveSpeed);
             }
         }
         private void OnTriggerEnter2D(Collider2D collision)
