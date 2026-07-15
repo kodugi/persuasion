@@ -91,6 +91,7 @@ namespace Investigation
         void PreviewInventory()
         {
             OpenInventory();
+            FadeObject(inventoryPanel, false, 2f, 2f, false);
             // delay
             //CloseInventory();
         }
