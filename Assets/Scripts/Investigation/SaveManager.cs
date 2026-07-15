@@ -38,6 +38,7 @@ public class SaveManager : MonoBehaviour
         //Progress Initialization
         progress["noteLock"] = true;
         SaveData("progress", progress);
+        InitializedBasedOnProgress();
     }
     private void InitializedBasedOnProgress()
     {

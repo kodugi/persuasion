@@ -3,10 +3,11 @@ using UnityEngine.InputSystem;
  
 namespace Investigation
 {
-    public class Inv_PlayerCTRL : MonoBehaviour
+    public class Inv_PlayerCTRL : Utility
     {
         public InputActions inputAction;
         [SerializeField] private float moveSpeed = 5f;
+        [SerializeField] private GameObject thoughtObj;
         private Inv_Interact interactionScript;
         private Vector2 movementInput;
         void Awake()
@@ -41,6 +42,12 @@ namespace Investigation
             {
                 interactionScript.QueueInteraction(collision.GetComponent<Inv_InteractionObj>().obj_name, false);
             }
+        }
+        public void Think(string thought)
+        {
+            thoughtObj.SetActive(true);
+            thoughtObj.transform.Find("Text").GetComponent<TMPro.TextMeshProUGUI>().text = thought;
+            FadeObject(thoughtObj, false, 2f, 2f, false);
         }
     }
 }

@@ -1,0 +1,61 @@
+{
+    "title": "누군가의 집",
+    "path": [
+        {
+            "description": "안에는 여전히 사람이 있는 것 같다.",
+            "buttons":[
+                {
+                    "title": "문을 두드려 볼까?",
+                    "next": 1,
+                    "effects": [
+                        {
+                            "type": "variation",
+                            "target": "Map1/House1",
+                            "parameters":[
+                                "faceOn"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "title": "그냥 지나가자.",
+                    "next": -1,
+                    "effects": [
+                        
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "뭐야?",
+            "buttons":[
+                {
+                    "title": "안녕하세요, 저...",
+                    "next": 2,
+                    "effects": [
+                        {
+                            "type": "variation",
+                            "target": "Map1/House1",
+                            "parameters":[
+                                "faceOff"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "왜 또 왔어? 니 할 일이나 해. 남의 집 기웃거리지 말고.\n(문이 쾅 하고 닫힌다.)",
+            "buttons":[
+                {
+                    "title": "하...",
+                    "next": -1,
+                    "effects": [
+                        
+                    ]
+                }
+            ]
+        }
+    ]
+
+}

@@ -4,7 +4,7 @@ using System.IO;
 
 namespace Investigation
 {
-    public class Inv_DialogueBox : MonoBehaviour
+    public class Inv_DialogueBox : Utility
     {
         public JObject data;
         public Inv_Interact interactionScript;
@@ -14,6 +14,10 @@ namespace Investigation
         {
             transform.Find("Title").GetComponent<TMPro.TextMeshProUGUI>().text = data["title"].ToString();
             DisplayDialogue(0);
+        }
+        public void ChangeTitle(string title)
+        {
+            transform.Find("Title").GetComponent<TMPro.TextMeshProUGUI>().text = title;
         }
         void DisplayDialogue(int index)
         {

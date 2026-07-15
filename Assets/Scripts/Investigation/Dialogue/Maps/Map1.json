@@ -27,6 +27,15 @@
             },
             "image": "",
             "script": "Inv_InteractionObj_Map1_Guard1_Trigger"
+        },
+        {
+            "title": "Map1/House1",
+            "position": {
+                "x": -10,
+                "y": 30
+            },
+            "image": "House1",
+            "script": "Inv_InteractionObj_Map1_Houses"
         }
     ]
 }

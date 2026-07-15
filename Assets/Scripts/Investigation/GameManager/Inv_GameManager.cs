@@ -8,7 +8,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Investigation
 {
-    public partial class Inv_GameManager : MonoBehaviour
+    public partial class Inv_GameManager : Utility
     {
         private SaveManager saveManager;
         [SerializeField] private GameObject interactablePrefab;
@@ -40,7 +40,7 @@ namespace Investigation
         {
             ClearHandles(mapHandles);
         }
-        void SetSpriteImage<T>(GameObject obj, string imagePath, List<AsyncOperationHandle<Sprite>> handles) where T : Component
+        public void SetSpriteImage<T>(GameObject obj, string imagePath, List<AsyncOperationHandle<Sprite>> handles) where T : Component
         {
             Addressables.LoadAssetAsync<Sprite>(imagePath).Completed += handle =>
             {
@@ -65,7 +65,7 @@ namespace Investigation
                 }
             };
         }
-        void ClearHandles(List<AsyncOperationHandle<Sprite>> handles)
+        public void ClearHandles(List<AsyncOperationHandle<Sprite>> handles)
         {
             foreach (var handle in handles)
             {

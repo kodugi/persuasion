@@ -25,6 +25,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9014b01de72ae483b967aab5cd1c893e
+    m_Address: Map1_House1_Face
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a7681fb55911e433294dbe34216362b3
     m_Address: player
     m_ReadOnly: 0

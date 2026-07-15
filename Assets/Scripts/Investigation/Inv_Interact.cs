@@ -7,14 +7,16 @@ using System.Collections.Generic;
 
 namespace Investigation
 {
-    public class Inv_Interact : MonoBehaviour
+    public class Inv_Interact : Utility
     {
         [SerializeField] private GameObject dialogueBox;
-        [SerializeField] private Inv_GameManager manager;
         [SerializeField] private GameObject interactionGuide;
         [SerializeField] private List<int> anchorPosition;
         [SerializeField] private GameObject interactables;
         [SerializeField] private GameObject previewMap;
+        Inv_GameManager manager;
+        Inv_DialogueBox dialogueScript;
+        Inv_PlayerCTRL playerCTRL;
         private Vector2 anchorPos;
         private List<string> interactionQueue = new List<string>();
         public bool isInteracting = false;
@@ -22,7 +24,8 @@ namespace Investigation
         {
             interactionGuide.SetActive(false);
             anchorPos = new Vector2(anchorPosition[0], anchorPosition[1]);
-            manager = GameObject.Find("GameManager").GetComponent<Inv_GameManager>();
+            manager = GameObject.FindFirstObjectByType<Inv_GameManager>().GetComponent<Inv_GameManager>();
+            playerCTRL = GameObject.FindFirstObjectByType<Inv_PlayerCTRL>().GetComponent<Inv_PlayerCTRL>();
         }
         void Update()
         {
@@ -79,6 +82,7 @@ namespace Investigation
             if(FindInteractableObj(name) != null)
             {
                 Inv_InteractionObj interactingObj = FindInteractableObj(name).GetComponent<Inv_InteractionObj>();
+                interactingObj.StartInteraction();
                 state = interactingObj.state;
             }
             string path = "Assets/Scripts/Investigation/Dialogue/" + name + "/Dialogue" + state.ToString() + ".json";
@@ -86,13 +90,14 @@ namespace Investigation
             JObject data = JObject.Parse(json);
             GameObject obj = Instantiate(dialogueBox, GameObject.Find("Canvas").transform);
             obj.GetComponent<RectTransform>().anchoredPosition = anchorPos;
-            Inv_DialogueBox dialogueScript = obj.GetComponent<Inv_DialogueBox>();
+            dialogueScript = obj.GetComponent<Inv_DialogueBox>();
             dialogueScript.interactionScript = this;
             dialogueScript.data = data;
             dialogueScript.Initialize();
         }
         public void InteractionEnd()
         {
+            dialogueScript = null;
             isInteracting = false;
             InteractionGuideUpdate();
         }
@@ -133,6 +138,16 @@ namespace Investigation
                 case "delete":
                     string target_deletion = (string)effect["target"];
                     Destroy(FindInteractableObj(target_deletion).gameObject);
+                    break;
+                case "changeTitle":
+                    dialogueScript.ChangeTitle((string)effect["title"]);
+                    break;
+                case "playSound":
+                    // play sound
+                    break;
+                case "thought":
+                    string thought = (string)effect["thought"];
+                    playerCTRL.Think(thought);
                     break;
             }
         }

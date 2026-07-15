@@ -1,0 +1,78 @@
+{
+    "title": "누군가의 집",
+    "path": [
+        {
+            "description": "뭔가 으스스한 집이다. 안에 사람이 있는 것 같다.",
+            "buttons":[
+                {
+                    "title": "문을 두드려 볼까?",
+                    "next": 1,
+                    "effects": [
+                        {
+                            "type": "variation",
+                            "target": "Map1/House1",
+                            "parameters":[
+                                "faceOn"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "title": "그냥 지나가자.",
+                    "next": -1,
+                    "effects": [
+                        
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "뭐야?",
+            "buttons":[
+                {
+                    "title": "안녕하세요, 저 언니를 찾고 있는데요...",
+                    "next": 2,
+                    "effects": [
+                        
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "언니? 니 언니가 누군데.",
+            "buttons":[
+                {
+                    "title": "언니 이름은 (뉴진스)고, 엄청 착해요..! (임시)",
+                    "next": 3,
+                    "effects": [
+                        
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "그것만 듣고 내가 어떻게 알아. 이래봬도 이 마을에 사람이 몇 명인데.\n그리고 그런 이름은 들어본 기억이 없는데? 귀찮게 하지 말고 가.",
+            "buttons":[
+                {
+                    "title": "네...",
+                    "next": -1,
+                    "effects": [
+                        {
+                            "type": "variation",
+                            "target": "Map1/House1",
+                            "parameters":[
+                                "faceOff",
+                                "firstTalkDone"
+                            ]
+                        },
+                        {
+                            "type": "thought",
+                            "thought": "언니의 얼굴을 그려서 보여줘야겠다. 그림 그릴 수 있는 것을 찾아보자."
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+
+}

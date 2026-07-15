@@ -1,9 +1,10 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 namespace Investigation
 {
-public class Inv_InteractionObj : MonoBehaviour
+public class Inv_InteractionObj : Utility
     {
         public string obj_name;
         public int state=0;
@@ -15,12 +16,16 @@ public class Inv_InteractionObj : MonoBehaviour
             CheckState();
             Starter();
         }
-        virtual protected void CheckState()
+        virtual public void StartInteraction()
+        {
+            CheckState();
+        }
+        virtual public void CheckState()
         {
             if (saveManager.progress.ContainsKey(obj_name+"state"))
             {
                 print(saveManager.progress[obj_name+"state"]);
-                state = (int)(long)saveManager.progress[obj_name+"state"];
+                state = Convert.ToInt32(saveManager.progress[obj_name + "state"]);
             }
             else
             {
