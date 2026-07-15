@@ -13,6 +13,9 @@ public class Inv_InteractionObj_Map1_Writer: Inv_InteractionObj
                     case "Met":
                         state=1;
                         break;
+                    case "PenGiven":
+                        state=2;
+                        break;
                 }
             }
             base.variation();

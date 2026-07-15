@@ -2,7 +2,7 @@
     "title": "작가 아저씨",
     "path": [
         {
-            "description": "흠. 알겠네. 펜을 빌려주도록 하지. 그리 귀한 물건도 아니고 말이야.\n자네가 그리 나쁜 사람은 아닌 것 같구만.",
+            "description": "흠. 알겠소. 펜을 빌려주도록 하지요. 그리 귀한 물건도 아니니.\n자네가 그리 나쁜 사람은 아닌 것 같구만.",
             "buttons":[
                 {
                     "title": "감사합니다!!\n(펜을 받는다)",
@@ -12,6 +12,13 @@
                             "type": "progress",
                             "key": "penPossessed",
                             "value": true
+                        },
+                        {
+                            "type": "variation",
+                            "target": "Map1/Writer",
+                            "parameters":[
+                                "PenGiven"
+                            ]
                         }
                     ]
                 }
