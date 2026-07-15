@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using SingletonUtils;
@@ -13,6 +15,9 @@ namespace GamePlay
         [SerializeField] private TextMeshProUGUI _suspicionPreviewText;
         [SerializeField] private RectTransform _focusTarget;
 
+        private Coroutine _glowSuspicionPreviewCoroutine;
+        private Color _originalColor;
+
         protected override bool InitializeCore()
         {
             if (SuspicionManager.Instance == null)
@@ -24,6 +29,7 @@ namespace GamePlay
             SuspicionManager.Instance.RaiseSetSuspicionPreviewEvent += HandleSetSuspicionPreviewEvent;
             SetSuspicionUI(SuspicionManager.Instance.GetCurrentSuspicion());
             SetSuspicionPreviewUI(SuspicionManager.Instance.GetCurrentSuspicionPreview());
+            _originalColor = _suspicionPreviewGauge.color;
             return true;
         }
 
@@ -49,6 +55,19 @@ namespace GamePlay
         {
             _suspicionPreviewGauge.fillAmount = (float)suspicion / (float)SuspicionManager.Instance.GetMaxSuspicion();
             _suspicionPreviewText.text = suspicion + "/" + SuspicionManager.Instance.GetMaxSuspicion();
+            if (suspicion > SuspicionManager.Instance.GetMaxSuspicion())
+            {
+                _glowSuspicionPreviewCoroutine = StartCoroutine(GlowSuspicionPreview());
+            }
+            else
+            {
+                if (_glowSuspicionPreviewCoroutine != null)
+                {
+                    Debug.Log("coroutine stopped");
+                    StopCoroutine(_glowSuspicionPreviewCoroutine);
+                    _suspicionPreviewGauge.color = _originalColor;
+                }
+            }
         }
 
         private void HandleSetSuspicionEvent(object sender, SetSuspicionEventArgs e)
@@ -64,6 +83,16 @@ namespace GamePlay
         public RectTransform GetFocusTarget()
         {
             return _focusTarget != null ? _focusTarget : GetComponent<RectTransform>();
+        }
+
+        IEnumerator GlowSuspicionPreview()
+        {
+            for (int i = 0; true; i = (i + 3) % 360)
+            {
+                _suspicionPreviewGauge.color = new Color(_originalColor.r + 0.5f * (1 - (float)Math.Cos(Math.PI / 180 * i)), _originalColor.g,
+                    _originalColor.b, _originalColor.a);
+                yield return new WaitForSeconds(0.01f);
+            }
         }
     }
 }
