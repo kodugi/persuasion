@@ -44,7 +44,7 @@
                 "y": 40
             },
             "image": "Note_Obtain",
-            "script": ""
+            "script": "Inv_InteractionObj_Map1_Note_Obtain"
         }
     ]
 }

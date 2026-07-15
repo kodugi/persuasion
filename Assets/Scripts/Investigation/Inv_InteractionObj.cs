@@ -8,7 +8,7 @@ public class Inv_InteractionObj : Utility
     {
         public string obj_name;
         public int state=0;
-        private SaveManager saveManager;
+        protected SaveManager saveManager;
         void Start()
         {
             obj_name = gameObject.name;
