@@ -37,7 +37,7 @@ namespace Investigation
                 movementInput = inputAction.Player.Move.ReadValue<Vector2>();
                 rigidbody_my.MovePosition(rigidbody_my.position +new Vector2(movementInput.x, movementInput.y) * Time.deltaTime * moveSpeed);
             }
-            layer_maxBehind = -100;
+            layer_maxBehind = 0;
             foreach(GameObject obj in layer_consideredObjs)
             {
                 if(gameObject.transform.position.y <= obj.transform.position.y + obj.GetComponent<Inv_InteractionObj>().hideCriteria)

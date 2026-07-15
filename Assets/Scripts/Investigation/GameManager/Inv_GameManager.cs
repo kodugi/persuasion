@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -118,19 +120,20 @@ namespace Investigation
                 interactable.GetComponent<BoxCollider2D>().offset = Vector_2D_to_Vector2(obj.triggerOffset);
 
                 // Create Child for Physical Collider
-                if(obj.colliderSize.x+obj.colliderSize.y > 0.00001)
+                if (Mathf.Abs(obj.colliderSize.x) + Mathf.Abs(obj.colliderSize.y) > 0.00001f)
                 {
-                    GameObject interactable_collider=Instantiate(interactable, interactable.transform.position, Quaternion.identity, interactable.transform);
-                    Destroy(interactable_collider.GetComponent<SpriteRenderer>());
-                    if(obj.colliderShape == "box")
+                    GameObject interactableCollider = new GameObject("Collider");
+                    interactableCollider.transform.SetParent(interactable.transform);
+                    interactableCollider.transform.localPosition = Vector3.zero;
+                    interactableCollider.transform.localRotation = Quaternion.identity;
+                    interactableCollider.transform.localScale = Vector3.one;
+
+                    if (obj.colliderShape == "box")
                     {
-                        interactable_collider.GetComponent<BoxCollider2D>().size = Vector_2D_to_Vector2(obj.colliderSize);
-                        interactable_collider.GetComponent<BoxCollider2D>().offset = Vector_2D_to_Vector2(obj.colliderOffset);
-                        interactable_collider.GetComponent<BoxCollider2D>().isTrigger = false;
-                    }
-                    else // circle
-                    {
-                        
+                        BoxCollider2D box = interactableCollider.AddComponent<BoxCollider2D>();
+                        box.size = Vector_2D_to_Vector2(obj.colliderSize);
+                        box.offset = Vector_2D_to_Vector2(obj.colliderOffset);
+                        box.isTrigger = false;
                     }
                 }
 
