@@ -56,7 +56,9 @@ public class SaveManager : MonoBehaviour
             ResetProgressData<Dictionary<string, object>>("notes");
             ResetProgressData<List<string>>("inventory");
         }
-        else SaveData("progress", progress);
+        else {
+            SaveData("progress", progress);
+        }
     }
     private string PathGen(string fileName)
     {
@@ -106,6 +108,36 @@ public class SaveManager : MonoBehaviour
                     Debug.LogWarning("Cannot add non-list value to existing key: " + key);
                 }
             }
+        }
+        SaveData("progress", progress);
+        AddProgressException(key, value);
+    }
+    public object LoadProgress(string key)
+    {
+        if (progress.ContainsKey(key))
+        {
+            return progress[key];
+        }
+        else
+        {
+            return null;
+        }
+    }
+    void AddProgressException(string key, object value)
+    {
+        print(key);
+        switch (key)
+        {
+            case "notePossessed":
+            case "penPosssessed":
+                if(((LoadProgress("notePossessed") as bool?) == true))// && ((LoadProgress("penPossessed") as bool?) == true))
+                {
+                    AddProgress("noteLock", false);
+                    gameManager.NoteLock(false);
+                }
+                break;
+            default:
+                return;
         }
     }
 

@@ -36,6 +36,15 @@
             },
             "image": "House1",
             "script": "Inv_InteractionObj_Map1_Houses"
+        },
+        {
+            "title": "Map1/Note_Obtain",
+            "position": {
+                "x": 10,
+                "y": 40
+            },
+            "image": "Note_Obtain",
+            "script": ""
         }
     ]
 }

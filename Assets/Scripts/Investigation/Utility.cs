@@ -22,6 +22,15 @@ namespace Investigation
         protected IEnumerator FadeSlowly(GameObject targetObj, bool fadeIn, float delay, float fadingTime, bool doDestroy=true)
         {
             yield return new WaitForSeconds(delay);
+            //Fade Effect
+            if (doDestroy)
+            {
+                Destroy(targetObj);
+            }
+            else
+            {
+                targetObj.SetActive(false);
+            }
         }
     }
 }

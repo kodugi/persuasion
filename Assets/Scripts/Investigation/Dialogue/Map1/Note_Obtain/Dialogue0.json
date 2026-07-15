@@ -1,0 +1,32 @@
+{
+    "title": "바닥에 떨어진 노트",
+    "path": [
+        {
+            "description": "바닥에 노트가 떨어져 있다. 좀 더러워지긴 했지만 그럭저럭 쓸만해 보인다.",
+            "buttons":[
+                {
+                    "title": "줍는다.",
+                    "next": -1,
+                    "effects": [
+                        {
+                            "type": "item",
+                            "name": "note"
+                        },
+                        {
+                            "type": "delete",
+                            "target": "Map1/Note_Obtain"
+                        }
+                    ]
+                },
+                {
+                    "title": "혹시 모르니까 두고 간다.",
+                    "next": -1,
+                    "effects": [
+                        
+                    ]
+                }
+            ]
+        }
+    ]
+
+}

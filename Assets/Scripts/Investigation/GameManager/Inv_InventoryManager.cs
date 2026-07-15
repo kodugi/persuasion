@@ -63,9 +63,24 @@ namespace Investigation
         }
         public void AddItem(string itemName)
         {
+            bool doQuit = AddItemException(itemName);
+            if(doQuit) return;
             inventoryItems.Add(itemName);
             saveManager.SaveData("inventory", inventoryItems);
             PreviewInventory();
+        }
+        bool AddItemException(string itemName)
+        {
+            switch (itemName)
+            {
+                case "note":
+                    saveManager.AddProgress("notePossessed", true);
+                    return true;
+                    //break;
+                default:
+                    return false;
+                    //break;
+            }
         }
         public void RemoveItem(string itemName)
         {
