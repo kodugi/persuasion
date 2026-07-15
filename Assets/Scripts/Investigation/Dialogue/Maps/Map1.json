@@ -34,7 +34,7 @@
                 "x": -10,
                 "y": 30
             },
-            "image": "House1",
+            "image": "집1",
             "script": "Inv_InteractionObj_Map1_Houses"
         },
         {
