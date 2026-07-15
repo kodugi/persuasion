@@ -106,11 +106,14 @@ namespace Investigation
                 if(obj.title == "background") continue;
 
                 // Create Child for Physical Collider
-                GameObject interactable_collider=Instantiate(interactable, interactable.transform.position, Quaternion.identity, interactable.transform);
-                Destroy(interactable_collider.GetComponent<SpriteRenderer>());
-                interactable_collider.GetComponent<BoxCollider2D>().size = Vector_2D_to_Vector2(obj.colliderSize);
-                interactable_collider.GetComponent<BoxCollider2D>().offset = Vector_2D_to_Vector2(obj.colliderOffset);
-                interactable_collider.GetComponent<BoxCollider2D>().isTrigger = false;
+                if(obj.colliderSize.x+obj.colliderSize.y > 0.00001)
+                {
+                    GameObject interactable_collider=Instantiate(interactable, interactable.transform.position, Quaternion.identity, interactable.transform);
+                    Destroy(interactable_collider.GetComponent<SpriteRenderer>());
+                    interactable_collider.GetComponent<BoxCollider2D>().size = Vector_2D_to_Vector2(obj.colliderSize);
+                    interactable_collider.GetComponent<BoxCollider2D>().offset = Vector_2D_to_Vector2(obj.colliderOffset);
+                    interactable_collider.GetComponent<BoxCollider2D>().isTrigger = false;
+                }
 
                 if (!string.IsNullOrEmpty(obj.script))
                 {
