@@ -28,18 +28,6 @@ namespace Investigation
         {
             saveManager.SaveData("notes", notes);
         }
-        private class Position
-        {
-            public float x;
-            public float y;
-        }
-        private class InteractableObj
-        {
-            public string title;
-            public Position Position;
-            public string image;
-            public string script;
-        }
         public void NoteLock(bool doLock)
         {
             noteButton.SetActive(!doLock);

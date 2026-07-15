@@ -15,6 +15,24 @@ namespace Investigation
         [SerializeField] private GameObject backgroundPrefab;
         List<AsyncOperationHandle<Sprite>> mapHandles = new List<AsyncOperationHandle<Sprite>>();
         
+        private class Vector_2D
+        {
+            public float x;
+            public float y;
+        }
+        private class InteractableObj
+        {
+            public string title;
+            public Vector_2D position;
+            public Vector_2D size;
+            public Vector_2D colliderSize;
+            public string image;
+            public string script;
+        }
+        private Vector2 Vector_2D_to_Vector2(Vector_2D v)
+        {
+            return new Vector2(v.x, v.y);
+        }
         void Awake()
         {
             saveManager = GameObject.Find("SaveManager").GetComponent<SaveManager>();
@@ -40,31 +58,6 @@ namespace Investigation
         {
             ClearHandles(mapHandles);
         }
-        public void SetSpriteImage<T>(GameObject obj, string imagePath, List<AsyncOperationHandle<Sprite>> handles) where T : Component
-        {
-            Addressables.LoadAssetAsync<Sprite>(imagePath).Completed += handle =>
-            {
-                if (handle.Status == AsyncOperationStatus.Succeeded)
-                {
-                    Sprite sprite = handle.Result;
-                    if (typeof(T) == typeof(Image))
-                    {
-                        Image curr = ((Image)(object)obj.GetComponent<T>());
-                        curr.sprite = sprite;
-                        Color original = curr.color;
-                        curr.color = new Color(original.r,original.g,original.b,1);
-                    }
-                    else if (typeof(T) == typeof(SpriteRenderer))
-                    {
-                        SpriteRenderer curr = ((SpriteRenderer)(object)obj.GetComponent<T>());
-                        curr.sprite = sprite;
-                        Color original = curr.color;
-                        curr.color = new Color(original.r,original.g,original.b,1);
-                    }
-                    handles.Add(handle);
-                }
-            };
-        }
         public void ClearHandles(List<AsyncOperationHandle<Sprite>> handles)
         {
             foreach (var handle in handles)
@@ -88,9 +81,9 @@ namespace Investigation
             
             foreach(InteractableObj obj in objects)
             {
-                Vector2 position = new Vector2(obj.Position.x, obj.Position.y);
-
                 GameObject interactable;
+                Vector2 position = Vector_2D_to_Vector2(obj.position);
+
                 if(obj.title == "background")
                 {
                     interactable = Instantiate(backgroundPrefab,position, Quaternion.identity, interactableParent.transform);
@@ -121,6 +114,8 @@ namespace Investigation
                 {
                     interactable.AddComponent<Inv_InteractionObj>();
                 }
+                interactable.transform.localScale = Vector_2D_to_Vector2(obj.size);
+                interactable.GetComponent<BoxCollider2D>().size = Vector_2D_to_Vector2(obj.colliderSize);
             }
         }
         string getID()

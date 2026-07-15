@@ -7,6 +7,14 @@
                 "x": -2,
                 "y": 50
             },
+            "size": {
+                "x": 1,
+                "y": 1
+            },
+            "colliderSize": {
+                "x": 1,
+                "y": 1
+            },
             "image": "Map1",
             "script": "None"
         },
