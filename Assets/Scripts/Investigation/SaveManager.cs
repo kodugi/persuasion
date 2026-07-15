@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Investigation;
+using System;
 
 public class SaveManager : MonoBehaviour
 {
@@ -87,6 +88,7 @@ public class SaveManager : MonoBehaviour
     // overwrite=false는 object타입이 List일때만: add로 작용
     public void AddProgress(string key, object value, bool overwrite = true)
     {
+        print(key);
         if (!progress.ContainsKey(key))
         {
             progress.Add(key, value);
@@ -125,12 +127,11 @@ public class SaveManager : MonoBehaviour
     }
     void AddProgressException(string key, object value)
     {
-        print(key);
         switch (key)
         {
             case "notePossessed":
-            case "penPosssessed":
-                if(((LoadProgress("notePossessed") as bool?) == true))// && ((LoadProgress("penPossessed") as bool?) == true))
+            case "penPossessed":
+                if(Convert.ToBoolean(LoadProgress("notePossessed") ?? false) && Convert.ToBoolean(LoadProgress("penPossessed") ?? false))
                 {
                     AddProgress("noteLock", false);
                     gameManager.NoteLock(false);

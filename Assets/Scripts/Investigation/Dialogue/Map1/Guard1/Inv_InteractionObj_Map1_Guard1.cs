@@ -5,7 +5,7 @@ namespace Investigation
 {
 public class Inv_InteractionObj_Map1_Guard1: Inv_InteractionObj
     {
-        [SerializeField] private float moveSpeed = 8f;
+        [SerializeField] private float moveSpeed = 12f;
         private Inv_Interact interactManager;
         private bool chasing = false;
         private Transform player;

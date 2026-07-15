@@ -1,0 +1,68 @@
+{
+    "title": "작가?",
+    "path": [
+        {
+            "description": "누군가 나무 앞에 앉아서 글을 쓰고 있다. 이 사람이라면 펜을 갖고 있지 않을까?",
+            "buttons":[
+                {
+                    "title": "저... 안녕하세요?",
+                    "next": 1,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "음? 누구신지. 처음 뵙는 거 같은데.",
+            "buttons":[
+                {
+                    "title": "맞아요. 이 마을에 사는 건 아니고, 언니를 찾으러 왔어요.",
+                    "next": 2,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "언니? 무슨 언니. 여기에서? 어떻게 찾으려고 하시나.",
+            "buttons":[
+                {
+                    "title": "사실 그래서 선생님께 도움을 청하려고요.",
+                    "next": 3,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "나한테?",
+            "buttons":[
+                {
+                    "title": "네, 초면에 정말 죄송하지만, 펜 한 자루만 빌려주시면 안 될까요..?",
+                    "next": 4,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "펜이라... 펜이라면 많이 있지.\n그런데 내가 당신의 무엇을 믿고 빌려주나? 미안하지만 난 못 빌려주겠네.",
+            "buttons":[
+                {
+                    "title": "(초능력으로 설득해 봐야겠다.)",
+                    "next": -1,
+                    "effects": [
+                        {
+                            "type": "persuade",
+                            "title": "Map1_Writer"
+                        },
+                        {
+                            "type": "variation",
+                            "target": "Map1/Writer",
+                            "parameters":[
+                                "Met"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+
+}

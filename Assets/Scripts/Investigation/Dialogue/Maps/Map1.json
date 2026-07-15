@@ -45,6 +45,15 @@
             },
             "image": "Note_Obtain",
             "script": "Inv_InteractionObj_Map1_Note_Obtain"
+        },
+        {
+            "title": "Map1/Writer",
+            "position": {
+                "x": 15,
+                "y": 50
+            },
+            "image": "Writer",
+            "script": "Inv_InteractionObj_Map1_Writer"
         }
     ]
 }

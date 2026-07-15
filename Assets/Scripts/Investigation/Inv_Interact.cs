@@ -18,6 +18,7 @@ namespace Investigation
         Inv_DialogueBox dialogueScript;
         Inv_PlayerCTRL playerCTRL;
         private Vector2 anchorPos;
+        SaveManager saveManager;
         private List<string> interactionQueue = new List<string>();
         public bool isInteracting = false;
         void Start()
@@ -26,6 +27,7 @@ namespace Investigation
             anchorPos = new Vector2(anchorPosition[0], anchorPosition[1]);
             manager = GameObject.FindFirstObjectByType<Inv_GameManager>().GetComponent<Inv_GameManager>();
             playerCTRL = GameObject.FindFirstObjectByType<Inv_PlayerCTRL>().GetComponent<Inv_PlayerCTRL>();
+            saveManager = GameObject.FindFirstObjectByType<SaveManager>().GetComponent<SaveManager>();
         }
         void Update()
         {
@@ -148,6 +150,11 @@ namespace Investigation
                 case "thought":
                     string thought = (string)effect["thought"];
                     playerCTRL.Think(thought);
+                    break;
+                case "progress":
+                    string key = (string)effect["key"];
+                    object value = effect["value"];
+                    saveManager.AddProgress(key, value);
                     break;
             }
         }

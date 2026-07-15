@@ -24,7 +24,6 @@ public class Inv_InteractionObj : Utility
         {
             if (saveManager.progress.ContainsKey(obj_name+"state"))
             {
-                print(saveManager.progress[obj_name+"state"]);
                 state = Convert.ToInt32(saveManager.progress[obj_name + "state"]);
             }
             else

@@ -42,7 +42,6 @@ namespace Investigation
         }
         public void NoteLock(bool doLock)
         {
-            print("setting active: "+!doLock);
             noteButton.SetActive(!doLock);
         }
         public void AddNote(string noteName, List<string> contents)

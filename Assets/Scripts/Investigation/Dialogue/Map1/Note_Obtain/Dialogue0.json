@@ -9,8 +9,9 @@
                     "next": -1,
                     "effects": [
                         {
-                            "type": "item",
-                            "name": "note"
+                            "type": "progress",
+                            "key": "notePossessed",
+                            "value": true
                         },
                         {
                             "type": "delete",
