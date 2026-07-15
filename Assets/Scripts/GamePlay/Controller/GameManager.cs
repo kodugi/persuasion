@@ -37,7 +37,8 @@ namespace GamePlay
             int maxSuspicion = 100;
             int decrementAmount = 38;
             
-            IBlock[] blockList = { new BasicBlock(), new LieBlock(), new ThreatBlock(), new ReligiousBlock() };
+            // IBlock[] blockList = { new BasicBlock(), new LieBlock(), new ThreatBlock(), new ReligiousBlock() };
+            IBlock[] blockList = { new BasicBlock() };
             Cell[,] exampleBoard = new Cell[5, 5];
             for(int i = 0; i < 5; i++) {
                 for(int j = 0; j < 5; j++)

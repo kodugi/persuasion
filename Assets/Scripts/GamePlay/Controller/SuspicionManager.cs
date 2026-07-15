@@ -88,7 +88,7 @@ namespace GamePlay
             if(e.turnState == TurnState.Start)
             {
                 DecrementSuspicion();
-                SetSuspicionPreview(_blockSelectionManager.GetSelectedBlock().GetSuspicion());
+                SetSuspicionPreview(_currentSuspicion + _blockSelectionManager.GetSelectedBlock().GetSuspicion());
             }
         }
     }

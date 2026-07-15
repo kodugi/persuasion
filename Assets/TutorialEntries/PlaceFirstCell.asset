@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GamePlay.TutorialEntry
   _entryKind: 0
   _cellX: 2
-  _cellY: 1
+  _cellY: 3
   _cellType: 3
-  _gameObjectToMark: {fileID: 0}
   _gameObjectPath: 

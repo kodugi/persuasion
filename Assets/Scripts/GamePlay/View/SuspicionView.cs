@@ -42,13 +42,13 @@ namespace GamePlay
         {
             // TODO: 의심도 표현 방법에 따라 변경
             _suspicionGauge.fillAmount = (float)suspicion / (float)SuspicionManager.Instance.GetMaxSuspicion();
-            _suspicionText.text = "의심도: " + suspicion + "/" + SuspicionManager.Instance.GetMaxSuspicion();
+            _suspicionText.text = suspicion + "/" + SuspicionManager.Instance.GetMaxSuspicion();
         }
 
         private void SetSuspicionPreviewUI(int suspicion)
         {
             _suspicionPreviewGauge.fillAmount = (float)suspicion / (float)SuspicionManager.Instance.GetMaxSuspicion();
-            _suspicionPreviewText.text = "의심도: " + suspicion + "/" + SuspicionManager.Instance.GetMaxSuspicion();
+            _suspicionPreviewText.text = suspicion + "/" + SuspicionManager.Instance.GetMaxSuspicion();
         }
 
         private void HandleSetSuspicionEvent(object sender, SetSuspicionEventArgs e)

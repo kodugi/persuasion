@@ -53,6 +53,7 @@ namespace GamePlay
                 _isGameEnded = true;
                 Debug.Log("설득 실패!");
                 _gameStateManager.SetGameState(GameState.End);
+                GameOverPopupView.Instance.ShowPopup(true, "설득 실패", "설득에 실패했습니다");
                 return;
             }
 
@@ -61,6 +62,7 @@ namespace GamePlay
                 // TODO: 승리 판정
                 _isGameEnded = true;
                 Debug.Log("설득 성공!");
+                GameOverPopupView.Instance.ShowPopup(true, "설득 성공", "설득에 성공했습니다");
                 _gameStateManager.SetGameState(GameState.End);
             }
         }
