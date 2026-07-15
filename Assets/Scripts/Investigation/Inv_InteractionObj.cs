@@ -7,6 +7,7 @@ namespace Investigation
 public class Inv_InteractionObj : Utility
     {
         public string obj_name;
+        public float hideCriteria;
         public int state=0;
         protected SaveManager saveManager;
         void Start()

@@ -1,5 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
+using System.Collections;
+using System.Collections.Generic;
  
 namespace Investigation
 {
@@ -11,6 +14,10 @@ namespace Investigation
         private Inv_Interact interactionScript;
         private Vector2 movementInput;
         Rigidbody2D rigidbody_my;
+
+        List<GameObject> layer_consideredObjs = new List<GameObject>();
+        int layer_maxBehind;
+
         void Awake()
         {
             inputAction = new InputActions();
@@ -30,12 +37,22 @@ namespace Investigation
                 movementInput = inputAction.Player.Move.ReadValue<Vector2>();
                 rigidbody_my.MovePosition(rigidbody_my.position +new Vector2(movementInput.x, movementInput.y) * Time.deltaTime * moveSpeed);
             }
+            layer_maxBehind = -100;
+            foreach(GameObject obj in layer_consideredObjs)
+            {
+                if(gameObject.transform.position.y <= obj.transform.position.y + obj.GetComponent<Inv_InteractionObj>().hideCriteria)
+                {
+                    layer_maxBehind = Math.Max(layer_maxBehind, obj.GetComponent<SpriteRenderer>().sortingOrder);
+                }
+            }
+            gameObject.GetComponent<SpriteRenderer>().sortingOrder = layer_maxBehind+1;
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.CompareTag("Inv_Interactable"))
             {
                 interactionScript.QueueInteraction(collision.GetComponent<Inv_InteractionObj>().obj_name, true);
+                layer_consideredObjs.Add(collision.gameObject);
             }
         }
         private void OnTriggerExit2D(Collider2D collision)
@@ -43,6 +60,7 @@ namespace Investigation
             if (collision.gameObject.CompareTag("Inv_Interactable"))
             {
                 interactionScript.QueueInteraction(collision.GetComponent<Inv_InteractionObj>().obj_name, false);
+                layer_consideredObjs.Remove(collision.gameObject);
             }
         }
         public void Think(string thought)

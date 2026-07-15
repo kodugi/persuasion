@@ -11,6 +11,7 @@
                 "x": 1,
                 "y": 1
             },
+            "colliderShape": "box",
             "colliderSize": {
                 "x": 0,
                 "y": 0
@@ -27,6 +28,8 @@
                 "x": 0,
                 "y": 0
             },
+            "hideCriteria": 0,
+            "sortingOrder": 2,
             "image": "Map1",
             "script": "None"
         },
@@ -40,6 +43,7 @@
                 "x": 3,
                 "y": 3
             },
+            "colliderShape": "box",
             "colliderSize": {
                 "x": 0,
                 "y": 0
@@ -56,6 +60,8 @@
                 "x": 0,
                 "y": 0
             },
+            "hideCriteria": 0,
+            "sortingOrder": 2,
             "image": "Guard1",
             "script": "Inv_InteractionObj_Map1_Guard1"
         },
@@ -69,6 +75,7 @@
                 "x": 6,
                 "y": 6
             },
+            "colliderShape": "box",
             "colliderSize": {
                 "x": 0,
                 "y": 0
@@ -85,6 +92,8 @@
                 "x": 0,
                 "y": 0
             },
+            "hideCriteria": 0,
+            "sortingOrder": 2,
             "image": "",
             "script": "Inv_InteractionObj_Map1_Guard1_Trigger"
         },
@@ -98,6 +107,7 @@
                 "x": 1,
                 "y": 1
             },
+            "colliderShape": "box",
             "colliderSize": {
                 "x": 0,
                 "y": 0
@@ -114,6 +124,8 @@
                 "x": 0,
                 "y": 0
             },
+            "hideCriteria": 0,
+            "sortingOrder": 2,
             "image": "집1",
             "script": "Inv_InteractionObj_Map1_Houses"
         },
@@ -127,6 +139,7 @@
                 "x": 1,
                 "y": 1
             },
+            "colliderShape": "box",
             "colliderSize": {
                 "x": 0,
                 "y": 0
@@ -143,6 +156,8 @@
                 "x": 0,
                 "y": 0
             },
+            "hideCriteria": 0,
+            "sortingOrder": 2,
             "image": "Note_Obtain",
             "script": "Inv_InteractionObj_Map1_Note_Obtain"
         },
@@ -156,6 +171,7 @@
                 "x": 2,
                 "y": 2
             },
+            "colliderShape": "box",
             "colliderSize": {
                 "x": 0,
                 "y": 0
@@ -172,6 +188,8 @@
                 "x": 0,
                 "y": 0
             },
+            "hideCriteria": 0,
+            "sortingOrder": 2,
             "image": "Writer",
             "script": "Inv_InteractionObj_Map1_Writer"
         }

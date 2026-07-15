@@ -25,10 +25,13 @@ namespace Investigation
             public string title;
             public Vector_2D position;
             public Vector_2D size;
+            public string colliderShape; // circle / box
             public Vector_2D colliderSize;
             public Vector_2D colliderOffset;
             public Vector_2D triggerSize;
             public Vector_2D triggerOffset;
+            public float hideCriteria; // y offset (float) from centre
+            public int sortingOrder;
             public string image;
             public string script;
         }
@@ -102,17 +105,33 @@ namespace Investigation
 
                 interactable.name = obj.title;
                 if (!string.IsNullOrEmpty(obj.image)) SetSpriteImage<SpriteRenderer>(interactable, obj.image, mapHandles);
+                interactable.GetComponent<SpriteRenderer>().sortingOrder = obj.sortingOrder;
 
-                if(obj.title == "background") continue;
+                interactable.transform.localScale = Vector_2D_to_Vector3(obj.size);
+
+                // background의 경우 collider & scripting 필요 없음
+                if(obj.title == "background") {
+                    continue;
+                }
+
+                interactable.GetComponent<BoxCollider2D>().size = Vector_2D_to_Vector2(obj.triggerSize);
+                interactable.GetComponent<BoxCollider2D>().offset = Vector_2D_to_Vector2(obj.triggerOffset);
 
                 // Create Child for Physical Collider
                 if(obj.colliderSize.x+obj.colliderSize.y > 0.00001)
                 {
                     GameObject interactable_collider=Instantiate(interactable, interactable.transform.position, Quaternion.identity, interactable.transform);
                     Destroy(interactable_collider.GetComponent<SpriteRenderer>());
-                    interactable_collider.GetComponent<BoxCollider2D>().size = Vector_2D_to_Vector2(obj.colliderSize);
-                    interactable_collider.GetComponent<BoxCollider2D>().offset = Vector_2D_to_Vector2(obj.colliderOffset);
-                    interactable_collider.GetComponent<BoxCollider2D>().isTrigger = false;
+                    if(obj.colliderShape == "box")
+                    {
+                        interactable_collider.GetComponent<BoxCollider2D>().size = Vector_2D_to_Vector2(obj.colliderSize);
+                        interactable_collider.GetComponent<BoxCollider2D>().offset = Vector_2D_to_Vector2(obj.colliderOffset);
+                        interactable_collider.GetComponent<BoxCollider2D>().isTrigger = false;
+                    }
+                    else // circle
+                    {
+                        
+                    }
                 }
 
                 if (!string.IsNullOrEmpty(obj.script))
@@ -131,9 +150,7 @@ namespace Investigation
                 {
                     interactable.AddComponent<Inv_InteractionObj>();
                 }
-                interactable.transform.localScale = Vector_2D_to_Vector3(obj.size);
-                interactable.GetComponent<BoxCollider2D>().size = Vector_2D_to_Vector2(obj.triggerSize);
-                interactable.GetComponent<BoxCollider2D>().offset = Vector_2D_to_Vector2(obj.triggerOffset);
+                interactable.GetComponent<Inv_InteractionObj>().hideCriteria = obj.hideCriteria;
 
 
             }
