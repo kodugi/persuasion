@@ -12,8 +12,20 @@
                 "y": 1
             },
             "colliderSize": {
+                "x": 0,
+                "y": 0
+            },
+            "colliderOffset": {
+                "x": 0,
+                "y": 0
+            },
+            "triggerSize": {
                 "x": 1,
                 "y": 1
+            },
+            "triggerOffset": {
+                "x": 0,
+                "y": 0
             },
             "image": "Map1",
             "script": "None"
@@ -29,8 +41,20 @@
                 "y": 3
             },
             "colliderSize": {
+                "x": 0,
+                "y": 0
+            },
+            "colliderOffset": {
+                "x": 0,
+                "y": 0
+            },
+            "triggerSize": {
                 "x": 1,
                 "y": 1
+            },
+            "triggerOffset": {
+                "x": 0,
+                "y": 0
             },
             "image": "Guard1",
             "script": "Inv_InteractionObj_Map1_Guard1"
@@ -46,8 +70,20 @@
                 "y": 6
             },
             "colliderSize": {
+                "x": 0,
+                "y": 0
+            },
+            "colliderOffset": {
+                "x": 0,
+                "y": 0
+            },
+            "triggerSize": {
                 "x": 1,
                 "y": 1
+            },
+            "triggerOffset": {
+                "x": 0,
+                "y": 0
             },
             "image": "",
             "script": "Inv_InteractionObj_Map1_Guard1_Trigger"
@@ -63,8 +99,20 @@
                 "y": 1
             },
             "colliderSize": {
-                "x": 12,
-                "y": 8
+                "x": 0,
+                "y": 0
+            },
+            "colliderOffset": {
+                "x": 0,
+                "y": 0
+            },
+            "triggerSize": {
+                "x": 1,
+                "y": 1
+            },
+            "triggerOffset": {
+                "x": 0,
+                "y": 0
             },
             "image": "집1",
             "script": "Inv_InteractionObj_Map1_Houses"
@@ -80,8 +128,20 @@
                 "y": 1
             },
             "colliderSize": {
+                "x": 0,
+                "y": 0
+            },
+            "colliderOffset": {
+                "x": 0,
+                "y": 0
+            },
+            "triggerSize": {
                 "x": 1,
                 "y": 1
+            },
+            "triggerOffset": {
+                "x": 0,
+                "y": 0
             },
             "image": "Note_Obtain",
             "script": "Inv_InteractionObj_Map1_Note_Obtain"
@@ -97,8 +157,20 @@
                 "y": 2
             },
             "colliderSize": {
+                "x": 0,
+                "y": 0
+            },
+            "colliderOffset": {
+                "x": 0,
+                "y": 0
+            },
+            "triggerSize": {
                 "x": 1,
                 "y": 1
+            },
+            "triggerOffset": {
+                "x": 0,
+                "y": 0
             },
             "image": "Writer",
             "script": "Inv_InteractionObj_Map1_Writer"

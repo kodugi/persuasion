@@ -26,6 +26,9 @@ namespace Investigation
             public Vector_2D position;
             public Vector_2D size;
             public Vector_2D colliderSize;
+            public Vector_2D colliderOffset;
+            public Vector_2D triggerSize;
+            public Vector_2D triggerOffset;
             public string image;
             public string script;
         }
@@ -102,6 +105,13 @@ namespace Investigation
 
                 if(obj.title == "background") continue;
 
+                // Create Child for Physical Collider
+                GameObject interactable_collider=Instantiate(interactable, interactable.transform.position, Quaternion.identity, interactable.transform);
+                Destroy(interactable_collider.GetComponent<SpriteRenderer>());
+                interactable_collider.GetComponent<BoxCollider2D>().size = Vector_2D_to_Vector2(obj.colliderSize);
+                interactable_collider.GetComponent<BoxCollider2D>().offset = Vector_2D_to_Vector2(obj.colliderOffset);
+                interactable_collider.GetComponent<BoxCollider2D>().isTrigger = false;
+
                 if (!string.IsNullOrEmpty(obj.script))
                 {
                     System.Type scriptType = System.Type.GetType("Investigation." + obj.script);
@@ -119,7 +129,10 @@ namespace Investigation
                     interactable.AddComponent<Inv_InteractionObj>();
                 }
                 interactable.transform.localScale = Vector_2D_to_Vector3(obj.size);
-                interactable.GetComponent<BoxCollider2D>().size = Vector_2D_to_Vector2(obj.colliderSize);
+                interactable.GetComponent<BoxCollider2D>().size = Vector_2D_to_Vector2(obj.triggerSize);
+                interactable.GetComponent<BoxCollider2D>().offset = Vector_2D_to_Vector2(obj.triggerOffset);
+
+
             }
         }
         string getID()
