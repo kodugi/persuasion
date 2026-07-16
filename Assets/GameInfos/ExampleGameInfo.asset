@@ -23,18 +23,4 @@ MonoBehaviour:
   - Cells: 0000000000000000000000000000000000000000
   - Cells: 0000000000000000000000000000000000000000
   _dialogueTriggers:
-  - Turn: 0
-    TurnState: 0
-    Pages:
-    - Entries:
-      - SpeakerName: test
-        DialogueText: place first cell and second cell
-        StateToTrigger: 0
-    - Entries:
-      - SpeakerName: test
-        DialogueText: focus on suspicion
-        StateToTrigger: 2
-    - Entries:
-      - SpeakerName: test
-        DialogueText: now end turn
-        StateToTrigger: 3
+  - {fileID: 11400000, guid: 6d7c0966d3830714ba7e58a4ee61381e, type: 2}

@@ -22,6 +22,14 @@ namespace GamePlay
             }
         }
 
+        public Vector2Int HighlightedCellCoord
+        {
+            get
+            {
+                return _entryKind == TutorialEntryKind.HighlightedCell ? new Vector2Int(_cellX, _cellY) : null;
+            }
+        }
+
         public Type CellType
         {
             get
@@ -50,6 +58,15 @@ namespace GamePlay
             entry._cellX = cellCoord == null ? 0 : cellCoord.X;
             entry._cellY = cellCoord == null ? 0 : cellCoord.Y;
             entry._cellType = GetTutorialCellType(cellType);
+            return entry;
+        }
+
+        public static TutorialEntry CreateHighlightedCellEntry(Vector2Int cellCoord)
+        {
+            TutorialEntry entry = CreateInstance<TutorialEntry>();
+            entry._entryKind = TutorialEntryKind.HighlightedCell;
+            entry._cellX = cellCoord == null ? 0 : cellCoord.X;
+            entry._cellY = cellCoord == null ? 0 : cellCoord.Y;
             return entry;
         }
 
@@ -154,7 +171,8 @@ namespace GamePlay
         public enum TutorialEntryKind
         {
             Cell,
-            GameObject
+            GameObject,
+            HighlightedCell
         }
 
         public enum TutorialCellType

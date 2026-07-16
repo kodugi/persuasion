@@ -154,7 +154,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 50, y: -50}
-  m_SizeDelta: {x: 420, y: 50}
+  m_SizeDelta: {x: 400, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &36690518
 MonoBehaviour:
@@ -203,8 +203,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 28
+  m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2315,7 +2315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9cac45a616006941a99c132c180a48f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GamePlay.GameManager
-  _gameInfo: {fileID: 0}
+  _gameInfo: {fileID: 11400000, guid: d26492b389615d843b54a04e41ef13ff, type: 2}
   _tutorialEntryGroups:
   - State: 0
     Entries:
@@ -2329,6 +2329,18 @@ MonoBehaviour:
   - State: 3
     Entries:
     - {fileID: 11400000, guid: 3904cbb723abec54d8a1ea37fac8effb, type: 2}
+  - State: 5
+    Entries:
+    - {fileID: 11400000, guid: 87807df221f7c9649b369f27544fae89, type: 2}
+    - {fileID: 11400000, guid: 5a8ae94e8de4d144c99ad29fe822e21a, type: 2}
+    - {fileID: 11400000, guid: 96907e767e8adab41a372324fe7a4904, type: 2}
+    - {fileID: 11400000, guid: 5a1012fa907e66d4b98804c04b2e6cf7, type: 2}
+    - {fileID: 11400000, guid: 239516849329cbc4eab6e6ceb4d64961, type: 2}
+    - {fileID: 11400000, guid: 3db783a6b0e2adc43bfa7d29ff38878b, type: 2}
+    - {fileID: 11400000, guid: 3298a9de67ada1b43a71df8c0b7bfa1d, type: 2}
+    - {fileID: 11400000, guid: af34bc0031d91be41b8ba4738b352b79, type: 2}
+    - {fileID: 11400000, guid: 8548ee53711522d49b0b48fbfaa08d5a, type: 2}
+    - {fileID: 11400000, guid: 5c1664f875096c048863debae18c046d, type: 2}
 --- !u!1 &1427285069
 GameObject:
   m_ObjectHideFlags: 0
@@ -3028,6 +3040,7 @@ MonoBehaviour:
     Sprite: {fileID: 7482667652216324306, guid: efc780248bc5c0648ba1885d17eaced3, type: 3}
   _markerPrefab: {fileID: 6915691452449960741, guid: ebfa2fe3522cc6342b793861aac94b20, type: 3}
   _previewColor: {r: 1, g: 1, b: 1, a: 0.45}
+  _highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   _cellSize: 1
   _origin: {x: 0, y: 0}
   _centerBoard: 1

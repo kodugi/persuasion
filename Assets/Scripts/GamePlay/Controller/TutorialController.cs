@@ -87,21 +87,29 @@ namespace GamePlay
         private void HandleSetTutorialStateEvent(object sender, SetTutorialStateEventArgs e)
         {
             _currentCellCoords = new List<Vector2Int>();
-            RectTransform focusTarget = GetDefaultFocusTarget(e.CurrentState);
+            List<RectTransform> focusTargets = new List<RectTransform>();
+            List<GameObject> focusWorldTargets = new List<GameObject>();
+            RectTransform defaultFocusTarget = GetDefaultFocusTarget(e.CurrentState);
             bool shouldBlockOverlayRaycasts = ShouldBlockOverlayRaycasts(e.CurrentState);
+            BoardView boardView = BoardView.Instance as BoardView;
+
+            if (defaultFocusTarget != null)
+            {
+                focusTargets.Add(defaultFocusTarget);
+            }
 
             if (TutorialOverlayView.Instance != null)
             {
                 TutorialOverlayView.Instance.Hide();
             }
 
+            if (boardView != null)
+            {
+                boardView.ClearTutorialHints();
+            }
+
             if (e.CurrentState == TutorialState.None)
             {
-                if (BoardView.Instance != null)
-                {
-                    ((BoardView)BoardView.Instance).ClearTutorialHints();
-                }
-
                 return;
             }
 
@@ -114,25 +122,45 @@ namespace GamePlay
 
                 Vector2Int cellCoord = tutorialEntry.CellCoord;
                 Type cellType = tutorialEntry.CellType;
+                Vector2Int highlightedCellCoord = tutorialEntry.HighlightedCellCoord;
                 GameObject gameObjectToMark = tutorialEntry.GameObjectToMark;
 
                 if (cellCoord != null && cellType != null)
                 {
                     _currentCellCoords.Add(cellCoord);
-                    if (BoardView.Instance != null)
+                    if (boardView != null)
                     {
-                        ((BoardView)BoardView.Instance).ShowTutorialHint(cellCoord, cellType);
+                        boardView.ShowTutorialHint(cellCoord, cellType);
+                    }
+                }
+                else if (highlightedCellCoord != null)
+                {
+                    if (boardView != null && boardView.TryGetCellObject(highlightedCellCoord, out GameObject cellObject))
+                    {
+                        focusWorldTargets.Add(cellObject);
                     }
                 }
                 else if (gameObjectToMark != null)
                 {
-                    focusTarget = gameObjectToMark.GetComponent<RectTransform>();
+                    RectTransform rectTransform = gameObjectToMark.GetComponent<RectTransform>();
+                    if (rectTransform != null)
+                    {
+                        focusTargets.Add(rectTransform);
+                    }
+                    else
+                    {
+                        focusWorldTargets.Add(gameObjectToMark);
+                    }
                 }
             }
 
-            if (TutorialOverlayView.Instance != null && focusTarget != null)
+            if (TutorialOverlayView.Instance != null && (focusTargets.Count > 0 || focusWorldTargets.Count > 0))
             {
-                TutorialOverlayView.Instance.Focus(focusTarget, shouldBlockOverlayRaycasts, GetOverlayClickHandler(e.CurrentState));
+                TutorialOverlayView.Instance.Focus(
+                    focusTargets,
+                    focusWorldTargets,
+                    shouldBlockOverlayRaycasts,
+                    GetOverlayClickHandler(e.CurrentState));
             }
         }
 
@@ -143,7 +171,16 @@ namespace GamePlay
                 return;
             }
 
-            _currentCellCoords.Remove(e.GetCoord());
+            if (_currentCellCoords == null || _currentCellCoords.Count == 0)
+            {
+                return;
+            }
+
+            if (!_currentCellCoords.Remove(e.GetCoord()))
+            {
+                return;
+            }
+
             if (_currentCellCoords.Count == 0)
             {
                 ToNextState();
@@ -154,9 +191,6 @@ namespace GamePlay
         {
             switch (_currentState)
             {
-                case TutorialState.PlaceFirstCell:
-                    SetTutorialState(TutorialState.PlaceSecondCell);
-                    break;
                 default:
                     SetTutorialState(TutorialState.None);
                     _dialogueManager.ToNextPage();

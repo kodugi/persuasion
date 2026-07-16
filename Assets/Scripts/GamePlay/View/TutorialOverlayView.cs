@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using SingletonUtils;
@@ -16,12 +17,21 @@ namespace GamePlay
         [SerializeField] private Color _dimColor = new Color(0f, 0f, 0f, 0.65f);
         [SerializeField] private float _padding = 16f;
 
-        private RectTransform _focusedTarget;
+        private const float MinRectSize = 0.1f;
+
+        private readonly List<RectTransform> _focusedTargets = new List<RectTransform>();
+        private readonly List<GameObject> _focusedWorldTargets = new List<GameObject>();
+        private readonly List<Image> _dimPanels = new List<Image>();
+        private readonly List<Rect> _focusRects = new List<Rect>();
+        private readonly List<Rect> _dimRects = new List<Rect>();
+        private readonly List<float> _xCuts = new List<float>();
+        private readonly List<float> _yCuts = new List<float>();
         private bool _isShowing;
         private bool _blocksRaycasts;
         private Action _clickHandler;
         private Button _clickCatcherButton;
         private readonly Vector3[] _worldCorners = new Vector3[4];
+        private readonly Vector3[] _boundsCorners = new Vector3[8];
 
         protected override void Awake()
         {
@@ -38,7 +48,7 @@ namespace GamePlay
 
         private void LateUpdate()
         {
-            if (!_isShowing || _focusedTarget == null)
+            if (!_isShowing)
             {
                 return;
             }
@@ -53,12 +63,29 @@ namespace GamePlay
 
         public void Focus(GameObject target, bool blocksRaycasts)
         {
-            Focus(target == null ? null : target.GetComponent<RectTransform>(), blocksRaycasts);
+            Focus(target, blocksRaycasts, null);
         }
 
         public void Focus(GameObject target, bool blocksRaycasts, Action clickHandler)
         {
-            Focus(target == null ? null : target.GetComponent<RectTransform>(), blocksRaycasts, clickHandler);
+            if (target == null)
+            {
+                Hide();
+                return;
+            }
+
+            RectTransform rectTransform = target.GetComponent<RectTransform>();
+            if (rectTransform != null)
+            {
+                Focus(rectTransform, blocksRaycasts, clickHandler);
+                return;
+            }
+
+            EnsureInitialized();
+            _focusedTargets.Clear();
+            _focusedWorldTargets.Clear();
+            _focusedWorldTargets.Add(target);
+            Show(blocksRaycasts, clickHandler);
         }
 
         public void Focus(RectTransform target)
@@ -80,20 +107,50 @@ namespace GamePlay
             }
 
             EnsureInitialized();
-            _focusedTarget = target;
+            _focusedTargets.Clear();
+            _focusedWorldTargets.Clear();
+            _focusedTargets.Add(target);
+            Show(blocksRaycasts, clickHandler);
+        }
+
+        public void Focus(
+            IList<RectTransform> targets,
+            IList<GameObject> worldTargets,
+            bool blocksRaycasts,
+            Action clickHandler)
+        {
+            EnsureInitialized();
+            _focusedTargets.Clear();
+            _focusedWorldTargets.Clear();
+
+            AddTargets(targets, _focusedTargets);
+            AddTargets(worldTargets, _focusedWorldTargets);
+
+            if (_focusedTargets.Count == 0 && _focusedWorldTargets.Count == 0)
+            {
+                Hide();
+                return;
+            }
+
+            Show(blocksRaycasts, clickHandler);
+        }
+
+        private void Show(bool blocksRaycasts, Action clickHandler)
+        {
             _isShowing = true;
             _blocksRaycasts = blocksRaycasts;
             _clickHandler = clickHandler;
             transform.SetAsLastSibling();
-            SetPanelsActive(true);
+            UpdateFocus();
             SetPanelsRaycastTarget(_blocksRaycasts);
             SetClickCatcherActive(_clickHandler != null);
-            UpdateFocus();
         }
 
         public void Hide()
         {
-            _focusedTarget = null;
+            _focusedTargets.Clear();
+            _focusedWorldTargets.Clear();
+            _focusRects.Clear();
             _isShowing = false;
             _blocksRaycasts = false;
             _clickHandler = null;
@@ -118,6 +175,10 @@ namespace GamePlay
             _bottomDim = EnsurePanel(_bottomDim, "Tutorial Overlay Bottom");
             _leftDim = EnsurePanel(_leftDim, "Tutorial Overlay Left");
             _rightDim = EnsurePanel(_rightDim, "Tutorial Overlay Right");
+            RegisterDimPanel(_topDim);
+            RegisterDimPanel(_bottomDim);
+            RegisterDimPanel(_leftDim);
+            RegisterDimPanel(_rightDim);
             _clickCatcher = EnsureClickCatcher(_clickCatcher, "Tutorial Overlay Click Catcher");
         }
 
@@ -133,6 +194,14 @@ namespace GamePlay
             panel.color = _dimColor;
             panel.raycastTarget = true;
             return panel;
+        }
+
+        private void RegisterDimPanel(Image panel)
+        {
+            if (panel != null && !_dimPanels.Contains(panel))
+            {
+                _dimPanels.Add(panel);
+            }
         }
 
         private Image EnsureClickCatcher(Image clickCatcher, string panelName)
@@ -175,18 +244,18 @@ namespace GamePlay
 
         private void SetPanelsActive(bool active)
         {
-            SetPanelActive(_topDim, active);
-            SetPanelActive(_bottomDim, active);
-            SetPanelActive(_leftDim, active);
-            SetPanelActive(_rightDim, active);
+            foreach (Image panel in _dimPanels)
+            {
+                SetPanelActive(panel, active);
+            }
         }
 
         private void SetPanelsRaycastTarget(bool raycastTarget)
         {
-            SetPanelRaycastTarget(_topDim, raycastTarget);
-            SetPanelRaycastTarget(_bottomDim, raycastTarget);
-            SetPanelRaycastTarget(_leftDim, raycastTarget);
-            SetPanelRaycastTarget(_rightDim, raycastTarget);
+            foreach (Image panel in _dimPanels)
+            {
+                SetPanelRaycastTarget(panel, raycastTarget);
+            }
         }
 
         private static void SetPanelActive(Image panel, bool active)
@@ -225,9 +294,25 @@ namespace GamePlay
             _clickHandler?.Invoke();
         }
 
+        private static void AddTargets<T>(IEnumerable<T> source, List<T> destination) where T : UnityEngine.Object
+        {
+            if (source == null)
+            {
+                return;
+            }
+
+            foreach (T item in source)
+            {
+                if (item != null && !destination.Contains(item))
+                {
+                    destination.Add(item);
+                }
+            }
+        }
+
         private void UpdateFocus()
         {
-            if (_root == null || _focusedTarget == null)
+            if (_root == null)
             {
                 return;
             }
@@ -238,18 +323,56 @@ namespace GamePlay
                 return;
             }
 
-            Rect focusRect = GetFocusRect(rootRect);
-            SetPanelRect(_topDim, Rect.MinMaxRect(rootRect.xMin, focusRect.yMax, rootRect.xMax, rootRect.yMax), rootRect);
-            SetPanelRect(_bottomDim, Rect.MinMaxRect(rootRect.xMin, rootRect.yMin, rootRect.xMax, focusRect.yMin), rootRect);
-            SetPanelRect(_leftDim, Rect.MinMaxRect(rootRect.xMin, focusRect.yMin, focusRect.xMin, focusRect.yMax), rootRect);
-            SetPanelRect(_rightDim, Rect.MinMaxRect(focusRect.xMax, focusRect.yMin, rootRect.xMax, focusRect.yMax), rootRect);
+            _focusRects.Clear();
+            foreach (RectTransform focusedTarget in _focusedTargets)
+            {
+                if (focusedTarget != null && TryGetRectTransformFocusRect(focusedTarget, rootRect, out Rect focusRect))
+                {
+                    _focusRects.Add(focusRect);
+                }
+            }
+
+            foreach (GameObject focusedWorldTarget in _focusedWorldTargets)
+            {
+                if (focusedWorldTarget != null && TryGetWorldFocusRect(focusedWorldTarget, rootRect, out Rect focusRect))
+                {
+                    _focusRects.Add(focusRect);
+                }
+            }
+
+            if (_focusRects.Count == 0)
+            {
+                Hide();
+                return;
+            }
+
+            BuildDimRects(rootRect);
+            EnsureDimPanelCount(_dimRects.Count);
+
+            for (int i = 0; i < _dimPanels.Count; i++)
+            {
+                if (i < _dimRects.Count)
+                {
+                    SetPanelRect(_dimPanels[i], _dimRects[i], rootRect);
+                }
+                else
+                {
+                    SetPanelActive(_dimPanels[i], false);
+                }
+            }
+
+            if (_clickCatcher != null && _clickCatcher.gameObject.activeSelf)
+            {
+                _clickCatcher.transform.SetAsLastSibling();
+            }
         }
 
-        private Rect GetFocusRect(Rect rootRect)
+        private bool TryGetRectTransformFocusRect(RectTransform target, Rect rootRect, out Rect focusRect)
         {
-            _focusedTarget.GetWorldCorners(_worldCorners);
+            focusRect = default;
+            target.GetWorldCorners(_worldCorners);
 
-            Camera targetCamera = GetCanvasCamera(_focusedTarget);
+            Camera targetCamera = GetCanvasCamera(target);
             Camera rootCamera = GetCanvasCamera(_root);
             float minX = float.MaxValue;
             float minY = float.MaxValue;
@@ -270,12 +393,244 @@ namespace GamePlay
                 maxY = Mathf.Max(maxY, localPoint.y);
             }
 
+            return TryCreateFocusRect(rootRect, minX, minY, maxX, maxY, out focusRect);
+        }
+
+        private bool TryGetWorldFocusRect(GameObject target, Rect rootRect, out Rect focusRect)
+        {
+            focusRect = default;
+            if (!TryGetTargetBounds(target, out Bounds bounds))
+            {
+                return false;
+            }
+
+            Camera worldCamera = Camera.main;
+            if (worldCamera == null)
+            {
+                return false;
+            }
+
+            SetBoundsCorners(bounds);
+            Camera rootCamera = GetCanvasCamera(_root);
+            float minX = float.MaxValue;
+            float minY = float.MaxValue;
+            float maxX = float.MinValue;
+            float maxY = float.MinValue;
+
+            for (int i = 0; i < _boundsCorners.Length; i++)
+            {
+                Vector3 screenPoint = worldCamera.WorldToScreenPoint(_boundsCorners[i]);
+                if (screenPoint.z < 0f)
+                {
+                    continue;
+                }
+
+                if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(_root, screenPoint, rootCamera, out Vector2 localPoint))
+                {
+                    continue;
+                }
+
+                minX = Mathf.Min(minX, localPoint.x);
+                minY = Mathf.Min(minY, localPoint.y);
+                maxX = Mathf.Max(maxX, localPoint.x);
+                maxY = Mathf.Max(maxY, localPoint.y);
+            }
+
+            return TryCreateFocusRect(rootRect, minX, minY, maxX, maxY, out focusRect);
+        }
+
+        private bool TryCreateFocusRect(
+            Rect rootRect,
+            float minX,
+            float minY,
+            float maxX,
+            float maxY,
+            out Rect focusRect)
+        {
+            focusRect = default;
+            if (minX == float.MaxValue || minY == float.MaxValue || maxX == float.MinValue || maxY == float.MinValue)
+            {
+                return false;
+            }
+
             minX = Mathf.Clamp(minX - _padding, rootRect.xMin, rootRect.xMax);
             minY = Mathf.Clamp(minY - _padding, rootRect.yMin, rootRect.yMax);
             maxX = Mathf.Clamp(maxX + _padding, rootRect.xMin, rootRect.xMax);
             maxY = Mathf.Clamp(maxY + _padding, rootRect.yMin, rootRect.yMax);
 
-            return Rect.MinMaxRect(minX, minY, maxX, maxY);
+            if (maxX - minX <= MinRectSize || maxY - minY <= MinRectSize)
+            {
+                return false;
+            }
+
+            focusRect = Rect.MinMaxRect(minX, minY, maxX, maxY);
+            return true;
+        }
+
+        private static bool TryGetTargetBounds(GameObject target, out Bounds bounds)
+        {
+            bounds = default;
+            bool hasBounds = false;
+
+            Renderer[] renderers = target.GetComponentsInChildren<Renderer>(true);
+            foreach (Renderer renderer in renderers)
+            {
+                if (renderer == null)
+                {
+                    continue;
+                }
+
+                if (!hasBounds)
+                {
+                    bounds = renderer.bounds;
+                    hasBounds = true;
+                }
+                else
+                {
+                    bounds.Encapsulate(renderer.bounds);
+                }
+            }
+
+            if (hasBounds)
+            {
+                return true;
+            }
+
+            Collider2D[] colliders2D = target.GetComponentsInChildren<Collider2D>(true);
+            foreach (Collider2D collider2D in colliders2D)
+            {
+                if (collider2D == null)
+                {
+                    continue;
+                }
+
+                if (!hasBounds)
+                {
+                    bounds = collider2D.bounds;
+                    hasBounds = true;
+                }
+                else
+                {
+                    bounds.Encapsulate(collider2D.bounds);
+                }
+            }
+
+            if (hasBounds)
+            {
+                return true;
+            }
+
+            Collider[] colliders = target.GetComponentsInChildren<Collider>(true);
+            foreach (Collider collider in colliders)
+            {
+                if (collider == null)
+                {
+                    continue;
+                }
+
+                if (!hasBounds)
+                {
+                    bounds = collider.bounds;
+                    hasBounds = true;
+                }
+                else
+                {
+                    bounds.Encapsulate(collider.bounds);
+                }
+            }
+
+            return hasBounds;
+        }
+
+        private void SetBoundsCorners(Bounds bounds)
+        {
+            Vector3 min = bounds.min;
+            Vector3 max = bounds.max;
+
+            _boundsCorners[0] = new Vector3(min.x, min.y, min.z);
+            _boundsCorners[1] = new Vector3(min.x, min.y, max.z);
+            _boundsCorners[2] = new Vector3(min.x, max.y, min.z);
+            _boundsCorners[3] = new Vector3(min.x, max.y, max.z);
+            _boundsCorners[4] = new Vector3(max.x, min.y, min.z);
+            _boundsCorners[5] = new Vector3(max.x, min.y, max.z);
+            _boundsCorners[6] = new Vector3(max.x, max.y, min.z);
+            _boundsCorners[7] = new Vector3(max.x, max.y, max.z);
+        }
+
+        private void BuildDimRects(Rect rootRect)
+        {
+            _dimRects.Clear();
+            _xCuts.Clear();
+            _yCuts.Clear();
+
+            AddCut(_xCuts, rootRect.xMin);
+            AddCut(_xCuts, rootRect.xMax);
+            AddCut(_yCuts, rootRect.yMin);
+            AddCut(_yCuts, rootRect.yMax);
+
+            foreach (Rect focusRect in _focusRects)
+            {
+                AddCut(_xCuts, focusRect.xMin);
+                AddCut(_xCuts, focusRect.xMax);
+                AddCut(_yCuts, focusRect.yMin);
+                AddCut(_yCuts, focusRect.yMax);
+            }
+
+            _xCuts.Sort();
+            _yCuts.Sort();
+
+            for (int x = 0; x < _xCuts.Count - 1; x++)
+            {
+                for (int y = 0; y < _yCuts.Count - 1; y++)
+                {
+                    Rect dimRect = Rect.MinMaxRect(_xCuts[x], _yCuts[y], _xCuts[x + 1], _yCuts[y + 1]);
+                    if (dimRect.width <= MinRectSize || dimRect.height <= MinRectSize)
+                    {
+                        continue;
+                    }
+
+                    if (!IsPointInsideAnyFocusRect(dimRect.center))
+                    {
+                        _dimRects.Add(dimRect);
+                    }
+                }
+            }
+        }
+
+        private static void AddCut(List<float> cuts, float value)
+        {
+            foreach (float cut in cuts)
+            {
+                if (Mathf.Abs(cut - value) <= MinRectSize)
+                {
+                    return;
+                }
+            }
+
+            cuts.Add(value);
+        }
+
+        private bool IsPointInsideAnyFocusRect(Vector2 point)
+        {
+            foreach (Rect focusRect in _focusRects)
+            {
+                if (focusRect.Contains(point))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private void EnsureDimPanelCount(int count)
+        {
+            while (_dimPanels.Count < count)
+            {
+                Image panel = EnsurePanel(null, "Tutorial Overlay Dim " + _dimPanels.Count);
+                panel.raycastTarget = _blocksRaycasts;
+                RegisterDimPanel(panel);
+            }
         }
 
         private void SetPanelRect(Image panel, Rect localRect, Rect rootRect)
@@ -285,7 +640,7 @@ namespace GamePlay
                 return;
             }
 
-            if (localRect.width <= 0.1f || localRect.height <= 0.1f)
+            if (localRect.width <= MinRectSize || localRect.height <= MinRectSize)
             {
                 panel.gameObject.SetActive(false);
                 return;

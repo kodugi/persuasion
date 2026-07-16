@@ -51,7 +51,7 @@ namespace GamePlay
         public int MaxTurns;
         public int TargetNumber;
         public List<RowData> BoardRows = new List<RowData>();
-        public List<GameInfo.DialogueTriggerData> DialogueTriggers = new List<GameInfo.DialogueTriggerData>();
+        public List<SerializableDialogueTriggerData> DialogueTriggers = new List<SerializableDialogueTriggerData>();
 
         public SerializableGameInfo()
         {
@@ -110,10 +110,10 @@ namespace GamePlay
             return rows;
         }
 
-        private static List<GameInfo.DialogueTriggerData> CreateDialogueTriggers(
+        private static List<SerializableDialogueTriggerData> CreateDialogueTriggers(
             Dictionary<int, Dictionary<TurnState, DialogueData>> dialogueData)
         {
-            List<GameInfo.DialogueTriggerData> dialogueTriggers = new List<GameInfo.DialogueTriggerData>();
+            List<SerializableDialogueTriggerData> dialogueTriggers = new List<SerializableDialogueTriggerData>();
             if (dialogueData == null)
             {
                 return dialogueTriggers;
@@ -128,7 +128,7 @@ namespace GamePlay
 
                 foreach (KeyValuePair<TurnState, DialogueData> statePair in turnPair.Value)
                 {
-                    GameInfo.DialogueTriggerData trigger = GameInfo.DialogueTriggerData.FromDialogueData(
+                    SerializableDialogueTriggerData trigger = SerializableDialogueTriggerData.FromDialogueData(
                         turnPair.Key,
                         statePair.Key,
                         statePair.Value);
@@ -173,7 +173,7 @@ namespace GamePlay
                 return dialogueDataDict;
             }
 
-            foreach (GameInfo.DialogueTriggerData trigger in DialogueTriggers)
+            foreach (SerializableDialogueTriggerData trigger in DialogueTriggers)
             {
                 if (trigger == null || !trigger.TryCreateDialogueData(out DialogueData dialogueData))
                 {
@@ -225,6 +225,69 @@ namespace GamePlay
 
             Cell cell = Activator.CreateInstance(cellType, 0, new Vector2Int(x, y)) as Cell;
             return cell ?? new EmptyCell(0, new Vector2Int(x, y));
+        }
+    }
+
+    [Serializable]
+    public class SerializableDialogueTriggerData
+    {
+        [Min(0)] public int Turn;
+        public TurnState TurnState;
+        public List<DialoguePageData> Pages = new List<DialoguePageData>();
+
+        public bool TryCreateDialogueData(out DialogueData dialogueData)
+        {
+            dialogueData = null;
+            List<List<DialogueEntry>> dialogueList = new List<List<DialogueEntry>>();
+
+            if (Pages != null)
+            {
+                foreach (DialoguePageData page in Pages)
+                {
+                    if (page == null || !page.TryCreateDialogueEntries(out List<DialogueEntry> entries))
+                    {
+                        continue;
+                    }
+
+                    dialogueList.Add(entries);
+                }
+            }
+
+            if (dialogueList.Count == 0)
+            {
+                return false;
+            }
+
+            dialogueData = new DialogueData(dialogueList);
+            return true;
+        }
+
+        public static SerializableDialogueTriggerData FromDialogueData(
+            int turn,
+            TurnState turnState,
+            DialogueData dialogueData)
+        {
+            if (dialogueData == null || dialogueData.DialogueList == null)
+            {
+                return null;
+            }
+
+            SerializableDialogueTriggerData trigger = new SerializableDialogueTriggerData
+            {
+                Turn = Math.Max(0, turn),
+                TurnState = turnState
+            };
+
+            foreach (List<DialogueEntry> dialoguePage in dialogueData.DialogueList)
+            {
+                DialoguePageData page = DialoguePageData.FromDialogueEntries(dialoguePage);
+                if (page != null)
+                {
+                    trigger.Pages.Add(page);
+                }
+            }
+
+            return trigger.Pages.Count == 0 ? null : trigger;
         }
     }
 

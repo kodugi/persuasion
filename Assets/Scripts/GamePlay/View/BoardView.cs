@@ -233,6 +233,28 @@ public class BoardView : BoardViewBase
         return (marker, previewSprite);
     }
 
+    public bool TryGetCellObject(Vector2Int coord, out GameObject cellObject)
+    {
+        cellObject = null;
+        if (coord == null)
+        {
+            return false;
+        }
+
+        if (_spawnedCellsByCoord == null)
+        {
+            EnsureInitialized();
+        }
+
+        if (!IsInRenderedBoard(coord))
+        {
+            return false;
+        }
+
+        cellObject = _spawnedCellsByCoord[coord.X, coord.Y];
+        return cellObject != null;
+    }
+
     public void ClearTutorialHint(Vector2Int coord)
     {
         if (coord == null || _tutorialHintSpritesByCoord == null || !IsInRenderedBoard(coord))
