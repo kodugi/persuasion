@@ -7,15 +7,26 @@ using Newtonsoft.Json.Linq;
 using Investigation;
 using System;
 
-public class SaveManager : MonoBehaviour
+public partial class SaveManager : MonoBehaviour
 {
-    public bool reseting = false;
+    [SerializeField] bool reseting=true;
     private Inv_GameManager gameManager;
     public Dictionary<string, object> progress = new Dictionary<string, object>();
+    public static SaveManager Instance { get; private set; }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
         DontDestroyOnLoad(gameObject);
+    }
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public void OnInvestigationSceneStart()
+    {
         gameManager = GameObject.FindFirstObjectByType<Inv_GameManager>();
         if(LoadData<Dictionary<string, object>>("progress", out Dictionary<string, object> result))
         {
@@ -27,10 +38,6 @@ public class SaveManager : MonoBehaviour
             progress = result;
             InitializeEverything();
         }
-    }
-    void Start()
-    {
-        
     }
     private void InitializeEverything()
     {
@@ -44,11 +51,6 @@ public class SaveManager : MonoBehaviour
     private void InitializedBasedOnProgress()
     {
         gameManager.NoteLock((bool)progress["noteLock"]);
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
     void OnApplicationQuit()
     {

@@ -22,7 +22,6 @@ namespace Investigation
         void NoteStart()
         {
             GameObject.FindFirstObjectByType<Canvas>().transform.Find("NoteButton").GetComponent<Button>().onClick.AddListener(ViewNotes);
-            SetScene();
         }
         void NoteOnApplicationQuit()
         {

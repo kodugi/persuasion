@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 832757c57891a4578a1e85fb115a57d7
+guid: 1c30159af32eb494aa5e469222c9bbd7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7664818027594069248
-    second: "\u110C\u1175\u11B82_0"
+      213: 8304290262140516116
+    second: KakaoTalk_Photo_2026-07-15-18-52-31_0
+  - first:
+      213: 3500245549986607419
+    second: KakaoTalk_Photo_2026-07-15-18-52-31_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -139,13 +142,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\u110C\u1175\u11B82_0"
+      name: KakaoTalk_Photo_2026-07-15-18-52-31_0
       rect:
         serializedVersion: 2
-        x: 24
-        y: 92
-        width: 899
-        height: 860
+        x: 17
+        y: 505
+        width: 40
+        height: 35
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +157,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 00531cad267ee5a60800000000000000
-      internalID: 7664818027594069248
+      spriteID: 417fe92def3ce3370800000000000000
+      internalID: 8304290262140516116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KakaoTalk_Photo_2026-07-15-18-52-31_1
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 63
+        width: 2495
+        height: 876
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b31f79958ce539030800000000000000
+      internalID: 3500245549986607419
       vertices: []
       indices: 
       edges: []
@@ -174,7 +199,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "\u110C\u1175\u11B82_0": 7664818027594069248
+      KakaoTalk_Photo_2026-07-15-18-52-31_0: 8304290262140516116
+      KakaoTalk_Photo_2026-07-15-18-52-31_1: 3500245549986607419
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -13,7 +13,7 @@ public class Inv_InteractionObj : Utility
         void Start()
         {
             obj_name = gameObject.name;
-            saveManager = GameObject.Find("SaveManager").GetComponent<SaveManager>();
+            saveManager = GameObject.FindFirstObjectByType<SaveManager>();
             CheckState();
             Starter();
         }

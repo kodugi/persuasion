@@ -13,6 +13,7 @@ namespace Investigation
     public partial class Inv_GameManager : Utility
     {
         private SaveManager saveManager;
+        private ChiefManager chiefManager;
         [SerializeField] private GameObject interactablePrefab;
         [SerializeField] private GameObject backgroundPrefab;
         List<AsyncOperationHandle<Sprite>> mapHandles = new List<AsyncOperationHandle<Sprite>>();
@@ -47,9 +48,11 @@ namespace Investigation
         }
         void Awake()
         {
-            saveManager = GameObject.Find("SaveManager").GetComponent<SaveManager>();
+            saveManager = GameObject.FindFirstObjectByType<SaveManager>();
+            chiefManager = GameObject.FindFirstObjectByType<ChiefManager>();
             NoteAwake();
             InventoryAwake();
+
         }
         private void Start()
         {
@@ -57,6 +60,7 @@ namespace Investigation
             inputAction.Player.Enable();
             NoteStart();
             InventoryStart();
+            SetScene();
         }
         private void Update()
         {
@@ -83,6 +87,7 @@ namespace Investigation
         }
         void SetScene()
         {
+            print("hi");
             string currScene = getID();
             string path = "Assets/Scripts/Investigation/Dialogue/Maps/" + currScene + ".json";
             string json = System.IO.File.ReadAllText(path);
@@ -165,6 +170,7 @@ namespace Investigation
         public void LoadGameScene(string id)
         {
             print(id);
+            chiefManager.StartPersuasion(id);
         }
     }
 }
