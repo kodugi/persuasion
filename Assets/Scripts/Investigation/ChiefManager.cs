@@ -41,31 +41,45 @@ public partial class ChiefManager : MonoBehaviour
         currScene = id;
         SceneManager.LoadScene(sceneNames.IndexOf(id));
     }
+    void LoadingMotion()
+    {
+        
+    }
     public void StartInvestigation(string id = "")
     {
+        LoadingMotion();
         StartCoroutine(StartInvestigationScene(id));
     }
-    public IEnumerator StartInvestigationScene(string id="")
+    IEnumerator StartInvestigationScene(string id="")
     {
         if(id=="") id= return_Inv_Scene_ID;
         return_Inv_Scene_ID="";
         per_Scene_ID = "";
         inv_Scene_ID = id;
+
         SceneManager.LoadScene(2);
         yield return new WaitUntil(() => FindFirstObjectByType<Inv_GameManager>() != null);
         saveManager.OnInvestigationSceneStart();
+
         inv_GameManager = GameObject.FindFirstObjectByType<Inv_GameManager>();
         inv_PlayerCTRL = GameObject.FindFirstObjectByType<Inv_PlayerCTRL>();
     }
     public void StartPersuasion(string id)
+    {
+        LoadingMotion();
+        StartCoroutine(StartPersuasionScene(id));
+    }
+    IEnumerator StartPersuasionScene(string id)
     {
         return_Inv_Scene_ID = inv_Scene_ID;
         inv_Scene_ID = "";
         per_Scene_ID = id;
         inv_GameManager.inputAction.Player.Disable();
         inv_PlayerCTRL.inputAction.Player.Disable();
+
         SceneManager.LoadScene(3);
         //yield return new WaitUntil(() => FindFirstObjectByType<something>() != null);
-
+        //temp
+        yield return null;
     }
 }
