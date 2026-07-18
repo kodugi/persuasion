@@ -47,6 +47,8 @@ namespace Investigation
         }
         private void InteractionGuideUpdate(string mode = "default")
         {
+            // do we need it?
+            return;
             bool targetState=true;
             if (mode == "default")
             {
@@ -133,9 +135,12 @@ namespace Investigation
                     manager.AddItem(item);
                     break;
                 case "persuade":
+                    manager.LoadGameScene((string)effect["title"]);
+                    /*
                     previewMap.SetActive(true);
                     previewMap.transform.Find("ProgressButton").GetComponent<Button>().onClick.RemoveAllListeners();
                     previewMap.transform.Find("ProgressButton").GetComponent<Button>().onClick.AddListener(()=>manager.LoadGameScene((string)effect["title"]));
+                    */
                     break;
                 case "delete":
                     string target_deletion = (string)effect["target"];

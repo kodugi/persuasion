@@ -51,6 +51,16 @@
             "buttons":[
                 {
                     "title": "(초능력으로 설득해 봐야겠다.)",
+                    "next": 1,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(대충 능력 설명)",
+            "buttons":[
+                {
+                    "title": "설득 시작",
                     "next": -1,
                     "effects": [
                         {
