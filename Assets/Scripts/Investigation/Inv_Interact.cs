@@ -2,7 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using System;
 using System.IO;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Investigation
@@ -36,6 +38,10 @@ namespace Investigation
                 Interact(interactionQueue[interactionQueue.Count - 1]);
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name">Object Name</param>
         public void QueueInteraction(string name, bool insertion)
         {
             if (insertion) interactionQueue.Add(name);
@@ -45,10 +51,40 @@ namespace Investigation
             }
             InteractionGuideUpdate();
         }
+
+        void FixedUpdate()
+        {
+            ImageBlink();
+        }
+        [SerializeField] float blinkDuration = 2f;
+        [SerializeField] float minOpacity = 0.2f;
+        float blinkCurr = 0;
+        SpriteRenderer curr_img=null;
+        Color original_Color;
+        void ImageBlink()
+        {
+            if(curr_img == null) return;
+            blinkCurr+=Time.deltaTime;
+            if(blinkCurr >= blinkDuration) blinkCurr = 0;
+            float opacity = (Math.Abs(blinkCurr-(blinkDuration/2))/blinkDuration)*(1-minOpacity)+minOpacity;
+            Color new_Color = new Color(original_Color.r, original_Color.g, original_Color.b, opacity);
+            curr_img.color = new_Color;
+        }
         private void InteractionGuideUpdate(string mode = "default")
         {
+            if(interactionQueue.Count <= 0) curr_img = null;
+            else {
+                GameObject temp_obj = FindInteractableObj(interactionQueue[interactionQueue.Count-1]).gameObject;
+                if (temp_obj.GetComponent<Inv_InteractionObj>().manuallyTouchable)
+                {
+                    SpriteRenderer temp_img = temp_obj.GetComponent<SpriteRenderer>();
+                    if(curr_img != null && curr_img != temp_img) curr_img.color = original_Color;
+                    curr_img = temp_img;
+                    original_Color = curr_img.color;
+                }
+            }
             // do we need it?
-            return;
+            /*
             bool targetState=true;
             if (mode == "default")
             {
@@ -69,7 +105,7 @@ namespace Investigation
             else
             {
                 interactionGuide.SetActive(false);
-            }
+            }*/
         }
         public void ForceInteraction(string name)
         {
@@ -80,7 +116,7 @@ namespace Investigation
         private void Interact(string name)
         {
             isInteracting = true;
-            InteractionGuideUpdate("off");
+            //InteractionGuideUpdate("off");
 
             int state = 0;
             if(FindInteractableObj(name) != null)

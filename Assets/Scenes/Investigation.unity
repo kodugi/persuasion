@@ -1307,6 +1307,8 @@ MonoBehaviour:
   interactables: {fileID: 190524684}
   previewMap: {fileID: 1032258471}
   isInteracting: 0
+  blinkDuration: 1
+  minOpacity: 0.4
 --- !u!114 &838975303
 MonoBehaviour:
   m_ObjectHideFlags: 0

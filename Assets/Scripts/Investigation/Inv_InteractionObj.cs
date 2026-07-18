@@ -10,6 +10,7 @@ public class Inv_InteractionObj : Utility
         public float hideCriteria;
         public int state=0;
         protected SaveManager saveManager;
+        public bool manuallyTouchable = true;
         void Start()
         {
             obj_name = gameObject.name;

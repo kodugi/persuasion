@@ -8,6 +8,7 @@ public class Inv_InteractionObj_Map1_Guard1_Trigger: Inv_InteractionObj
         private Inv_Interact interactManager;
         override protected void Starter()
         {
+            manuallyTouchable = false;
             if(state!=0) Destroy(gameObject);
             interactManager = GameObject.FindFirstObjectByType<Inv_Interact>();
         }

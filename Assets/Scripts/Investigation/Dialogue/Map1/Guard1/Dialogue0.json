@@ -51,7 +51,7 @@
             "buttons":[
                 {
                     "title": "(초능력으로 설득해 봐야겠다.)",
-                    "next": 1,
+                    "next": 5,
                     "effects": []
                 }
             ]
