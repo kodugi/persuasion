@@ -87,7 +87,6 @@ namespace Investigation
         }
         void SetScene()
         {
-            print("hi");
             string currScene = getID();
             string path = "Assets/Scripts/Investigation/Dialogue/Maps/" + currScene + ".json";
             string json = System.IO.File.ReadAllText(path);
@@ -165,7 +164,7 @@ namespace Investigation
         }
         string getID()
         {
-            return "Map1";
+            return chiefManager.inv_Scene_ID;
         }
         public void LoadGameScene(string id)
         {
