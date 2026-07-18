@@ -63,12 +63,16 @@ namespace Investigation
         Color original_Color;
         void ImageBlink()
         {
-            if(curr_img == null) return;
+            if(curr_img == null || isInteracting) return;
             blinkCurr+=Time.deltaTime;
             if(blinkCurr >= blinkDuration) blinkCurr = 0;
             float opacity = (Math.Abs(blinkCurr-(blinkDuration/2))/blinkDuration)*(1-minOpacity)+minOpacity;
             Color new_Color = new Color(original_Color.r, original_Color.g, original_Color.b, opacity);
             curr_img.color = new_Color;
+        }
+        void FinishBlinking()
+        {
+            if(curr_img != null) curr_img.color = new Color(original_Color.r, original_Color.g, original_Color.b, 1);
         }
         private void InteractionGuideUpdate(string mode = "default")
         {
@@ -78,7 +82,9 @@ namespace Investigation
                 if (temp_obj.GetComponent<Inv_InteractionObj>().manuallyTouchable)
                 {
                     SpriteRenderer temp_img = temp_obj.GetComponent<SpriteRenderer>();
-                    if(curr_img != null && curr_img != temp_img) curr_img.color = original_Color;
+                    if(curr_img != null && curr_img != temp_img) {
+                        FinishBlinking();
+                    }
                     curr_img = temp_img;
                     original_Color = curr_img.color;
                 }
@@ -116,6 +122,7 @@ namespace Investigation
         private void Interact(string name)
         {
             isInteracting = true;
+            FinishBlinking();
             //InteractionGuideUpdate("off");
 
             int state = 0;
