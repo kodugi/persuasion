@@ -17,6 +17,7 @@ namespace Investigation
         [SerializeField] private GameObject interactablePrefab;
         [SerializeField] private GameObject backgroundPrefab;
         List<AsyncOperationHandle<Sprite>> mapHandles = new List<AsyncOperationHandle<Sprite>>();
+        BoxCollider2D footCollider;
         
         private class Vector_2D
         {
@@ -60,6 +61,7 @@ namespace Investigation
             inputAction.Player.Enable();
             NoteStart();
             InventoryStart();
+            footCollider = FindFirstObjectByType<Inv_PlayerCTRL>().gameObject.transform.Find("FootCollider").GetComponent<BoxCollider2D>();
             SetScene();
         }
         private void Update()
@@ -158,6 +160,12 @@ namespace Investigation
                     interactable.AddComponent<Inv_InteractionObj>();
                 }
                 interactable.GetComponent<Inv_InteractionObj>().hideCriteria = obj.hideCriteria;
+                if (Mathf.Abs(obj.colliderSize.x) + Mathf.Abs(obj.colliderSize.y) > 0.00001f)
+                {
+                    if(obj.colliderShape =="box"){
+                        interactable.GetComponent<Inv_InteractionObj>().hideCriteria = obj.colliderOffset.y-obj.colliderSize.y/2-footCollider.offset.y-footCollider.size.y/2;
+                    }
+                }
 
 
             }
