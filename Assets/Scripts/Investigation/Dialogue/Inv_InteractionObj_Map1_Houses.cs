@@ -24,6 +24,7 @@ public class Inv_InteractionObj_Map1_Houses: Inv_InteractionObj
         }
         void OnDestroy()
         {
+            if(gameObject.name.Contains("Clone")) return;
             gameManager.ClearHandles(handles);
         }
         override public void variation(List<string> parameters = null)
