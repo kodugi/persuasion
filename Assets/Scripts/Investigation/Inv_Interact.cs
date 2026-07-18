@@ -76,13 +76,16 @@ namespace Investigation
         }
         private void InteractionGuideUpdate(string mode = "default")
         {
-            if(interactionQueue.Count <= 0) curr_img = null;
+            if(interactionQueue.Count <= 0) {
+                FinishBlinking();
+                curr_img = null;
+            }
             else {
                 GameObject temp_obj = FindInteractableObj(interactionQueue[interactionQueue.Count-1]).gameObject;
                 if (temp_obj.GetComponent<Inv_InteractionObj>().manuallyTouchable)
                 {
                     SpriteRenderer temp_img = temp_obj.GetComponent<SpriteRenderer>();
-                    if(curr_img != null && curr_img != temp_img) {
+                    if(curr_img != temp_img) {
                         FinishBlinking();
                     }
                     curr_img = temp_img;
