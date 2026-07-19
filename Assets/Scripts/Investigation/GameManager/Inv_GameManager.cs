@@ -66,7 +66,7 @@ namespace Investigation
         }
         private void Update()
         {
-            CheckInventoryKey();
+            InventoryUpdate();
         }
         private void OnApplicationQuit()
         {

@@ -34,7 +34,6 @@ namespace Investigation
             {
                 return;
             }
-            print(inventoryManager.gameObject);
             inventoryManager.ItemRelease(index);
             Destroy(gameObject);
         }

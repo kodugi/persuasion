@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.AddressableAssets;
@@ -17,7 +18,7 @@ namespace Investigation
         [SerializeField] private GameObject inventoryItemPrefab;
         List<string> inventoryItems = new List<string>();
         List<AsyncOperationHandle<Sprite>> inventoryHandles = new List<AsyncOperationHandle<Sprite>>();
-
+        private Coroutine panelFading;
         void InventoryAwake()
         {
             saveManager.LoadData<List<string>>("inventory", out inventoryItems);
@@ -29,12 +30,24 @@ namespace Investigation
             inventoryOperator.inventoryManager = this;
             PreviewInventory();
         }
-        void CheckInventoryKey()
+        void InventoryUpdate()
         {
             if(inputAction.Player.Interact.WasPressedThisFrame())
             {
-                if(inventoryPanel.activeSelf) CloseInventory();
-                else OpenInventory();
+                if(inventoryPanel.activeSelf) {
+                    if(panelFading!=null) {
+                        StopCoroutine(panelFading);
+                        StopFading(inventoryPanel, 0.5);
+                    }
+                    else CloseInventory();
+                }
+                else {
+                    if(panelFading!=null) {
+                        StopCoroutine(panelFading);
+                        StopFading(inventoryPanel, 0.5);
+                    }
+                    OpenInventory();
+                }
             }
         }
         Vector2 InventoryItemPosCalc(int index)
@@ -68,6 +81,19 @@ namespace Investigation
             }
             ClearHandles(inventoryHandles);
         }
+        void PreviewInventory()
+        {
+            OpenInventory();
+            panelFading = FadeObject(inventoryPanel, false, 2f, 2f, false);
+            StartCoroutine(ResetPanelFading(4f));
+            // delay
+            //CloseInventory();
+        }
+        IEnumerator ResetPanelFading(float time)
+        {
+            yield return new WaitForSeconds(time);
+            if(panelFading != null) panelFading = null;
+        }
         public void AddItem(string itemName)
         {            
             bool doQuit = AddItemException(itemName);
@@ -78,6 +104,7 @@ namespace Investigation
         }
         bool AddItemException(string itemName)
         {
+            print("This Shouldn't be Printed");
             switch (itemName)
             {
                 case "note":
@@ -94,13 +121,6 @@ namespace Investigation
             inventoryItems.Remove(itemName);
             saveManager.SaveData("inventory", inventoryItems);
             if(doPreview) PreviewInventory();
-        }
-        void PreviewInventory()
-        {
-            OpenInventory();
-            FadeObject(inventoryPanel, false, 2f, 2f, false);
-            // delay
-            //CloseInventory();
         }
         public void ItemClicked(int selectionIdx, GameObject selectionObj)
         {
@@ -124,6 +144,7 @@ namespace Investigation
             foreach(var result in results)
             {
                 if(result.gameObject.tag != "InventoryObj") continue;
+                if(result.gameObject.name.Contains("Float")) continue;
                 if(int.Parse(result.gameObject.name.Substring(result.gameObject.name.LastIndexOf('_')+1))==floatingIdx) continue;
                 targetObjIdx = int.Parse(result.gameObject.name.Substring(result.gameObject.name.LastIndexOf('_')+1));
             }
