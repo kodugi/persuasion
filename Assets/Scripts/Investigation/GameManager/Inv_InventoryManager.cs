@@ -37,14 +37,14 @@ namespace Investigation
                 if(inventoryPanel.activeSelf) {
                     if(panelFading!=null) {
                         StopCoroutine(panelFading);
-                        StopFading(inventoryPanel, 0.5);
+                        StopFading(inventoryPanel, 0.5f);
                     }
                     else CloseInventory();
                 }
                 else {
                     if(panelFading!=null) {
                         StopCoroutine(panelFading);
-                        StopFading(inventoryPanel, 0.5);
+                        StopFading(inventoryPanel, 0.5f);
                     }
                     OpenInventory();
                 }
