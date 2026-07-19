@@ -40,25 +40,37 @@ namespace Investigation
         {
             Addressables.LoadAssetAsync<Sprite>(imagePath).Completed += handle =>
             {
-                if (handle.Status == AsyncOperationStatus.Succeeded)
+                if (handle.Status != AsyncOperationStatus.Succeeded)
+                    return;
+
+                if (obj == null) // Unity destroyed object
                 {
-                    Sprite sprite = handle.Result;
-                    if (typeof(T) == typeof(Image))
-                    {
-                        Image curr = ((Image)(object)obj.GetComponent<T>());
-                        curr.sprite = sprite;
-                        Color original = curr.color;
-                        curr.color = new Color(original.r,original.g,original.b,1);
-                    }
-                    else if (typeof(T) == typeof(SpriteRenderer))
-                    {
-                        SpriteRenderer curr = ((SpriteRenderer)(object)obj.GetComponent<T>());
-                        curr.sprite = sprite;
-                        Color original = curr.color;
-                        curr.color = new Color(original.r,original.g,original.b,1);
-                    }
-                    handles.Add(handle);
+                    Addressables.Release(handle);
+                    return;
                 }
+
+                Sprite sprite = handle.Result;
+
+                if (typeof(T) == typeof(Image))
+                {
+                    Image curr = (Image)(object)obj.GetComponent<T>();
+                    if (curr == null) return;
+
+                    curr.sprite = sprite;
+                    Color original = curr.color;
+                    curr.color = new Color(original.r, original.g, original.b, 1);
+                }
+                else if (typeof(T) == typeof(SpriteRenderer))
+                {
+                    SpriteRenderer curr = (SpriteRenderer)(object)obj.GetComponent<T>();
+                    if (curr == null) return;
+
+                    curr.sprite = sprite;
+                    Color original = curr.color;
+                    curr.color = new Color(original.r, original.g, original.b, 1);
+                }
+
+                handles.Add(handle);
             };
         }
     }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.EventSystems;
 
 namespace Investigation
 {
@@ -12,6 +13,7 @@ namespace Investigation
         public InputActions inputAction;
         [SerializeField] private GameObject inventoryPanel;
         private GameObject inventoryContentHolder;
+        private CustomScrollRect inventoryOperator;
         [SerializeField] private GameObject inventoryItemPrefab;
         List<string> inventoryItems = new List<string>();
         List<AsyncOperationHandle<Sprite>> inventoryHandles = new List<AsyncOperationHandle<Sprite>>();
@@ -23,6 +25,8 @@ namespace Investigation
         void InventoryStart()
         {
             inventoryContentHolder = inventoryPanel.transform.Find("Scroll").Find("Viewport").Find("Content").gameObject;
+            inventoryOperator = inventoryPanel.transform.Find("Scroll").GetComponent<CustomScrollRect>();
+            inventoryOperator.inventoryManager = this;
             PreviewInventory();
         }
         void CheckInventoryKey()
@@ -47,7 +51,7 @@ namespace Investigation
                 GameObject newItem = Instantiate(inventoryItemPrefab, inventoryContentHolder.transform);
                 //RectTransform rt = newItem.GetComponent<RectTransform>();
                 //rt.anchoredPosition = InventoryItemPosCalc(i);
-                newItem.name = item;
+                newItem.name = item+"_"+i.ToString();
                 SetSpriteImage<Image>(newItem, item, inventoryHandles);
             }
             inventoryPanel.SetActive(true);
@@ -85,11 +89,11 @@ namespace Investigation
                     //break;
             }
         }
-        public void RemoveItem(string itemName)
+        public void RemoveItem(string itemName, bool doPreview)
         {
             inventoryItems.Remove(itemName);
             saveManager.SaveData("inventory", inventoryItems);
-            PreviewInventory();
+            if(doPreview) PreviewInventory();
         }
         void PreviewInventory()
         {
@@ -97,6 +101,59 @@ namespace Investigation
             FadeObject(inventoryPanel, false, 2f, 2f, false);
             // delay
             //CloseInventory();
+        }
+        public void ItemClicked(int selectionIdx, GameObject selectionObj)
+        {
+            string item = inventoryItems[selectionIdx];
+            GameObject floatingItem = Instantiate(inventoryItemPrefab, selectionObj.transform.position, Quaternion.identity, FindFirstObjectByType<Canvas>().gameObject.transform);
+            floatingItem.name = item+"_"+selectionIdx.ToString()+"_Floating";
+            SetSpriteImage<Image>(floatingItem, item, inventoryHandles);
+            floatingItem.AddComponent<Inv_FloatItemCTRL>();
+            floatingItem.GetComponent<Inv_FloatItemCTRL>().inventoryManager = this;
+            floatingItem.GetComponent<Inv_FloatItemCTRL>().index = selectionIdx;
+        }
+        public void ItemRelease(int floatingIdx)
+        {
+            PointerEventData data = new PointerEventData(EventSystem.current);
+            data.position = Input.mousePosition;
+
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(data, results);
+            
+            int targetObjIdx = -1;
+            foreach(var result in results)
+            {
+                if(result.gameObject.tag != "InventoryObj") continue;
+                if(int.Parse(result.gameObject.name.Substring(result.gameObject.name.LastIndexOf('_')+1))==floatingIdx) continue;
+                targetObjIdx = int.Parse(result.gameObject.name.Substring(result.gameObject.name.LastIndexOf('_')+1));
+            }
+
+            if(targetObjIdx != -1)
+            {
+                CombinationEffect(floatingIdx, targetObjIdx);
+            }
+        }
+        Dictionary<string, string> combinations = new Dictionary<string, string>
+        {
+            { "집1&집2", "잠자리채" }
+        };
+        void CombinationEffect(int id1, int id2)
+        {
+            string newItem = CombinationEffectChecker(inventoryItems[id1], inventoryItems[id2]);
+            if(newItem == "") return;
+            RemoveItem(inventoryItems[id1], false);
+            RemoveItem(inventoryItems[id2], false);
+            AddItem(newItem);
+            CloseInventory();
+            OpenInventory();
+        }
+        string CombinationEffectChecker(string name1, string name2)
+        {
+            string combination = name1 + "&" + name2;
+            if (combinations.ContainsKey(combination)) return combinations[combination];
+            combination = name2 + "&" + name1;
+            if (combinations.ContainsKey(combination)) return combinations[combination];
+            return "";
         }
     }
 }
