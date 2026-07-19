@@ -25,6 +25,11 @@ namespace Investigation
         }
         void NoteOnApplicationQuit()
         {
+            if (saveManager != null && saveManager.resetOnQuit)
+            {
+                return;
+            }
+
             saveManager.SaveData("notes", notes);
         }
         public void NoteLock(bool doLock)
@@ -41,6 +46,7 @@ namespace Investigation
             {
                 notes[noteName].AddRange(contents);
             }
+            saveManager.SaveData("notes", notes);
         }
         public void ViewNotes()
         {

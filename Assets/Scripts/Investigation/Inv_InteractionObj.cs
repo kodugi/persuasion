@@ -15,16 +15,27 @@ public class Inv_InteractionObj : Utility
         {
             obj_name = gameObject.name;
             saveManager = GameObject.FindFirstObjectByType<SaveManager>();
-            CheckState();
+            if (saveManager != null)
+            {
+                CheckState();
+            }
             Starter();
         }
         virtual public void StartInteraction()
         {
-            CheckState();
+            if (saveManager != null)
+            {
+                CheckState();
+            }
         }
         virtual public void CheckState()
         {
-            if (saveManager.progress.ContainsKey(obj_name+"state"))
+            if (saveManager == null)
+            {
+                return;
+            }
+
+            if (saveManager.progress != null && saveManager.progress.ContainsKey(obj_name + "state"))
             {
                 state = Convert.ToInt32(saveManager.progress[obj_name + "state"]);
             }
@@ -39,7 +50,10 @@ public class Inv_InteractionObj : Utility
         }
         virtual public void variation(List<string> parameters=null)
         {
-            saveManager.AddProgress(obj_name+"state", state);
+            if (saveManager != null)
+            {
+                saveManager.AddProgress(obj_name + "state", state);
+            }
         }
     }
 }

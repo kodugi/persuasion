@@ -30,6 +30,15 @@ namespace Investigation
             inventoryOperator.inventoryManager = this;
             PreviewInventory();
         }
+        void InventoryOnApplicationQuit()
+        {
+            if (saveManager != null && saveManager.resetOnQuit)
+            {
+                return;
+            }
+
+            saveManager.SaveData("inventory", inventoryItems);
+        }
         void InventoryUpdate()
         {
             if(inputAction.Player.Interact.WasPressedThisFrame())

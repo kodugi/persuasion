@@ -47,6 +47,7 @@ public partial class ChiefManager : MonoBehaviour
     }
     void ExitScene()
     {
+        saveManager.SaveProgress();
         switch (currScene)
         {
             case "Investigation":
@@ -80,6 +81,15 @@ public partial class ChiefManager : MonoBehaviour
 
         inv_GameManager = GameObject.FindFirstObjectByType<Inv_GameManager>();
         inv_PlayerCTRL = GameObject.FindFirstObjectByType<Inv_PlayerCTRL>();
+
+        // Ensure the loaded progress dictionary is applied before interaction objects initialize their state.
+        if (saveManager != null)
+        {
+            foreach (var obj in FindObjectsOfType<Inv_InteractionObj>())
+            {
+                obj.CheckState();
+            }
+        }
     }
     public void StartPersuasion(string id)
     {

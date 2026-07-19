@@ -70,7 +70,13 @@ namespace Investigation
         }
         private void OnApplicationQuit()
         {
+            if (saveManager != null && saveManager.resetOnQuit)
+            {
+                return;
+            }
+
             NoteOnApplicationQuit();
+            InventoryOnApplicationQuit();
         }
         void OnSceneChange()
         {

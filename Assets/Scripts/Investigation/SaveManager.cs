@@ -9,7 +9,7 @@ using System;
 
 public partial class SaveManager : MonoBehaviour
 {
-    [SerializeField] bool reseting=true;
+    [SerializeField] public bool resetOnQuit = true;
     private Inv_GameManager gameManager;
     public Dictionary<string, object> progress = new Dictionary<string, object>();
     public static SaveManager Instance { get; private set; }
@@ -28,40 +28,49 @@ public partial class SaveManager : MonoBehaviour
     public void OnInvestigationSceneStart()
     {
         gameManager = GameObject.FindFirstObjectByType<Inv_GameManager>();
+        Debug.Log($"[SaveManager] OnInvestigationSceneStart resetOnQuit={resetOnQuit}");
         if(LoadData<Dictionary<string, object>>("progress", out Dictionary<string, object> result))
         {
             progress = result;
+            Debug.Log($"[SaveManager] Loaded existing progress: {JsonConvert.SerializeObject(progress)}");
             InitializedBasedOnProgress();
         }
         else
         {
             progress = result;
+            Debug.Log("[SaveManager] No progress file found; initializing defaults.");
             InitializeEverything();
         }
     }
     private void InitializeEverything()
     {
+        Debug.Log("[SaveManager] InitializeEverything()");
         SaveData("notes", new Dictionary<string, object>());
         SaveData("inventory", new List<string>());
         //Progress Initialization
         progress["noteLock"] = true;
-        SaveData("progress", progress);
+        if (progress.Count > 0)
+        {
+            SaveData("progress", progress);
+        }
         InitializedBasedOnProgress();
     }
     private void InitializedBasedOnProgress()
     {
         gameManager.NoteLock((bool)progress["noteLock"]);
     }
-    void OnApplicationQuit()
+    private void OnApplicationQuit()
     {
-        if (reseting) {
-            ResetProgressData<Dictionary<string, object>>("progress");
-            ResetProgressData<Dictionary<string, object>>("notes");
-            ResetProgressData<List<string>>("inventory");
+        Debug.Log($"[SaveManager] OnApplicationQuit resetOnQuit={resetOnQuit}");
+        if (resetOnQuit)
+        {
+            Debug.Log("[SaveManager] Resetting save files on quit.");
+            ResetAllSaveData();
+            return;
         }
-        else {
-            SaveData("progress", progress);
-        }
+
+        Debug.Log("[SaveManager] Saving progress on quit.");
+        SaveProgress();
     }
     private string PathGen(string fileName)
     {
@@ -70,8 +79,19 @@ public partial class SaveManager : MonoBehaviour
     }
     public void SaveData(string fileName, object data)
     {
+        if (string.Equals(fileName, "progress", StringComparison.OrdinalIgnoreCase))
+        {
+            if (data is Dictionary<string, object> progressData && progressData.Count == 0)
+            {
+                Debug.Log("[SaveManager] Skip writing empty progress data.");
+                return;
+            }
+        }
+
+        string path = PathGen(fileName);
         string json = JsonConvert.SerializeObject(data, Formatting.Indented);
-        System.IO.File.WriteAllText(PathGen(fileName), json);
+        Debug.Log($"[SaveManager] Write {fileName} -> {path}");
+        System.IO.File.WriteAllText(path, json);
     }
     public bool LoadData<T>(string fileName, out T result) where T : new()
     {        
@@ -112,7 +132,16 @@ public partial class SaveManager : MonoBehaviour
                 }
             }
         }
-        SaveData("progress", progress);
+
+        if (progress.Count > 0)
+        {
+            SaveData("progress", progress);
+        }
+        else
+        {
+            Debug.Log("[SaveManager] Skip writing progress because dictionary is empty.");
+        }
+
         AddProgressException(key, value);
     }
     public object LoadProgress(string key)
@@ -143,6 +172,24 @@ public partial class SaveManager : MonoBehaviour
         }
     }
 
+    public void ResetAllSaveData()
+    {
+        progress.Clear();
+        ResetProgressData<Dictionary<string, object>>("progress");
+        ResetProgressData<Dictionary<string, object>>("notes");
+        ResetProgressData<List<string>>("inventory");
+
+        progress["noteLock"] = true;
+        SaveData("progress", progress);
+        SaveData("notes", new Dictionary<string, object>());
+        SaveData("inventory", new List<string>());
+
+        if (gameManager != null)
+        {
+            InitializedBasedOnProgress();
+        }
+    }
+
     //temp
     public void ResetProgressData<T>(string fileName)where T : new()
     {
@@ -153,5 +200,16 @@ public partial class SaveManager : MonoBehaviour
             Debug.Log("Deleted save file: " + path);
         }
         //SaveData(fileName, new T());
+    }
+    public void SaveProgress()
+    {
+        Debug.Log($"[SaveManager] SaveProgress called. progressCount={progress?.Count ?? 0}, resetOnQuit={resetOnQuit}");
+        if (progress == null || progress.Count == 0)
+        {
+            Debug.Log("[SaveManager] No meaningful progress to save; skip save.");
+            return;
+        }
+
+        SaveData("progress", progress);
     }
 }
