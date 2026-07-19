@@ -11,6 +11,7 @@ namespace Investigation
     {
         public InputActions inputAction;
         [SerializeField] private GameObject inventoryPanel;
+        private GameObject inventoryContentHolder;
         [SerializeField] private GameObject inventoryItemPrefab;
         List<string> inventoryItems = new List<string>();
         List<AsyncOperationHandle<Sprite>> inventoryHandles = new List<AsyncOperationHandle<Sprite>>();
@@ -21,6 +22,7 @@ namespace Investigation
         }
         void InventoryStart()
         {
+            inventoryContentHolder = inventoryPanel.transform.Find("Scroll").Find("Viewport").Find("Content").gameObject;
             PreviewInventory();
         }
         void CheckInventoryKey()
@@ -38,12 +40,13 @@ namespace Investigation
         }
         void OpenInventory()
         {
+            CloseInventory();
             for(int i = 0; i < inventoryItems.Count; i++)
             {
                 string item = inventoryItems[i];
-                GameObject newItem = Instantiate(inventoryItemPrefab, inventoryPanel.transform);
-                RectTransform rt = newItem.GetComponent<RectTransform>();
-                rt.anchoredPosition = InventoryItemPosCalc(i);
+                GameObject newItem = Instantiate(inventoryItemPrefab, inventoryContentHolder.transform);
+                //RectTransform rt = newItem.GetComponent<RectTransform>();
+                //rt.anchoredPosition = InventoryItemPosCalc(i);
                 newItem.name = item;
                 SetSpriteImage<Image>(newItem, item, inventoryHandles);
             }
@@ -52,9 +55,9 @@ namespace Investigation
         void CloseInventory()
         {
             inventoryPanel.SetActive(false);
-            if (inventoryPanel.transform.childCount > 0)
+            if (inventoryContentHolder.transform.childCount > 0)
             {
-                foreach (Transform child in inventoryPanel.transform)
+                foreach (Transform child in inventoryContentHolder.transform)
                 {
                     Destroy(child.gameObject);
                 }
@@ -62,7 +65,7 @@ namespace Investigation
             ClearHandles(inventoryHandles);
         }
         public void AddItem(string itemName)
-        {
+        {            
             bool doQuit = AddItemException(itemName);
             if(doQuit) return;
             inventoryItems.Add(itemName);
