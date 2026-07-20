@@ -2315,7 +2315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9cac45a616006941a99c132c180a48f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GamePlay.GameManager
-  _gameInfo: {fileID: 11400000, guid: d26492b389615d843b54a04e41ef13ff, type: 2}
+  _gameInfo: {fileID: 0}
   _tutorialEntryGroups:
   - State: 0
     Entries:
@@ -3040,7 +3040,6 @@ MonoBehaviour:
     Sprite: {fileID: 7482667652216324306, guid: efc780248bc5c0648ba1885d17eaced3, type: 3}
   _markerPrefab: {fileID: 6915691452449960741, guid: ebfa2fe3522cc6342b793861aac94b20, type: 3}
   _previewColor: {r: 1, g: 1, b: 1, a: 0.45}
-  _highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   _cellSize: 1
   _origin: {x: 0, y: 0}
   _centerBoard: 1
