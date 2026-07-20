@@ -1,45 +1,34 @@
-using GamePlay;
+using System.Collections;
 using UnityEngine;
-using Vector2Int = VectorUtils.Vector2Int;
 
-public class BoardCellView : MonoBehaviour
+namespace GamePlay
 {
-    private BoardViewBase _boardView;
-    private Vector2Int _coord;
-
-    public void Initialize(BoardViewBase boardView, Vector2Int coord)
+    public class BoardCellView: MonoBehaviour
     {
-        _boardView = boardView;
-        _coord = coord;
-    }
+        private SpriteRenderer _spriteRenderer;
 
-    private void OnMouseDown()
-    {
-        if (_boardView == null)
+        public void Initialize()
         {
-            return;
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+            
         }
 
-        _boardView.HandleCellClick(_coord);
-    }
-
-    private void OnMouseEnter()
-    {
-        if(_boardView == null)
+        public void DestroyGameObject()
         {
-            return;
+            //StartCoroutine(PlayCellDestroyAnimation());
+            Destroy(gameObject);
         }
-
-        _boardView.HandleCellEnter(_coord);
-    }
-
-    private void OnMouseExit()
-    {
-        if (_boardView == null)
+        
+        public IEnumerator PlayCellPlacementAnimation()
         {
-            return;
+            int steps = 10;
+            for (int i = 0; i <= steps; i++)
+            {
+                _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, (float)i / (float)steps);
+                yield return new WaitForSeconds(0.01f);
+            }
+            _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, 1f);
+            yield return null;
         }
-
-        _boardView.HandleCellExit(_coord);
     }
 }

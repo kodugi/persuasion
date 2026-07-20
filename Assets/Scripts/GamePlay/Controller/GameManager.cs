@@ -71,7 +71,7 @@ namespace GamePlay
             turnZeroDialogueDataDict.Add(TurnState.Start, dialogueData);
             dialogueDataDict.Add(0, turnZeroDialogueDataDict);
             GameInfo exampleGameInfo = ScriptableObject.CreateInstance<GameInfo>();
-            exampleGameInfo.Initialize(5, 5, exampleBoard, 10, 5, dialogueDataDict);
+            exampleGameInfo.Initialize(5, 5, exampleBoard, 10, 5);
             
             Dictionary<TutorialState, List<TutorialEntry>> tutorialEntryDict = CreateTutorialEntryDict();
             // hardcoding ends here

@@ -1,5 +1,6 @@
 using GamePlay;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SingletonUtils;
@@ -116,8 +117,8 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
             Debug.LogWarning("BoardView could not update cell " + coord + " because it is outside the rendered board.", this);
             return;
         }
-        
-        ReplaceCellObject(coord.X, coord.Y, cell);
+
+        StartCoroutine(ReplaceCellObject(coord.X, coord.Y, cell));
         RefreshCellMarkers();
     }
 
@@ -241,12 +242,15 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
 
         Transform parent = GetRenderRoot(_cellRoot);
         GameObject cellObject = Instantiate(prefab, parent);
+        cellObject.AddComponent<BoardCellClickView>();
+        BoardCellView boardCellView = cellObject.AddComponent<BoardCellView>();
         cellObject.name = cell.GetType().Name + " (" + x + ", " + y + ")";
         cellObject.transform.localPosition = GetCellLocalPosition(x, y, width, height);
         ConfigureCellClick(cellObject, x, y);
         _spawnedCells.Add(cellObject);
         _spawnedCellsByCoord[x, y] = cellObject;
         ConfigureMarkerSorting(x, y, cellObject);
+        boardCellView.Initialize();
     }
 
     protected void SpawnMarker(int x, int y, int width, int height)
@@ -284,13 +288,13 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
 
     protected void ConfigureClickHandler(GameObject target, Vector2Int coord)
     {
-        BoardCellView cellView = target.GetComponent<BoardCellView>();
-        if (cellView == null)
+        BoardCellClickView cellClickView = target.GetComponent<BoardCellClickView>();
+        if (cellClickView == null)
         {
-            cellView = target.AddComponent<BoardCellView>();
+            cellClickView = target.AddComponent<BoardCellClickView>();
         }
 
-        cellView.Initialize(this, coord);
+        cellClickView.Initialize(this, coord);
     }
 
     protected Transform GetRenderRoot(Transform preferredRoot)
@@ -349,22 +353,28 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
         return true;
     }
 
-    protected void ReplaceCellObject(int x, int y, Cell cell)
+    protected IEnumerator ReplaceCellObject(int x, int y, Cell cell)
     {
         GameObject previousCellObject = _spawnedCellsByCoord[x, y];
+        // temporarily decrease the sorting order so that the new object can be seen before the previous one is deleted
+        previousCellObject.GetComponent<SpriteRenderer>().sortingOrder = -1;
         if (previousCellObject != null)
         {
             _spawnedCells.Remove(previousCellObject);
-            DestroyCellObject(previousCellObject);
             _spawnedCellsByCoord[x, y] = null;
         }
 
         if (cell == null)
         {
-            return;
+            yield return null;
         }
-
+        Debug.Log("ReplaceCellObject called at " + x + " " + y);
         SpawnCell(cell, x, y, _spawnedCellsByCoord.GetLength(0), _spawnedCellsByCoord.GetLength(1));
+        GameObject currentCellObject = _spawnedCellsByCoord[x, y];
+        yield return currentCellObject.GetComponent<BoardCellView>().PlayCellPlacementAnimation();
+        DestroyCellObject(previousCellObject);
+
+        yield return null;
     }
 
     protected bool TryGetPrefab(Type cellType, out GameObject prefab)
@@ -462,7 +472,7 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
 
         if (Application.isPlaying)
         {
-            Destroy(cellObject);
+            cellObject.GetComponent<BoardCellView>().DestroyGameObject();
         }
         else
         {

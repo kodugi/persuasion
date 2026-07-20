@@ -291,7 +291,10 @@ namespace GamePlay
             }
             foreach ((Vector2Int coord, Type cellType) in toFlipCoordsAndTypes)
             {
-                SetCell(coord, cellType);
+                if (_board.GetCell(coord).GetType() != cellType)
+                {
+                    SetCell(coord, cellType);
+                }
             }
         }
 
