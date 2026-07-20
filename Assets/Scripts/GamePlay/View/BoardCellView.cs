@@ -15,13 +15,12 @@ namespace GamePlay
 
         public void DestroyGameObject()
         {
-            //StartCoroutine(PlayCellDestroyAnimation());
             Destroy(gameObject);
         }
         
         public IEnumerator PlayCellPlacementAnimation()
         {
-            int steps = 10;
+            int steps = 20;
             for (int i = 0; i <= steps; i++)
             {
                 _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, (float)i / (float)steps);
