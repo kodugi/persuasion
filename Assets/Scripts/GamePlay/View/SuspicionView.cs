@@ -15,6 +15,8 @@ namespace GamePlay
         [SerializeField] private TextMeshProUGUI _suspicionPreviewText;
         [SerializeField] private RectTransform _focusTarget;
 
+        private Coroutine _slideSuspicionCoroutine;
+        private Coroutine _slideSuspicionPreviewCoroutine;
         private Coroutine _glowSuspicionPreviewCoroutine;
         private Color _originalColor;
 
@@ -27,9 +29,9 @@ namespace GamePlay
 
             SuspicionManager.Instance.RaiseSetSuspicionEvent += HandleSetSuspicionEvent;
             SuspicionManager.Instance.RaiseSetSuspicionPreviewEvent += HandleSetSuspicionPreviewEvent;
+            _originalColor = _suspicionPreviewGauge.color;
             SetSuspicionUI(SuspicionManager.Instance.GetCurrentSuspicion());
             SetSuspicionPreviewUI(SuspicionManager.Instance.GetCurrentSuspicionPreview());
-            _originalColor = _suspicionPreviewGauge.color;
             return true;
         }
 
@@ -46,28 +48,68 @@ namespace GamePlay
 
         private void SetSuspicionUI(int suspicion)
         {
-            // TODO: 의심도 표현 방법에 따라 변경
-            _suspicionGauge.fillAmount = (float)suspicion / (float)SuspicionManager.Instance.GetMaxSuspicion();
+            if (_slideSuspicionCoroutine != null)
+            {
+                StopCoroutine(_slideSuspicionCoroutine);
+            }
+
+            _slideSuspicionCoroutine = StartCoroutine(SlideSuspicionGauge(_suspicionGauge,
+                (float)suspicion / (float)SuspicionManager.Instance.GetMaxSuspicion()));
             _suspicionText.text = suspicion + "/" + SuspicionManager.Instance.GetMaxSuspicion();
         }
 
         private void SetSuspicionPreviewUI(int suspicion)
         {
-            _suspicionPreviewGauge.fillAmount = (float)suspicion / (float)SuspicionManager.Instance.GetMaxSuspicion();
+            if (_slideSuspicionPreviewCoroutine != null)
+            {
+                StopCoroutine(_slideSuspicionPreviewCoroutine);
+            }
+
+            _slideSuspicionPreviewCoroutine = StartCoroutine(SlideSuspicionGauge(_suspicionPreviewGauge,
+                (float)suspicion / (float)SuspicionManager.Instance.GetMaxSuspicion()));
             _suspicionPreviewText.text = suspicion + "/" + SuspicionManager.Instance.GetMaxSuspicion();
             if (suspicion > SuspicionManager.Instance.GetMaxSuspicion())
             {
-                _glowSuspicionPreviewCoroutine = StartCoroutine(GlowSuspicionPreview());
+                if (_glowSuspicionPreviewCoroutine == null)
+                {
+                    _glowSuspicionPreviewCoroutine = StartCoroutine(GlowSuspicionPreview());
+                }
             }
             else
             {
                 if (_glowSuspicionPreviewCoroutine != null)
                 {
-                    Debug.Log("coroutine stopped");
                     StopCoroutine(_glowSuspicionPreviewCoroutine);
+                    _glowSuspicionPreviewCoroutine = null;
                     _suspicionPreviewGauge.color = _originalColor;
                 }
             }
+        }
+        
+        IEnumerator SlideSuspicionGauge(Image suspicionGauge, float end)
+        {
+            end = Mathf.Clamp01(end);
+            float start = suspicionGauge.fillAmount;
+            if (start < end)
+            {
+                while (suspicionGauge.fillAmount < end)
+                {
+                    suspicionGauge.fillAmount += 0.01f;
+                    yield return new WaitForSeconds(0.01f);
+                }
+            }
+            else
+            {
+                while (suspicionGauge.fillAmount > end)
+                {
+                    suspicionGauge.fillAmount -= 0.01f;
+                    yield return new WaitForSeconds(0.01f);
+                }
+            }
+            
+
+            suspicionGauge.fillAmount = end;
+            yield return null;
         }
 
         private void HandleSetSuspicionEvent(object sender, SetSuspicionEventArgs e)

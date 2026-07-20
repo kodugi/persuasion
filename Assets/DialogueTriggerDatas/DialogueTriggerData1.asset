@@ -17,10 +17,6 @@ MonoBehaviour:
   _pages:
   - Entries:
     - SpeakerName: "\uC8FC\uC778\uACF5"
-      DialogueText: "\uB410\uB2E4! \uBC14\uAF08\uC5B4."
-      StateToTrigger: 5
-  - Entries:
-    - SpeakerName: "\uC8FC\uC778\uACF5"
       DialogueText: "\uC774 \uB2A5\uB825\uC740 \uC5B4\uB838\uC744 \uB54C \uC774\uD6C4\uB85C\uB294
         \uC548 \uC368\uBD24\uB294\uB370\u2026. \uC5B4\uB5BB\uAC8C \uC4F0\uB354\uB77C?"
       StateToTrigger: 6

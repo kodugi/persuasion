@@ -24,3 +24,4 @@ MonoBehaviour:
   - Cells: 0000000000000000000000000000000000000000
   _dialogueTriggers:
   - {fileID: 11400000, guid: 6d7c0966d3830714ba7e58a4ee61381e, type: 2}
+  - {fileID: 11400000, guid: f8fda310b7240de4fb1502f100e09e5c, type: 2}
