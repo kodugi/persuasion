@@ -10,6 +10,7 @@ namespace GamePlay
     {
         private Dictionary<TutorialState, List<TutorialEntry>> _tutorialEntriesDict;
         private TutorialState _currentState;
+        private bool _currentStateWasTriggeredWithDialogue;
         private List<Vector2Int> _currentCellCoords;
 
         private DialogueManager _dialogueManager;
@@ -22,11 +23,13 @@ namespace GamePlay
         {
             _tutorialEntriesDict = tutorialEntries ?? new Dictionary<TutorialState, List<TutorialEntry>>();
             _currentState = TutorialState.None;
+            _currentStateWasTriggeredWithDialogue = false;
             _currentCellCoords = new List<Vector2Int>();
             _dialogueManager = DialogueManager.Instance;
             _turnManager = TurnManager.Instance;
             _boardController = BoardController.Instance;
             
+            _dialogueManager.RaiseSetDialogueEntryEvent += HandleSetDialogueEntryEvent;
             _dialogueManager.RaiseDialoguePageEndEvent += HandleDialoguePageEndEvent;
             RaiseSetTutorialStateEvent += HandleSetTutorialStateEvent;
             _boardController.RaiseCellPlacementEvent += HandleCellPlacementEvent;
@@ -61,25 +64,52 @@ namespace GamePlay
             }
         }
 
-        public void NotifySuspicionExplanationClicked()
+        public void NotifyScreenClicked()
         {
-            if (_currentState == TutorialState.ExplainSuspicion)
+            ToNextState();
+        }
+
+        private void HandleSetDialogueEntryEvent(object sender, SetDialogueEntryEventArgs e)
+        {
+            DialogueEntry dialogueEntry = e.GetDialogueEntry();
+            if (_currentStateWasTriggeredWithDialogue)
             {
-                ToNextState();
+                SetTutorialState(TutorialState.None);
+            }
+
+            if (ShouldTriggerTutorialState(dialogueEntry, TutorialStateTriggerTiming.WithDialogue))
+            {
+                SetTutorialState(dialogueEntry.StateToTrigger, true);
             }
         }
 
         private void HandleDialoguePageEndEvent(object sender, DialoguePageEndEventArgs e)
         {
-            if (e.GetLastDialogueEntry().StateToTrigger != TutorialState.None)
+            DialogueEntry lastDialogueEntry = e.GetLastDialogueEntry();
+            if (_currentStateWasTriggeredWithDialogue)
             {
-                SetTutorialState(e.GetLastDialogueEntry().StateToTrigger);
+                SetTutorialState(TutorialState.None);
+            }
+
+            if (ShouldTriggerTutorialState(lastDialogueEntry, TutorialStateTriggerTiming.AfterDialogue))
+            {
+                SetTutorialState(lastDialogueEntry.StateToTrigger);
             }
         }
 
-        private void SetTutorialState(TutorialState tutorialState)
+        private bool ShouldTriggerTutorialState(
+            DialogueEntry dialogueEntry,
+            TutorialStateTriggerTiming triggerTiming)
+        {
+            return dialogueEntry != null &&
+                   dialogueEntry.StateToTrigger != TutorialState.None &&
+                   dialogueEntry.StateTriggerTiming == triggerTiming;
+        }
+
+        private void SetTutorialState(TutorialState tutorialState, bool triggeredWithDialogue = false)
         {
             _currentState = tutorialState;
+            _currentStateWasTriggeredWithDialogue = tutorialState != TutorialState.None && triggeredWithDialogue;
             Debug.Log("set tutorial state to " + tutorialState);
             RaiseSetTutorialStateEvent?.Invoke(this, new SetTutorialStateEventArgs(tutorialState, GetTutorialEntries(tutorialState)));
         }
@@ -90,7 +120,8 @@ namespace GamePlay
             List<RectTransform> focusTargets = new List<RectTransform>();
             List<GameObject> focusWorldTargets = new List<GameObject>();
             RectTransform defaultFocusTarget = GetDefaultFocusTarget(e.CurrentState);
-            bool shouldBlockOverlayRaycasts = ShouldBlockOverlayRaycasts(e.CurrentState);
+            bool shouldBlockOverlayRaycasts = !_currentStateWasTriggeredWithDialogue &&
+                                               ShouldBlockOverlayRaycasts(e.CurrentState);
             BoardView boardView = BoardView.Instance as BoardView;
 
             if (defaultFocusTarget != null)
@@ -228,10 +259,17 @@ namespace GamePlay
 
         private Action GetOverlayClickHandler(TutorialState tutorialState)
         {
+            if (_currentStateWasTriggeredWithDialogue)
+            {
+                return null;
+            }
+
             switch (tutorialState)
             {
                 case TutorialState.ExplainSuspicion:
-                    return NotifySuspicionExplanationClicked;
+                case TutorialState.ExplainTargetNumber:
+                case TutorialState.ExplainOriginalBlack:
+                    return NotifyScreenClicked;
                 default:
                     return null;
             }
@@ -246,6 +284,8 @@ namespace GamePlay
         ExplainEndTurn,
         WaitEndTurn,
         ExplainWeakThought,
+        ExplainTargetNumber,
+        ExplainOriginalBlack,
         None
     }
 

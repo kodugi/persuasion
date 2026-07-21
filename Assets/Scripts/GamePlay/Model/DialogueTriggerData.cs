@@ -124,10 +124,11 @@ namespace GamePlay
         public string SpeakerName;
         [TextArea(2, 6)] public string DialogueText;
         public TutorialState StateToTrigger = TutorialState.None;
+        public TutorialStateTriggerTiming StateTriggerTiming = TutorialStateTriggerTiming.AfterDialogue;
 
         public DialogueEntry CreateDialogueEntry()
         {
-            return new DialogueEntry(SpeakerName, DialogueText, StateToTrigger);
+            return new DialogueEntry(SpeakerName, DialogueText, StateToTrigger, StateTriggerTiming);
         }
 
         public static DialogueEntryData FromDialogueEntry(DialogueEntry dialogueEntry)
@@ -141,7 +142,8 @@ namespace GamePlay
             {
                 SpeakerName = dialogueEntry.SpeakerName,
                 DialogueText = dialogueEntry.DialogueText,
-                StateToTrigger = dialogueEntry.StateToTrigger
+                StateToTrigger = dialogueEntry.StateToTrigger,
+                StateTriggerTiming = dialogueEntry.StateTriggerTiming
             };
         }
     }

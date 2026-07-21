@@ -18,12 +18,24 @@ namespace GamePlay
         public string SpeakerName;
         public string DialogueText;
         public TutorialState StateToTrigger;
+        public TutorialStateTriggerTiming StateTriggerTiming;
 
-        public DialogueEntry(string speakerName, string dialogueText, TutorialState stateToTrigger)
+        public DialogueEntry(
+            string speakerName,
+            string dialogueText,
+            TutorialState stateToTrigger,
+            TutorialStateTriggerTiming stateTriggerTiming = TutorialStateTriggerTiming.AfterDialogue)
         {
             SpeakerName = speakerName;
             DialogueText = dialogueText;
             StateToTrigger = stateToTrigger;
+            StateTriggerTiming = stateTriggerTiming;
         }
+    }
+
+    public enum TutorialStateTriggerTiming
+    {
+        AfterDialogue,
+        WithDialogue
     }
 }

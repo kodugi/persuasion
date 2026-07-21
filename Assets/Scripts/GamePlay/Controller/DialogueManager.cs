@@ -108,6 +108,12 @@ namespace GamePlay
             else if (IsEndOfDialoguePage())
             {
                 DialogueEntry lastDialogueEntry = GetCurrentDialogueEntry();
+                if (ShouldContinueToNextPage(lastDialogueEntry))
+                {
+                    SetDialoguePage(_currentPage + 1);
+                    return;
+                }
+
                 ResumeTurnState();
                 RaiseDialoguePageEndEvent?.Invoke(this, new DialoguePageEndEventArgs(lastDialogueEntry));
             }
@@ -225,6 +231,14 @@ namespace GamePlay
                    _currentDialogueData.DialogueList[_currentPage] != null &&
                    _currentEntry >= 0 &&
                    _currentEntry < _currentDialogueData.DialogueList[_currentPage].Count;
+        }
+
+        private bool ShouldContinueToNextPage(DialogueEntry dialogueEntry)
+        {
+            return dialogueEntry != null &&
+                   dialogueEntry.StateToTrigger != TutorialState.None &&
+                   dialogueEntry.StateTriggerTiming == TutorialStateTriggerTiming.WithDialogue &&
+                   _currentPage + 1 < _currentDialogueData.DialogueList.Count;
         }
 
         private void ResumeTurnState()

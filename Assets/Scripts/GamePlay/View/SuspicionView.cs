@@ -90,24 +90,15 @@ namespace GamePlay
         {
             end = Mathf.Clamp01(end);
             float start = suspicionGauge.fillAmount;
-            if (start < end)
+            int steps = 20;
+            float progress = (end - start) / steps;
+
+            for (int i = 0; i < steps; i++)
             {
-                while (suspicionGauge.fillAmount < end)
-                {
-                    suspicionGauge.fillAmount += 0.01f;
-                    yield return new WaitForSeconds(0.01f);
-                }
-            }
-            else
-            {
-                while (suspicionGauge.fillAmount > end)
-                {
-                    suspicionGauge.fillAmount -= 0.01f;
-                    yield return new WaitForSeconds(0.01f);
-                }
+                suspicionGauge.fillAmount += progress;
+                yield return new WaitForSeconds(0.01f);
             }
             
-
             suspicionGauge.fillAmount = end;
             yield return null;
         }

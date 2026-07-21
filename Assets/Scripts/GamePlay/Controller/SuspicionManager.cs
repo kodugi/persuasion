@@ -1,5 +1,6 @@
 ﻿using System;
 using SingletonUtils;
+using UnityEngine;
 
 namespace GamePlay
 {
@@ -82,6 +83,7 @@ namespace GamePlay
         {
             if (_turnManager.GetTurnState() != e.turnState)
             {
+                Debug.Log("ignoring SetTurnStateEvent; updated state: " + e.turnState + ", real state: " + _turnManager.GetTurnState());
                 return;
             }
 
