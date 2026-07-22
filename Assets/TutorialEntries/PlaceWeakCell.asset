@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1a8e3a996a34ea69f60c5a6beadce88, type: 3}
-  m_Name: ExplainWeakCell10
+  m_Name: PlaceWeakCell
   m_EditorClassIdentifier: Assembly-CSharp::GamePlay.TutorialEntry
   _entryKind: 0
   _cellX: 1

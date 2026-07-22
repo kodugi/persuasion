@@ -153,7 +153,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -50}
+  m_AnchoredPosition: {x: 53, y: -50}
   m_SizeDelta: {x: 400, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &36690518
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: text
+  m_text: testtesttestesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f920cb8c07bfe0f49bd6b424b9720a78, type: 2}
   m_sharedMaterial: {fileID: -3344085443583118590, guid: f920cb8c07bfe0f49bd6b424b9720a78, type: 2}
@@ -2359,16 +2359,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GamePlay.GameManager
   _gameInfo: {fileID: 11400000, guid: d26492b389615d843b54a04e41ef13ff, type: 2}
   _tutorialEntryGroups:
-  - State: 0
-    Entries:
-    - {fileID: 11400000, guid: a2bb76cd5be7e3640a926e2081c46f31, type: 2}
   - State: 1
     Entries:
-    - {fileID: 11400000, guid: 6dc42122f787dab49909ec48d69262ab, type: 2}
+    - {fileID: 11400000, guid: a2bb76cd5be7e3640a926e2081c46f31, type: 2}
   - State: 2
     Entries:
-    - {fileID: 11400000, guid: 5d91d2f44899cc9469340bda99fcb6f8, type: 2}
+    - {fileID: 11400000, guid: 6dc42122f787dab49909ec48d69262ab, type: 2}
   - State: 3
+    Entries:
+    - {fileID: 11400000, guid: 5d91d2f44899cc9469340bda99fcb6f8, type: 2}
+  - State: 4
     Entries:
     - {fileID: 11400000, guid: 3904cbb723abec54d8a1ea37fac8effb, type: 2}
   - State: 5
@@ -2382,11 +2382,13 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 3298a9de67ada1b43a71df8c0b7bfa1d, type: 2}
     - {fileID: 11400000, guid: af34bc0031d91be41b8ba4738b352b79, type: 2}
     - {fileID: 11400000, guid: 8548ee53711522d49b0b48fbfaa08d5a, type: 2}
-    - {fileID: 11400000, guid: 5c1664f875096c048863debae18c046d, type: 2}
   - State: 6
     Entries:
-    - {fileID: 11400000, guid: 9a7d0f0ac6cbd1248ba73093073daa74, type: 2}
+    - {fileID: 11400000, guid: 5c1664f875096c048863debae18c046d, type: 2}
   - State: 7
+    Entries:
+    - {fileID: 11400000, guid: 9a7d0f0ac6cbd1248ba73093073daa74, type: 2}
+  - State: 8
     Entries:
     - {fileID: 11400000, guid: 8fcc946ddd955a5438dfaa1fb0e90e9b, type: 2}
     - {fileID: 11400000, guid: 2eb85c0ed1a4f1e4cad8f0c2bc4336f4, type: 2}
@@ -2427,7 +2429,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4, y: 50}
+  m_AnchoredPosition: {x: 4, y: 55}
   m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1427285071
@@ -3574,7 +3576,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 30, y: -30}
+  m_AnchoredPosition: {x: 28, y: -30}
   m_SizeDelta: {x: 130, y: 40}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1996976387
@@ -3597,7 +3599,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: speaker
+  m_text: "\uC8FC\uC778\uACF5"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f920cb8c07bfe0f49bd6b424b9720a78, type: 2}
   m_sharedMaterial: {fileID: -3344085443583118590, guid: f920cb8c07bfe0f49bd6b424b9720a78, type: 2}
@@ -3631,8 +3633,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_characterHorizontalScale: 1

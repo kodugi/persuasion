@@ -278,15 +278,15 @@ namespace GamePlay
 
     public enum TutorialState
     {
-        PlaceFirstCell,
-        PlaceSecondCell,
-        ExplainSuspicion,
-        ExplainEndTurn,
-        WaitEndTurn,
-        ExplainWeakThought,
-        ExplainTargetNumber,
-        ExplainOriginalBlack,
-        None
+        PlaceFirstCell = 1,
+        PlaceSecondCell = 2,
+        ExplainSuspicion = 3,
+        ExplainEndTurn = 4,
+        ExplainWeakThought = 5,
+        PlaceWeakThought = 6,
+        ExplainTargetNumber = 7,
+        ExplainOriginalBlack = 8,
+        None = 0
     }
 
     public class SetTutorialStateEventArgs : EventArgs
