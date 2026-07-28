@@ -105,6 +105,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a3b30033c2902448398cbe2c065dc1b1
+    m_Address: Map1_Cave_Face
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a7681fb55911e433294dbe34216362b3
     m_Address: player
     m_ReadOnly: 0

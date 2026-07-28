@@ -184,10 +184,10 @@ namespace Investigation
         {
             return chiefManager.inv_Scene_ID;
         }
-        public void LoadGameScene(string id)
+        public void LoadGameScene(string id, string autoInteractionOnReturn)
         {
             print(id);
-            chiefManager.StartPersuasion(id);
+            chiefManager.StartPersuasion(id, autoInteractionOnReturn);
         }
         public void CutScene(string title)
         {
@@ -209,6 +209,10 @@ namespace Investigation
                     );
                     break;
             }
+        }
+        public void ForceInteract(string title)
+        {
+            interactManager.ForceInteraction(title);
         }
     }
 }

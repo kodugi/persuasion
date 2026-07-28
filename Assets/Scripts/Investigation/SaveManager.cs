@@ -110,7 +110,7 @@ public partial class SaveManager : MonoBehaviour
     // overwrite=false는 object타입이 List일때만: add로 작용
     public void AddProgress(string key, object value, bool overwrite = true)
     {
-        print("Adding "+key);
+        // /print("Adding "+key);
         if (!progress.ContainsKey(key))
         {
             progress.Add(key, value);

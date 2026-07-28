@@ -18,7 +18,9 @@ public partial class ChiefManager : MonoBehaviour
     public string inv_Scene_ID="";
     public string per_Scene_ID="";
     string return_Inv_Scene_ID="";
-    public List<string> sceneNames = new List<string>{"Start", "Persuasion", "Investigation"};
+    private Vector3? invSceneLastPos=null;
+    private string autoInteractOnReturntoInv=null;
+    public List<string> sceneNames = new List<string>{"Start", "Persuasion", "Investigation", "Persuasion"};
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -36,10 +38,26 @@ public partial class ChiefManager : MonoBehaviour
         currScene = "Investigation";
         StartInvestigation("Map1");
     }
-    void LoadScene(string id)
+    void LoadScene(object id)
     {
-        currScene = id;
-        SceneManager.LoadScene(sceneNames.IndexOf(id));
+        if (id is string sceneName)
+        {
+            currScene = sceneName;
+            SceneManager.LoadScene(sceneNames.IndexOf(sceneName));
+        }
+        else if (id is int sceneIndex)
+        {
+            //temp
+            if(sceneIndex == 2) currScene = "Investigation";
+            else currScene = "Persuasion";
+            //currScene = sceneNames[sceneIndex];
+            SceneManager.LoadScene(sceneIndex);
+        }
+        else
+        {
+            throw new ArgumentException("id must be either string or int.");
+        }
+        print(currScene);
     }
     void LoadingMotion()
     {
@@ -58,7 +76,11 @@ public partial class ChiefManager : MonoBehaviour
                 if (inv_PlayerCTRL != null)
                 {
                     inv_PlayerCTRL.inputAction?.Player.Disable();
+                    invSceneLastPos = inv_PlayerCTRL.gameObject.transform.position;
+                    print(invSceneLastPos);
                 }
+                else Debug.LogWarning("PlayerCTRL not detected");
+                
                 break;
         }
     }
@@ -75,7 +97,7 @@ public partial class ChiefManager : MonoBehaviour
         per_Scene_ID = "";
         inv_Scene_ID = id;
 
-        SceneManager.LoadScene(2);
+        LoadScene(2);
         yield return new WaitUntil(() => FindFirstObjectByType<Inv_GameManager>() != null);
         saveManager.OnInvestigationSceneStart();
 
@@ -90,9 +112,19 @@ public partial class ChiefManager : MonoBehaviour
                 obj.CheckState();
             }
         }
+
+        if(invSceneLastPos != null) {
+            //print(invSceneLastPos);
+            inv_PlayerCTRL.gameObject.transform.position = (Vector3)invSceneLastPos;
+        }
+        if(autoInteractOnReturntoInv != null) inv_GameManager.ForceInteract(autoInteractOnReturntoInv);
+
+        invSceneLastPos = null;
+        autoInteractOnReturntoInv = null;
     }
-    public void StartPersuasion(string id)
+    public void StartPersuasion(string id, string autoInteractionOnReturn)
     {
+        autoInteractOnReturntoInv = autoInteractionOnReturn;
         LoadingMotion();
         StartCoroutine(StartPersuasionScene(id));
     }
@@ -103,7 +135,7 @@ public partial class ChiefManager : MonoBehaviour
         inv_Scene_ID = "";
         per_Scene_ID = id;
 
-        SceneManager.LoadScene(3);
+        LoadScene(3);
         //yield return new WaitUntil(() => FindFirstObjectByType<something>() != null);
         //temp
         yield return null;

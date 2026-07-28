@@ -175,7 +175,7 @@ namespace Investigation
             Collider2D[] hits = Physics2D.OverlapPointAll(mousePos);
             foreach (Collider2D hit in hits)
             {
-                print(hit.gameObject.name);
+                //print(hit.gameObject.name);
                 if(hit.gameObject.tag == "Inv_Interactable")
                 {
                     hit.gameObject.GetComponent<Inv_InteractionObj>().InventoryItemDraggedOn(inventoryItems[floatingIdx]);

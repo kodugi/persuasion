@@ -182,7 +182,9 @@ namespace Investigation
                     manager.AddItem(item);
                     break;
                 case "persuade":
-                    manager.LoadGameScene((string)effect["title"]);
+                    string autoInteractionOnReturn = null;
+                    if(effect.ContainsKey("autoReturn")) autoInteractionOnReturn = (string)effect["autoReturn"];
+                    manager.LoadGameScene((string)effect["title"], autoInteractionOnReturn);
                     /*
                     previewMap.SetActive(true);
                     previewMap.transform.Find("ProgressButton").GetComponent<Button>().onClick.RemoveAllListeners();

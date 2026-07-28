@@ -50,7 +50,8 @@
                     "effects": [
                         {
                             "type": "persuade",
-                            "title": "Map1_Writer"
+                            "title": "Map1_Writer",
+                            "autoReturn": "Map1/Writer"
                         },
                         {
                             "type": "variation",

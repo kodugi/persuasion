@@ -62,7 +62,8 @@
                     "effects": [
                         {
                             "type": "persuade",
-                            "title": "Map1_Granny"
+                            "title": "Map1_Granny",
+                            "autoReturn": "Map1/Cave"
                         },
                         {
                             "type": "variation",
