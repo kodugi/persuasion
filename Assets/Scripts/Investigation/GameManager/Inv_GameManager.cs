@@ -38,6 +38,7 @@ namespace Investigation
             public int sortingOrder;
             public string image;
             public string script;
+            public bool manually_touchable;
         }
         private Vector2 Vector_2D_to_Vector2(Vector_2D v)
         {
@@ -166,6 +167,7 @@ namespace Investigation
                     interactable.AddComponent<Inv_InteractionObj>();
                 }
                 interactable.GetComponent<Inv_InteractionObj>().hideCriteria = obj.hideCriteria;
+                interactable.GetComponent<Inv_InteractionObj>().manuallyTouchable = obj.manually_touchable;
                 if (Mathf.Abs(obj.colliderSize.x) + Mathf.Abs(obj.colliderSize.y) > 0.00001f)
                 {
                     if(obj.colliderShape =="box"){
