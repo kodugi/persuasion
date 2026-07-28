@@ -28,6 +28,17 @@ public class Inv_InteractionObj_Map1_Pigeon: Inv_InteractionObj
                     }
                 );
                 interactManager.ForceInteraction("Map1/Writer");
+                saveManager.AddProgress("pigeonCaught", true);
+                //Temp
+                Destroy(gameObject);
+            }
+        }
+        override public void CheckState()
+        {
+            object pigeonCaught = saveManager.LoadProgress("pigeonCaught");
+            if(pigeonCaught != null && ((bool)pigeonCaught)==true)
+            {
+                Destroy(gameObject);
             }
         }
     }

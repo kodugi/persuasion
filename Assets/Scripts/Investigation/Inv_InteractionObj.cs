@@ -57,7 +57,7 @@ public class Inv_InteractionObj : Utility
         }
         virtual public void InventoryItemDraggedOn(string itemName)
         {
-            
+            print("hey!"+itemName);
         }
     }
 }

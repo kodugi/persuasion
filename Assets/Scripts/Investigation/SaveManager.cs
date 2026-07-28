@@ -132,7 +132,7 @@ public partial class SaveManager : MonoBehaviour
                 }
             }
         }
-
+        /*
         if (progress.Count > 0)
         {
             SaveData("progress", progress);
@@ -140,7 +140,7 @@ public partial class SaveManager : MonoBehaviour
         else
         {
             Debug.Log("[SaveManager] Skip writing progress because dictionary is empty.");
-        }
+        }*/SaveData("progress", progress);
 
         AddProgressException(key, value);
     }

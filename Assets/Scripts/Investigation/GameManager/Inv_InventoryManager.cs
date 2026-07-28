@@ -152,15 +152,28 @@ namespace Investigation
             int targetObjIdx = -1;
             foreach(var result in results)
             {
-                if(result.gameObject.tag != "InventoryObj") continue;
-                if(result.gameObject.name.Contains("Float")) continue;
-                if(int.Parse(result.gameObject.name.Substring(result.gameObject.name.LastIndexOf('_')+1))==floatingIdx) continue;
-                targetObjIdx = int.Parse(result.gameObject.name.Substring(result.gameObject.name.LastIndexOf('_')+1));
+                //print(result.gameObject.name);
+                if(result.gameObject.tag == "InventoryObj")
+                {
+                    if(result.gameObject.name.Contains("Float")) continue;
+                    if(int.Parse(result.gameObject.name.Substring(result.gameObject.name.LastIndexOf('_')+1))==floatingIdx) continue;
+                    targetObjIdx = int.Parse(result.gameObject.name.Substring(result.gameObject.name.LastIndexOf('_')+1));
+                }
             }
-
             if(targetObjIdx != -1)
             {
                 CombinationEffect(floatingIdx, targetObjIdx);
+            }
+
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Collider2D[] hits = Physics2D.OverlapPointAll(mousePos);
+            foreach (Collider2D hit in hits)
+            {
+                print(hit.gameObject.name);
+                if(hit.gameObject.tag == "Inv_Interactable")
+                {
+                    hit.gameObject.GetComponent<Inv_InteractionObj>().InventoryItemDraggedOn(inventoryItems[floatingIdx]);
+                }
             }
         }
         Dictionary<string, string> combinations = new Dictionary<string, string>
