@@ -19,6 +19,7 @@ namespace Investigation
         List<string> inventoryItems = new List<string>();
         List<AsyncOperationHandle<Sprite>> inventoryHandles = new List<AsyncOperationHandle<Sprite>>();
         private Coroutine panelFading;
+        string floatingItemName="";
         void InventoryAwake()
         {
             saveManager.LoadData<List<string>>("inventory", out inventoryItems);
@@ -103,13 +104,13 @@ namespace Investigation
             yield return new WaitForSeconds(time);
             if(panelFading != null) panelFading = null;
         }
-        public void AddItem(string itemName)
+        public void AddItem(string itemName, bool doPreview=true)
         {            
             bool doQuit = AddItemException(itemName);
             if(doQuit) return;
             inventoryItems.Add(itemName);
             saveManager.SaveData("inventory", inventoryItems);
-            PreviewInventory();
+            if(doPreview) PreviewInventory();
         }
         bool AddItemException(string itemName)
         {
@@ -125,7 +126,7 @@ namespace Investigation
                     //break;
             }
         }
-        public void RemoveItem(string itemName, bool doPreview)
+        public void RemoveItem(string itemName, bool doPreview=true)
         {
             inventoryItems.Remove(itemName);
             saveManager.SaveData("inventory", inventoryItems);
@@ -140,6 +141,9 @@ namespace Investigation
             floatingItem.AddComponent<Inv_FloatItemCTRL>();
             floatingItem.GetComponent<Inv_FloatItemCTRL>().inventoryManager = this;
             floatingItem.GetComponent<Inv_FloatItemCTRL>().index = selectionIdx;
+            floatingItemName = item;
+            RemoveItem(item,false);
+            OpenInventory();
         }
         public void ItemRelease(int floatingIdx)
         {
@@ -152,7 +156,7 @@ namespace Investigation
             int targetObjIdx = -1;
             foreach(var result in results)
             {
-                //print(result.gameObject.name);
+                //print("161"+result.gameObject.name);
                 if(result.gameObject.tag == "InventoryObj")
                 {
                     if(result.gameObject.name.Contains("Float")) continue;
@@ -160,6 +164,8 @@ namespace Investigation
                     targetObjIdx = int.Parse(result.gameObject.name.Substring(result.gameObject.name.LastIndexOf('_')+1));
                 }
             }
+            AddItem(floatingItemName, false);
+            OpenInventory();
             if(targetObjIdx != -1)
             {
                 CombinationEffect(floatingIdx, targetObjIdx);
