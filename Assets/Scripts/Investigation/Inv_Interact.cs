@@ -151,7 +151,7 @@ namespace Investigation
             isInteracting = false;
             InteractionGuideUpdate();
         }
-        Transform FindInteractableObj(string target)
+        public Transform FindInteractableObj(string target)
         {
             Transform targetT = null;
             foreach (Transform child in GameObject.Find("Interactables").transform)
@@ -169,13 +169,13 @@ namespace Investigation
                     string topic = (string)effect["topic"];
                     List<string> notes = new List<string>();
                     foreach (var note in (JArray)effect["content"]) notes.Add((string)note);
-                    manager.AddNote(topic, notes);
+                    if(!((bool)saveManager.LoadProgress("noteLock"))) manager.AddNote(topic, notes);
                     break;
                 case "variation":
                     string target = (string)effect["target"];
                     List<string> parameters = JsonConvert.DeserializeObject<List<string>>(effect["parameters"].ToString());
                     if(FindInteractableObj(target) != null) FindInteractableObj(target).GetComponent<Inv_InteractionObj>().variation(parameters);
-                    else Debug.LogWarning("Tried to apply variation on a not-existing object.");
+                    else Debug.LogWarning("Tried to apply variation on a not-existing object: "+target);
                     break;
                 case "item":
                     string item = (string)effect["name"];
@@ -192,7 +192,7 @@ namespace Investigation
                 case "delete":
                     string target_deletion = (string)effect["target"];
                     if(FindInteractableObj(target_deletion) != null) Destroy(FindInteractableObj(target_deletion).gameObject);
-                    else Debug.LogWarning("Tried to delete a not-existing object.");
+                    else Debug.LogWarning("Tried to delete a not-existing object: "+target_deletion);
                     break;
                 case "changeTitle":
                     dialogueScript.ChangeTitle((string)effect["title"]);
@@ -210,6 +210,7 @@ namespace Investigation
                     saveManager.AddProgress(key, value);
                     break;
                 case "cutScene":
+                    manager.CutScene((string)effect["title"]);
                     break;
             }
         }

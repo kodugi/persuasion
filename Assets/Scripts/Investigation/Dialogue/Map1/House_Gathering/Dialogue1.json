@@ -1,0 +1,50 @@
+{
+    "title": "사람들이 몰려 들어간 집",
+    "path": [
+        {
+            "description": "조금 전에 나를 쳐다보다가 몰려간 사람들이 이곳에 있는 것 같다.",
+            "buttons":[
+                {
+                    "title": "무슨 말을 하는지 엿들어보자.",
+                    "next": 1,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(대충 노파에 대한 이야기, 노파의 동굴에 대한 이야기)",
+            "buttons":[
+                {
+                    "title": "그 노파를 찾아가야겠다. 근데 동굴은 어디 있는거지?.",
+                    "next": -1,
+                    "effects": [
+                        {
+                            "type": "note",
+                            "topic": "노파",
+                            "content": [
+                                "(노파에 대한 모종의 정보)",
+                                "노파의 동굴을 찾아가면 언니에 대한 정보를 얻을 수 있을지도 모른다.",
+                                "노파의 동굴은 겉보기엔 그냥 땅 같지만, (어쩌구 저쩌구)"
+                            ]
+                        },
+                        {
+                            "type": "variation",
+                            "target": "Map1/GuideToCave",
+                            "parameters": [
+                                "walk"
+                            ]
+                        },
+                        {
+                            "type": "variation",
+                            "target": "Map1/Cave",
+                            "parameters": [
+                                "visible"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+
+}

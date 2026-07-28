@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
@@ -56,9 +57,11 @@ public class Inv_InteractionObj_Map1_Houses: Inv_InteractionObj
                 switch (parameter)
                 {
                     case "faceOn":
+                        OpenDoor();
                         faceImg.SetActive(true);
                         break;
                     case "faceOff":
+                        CloseDoor();
                         faceImg.SetActive(false);
                         break;
                     case "firstTalkDone":
@@ -67,6 +70,24 @@ public class Inv_InteractionObj_Map1_Houses: Inv_InteractionObj
                 }
             }
             base.variation();
+        }
+        public void EnterDoor()
+        {
+            StartCoroutine(EnteringDoor());
+        }
+        private IEnumerator EnteringDoor()
+        {
+            OpenDoor();
+            yield return new WaitForSeconds(1);
+            CloseDoor();
+        }
+        public void OpenDoor()
+        {
+            
+        }
+        public void CloseDoor()
+        {
+            
         }
     }
 }

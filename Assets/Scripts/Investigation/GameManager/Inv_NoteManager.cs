@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -46,7 +47,12 @@ namespace Investigation
             {
                 notes[noteName].AddRange(contents);
             }
+            StartCoroutine(HighlightNoteButton());
             saveManager.SaveData("notes", notes);
+        }
+        private IEnumerator HighlightNoteButton()
+        {
+            yield return null;
         }
         public void ViewNotes()
         {

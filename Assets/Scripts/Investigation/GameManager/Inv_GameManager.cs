@@ -14,6 +14,7 @@ namespace Investigation
     {
         private SaveManager saveManager;
         private ChiefManager chiefManager;
+        private Inv_Interact interactManager;
         [SerializeField] private GameObject interactablePrefab;
         [SerializeField] private GameObject backgroundPrefab;
         List<AsyncOperationHandle<Sprite>> mapHandles = new List<AsyncOperationHandle<Sprite>>();
@@ -52,6 +53,7 @@ namespace Investigation
         {
             saveManager = GameObject.FindFirstObjectByType<SaveManager>();
             chiefManager = GameObject.FindFirstObjectByType<ChiefManager>();
+            interactManager = GameObject.FindFirstObjectByType<Inv_Interact>();
             NoteAwake();
             InventoryAwake();
 
@@ -186,6 +188,27 @@ namespace Investigation
         {
             print(id);
             chiefManager.StartPersuasion(id);
+        }
+        public void CutScene(string title)
+        {
+            StartCoroutine(CutSceneProgress(title));
+        }
+        private IEnumerator CutSceneProgress(string title)
+        {
+            switch (title)
+            {
+                case "PeopleRunningAfterReceivingPen":
+                    print("사람들이 뛰어다닌대요");
+                    yield return new WaitForSeconds(1);
+                    interactManager.Effects(
+                        new JObject
+                        {
+                            ["type"] = "thought",
+                            ["thought"] = "나를 쳐다보던 사람들이 갑자기 어딘가로 몰려가기 시작했다."
+                        }
+                    );
+                    break;
+            }
         }
     }
 }

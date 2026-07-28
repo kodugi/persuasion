@@ -51,7 +51,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4791f519076664859bd12502b4e17720
-    m_Address: "\uADF8\uB8E8\uD130"
+    m_Address: "\uADF8\uB8E8\uD130\uAE30"
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -122,6 +122,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d117a1b551ea14bc485e3b9e1acf0ce9
     m_Address: "\uB364\uBD881"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d28e90bb629a44e01bb33ec1d5ffd630
+    m_Address: FootprintPrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

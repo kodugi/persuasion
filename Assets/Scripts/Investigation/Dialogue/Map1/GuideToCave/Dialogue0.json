@@ -1,0 +1,88 @@
+{
+    "title": "???",
+    "path": [
+        {
+            "description": "너, 누구야.",
+            "buttons":[
+                {
+                    "title": "네..?",
+                    "next": 1,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "누구냐고, 너. \n너 여기 사람 아니잖아.",
+            "buttons":[
+                {
+                    "title": "아... 그냥 지나가던 길에 마을이 보이길래...",
+                    "next": 2,
+                    "effects": []
+                },
+                {
+                    "title": "언니를 찾으러 왔어요.",
+                    "next": 3,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "내가 그딴 말에 속을 거 같아?\n지나가던 길에 여길 온다는 게 말이 된다고 생각하냐?",
+            "buttons":[
+                {
+                    "title": "실은... 언니를 찾으러 왔어요.",
+                    "next": 3,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "뭐라는 거야... 왜 니 언니가 여기 있을 거라 생각하는데?",
+            "buttons":[
+                {
+                    "title": "별 이유는 없지만...",
+                    "next": 4,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "그럼 꺼져. 여기가 어디라고 들어 와.",
+            "buttons":[
+                {
+                    "title": "(초능력으로 설득해 봐야겠다.)",
+                    "next": 5,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(대충 능력 설명)",
+            "buttons":[
+                {
+                    "title": "설득 시작",
+                    "next": -1,
+                    "effects": [
+                        {
+                            "type": "persuade",
+                            "title": "Map1_Guard1_1"
+                        },
+                        {
+                            "type": "variation",
+                            "target": "Map1/Guard1",
+                            "parameters":[
+                                "Met"
+                            ]
+                        },
+                        {
+                            "type": "variation",
+                            "target": "Map1/Guard1_Trigger",
+                            "parameters":[]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+
+}

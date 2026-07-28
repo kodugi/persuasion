@@ -19,6 +19,21 @@
                             "parameters":[
                                 "PenGiven"
                             ]
+                        },
+                        {
+                            "type": "variation",
+                            "target": "Map1/House_Gathering",
+                            "parameters":[
+                                "Gathered"
+                            ]
+                        },
+                        {
+                            "type": "cutScene",
+                            "title": "PeopleRunningAfterReceivingPen"
+                        },
+                        {
+                            "type": "thought",
+                            "thought": "어째서인지 나를 바라보는 수많은 시선이 느껴진다."
                         }
                     ]
                 }
