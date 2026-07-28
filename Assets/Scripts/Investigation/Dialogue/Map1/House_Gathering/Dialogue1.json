@@ -40,6 +40,13 @@
                             "parameters": [
                                 "visible"
                             ]
+                        },
+                        {
+                            "type": "variation",
+                            "target": "Map1/House_Gathering",
+                            "parameters": [
+                                "dispersed"
+                            ]
                         }
                     ]
                 }

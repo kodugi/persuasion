@@ -28,11 +28,11 @@ public partial class SaveManager : MonoBehaviour
     public void OnInvestigationSceneStart()
     {
         gameManager = GameObject.FindFirstObjectByType<Inv_GameManager>();
-        Debug.Log($"[SaveManager] OnInvestigationSceneStart resetOnQuit={resetOnQuit}");
+        //Debug.Log($"[SaveManager] OnInvestigationSceneStart resetOnQuit={resetOnQuit}");
         if(LoadData<Dictionary<string, object>>("progress", out Dictionary<string, object> result))
         {
             progress = result;
-            Debug.Log($"[SaveManager] Loaded existing progress: {JsonConvert.SerializeObject(progress)}");
+            //Debug.Log($"[SaveManager] Loaded existing progress: {JsonConvert.SerializeObject(progress)}");
             InitializedBasedOnProgress();
         }
         else
@@ -90,7 +90,7 @@ public partial class SaveManager : MonoBehaviour
 
         string path = PathGen(fileName);
         string json = JsonConvert.SerializeObject(data, Formatting.Indented);
-        Debug.Log($"[SaveManager] Write {fileName} -> {path}");
+        //Debug.Log($"[SaveManager] Write {fileName} -> {path}");
         System.IO.File.WriteAllText(path, json);
     }
     public bool LoadData<T>(string fileName, out T result) where T : new()
@@ -110,6 +110,7 @@ public partial class SaveManager : MonoBehaviour
     // overwrite=false는 object타입이 List일때만: add로 작용
     public void AddProgress(string key, object value, bool overwrite = true)
     {
+        print("Adding "+key);
         if (!progress.ContainsKey(key))
         {
             progress.Add(key, value);
@@ -203,10 +204,10 @@ public partial class SaveManager : MonoBehaviour
     }
     public void SaveProgress()
     {
-        Debug.Log($"[SaveManager] SaveProgress called. progressCount={progress?.Count ?? 0}, resetOnQuit={resetOnQuit}");
+        //Debug.Log($"[SaveManager] SaveProgress called. progressCount={progress?.Count ?? 0}, resetOnQuit={resetOnQuit}");
         if (progress == null || progress.Count == 0)
         {
-            Debug.Log("[SaveManager] No meaningful progress to save; skip save.");
+            //Debug.Log("[SaveManager] No meaningful progress to save; skip save.");
             return;
         }
 

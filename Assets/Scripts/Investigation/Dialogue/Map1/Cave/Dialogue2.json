@@ -1,0 +1,24 @@
+{
+    "title": "노파",
+    "path": [
+        {
+            "description": "(노파가 알려주는 정보)",
+            "buttons":[
+                {
+                    "title": "감사합니다!",
+                    "next": -1,
+                    "effects": [
+                        {
+                            "type": "variation",
+                            "target": "Map1/Cave",
+                            "parameters":[
+                                "Resolved"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+
+}

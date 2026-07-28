@@ -5,7 +5,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Investigation
 {
-    public class Inv_InteractionObj_Map1_Cave: Inv_InteractionObj
+    public class Inv_InteractionObj_Map1_Cave: Inv_InteractionObj_Map1_Houses
     {
         override public void CheckState()
         {
@@ -14,10 +14,19 @@ namespace Investigation
                 case 1:
                     manuallyTouchable = true;
                     break;
+                case 2: 
+                    manuallyTouchable = true;
+                    variation(new List<string>(){"faceOn"});
+                    break;
+                case 3: 
+                    manuallyTouchable = true;
+                    break;
             }
+            base.CheckState();
         }
         override public void variation(List<string> parameters = null)
         {
+            List<string> newParam = new List<string>();
             foreach(string parameter in parameters)
             {
                 switch (parameter)
@@ -26,39 +35,18 @@ namespace Investigation
                         state=1;
                         manuallyTouchable = true;
                         break;
-                    case "EnterDoor":
-                        EnterDoor();
+                    case "knock":
+                        newParam.Add("faceOn");
                         break;
-                    case "OpenDoor":
-                        OpenDoor();
+                    case "Met":
+                        state=2;
                         break;
-                    case "CloseDoor":
-                        CloseDoor();
-                        break;
-                    case "Gathered":
-                        state = 1;
+                    case "Resolved":
+                        state=3;
                         break;
                 }
             }
-            base.variation();
-        }
-        public void EnterDoor()
-        {
-            StartCoroutine(EnteringDoor());
-        }
-        private IEnumerator EnteringDoor()
-        {
-            OpenDoor();
-            yield return new WaitForSeconds(1);
-            CloseDoor();
-        }
-        public void OpenDoor()
-        {
-            print("DoorOpen");
-        }
-        public void CloseDoor()
-        {
-            print("DoorClosed");
+            base.variation(newParam); // faceOn/Off, DoorCTRL, firstTalkDone(Not Used)
         }
     }
 }

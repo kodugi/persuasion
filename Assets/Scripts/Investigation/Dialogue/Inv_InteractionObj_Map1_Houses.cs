@@ -67,6 +67,15 @@ public class Inv_InteractionObj_Map1_Houses: Inv_InteractionObj
                     case "firstTalkDone":
                         state = 1;
                         break;
+                    case "EnterDoor":
+                        EnterDoor();
+                        break;
+                    case "OpenDoor":
+                        OpenDoor();
+                        break;
+                    case "CloseDoor":
+                        CloseDoor();
+                        break;
                 }
             }
             base.variation();

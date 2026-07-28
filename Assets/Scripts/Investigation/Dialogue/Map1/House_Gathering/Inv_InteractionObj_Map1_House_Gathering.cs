@@ -7,10 +7,6 @@ namespace Investigation
 {
     public class Inv_InteractionObj_Map1_House_Gathering: Inv_InteractionObj
     {
-        override public void CheckState()
-        {
-            print(state);
-        }
         override public void variation(List<string> parameters = null)
         {
             foreach(string parameter in parameters)
@@ -28,6 +24,9 @@ namespace Investigation
                         break;
                     case "Gathered":
                         state = 1;
+                        break;
+                    case "dispersed":
+                        state = 2;
                         break;
                 }
             }
