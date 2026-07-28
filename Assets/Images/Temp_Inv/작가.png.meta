@@ -1,13 +1,19 @@
 fileFormatVersion: 2
-guid: 1c30159af32eb494aa5e469222c9bbd7
+guid: 710c4904f64574d229a8ca901fe04fa5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8304290262140516116
-    second: KakaoTalk_Photo_2026-07-15-18-52-31_0
+      213: 8426817888908902439
+    second: guard_0
   - first:
-      213: 3500245549986607419
-    second: KakaoTalk_Photo_2026-07-15-18-52-31_1
+      213: -6557464283307180578
+    second: guard_1
+  - first:
+      213: -9191970194228111346
+    second: guard_2
+  - first:
+      213: 4089389326833356611
+    second: guard_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,12 +55,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 1020
+  spritePixelsToUnits: 1000
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -142,13 +148,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: KakaoTalk_Photo_2026-07-15-18-52-31_0
+      name: guard_0
       rect:
         serializedVersion: 2
-        x: 17
-        y: 505
-        width: 40
-        height: 35
+        x: 367
+        y: 55
+        width: 290
+        height: 925
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -157,20 +163,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 417fe92def3ce3370800000000000000
-      internalID: 8304290262140516116
+      spriteID: 7208257093212f470800000000000000
+      internalID: 8426817888908902439
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KakaoTalk_Photo_2026-07-15-18-52-31_1
+      name: guard_1
       rect:
         serializedVersion: 2
-        x: 20
-        y: 63
-        width: 2495
-        height: 876
+        x: 558
+        y: 943
+        width: 37
+        height: 42
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -179,8 +185,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b31f79958ce539030800000000000000
-      internalID: 3500245549986607419
+      spriteID: eddf92e2af43ff4a0800000000000000
+      internalID: -6557464283307180578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: guard_2
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 855
+        width: 31
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e081e0b3fcf8f6080800000000000000
+      internalID: -9191970194228111346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: guard_3
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 376
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34f0d2e1ded60c830800000000000000
+      internalID: 4089389326833356611
       vertices: []
       indices: 
       edges: []
@@ -189,7 +239,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -199,8 +249,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      KakaoTalk_Photo_2026-07-15-18-52-31_0: 8304290262140516116
-      KakaoTalk_Photo_2026-07-15-18-52-31_1: 3500245549986607419
+      guard_0: 8426817888908902439
+      guard_1: -6557464283307180578
+      guard_2: -9191970194228111346
+      guard_3: 4089389326833356611
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

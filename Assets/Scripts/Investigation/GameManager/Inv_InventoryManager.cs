@@ -74,7 +74,7 @@ namespace Investigation
                 //RectTransform rt = newItem.GetComponent<RectTransform>();
                 //rt.anchoredPosition = InventoryItemPosCalc(i);
                 newItem.name = item+"_"+i.ToString();
-                SetSpriteImage<Image>(newItem, item, inventoryHandles);
+                SetSpriteImage<Image>(newItem, "Inventory_"+item, inventoryHandles);
             }
             inventoryPanel.SetActive(true);
         }
@@ -165,7 +165,7 @@ namespace Investigation
         }
         Dictionary<string, string> combinations = new Dictionary<string, string>
         {
-            { "집1&집2", "잠자리채" }
+            { "그물&찢어진잠자리채", "잠자리채" }
         };
         void CombinationEffect(int id1, int id2)
         {

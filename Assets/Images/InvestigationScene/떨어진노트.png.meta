@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: 1c30159af32eb494aa5e469222c9bbd7
+guid: 0db2d191c345e42bfb7ba33888ed68f7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8304290262140516116
-    second: KakaoTalk_Photo_2026-07-15-18-52-31_0
-  - first:
-      213: 3500245549986607419
-    second: KakaoTalk_Photo_2026-07-15-18-52-31_1
+      213: -7362350219948866464
+    second: inplay_note_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,12 +46,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 1020
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -142,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: KakaoTalk_Photo_2026-07-15-18-52-31_0
+      name: inplay_note_0
       rect:
         serializedVersion: 2
-        x: 17
-        y: 505
-        width: 40
-        height: 35
+        x: 0
+        y: 0
+        width: 105
+        height: 115
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -157,30 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 417fe92def3ce3370800000000000000
-      internalID: 8304290262140516116
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: KakaoTalk_Photo_2026-07-15-18-52-31_1
-      rect:
-        serializedVersion: 2
-        x: 20
-        y: 63
-        width: 2495
-        height: 876
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b31f79958ce539030800000000000000
-      internalID: 3500245549986607419
+      spriteID: 064cdeb7b7da3d990800000000000000
+      internalID: -7362350219948866464
       vertices: []
       indices: 
       edges: []
@@ -189,7 +164,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -199,8 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      KakaoTalk_Photo_2026-07-15-18-52-31_0: 8304290262140516116
-      KakaoTalk_Photo_2026-07-15-18-52-31_1: 3500245549986607419
+      inplay_note_0: -7362350219948866464
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

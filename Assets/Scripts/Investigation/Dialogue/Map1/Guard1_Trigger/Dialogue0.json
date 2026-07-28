@@ -14,18 +14,6 @@
                             "parameters":[
                                 "Chase"
                             ]
-                        },
-                        {
-                            "type": "item",
-                            "name": "집1"
-                        },
-                        {
-                            "type": "item",
-                            "name": "집2"
-                        },
-                        {
-                            "type": "item",
-                            "name": "집3"
                         }
                     ]
                 }

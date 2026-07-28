@@ -15,7 +15,7 @@
                         },
                         {
                             "type": "delete",
-                            "target": "Map1/Note_Obtain"
+                            "target": "Map1/Note_On_Ground"
                         }
                     ]
                 },
