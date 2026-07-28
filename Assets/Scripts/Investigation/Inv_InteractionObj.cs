@@ -55,5 +55,9 @@ public class Inv_InteractionObj : Utility
                 saveManager.AddProgress(obj_name + "state", state);
             }
         }
+        virtual public void InventoryItemDraggedOn(string itemName)
+        {
+            
+        }
     }
 }

@@ -1,23 +1,18 @@
 {
-    "title": "작가 아저씨",
+    "title": "작가?",
     "path": [
         {
-            "description": "흠. 알겠소. 펜을 빌려주도록 하지요. 그리 귀한 물건도 아니니.\n자네가 그리 나쁜 사람은 아닌 것 같구만.",
+            "description": "너 뭐야! 걔를 왜 잡아가는데?",
             "buttons":[
                 {
-                    "title": "감사합니다!!\n(펜을 받는다)",
+                    "title": "사정이 있어서요!! 죄송합니다!!!",
                     "next": -1,
                     "effects": [
-                        {
-                            "type": "progress",
-                            "key": "penPossessed",
-                            "value": true
-                        },
                         {
                             "type": "variation",
                             "target": "Map1/Writer",
                             "parameters":[
-                                "PenGiven"
+                                "PigeonRemoved"
                             ]
                         }
                     ]

@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
+
 
 namespace Investigation
 {
@@ -8,14 +10,25 @@ public class Inv_InteractionObj_Map1_Pigeon: Inv_InteractionObj
         private Inv_Interact interactManager;
         override protected void Starter()
         {
-            if(state!=0) Destroy(gameObject);
             interactManager = GameObject.FindFirstObjectByType<Inv_Interact>();
         }
-        override public void variation(List<string> parameters=null)
+        override public void InventoryItemDraggedOn(string itemName)
         {
-            state = 1;
-            base.variation();
-            Destroy(gameObject);
+            if (itemName == "잠자리채")
+            {
+                interactManager.Effects(
+                    new JObject
+                    {
+                        ["type"] = "variation",
+                        ["target"] = "Map1/Writer",
+                        ["parameters"] = new JArray
+                        {
+                            "PigeonDistracted"
+                        }
+                    }
+                );
+                interactManager.ForceInteraction("Map1/Writer");
+            }
         }
     }
 }

@@ -11,9 +11,15 @@ public class Inv_InteractionObj_Map1_Writer: Inv_InteractionObj
                 switch (parameter)
                 {
                     case "Met":
-                        state=1;
+                        state=3;
                         break;
                     case "PenGiven":
+                        state=4;
+                        break;
+                    case "PigeonDistracted":
+                        state=1;
+                        break;
+                    case "PigeonRemoved":
                         state=2;
                         break;
                 }
