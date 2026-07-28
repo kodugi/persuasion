@@ -233,6 +233,39 @@
       "manually_touchable": true
     },
     {
+      "title": "Map1/Pigeon",
+      "position": {
+        "x": 5.93,
+        "y": 13.33
+      },
+      "size": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 1,
+        "y": 1
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 4,
+      "image": "새",
+      "script": "Inv_InteractionObj_Map1_Pigeon",
+      "manually_touchable": true
+    },
+    {
       "title": "Map1/Note_On_Ground",
       "position": {
         "x": 8,
