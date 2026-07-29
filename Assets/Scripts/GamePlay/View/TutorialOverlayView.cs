@@ -393,7 +393,7 @@ namespace GamePlay
                 maxY = Mathf.Max(maxY, localPoint.y);
             }
 
-            return TryCreateFocusRect(rootRect, minX, minY, maxX, maxY, out focusRect);
+            return TryCreateFocusRect(rootRect, minX, minY, maxX, maxY, _padding, out focusRect);
         }
 
         private bool TryGetWorldFocusRect(GameObject target, Rect rootRect, out Rect focusRect)
@@ -436,7 +436,7 @@ namespace GamePlay
                 maxY = Mathf.Max(maxY, localPoint.y);
             }
 
-            return TryCreateFocusRect(rootRect, minX, minY, maxX, maxY, out focusRect);
+            return TryCreateFocusRect(rootRect, minX, minY, maxX, maxY, 10f, out focusRect);
         }
 
         private bool TryCreateFocusRect(
@@ -445,6 +445,7 @@ namespace GamePlay
             float minY,
             float maxX,
             float maxY,
+            float padding,
             out Rect focusRect)
         {
             focusRect = default;
@@ -453,10 +454,10 @@ namespace GamePlay
                 return false;
             }
 
-            minX = Mathf.Clamp(minX - _padding, rootRect.xMin, rootRect.xMax);
-            minY = Mathf.Clamp(minY - _padding, rootRect.yMin, rootRect.yMax);
-            maxX = Mathf.Clamp(maxX + _padding, rootRect.xMin, rootRect.xMax);
-            maxY = Mathf.Clamp(maxY + _padding, rootRect.yMin, rootRect.yMax);
+            minX = Mathf.Clamp(minX - padding, rootRect.xMin, rootRect.xMax);
+            minY = Mathf.Clamp(minY - padding, rootRect.yMin, rootRect.yMax);
+            maxX = Mathf.Clamp(maxX + padding, rootRect.xMin, rootRect.xMax);
+            maxY = Mathf.Clamp(maxY + padding, rootRect.yMin, rootRect.yMax);
 
             if (maxX - minX <= MinRectSize || maxY - minY <= MinRectSize)
             {

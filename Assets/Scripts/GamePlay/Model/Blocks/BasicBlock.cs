@@ -19,11 +19,11 @@ namespace GamePlay
             switch (countPerTurn)
             {
                 case 0:
-                    return 18;
+                    return 16;
                 case 1:
-                    return 34;
+                    return 24;
                 default:
-                    return 40;
+                    return 32;
             }
         }
     }

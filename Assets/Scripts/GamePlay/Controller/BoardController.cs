@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using SingletonUtils;
 using Vector2Int = VectorUtils.Vector2Int;
@@ -455,6 +456,22 @@ namespace GamePlay
                     }
                 }
             }
+        }
+
+        public List<Vector2Int> GetRandomBlackCellCoords(int cnt)
+        {
+            List<Vector2Int> blackCellCoords = new List<Vector2Int>();
+            for (int i = 0; i < _board.GetWidth(); i++)
+            {
+                for (int j = 0; j < _board.GetHeight(); j++)
+                {
+                    if (_board.GetCell(new Vector2Int(i, j)).GetType().IsAssignableFrom(typeof(BlackCell)))
+                    {
+                        blackCellCoords.Add(new Vector2Int(i, j));
+                    }
+                }
+            }
+            return blackCellCoords.OrderBy(x => Guid.NewGuid()).Take(Math.Min(blackCellCoords.Count, cnt)).ToList();
         }
     }
     

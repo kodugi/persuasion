@@ -222,6 +222,9 @@ namespace GamePlay
         {
             switch (_currentState)
             {
+                case TutorialState.BeforeExplainSuspicionManagement1:
+                    SetTutorialState(TutorialState.BeforeExplainSuspicionManagement2);
+                    break;
                 default:
                     SetTutorialState(TutorialState.None);
                     _dialogueManager.ToNextPage();
@@ -286,6 +289,16 @@ namespace GamePlay
         PlaceWeakThought = 6,
         ExplainTargetNumber = 7,
         ExplainOriginalBlack = 8,
+        ExplainEnemyCellFlip = 9,
+        ExplainEnemyCellInBetween = 10,
+        ExplainDiagonal = 11,
+        ExplainWeakThoughtIsBlack1 = 12,
+        ExplainWeakThoughtIsBlack2 = 13,
+        BeforeExplainSuspicionManagement1 = 14,
+        BeforeExplainSuspicionManagement2 = 15,
+        ExplainSuspicionManagement = 16,
+        BeforeExplainLock = 17,
+        ExplainLock = 18,
         None = 0
     }
 

@@ -95,29 +95,11 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
 
     public virtual void SetCell(Vector2Int coord, Cell cell)
     {
-        if (coord == null)
-        {
-            Debug.LogWarning("BoardView could not update a cell because coord is null.", this);
-            return;
-        }
-
         if (_spawnedCellsByCoord == null)
         {
             EnsureInitialized();
         }
-
-        if (_spawnedCellsByCoord == null)
-        {
-            Debug.LogWarning("BoardView could not update cell " + coord + " because the board has not been rendered.", this);
-            return;
-        }
-
-        if (!IsInRenderedBoard(coord))
-        {
-            Debug.LogWarning("BoardView could not update cell " + coord + " because it is outside the rendered board.", this);
-            return;
-        }
-
+        
         StartCoroutine(ReplaceCellObject(coord.X, coord.Y, cell));
         RefreshCellMarkers();
     }
@@ -417,7 +399,7 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
         return false;
     }
 
-    protected Vector3 GetCellLocalPosition(int x, int y, int width, int height)
+    protected Vector3 GetCellLocalPosition(int x, int y, int width, int height, float z = 0)
     {
         float centerOffsetX = _centerBoard ? (width - 1) * _cellSize * 0.5f : 0f;
         float centerOffsetY = _centerBoard ? (height - 1) * _cellSize * 0.5f : 0f;
@@ -425,7 +407,7 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
         return new Vector3(
             _origin.x + x * _cellSize - centerOffsetX,
             _origin.y + y * _cellSize - centerOffsetY,
-            0f
+            z
         );
     }
 
@@ -634,6 +616,11 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
 
     protected virtual BoardCellMarker GetInitialMarker(Cell originalCell)
     {
+        if (originalCell is BlackCell)
+        {
+            return BoardCellMarker.OriginalBlack;
+        }
+
         return BoardCellMarker.None;
     }
 

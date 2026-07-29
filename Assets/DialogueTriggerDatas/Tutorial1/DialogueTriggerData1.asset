@@ -17,8 +17,8 @@ MonoBehaviour:
   _pages:
   - Entries:
     - SpeakerName: "\uC8FC\uC778\uACF5"
-      DialogueText: "\uC774 \uB2A5\uB825\uC740 \uC5B4\uB838\uC744 \uB54C \uC774\uD6C4\uB85C\uB294
-        \uC548 \uC368\uBD24\uB294\uB370\u2026. \uC5B4\uB5BB\uAC8C \uC4F0\uB354\uB77C?"
+      DialogueText: "\uC544, \uC774\uAC70 \uD55C 10\uB144 \uB9CC\uC5D0 \uCC98\uC74C
+        \uD574\uBCF4\uB294\uB370\u2026. \uC5B4\uB5BB\uAC8C \uD558\uB354\uB77C?"
       StateToTrigger: 0
       StateTriggerTiming: 0
     - SpeakerName: "\uC8FC\uC778\uACF5"
@@ -113,8 +113,8 @@ MonoBehaviour:
         \uB9CE\uC774 \uC0AC\uC9C4 \uC54A\uACA0\uC9C0\uB9CC, \uD55C \uBC88\uC5D0 \uB450
         \uAC1C, \uC138 \uAC1C\uC529 \uC2EC\uC73C\uBA74 \uC758\uC2EC\uB3C4\uAC00 \uD06C\uAC8C
         \uC624\uB97C \uAC70\uC57C."
-      StateToTrigger: 0
-      StateTriggerTiming: 0
+      StateToTrigger: 3
+      StateTriggerTiming: 1
     - SpeakerName: "\uC8FC\uC778\uACF5"
       DialogueText: "\uC77C\uB2E8 \uC9C0\uAE08\uC740 \uC601\uD63C \uC2EC\uB294 \uAC78
         \uC7A0\uAE50 \uBA48\uCDB0\uC57C\uACA0\uC5B4."

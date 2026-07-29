@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f40073349d7ab8444a9679efaa0c7c3f, type: 3}
+  m_Name: DialogueTriggerData5
+  m_EditorClassIdentifier: Assembly-CSharp::GamePlay.DialogueTriggerData
+  _turn: 2
+  _turnState: 0
+  _pages:
+  - Entries:
+    - SpeakerName: "\uC8FC\uC778\uACF5"
+      DialogueText: "(4, 5, 6\uC5D0 \uB193\uB3C4\uB85D \uC720\uB3C4)"
+      StateToTrigger: 14
+      StateTriggerTiming: 0
+      UseWidePanel: 0
+  - Entries:
+    - SpeakerName: "\uC8FC\uC778\uACF5"
+      DialogueText: "(\uD134 \uC885\uB8CC \uC124\uBA85)"
+      StateToTrigger: 15
+      StateTriggerTiming: 0
+      UseWidePanel: 0

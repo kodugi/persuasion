@@ -1,17 +1,47 @@
 using GamePlay;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Vector2Int = VectorUtils.Vector2Int;
 
 public class BoardView : BoardViewBase
 {
+    [SerializeField] private GameObject _boardCellSuspicionPrefab;
+    
     private BlockSelectionManager _subscribedBlockSelectionManager;
+    private TutorialController _tutorialController;
+    private SuspicionManager _suspicionManager;
+
+    private BoardCellMarker _allowedMarkers;
+
+    private BoardCellSuspicionView[,] _spawnedBoardCellSuspicionViewsByCoord;
+    private bool _isPlayingBeforeGameOverAnimation;
+    private List<Vector2Int> _spawnedBeforeGameOverAnimationCoroutineCoords;
+    private bool  _isPlayingGameOverAnimation;
+    private List<Vector2Int> _spawnedGameOverAnimationCoroutineCoords;
 
     protected override bool InitializeCore()
     {
+        if (!base.InitializeCore())
+        {
+            return false;
+        }
+        if (SuspicionManager.Instance == null)
+        {
+            return false;
+        }
+        
         SubscribeToBlockSelectionEvents();
-        return base.InitializeCore();
+        _allowedMarkers = _gameInfo.GetAllowedMarkers();
+        _tutorialController = TutorialController.Instance;
+        _tutorialController.RaiseSetTutorialStateEvent += HandleSetTutorialStateEvent;
+        _suspicionManager = SuspicionManager.Instance;
+        _suspicionManager.RaiseSetSuspicionPreviewEvent += HandleSetSuspicionPreviewEvent;
+        GameStateManager.Instance.RaiseSetGameStateEvent += HandleSetGameStateEvent;
+        _spawnedBoardCellSuspicionViewsByCoord = new BoardCellSuspicionView[GetGameInfo().GetWidth(), GetGameInfo().GetHeight()];
+        SpawnBoardCellSuspicionViews();
+        return true;
     }
 
     protected override GameInfo GetGameInfo()
@@ -23,6 +53,129 @@ public class BoardView : BoardViewBase
     {
         base.Refresh();
         SubscribeToBlockSelectionEvents();
+    }
+
+    private void SpawnBoardCellSuspicionViews()
+    {
+        int width = GetGameInfo().GetWidth();
+        int height = GetGameInfo().GetHeight();
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                Transform parent = GetRenderRoot(_cellRoot);
+                GameObject boardCellSuspicionView = Instantiate(_boardCellSuspicionPrefab, parent);
+                _spawnedBoardCellSuspicionViewsByCoord[x, y] = boardCellSuspicionView.AddComponent<BoardCellSuspicionView>();
+                boardCellSuspicionView.name = "board cell suspicion view" + " (" + x + ", " + y + ")";
+                _spawnedBoardCellSuspicionViewsByCoord[x, y].Initialize();
+                if (!TryGetTopSpriteSorting(_spawnedCellsByCoord[x, y], out int sortingLayerID, out int sortingOrder))
+                {
+                    // Might need a better logic such as placing BoardCellSuspicionView under Cell
+                    return;
+                }
+                _spawnedBoardCellSuspicionViewsByCoord[x, y].SetRendererSorting(sortingLayerID, sortingOrder);
+                boardCellSuspicionView.transform.localPosition = GetCellLocalPosition(x, y, width, height);
+            }
+        }
+    }
+
+    private void HandleSetSuspicionPreviewEvent(object sender, SetSuspicionEventArgs e)
+    {
+        if (e.Suspicion > _suspicionManager.GetMaxSuspicion())
+        {
+            if (_isPlayingBeforeGameOverAnimation)
+            {
+                return;
+            }
+
+            PlayBeforeGameOverAnimation();
+        }
+        else
+        {
+            StopBeforeGameOverAnimation();
+        }
+    }
+
+    private void HandleSetGameStateEvent(object sender, SetGameStateEventArgs e)
+    {
+        if (e.gameState == GameState.Lost)
+        {
+            if (_isPlayingGameOverAnimation)
+            {
+                return;
+            }
+
+            PlayGameOverAnimation();
+        }
+        else
+        {
+            StopGameOverAnimation();
+        }
+    }
+
+    private void PlayBeforeGameOverAnimation()
+    {
+        _isPlayingBeforeGameOverAnimation = true;
+        _spawnedBeforeGameOverAnimationCoroutineCoords = new List<Vector2Int>();
+        List<Vector2Int> coords = BoardController.Instance.GetRandomBlackCellCoords(2);
+        ResetSpawnedBeforeGameOverAnimationCoroutineCoords();
+        foreach (Vector2Int coord in coords)
+        {
+            _spawnedBoardCellSuspicionViewsByCoord[coord.X, coord.Y].PlayBeforeGameOverAnimation();
+            _spawnedBeforeGameOverAnimationCoroutineCoords.Add(coord);
+        }
+    }
+
+    private void ResetSpawnedBeforeGameOverAnimationCoroutineCoords()
+    {
+        foreach (Vector2Int coord in _spawnedBeforeGameOverAnimationCoroutineCoords)
+        {
+            _spawnedBoardCellSuspicionViewsByCoord[coord.X, coord.Y].StopBeforeGameOverAnimation();
+        }
+        _spawnedBeforeGameOverAnimationCoroutineCoords = new List<Vector2Int>();
+    }
+
+    private void StopBeforeGameOverAnimation()
+    {
+        if (_isPlayingBeforeGameOverAnimation)
+        {
+            _isPlayingBeforeGameOverAnimation = false;
+            foreach (Vector2Int coord in _spawnedBeforeGameOverAnimationCoroutineCoords)
+            {
+                _spawnedBoardCellSuspicionViewsByCoord[coord.X, coord.Y].StopBeforeGameOverAnimation();
+            }
+        }
+    }
+    
+    private void PlayGameOverAnimation()
+    {
+        StopBeforeGameOverAnimation();
+        _isPlayingGameOverAnimation = true;
+        _spawnedGameOverAnimationCoroutineCoords = new List<Vector2Int>();
+        
+        List<Vector2Int> coords = BoardController.Instance.GetRandomBlackCellCoords(25);
+        foreach (Vector2Int coord in _spawnedGameOverAnimationCoroutineCoords)
+        {
+            _spawnedBoardCellSuspicionViewsByCoord[coord.X, coord.Y].StopBeforeGameOverAnimation();
+        }
+        _spawnedBeforeGameOverAnimationCoroutineCoords = new List<Vector2Int>();
+        foreach (Vector2Int coord in coords)
+        {
+            _spawnedBoardCellSuspicionViewsByCoord[coord.X, coord.Y].PlayGameOverAnimation();
+            _spawnedGameOverAnimationCoroutineCoords.Add(coord);
+        }
+    }
+    
+    private void StopGameOverAnimation()
+    {
+        if (_isPlayingGameOverAnimation)
+        {
+            _isPlayingGameOverAnimation = false;
+            foreach (Vector2Int coord in _spawnedGameOverAnimationCoroutineCoords)
+            {
+                _spawnedBoardCellSuspicionViewsByCoord[coord.X, coord.Y].StopGameOverAnimation();
+            }
+        }
     }
 
     protected override bool IsCellPlacementAllowed(Vector2Int coord)
@@ -49,24 +202,6 @@ public class BoardView : BoardViewBase
 
     public override void HandleCellClick(Vector2Int coord)
     {
-        if (coord == null)
-        {
-            Debug.LogWarning("BoardView ignored a cell click because coord is null.", this);
-            return;
-        }
-
-        if (!IsInRenderedBoard(coord))
-        {
-            Debug.LogWarning("BoardView ignored cell click " + coord + " because it is outside the rendered board.", this);
-            return;
-        }
-
-        if (BoardController.Instance == null)
-        {
-            Debug.LogWarning("BoardView could not send cell click " + coord + " because BoardController.Instance is null.", this);
-            return;
-        }
-
         ClearBlockPreview();
         BoardController.Instance.HandleCellPlacementInput(coord);
     }
@@ -76,6 +211,11 @@ public class BoardView : BoardViewBase
         base.RefreshCellMarkers();
         
         Cell[,] originalBoard = _gameInfo.GetBoard();
+        if (_allowedMarkers == BoardCellMarker.None)
+        {
+            _allowedMarkers = _gameInfo.GetAllowedMarkers();
+        }
+        BoardCellMarker allowedMarkers = _allowedMarkers;
         if (originalBoard == null)
         {
             return;
@@ -99,7 +239,7 @@ public class BoardView : BoardViewBase
                     continue;
                 }
 
-                SetBaseMarker(x, y, GetMarkerForOriginalCell(originalBoard[x, y], x, y, hasReachableCells, reachableCells));
+                SetBaseMarker(x, y, GetMarkerForOriginalCell(originalBoard[x, y], x, y, hasReachableCells, reachableCells, allowedMarkers));
             }
         }
     }
@@ -117,27 +257,19 @@ public class BoardView : BoardViewBase
         return reachableCells != null;
     }
 
-    protected override BoardCellMarker GetInitialMarker(Cell originalCell)
-    {
-        if (originalCell is BlackCell)
-        {
-            return BoardCellMarker.OriginalBlack;
-        }
-
-        return BoardCellMarker.None;
-    }
-
-    private BoardCellMarker GetMarkerForOriginalCell(Cell originalCell, int x, int y, bool hasReachableCells, bool[,] reachableCells)
+    private BoardCellMarker GetMarkerForOriginalCell(Cell originalCell, int x, int y, bool hasReachableCells, bool[,] reachableCells, BoardCellMarker allowedMarkers)
     {
         BoardCellMarker marker = GetInitialMarker(originalCell);
         if (!marker.HasFlag(BoardCellMarker.OriginalBlack))
         {
             return marker;
         }
+        Debug.Log(allowedMarkers);
+        marker &= allowedMarkers;
 
         if (hasReachableCells && IsInReachableCells(reachableCells, x, y) && !reachableCells[x, y])
         {
-            marker |= BoardCellMarker.Locked;
+            marker |= BoardCellMarker.Locked & allowedMarkers;
         }
 
         return marker;
@@ -312,5 +444,16 @@ public class BoardView : BoardViewBase
 
         sprite = _tutorialHintSpritesByCoord[coord.X, coord.Y];
         return sprite != null;
+    }
+
+    private void HandleSetTutorialStateEvent(object sender, SetTutorialStateEventArgs e)
+    {
+        switch (e.CurrentState)
+        {
+            case TutorialState.ExplainLock:
+                _allowedMarkers |= BoardCellMarker.Locked;
+                RefreshCellMarkers();
+                break;
+        }
     }
 }

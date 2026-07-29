@@ -14,6 +14,7 @@ namespace GamePlay
         [SerializeField, Min(0)] private int _targetNumber = 5;
         [SerializeField] private List<BoardRowData> _boardRows = new List<BoardRowData>();
         [SerializeField] private List<DialogueTriggerData> _dialogueTriggers = new List<DialogueTriggerData>();
+        [SerializeField] private BoardViewBase.BoardCellMarker _allowedMarkers = new BoardViewBase.BoardCellMarker();
 
         public int GetWidth()
         {
@@ -50,6 +51,11 @@ namespace GamePlay
         public int GetTargetNumber()
         {
             return Math.Max(0, _targetNumber);
+        }
+
+        public BoardViewBase.BoardCellMarker GetAllowedMarkers()
+        {
+            return _allowedMarkers;
         }
 
         public Dictionary<int, Dictionary<TurnState, DialogueData>> GetDialogueDataDict()
@@ -93,6 +99,8 @@ namespace GamePlay
             _height = Math.Max(1, height);
             _maxTurns = Math.Max(0, maxTurns);
             _targetNumber = Math.Max(0, targetNumber);
+            _allowedMarkers = BoardViewBase.BoardCellMarker.None | BoardViewBase.BoardCellMarker.OriginalBlack |
+                              BoardViewBase.BoardCellMarker.Locked | BoardViewBase.BoardCellMarker.Preview;
 
             ResizeBoardRows();
             SetBoardData(board);

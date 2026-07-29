@@ -10,7 +10,6 @@ namespace GamePlay
         public void Initialize()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
-            
         }
 
         public void DestroyGameObject()
