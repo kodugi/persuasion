@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using SingletonUtils;
 using GamePlay;
 using UnityEngine;
@@ -37,9 +38,11 @@ namespace MapEditor
 
         private void SetCell(Vector2Int coord, CellKind cellKind)
         {
-            Cell cell = (Cell)Activator.CreateInstance(CellUtils.CellKindToType(cellKind), 0, coord);
+            Type cellType = CellUtils.CellKindToType(cellKind);
+            Cell cell = (Cell)Activator.CreateInstance(cellType, 0, coord);
             _board.SetCell(coord, cell);
-            BoardView.Instance.SetCell(coord, cell);
+            List<List<CellChange>> cellChanges = new List<List<CellChange>>();
+            cellChanges.Add(new List<CellChange>() {new CellChange(coord, cellType, coord, coord)});
         }
 
         public Board GetBoard()

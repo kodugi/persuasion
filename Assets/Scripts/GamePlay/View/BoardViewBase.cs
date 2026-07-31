@@ -93,15 +93,54 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
         SetInitialized(_spawnedCellsByCoord != null);
     }
 
-    public virtual void SetCell(Vector2Int coord, Cell cell)
+    public void SetCell(List<List<CellChange>> cellChangeList)
+    {
+        StartCoroutine(PlayCellPlacementAnimation(cellChangeList));
+    }
+
+    protected IEnumerator PlayCellPlacementAnimation(List<List<CellChange>> cellChangeList)
     {
         if (_spawnedCellsByCoord == null)
         {
             EnsureInitialized();
         }
-        
-        StartCoroutine(ReplaceCellObject(coord.X, coord.Y, cell));
-        RefreshCellMarkers();
+
+        yield return StartCoroutine(BeforeCellPlacement());
+
+        for (int i = 0; i < cellChangeList.Count; i++)
+        {
+            List<CellChange> cellChanges = cellChangeList[i];
+            RefreshCellMarkers();
+            for (int j = 0; j < cellChanges.Count; j++)
+            {
+                Vector2Int coord = cellChanges[j].GetCoord();
+                if (coord == null)
+                {
+                    continue;
+                }
+
+                if (!IsInRenderedBoard(coord))
+                {
+                    continue;
+                }
+
+                StartCoroutine(ReplaceCellObject(cellChanges[j]));
+            }
+
+            yield return new WaitForSeconds(1f);
+        }
+
+        yield return StartCoroutine(AfterCellPlacement());
+    }
+
+    protected virtual IEnumerator BeforeCellPlacement()
+    {
+        yield return null;
+    }
+    
+    protected virtual IEnumerator AfterCellPlacement()
+    {
+        yield return null;
     }
 
     public abstract void HandleCellClick(Vector2Int coord);
@@ -192,8 +231,9 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
                 }
 
                 SpawnMarker(x, y, width, height);
-                SetBaseMarker(x, y, GetInitialMarker(board[x, y]));
-                SpawnCell(board[x, y], x, y, width, height);
+                Type cellType = board[x, y] == null ? null : board[x, y].GetType();
+                SetBaseMarker(x, y, GetInitialMarker(cellType));
+                SpawnCell(new CellChange(new Vector2Int(x, y), cellType),  width, height);
             }
         }
 
@@ -209,16 +249,19 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
         ClearBlockPreview();
     }
 
-    protected void SpawnCell(Cell cell, int x, int y, int width, int height)
+    protected void SpawnCell(CellChange cellChange, int width, int height)
     {
-        if (cell == null)
+        int x = cellChange.GetCoord().X;
+        int y = cellChange.GetCoord().Y;
+        Type cellType = cellChange.GetCellType();
+        if (cellType == null)
         {
             return;
         }
 
-        if (!TryGetPrefab(cell.GetType(), out GameObject prefab))
+        if (!TryGetPrefab(cellType, out GameObject prefab))
         {
-            Debug.LogWarning("BoardView has no prefab mapping for " + cell.GetType().Name + ".", this);
+            Debug.LogWarning("BoardView has no prefab mapping for " + cellType.Name + ".", this);
             return;
         }
 
@@ -226,13 +269,99 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
         GameObject cellObject = Instantiate(prefab, parent);
         cellObject.AddComponent<BoardCellClickView>();
         BoardCellView boardCellView = cellObject.AddComponent<BoardCellView>();
-        cellObject.name = cell.GetType().Name + " (" + x + ", " + y + ")";
+        cellObject.name = cellType.Name + " (" + x + ", " + y + ")";
         cellObject.transform.localPosition = GetCellLocalPosition(x, y, width, height);
         ConfigureCellClick(cellObject, x, y);
         _spawnedCells.Add(cellObject);
         _spawnedCellsByCoord[x, y] = cellObject;
         ConfigureMarkerSorting(x, y, cellObject);
-        boardCellView.Initialize();
+        boardCellView.Initialize(GetCellChangeAnimDirection(cellChange));
+    }
+
+    private CellChangeAnimDirection GetCellChangeAnimDirection(CellChange cellChange)
+    {
+        Vector2Int eightDirection =
+            Vector2Int.GetEightDirection(cellChange.GetOriginalCellCoord() - cellChange.GetOtherCellCoord());
+        if (eightDirection == new Vector2Int(0, 0))
+        {
+            return CellChangeAnimDirection.Center;
+        }
+        
+        int originalDist = Vector2Int.TaxiDist(cellChange.GetCoord(), cellChange.GetOriginalCellCoord());
+        int otherDist = Vector2Int.TaxiDist(cellChange.GetCoord(), cellChange.GetOtherCellCoord());
+        if (originalDist < otherDist)
+        {
+            return FromEightDirectionVector2Int(eightDirection);
+        }
+        else if (originalDist > otherDist)
+        {
+            return FromEightDirectionVector2Int(-eightDirection);
+        }
+        else
+        {
+            switch (FromEightDirectionVector2Int(eightDirection))
+            {
+                case CellChangeAnimDirection.Left:
+                case CellChangeAnimDirection.Right:
+                    return CellChangeAnimDirection.Left_Right;
+                case CellChangeAnimDirection.Up:
+                case CellChangeAnimDirection.Down:
+                    return CellChangeAnimDirection.Up_Down;
+                case CellChangeAnimDirection.LeftDown:
+                case CellChangeAnimDirection.RightUp:
+                    return CellChangeAnimDirection.LeftDown_RightUp;
+                case CellChangeAnimDirection.LeftUp:
+                case CellChangeAnimDirection.RightDown:
+                    return CellChangeAnimDirection.LeftUp_RightDown;
+                default:
+                    return CellChangeAnimDirection.Center;
+            }
+        }
+    }
+
+    private CellChangeAnimDirection FromEightDirectionVector2Int(Vector2Int eightDirection)
+    {
+        switch (eightDirection.X)
+        {
+            case 1:
+                switch (eightDirection.Y)
+                {
+                    case 1:
+                        return CellChangeAnimDirection.LeftDown;
+                    case 0:
+                        return CellChangeAnimDirection.Left;
+                    case -1:
+                        return CellChangeAnimDirection.LeftUp;
+                    default:
+                        return CellChangeAnimDirection.Center;
+                }
+            case 0:
+                switch (eightDirection.Y)
+                {
+                    case 1:
+                        return CellChangeAnimDirection.Down;
+                    case 0:
+                        return CellChangeAnimDirection.Center;
+                    case -1:
+                        return CellChangeAnimDirection.Up;
+                    default:
+                        return CellChangeAnimDirection.Center;
+                }
+            case -1:
+                switch (eightDirection.Y)
+                {
+                    case 1:
+                        return CellChangeAnimDirection.RightDown;
+                    case 0:
+                        return CellChangeAnimDirection.Right;
+                    case -1:
+                        return CellChangeAnimDirection.RightUp;
+                    default:
+                        return CellChangeAnimDirection.Center;
+                }
+            default:
+                return CellChangeAnimDirection.Center;
+        }
     }
 
     protected void SpawnMarker(int x, int y, int width, int height)
@@ -335,25 +464,33 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
         return true;
     }
 
-    protected IEnumerator ReplaceCellObject(int x, int y, Cell cell)
+    protected IEnumerator ReplaceCellObject(CellChange cellChange)
     {
+        int x = cellChange.GetCoord().X;
+        int y = cellChange.GetCoord().Y;
+        
         GameObject previousCellObject = _spawnedCellsByCoord[x, y];
-        // temporarily decrease the sorting order so that the new object can be seen before the previous one is deleted
-        previousCellObject.GetComponent<SpriteRenderer>().sortingOrder = -1;
         if (previousCellObject != null)
         {
+            // temporarily decrease the sorting order so that the new object can be seen before the previous one is deleted
+            previousCellObject.GetComponent<SpriteRenderer>().sortingOrder = -1;
             _spawnedCells.Remove(previousCellObject);
             _spawnedCellsByCoord[x, y] = null;
         }
 
-        if (cell == null)
+        if (cellChange.GetCellType() == null)
         {
             yield return null;
+            DestroyCellObject(previousCellObject);
+            yield break;
         }
-        Debug.Log("ReplaceCellObject called at " + x + " " + y);
-        SpawnCell(cell, x, y, _spawnedCellsByCoord.GetLength(0), _spawnedCellsByCoord.GetLength(1));
+
+        SpawnCell(cellChange, _spawnedCellsByCoord.GetLength(0), _spawnedCellsByCoord.GetLength(1));
         GameObject currentCellObject = _spawnedCellsByCoord[x, y];
-        yield return currentCellObject.GetComponent<BoardCellView>().PlayCellPlacementAnimation();
+        if (currentCellObject != null)
+        {
+            yield return currentCellObject.GetComponent<BoardCellView>().PlayCellPlacementAnimation();
+        }
         DestroyCellObject(previousCellObject);
 
         yield return null;
@@ -614,9 +751,9 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
         return _baseMarkersByCoord[coord.X, coord.Y];
     }
 
-    protected virtual BoardCellMarker GetInitialMarker(Cell originalCell)
+    protected virtual BoardCellMarker GetInitialMarker(Type originalCellType)
     {
-        if (originalCell is BlackCell)
+        if (originalCellType != null && typeof(BlackCell).IsAssignableFrom(originalCellType))
         {
             return BoardCellMarker.OriginalBlack;
         }

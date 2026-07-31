@@ -1924,8 +1924,10 @@ MonoBehaviour:
   _speakerNameText: {fileID: 1996976387}
   _dialogueText: {fileID: 36690518}
   _widePanelLayout:
-    _panelSprite: {fileID: 2056338097685655264, guid: 10377da84a15a1e439088c405ee1b3ed, type: 3}
-    _panelSizeDelta: {x: 1000, y: 318.655}
+    _panelSprite: {fileID: 7463863971016257195, guid: 26de3db02f5977d44954b60993db97ef, type: 3}
+    _panelSizeDelta: {x: 1230, y: 318.655}
+    _overridePanelAnchoredPosition: 1
+    _panelAnchoredPosition: {x: 400, y: 35.7936}
     _dialogueTextSizeDelta: {x: 900, y: 174}
 --- !u!114 &1089261306
 MonoBehaviour:
@@ -2415,7 +2417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9cac45a616006941a99c132c180a48f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GamePlay.GameManager
-  _gameInfo: {fileID: 11400000, guid: 9fdc3df7ce74c8248b319c772ee4ec64, type: 2}
+  _gameInfo: {fileID: 11400000, guid: c72e97b95506a8b4ba130fe6446d62f1, type: 2}
   _tutorialEntryGroups:
   - State: 1
     Entries:

@@ -12,6 +12,7 @@ public class BoardView : BoardViewBase
     private BlockSelectionManager _subscribedBlockSelectionManager;
     private TutorialController _tutorialController;
     private SuspicionManager _suspicionManager;
+    private TurnManager _turnManager;
 
     private BoardCellMarker _allowedMarkers;
 
@@ -20,6 +21,8 @@ public class BoardView : BoardViewBase
     private List<Vector2Int> _spawnedBeforeGameOverAnimationCoroutineCoords;
     private bool  _isPlayingGameOverAnimation;
     private List<Vector2Int> _spawnedGameOverAnimationCoroutineCoords;
+
+    private TurnState _turnStateAfterTransition = TurnState.None;
 
     protected override bool InitializeCore()
     {
@@ -31,6 +34,11 @@ public class BoardView : BoardViewBase
         {
             return false;
         }
+
+        if (TurnManager.Instance == null)
+        {
+            return false;
+        }
         
         SubscribeToBlockSelectionEvents();
         _allowedMarkers = _gameInfo.GetAllowedMarkers();
@@ -38,6 +46,7 @@ public class BoardView : BoardViewBase
         _tutorialController.RaiseSetTutorialStateEvent += HandleSetTutorialStateEvent;
         _suspicionManager = SuspicionManager.Instance;
         _suspicionManager.RaiseSetSuspicionPreviewEvent += HandleSetSuspicionPreviewEvent;
+        _turnManager = TurnManager.Instance;
         GameStateManager.Instance.RaiseSetGameStateEvent += HandleSetGameStateEvent;
         _spawnedBoardCellSuspicionViewsByCoord = new BoardCellSuspicionView[GetGameInfo().GetWidth(), GetGameInfo().GetHeight()];
         SpawnBoardCellSuspicionViews();
@@ -194,10 +203,26 @@ public class BoardView : BoardViewBase
         return selectedBlock.GetCellType();
     }
 
-    public override void SetCell(Vector2Int coord, Cell cell)
+    public void SetTurnStateAfterTransition(TurnState turnState)
     {
-        base.SetCell(coord, cell);
-        ClearTutorialHint(coord);
+        _turnStateAfterTransition = turnState;
+    }
+
+    protected override IEnumerator BeforeCellPlacement()
+    {
+        _turnManager.SetTurnState(TurnState.FlippingTransition);
+        yield return null;
+    }
+
+    protected override IEnumerator AfterCellPlacement()
+    {
+        // this is probably the worst way to code ever imaginable
+        if (_turnStateAfterTransition == TurnState.None)
+        {
+            Debug.LogError("Turn state is None");
+        }
+        _turnManager.SetTurnState(_turnStateAfterTransition);
+        yield return null;
     }
 
     public override void HandleCellClick(Vector2Int coord)
@@ -239,7 +264,8 @@ public class BoardView : BoardViewBase
                     continue;
                 }
 
-                SetBaseMarker(x, y, GetMarkerForOriginalCell(originalBoard[x, y], x, y, hasReachableCells, reachableCells, allowedMarkers));
+                Type originalCellType = originalBoard[x, y] == null ? null : originalBoard[x, y].GetType();
+                SetBaseMarker(x, y, GetMarkerForOriginalCell(originalCellType, x, y, hasReachableCells, reachableCells, allowedMarkers));
             }
         }
     }
@@ -257,14 +283,13 @@ public class BoardView : BoardViewBase
         return reachableCells != null;
     }
 
-    private BoardCellMarker GetMarkerForOriginalCell(Cell originalCell, int x, int y, bool hasReachableCells, bool[,] reachableCells, BoardCellMarker allowedMarkers)
+    private BoardCellMarker GetMarkerForOriginalCell(Type originalCellType, int x, int y, bool hasReachableCells, bool[,] reachableCells, BoardCellMarker allowedMarkers)
     {
-        BoardCellMarker marker = GetInitialMarker(originalCell);
+        BoardCellMarker marker = GetInitialMarker(originalCellType);
         if (!marker.HasFlag(BoardCellMarker.OriginalBlack))
         {
             return marker;
         }
-        Debug.Log(allowedMarkers);
         marker &= allowedMarkers;
 
         if (hasReachableCells && IsInReachableCells(reachableCells, x, y) && !reachableCells[x, y])

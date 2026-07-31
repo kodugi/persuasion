@@ -12,6 +12,8 @@ namespace GamePlay
     {
         [SerializeField] private Sprite _panelSprite;
         [SerializeField] private Vector2 _panelSizeDelta;
+        [SerializeField] private bool _overridePanelAnchoredPosition;
+        [SerializeField] private Vector2 _panelAnchoredPosition;
         [SerializeField] private Vector2 _dialogueTextSizeDelta;
 
         public static DialoguePanelLayout Capture(
@@ -28,6 +30,8 @@ namespace GamePlay
             if (panelRectTransform != null)
             {
                 layout._panelSizeDelta = panelRectTransform.sizeDelta;
+                layout._overridePanelAnchoredPosition = true;
+                layout._panelAnchoredPosition = panelRectTransform.anchoredPosition;
             }
 
             if (dialogueTextRectTransform != null)
@@ -42,6 +46,7 @@ namespace GamePlay
         {
             return _panelSprite != null ||
                    _panelSizeDelta != Vector2.zero ||
+                   _overridePanelAnchoredPosition ||
                    _dialogueTextSizeDelta != Vector2.zero;
         }
 
@@ -66,6 +71,19 @@ namespace GamePlay
             if (panelRectTransform != null && panelSizeDelta != Vector2.zero)
             {
                 panelRectTransform.sizeDelta = panelSizeDelta;
+            }
+
+            bool shouldApplyPanelAnchoredPosition = _overridePanelAnchoredPosition;
+            Vector2 panelAnchoredPosition = _panelAnchoredPosition;
+            if (!shouldApplyPanelAnchoredPosition && fallbackLayout != null)
+            {
+                shouldApplyPanelAnchoredPosition = fallbackLayout._overridePanelAnchoredPosition;
+                panelAnchoredPosition = fallbackLayout._panelAnchoredPosition;
+            }
+
+            if (panelRectTransform != null && shouldApplyPanelAnchoredPosition)
+            {
+                panelRectTransform.anchoredPosition = panelAnchoredPosition;
             }
 
             Vector2 dialogueTextSizeDelta = ResolveVector(
