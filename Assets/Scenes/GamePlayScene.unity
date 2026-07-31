@@ -2417,7 +2417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9cac45a616006941a99c132c180a48f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GamePlay.GameManager
-  _gameInfo: {fileID: 11400000, guid: c72e97b95506a8b4ba130fe6446d62f1, type: 2}
+  _gameInfo: {fileID: 11400000, guid: d26492b389615d843b54a04e41ef13ff, type: 2}
   _tutorialEntryGroups:
   - State: 1
     Entries:

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DialogueTriggerData4
   m_EditorClassIdentifier: Assembly-CSharp::GamePlay.DialogueTriggerData
   _turn: 1
-  _turnState: 0
+  _turnState: 1
   _pages:
   - Entries:
     - SpeakerName: "\uC8FC\uC778\uACF5"
