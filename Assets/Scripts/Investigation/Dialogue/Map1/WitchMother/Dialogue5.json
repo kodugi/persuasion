@@ -7,7 +7,12 @@
                 {
                     "title": "아니에요.",
                     "next": 1,
-                    "effects": []
+                    "effects": [
+                        {
+                            "type": "item_remove",
+                            "name": "WitchesCloth"
+                        }
+                    ]
                 }
             ]
         },

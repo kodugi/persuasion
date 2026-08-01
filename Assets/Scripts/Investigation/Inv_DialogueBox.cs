@@ -8,6 +8,7 @@ namespace Investigation
     {
         public JObject data;
         public Inv_Interact interactionScript;
+        public string interactionName;
         [SerializeField] private GameObject buttonPrefab;
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         public void Initialize()
@@ -45,6 +46,7 @@ namespace Investigation
                 if(nextIndex == -1)
                 {
                     button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => Destroy(gameObject));
+                    button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => interactionScript.SignalEnding(interactionName));
                 }
                 else
                 {

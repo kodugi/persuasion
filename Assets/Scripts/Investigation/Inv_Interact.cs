@@ -118,6 +118,7 @@ namespace Investigation
         }
         public void ForceInteraction(string name)
         {
+            EndInteraction();
             Interact(name);/*
             if (interactionQueue.Contains(name)) Interact(name);
             else Debug.LogWarning("Attempted to force an interaction that was not in the queue: " + name);*/
@@ -141,9 +142,16 @@ namespace Investigation
             GameObject obj = Instantiate(dialogueBox, GameObject.Find("Canvas").transform);
             obj.GetComponent<RectTransform>().anchoredPosition = anchorPos;
             dialogueScript = obj.GetComponent<Inv_DialogueBox>();
+            dialogueScript.interactionName = name;
             dialogueScript.interactionScript = this;
             dialogueScript.data = data;
             dialogueScript.Initialize();
+        }
+        public void SignalEnding(string name)
+        {
+            Inv_InteractionObj interactingObj = null;
+            if(FindInteractableObj(name) != null) interactingObj = FindInteractableObj(name).GetComponent<Inv_InteractionObj>();
+            if(interactingObj != null) interactingObj.EndInteraction();
         }
         public void InteractionEnd()
         {
@@ -153,7 +161,8 @@ namespace Investigation
         }
         public void EndInteraction()
         {
-            Destroy(dialogueScript.gameObject);
+            if (dialogueScript != null) Destroy(dialogueScript.gameObject);;
+            
             InteractionEnd();
         }
         public Transform FindInteractableObj(string target)

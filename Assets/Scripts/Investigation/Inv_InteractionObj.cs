@@ -28,6 +28,10 @@ public class Inv_InteractionObj : Utility
                 CheckState();
             }
         }
+        virtual public void EndInteraction()
+        {
+            
+        }
         virtual public void CheckState()
         {
             //string dbg = obj_name;

@@ -7,6 +7,7 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
     {
         Inv_PlayerCTRL playerCTRL;
         Inv_Interact interactManager;
+        bool amIInteracting = false;
         
         override protected void Starter()
         {
@@ -23,9 +24,9 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
             {
                 if (playerCTRL.isHiding)
                 {
-                    state = 1;
+                    state = 2;
                 }
-                else state=2;
+                else state=1;
             }
             else if (state == 3 || state ==4)
             {
@@ -35,12 +36,18 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
                     state = 5;
                 }
             }
-            if (saveManager != null)
-            {
-                saveManager.AddProgress(obj_name + "state", state);
-            }
-            //interactManager.EndInteraction();
-            //interactManager.ForceInteraction(obj_name);
+            saveManager.AddProgress(obj_name + "state", state);
+            if(amIInteracting) interactManager.ForceInteraction(obj_name);
+        }
+        virtual public void StartInteraction()
+        {
+            amIInteracting = true;
+            base.StartInteraction();
+        }
+        override public void EndInteraction()
+        {
+            amIInteracting = false;
+            base.EndInteraction();
         }
         override public void variation(List<string> parameters)
         {

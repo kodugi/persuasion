@@ -3368,6 +3368,7 @@ MonoBehaviour:
   - Start
   - Persuasion
   - Investigation
+  - Persuasion
 --- !u!114 &1879756581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3380,7 +3381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc1e554324f384bf0aa2112e214e442d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SaveManager
-  resetOnQuit: 1
+  resetOnQuit: 0
 --- !u!1 &1946612719
 GameObject:
   m_ObjectHideFlags: 0
