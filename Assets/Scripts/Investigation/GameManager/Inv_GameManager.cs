@@ -73,13 +73,23 @@ namespace Investigation
         }
         private void OnApplicationQuit()
         {
+            /*
             if (saveManager != null && saveManager.resetOnQuit)
             {
                 return;
-            }
+            }*/
 
             NoteOnApplicationQuit();
             InventoryOnApplicationQuit();
+        }
+        private void OnDestroy()
+        {
+            if (inputAction != null)
+            {
+                inputAction.Player.Disable();
+                inputAction.Dispose();
+                inputAction = null;
+            }
         }
         void OnSceneChange()
         {

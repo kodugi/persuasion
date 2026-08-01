@@ -63,9 +63,9 @@ public partial class ChiefManager : MonoBehaviour
     {
         
     }
-    void ExitScene()
+    void ExitScene(bool saveProgress=true)
     {
-        saveManager.SaveProgress();
+        if(saveProgress) saveManager.SaveProgress();
         switch (currScene)
         {
             case "Investigation":
@@ -91,7 +91,7 @@ public partial class ChiefManager : MonoBehaviour
     }
     IEnumerator StartInvestigationScene(string id="")
     {
-        ExitScene();
+        ExitScene(false);
         if(id=="") id= return_Inv_Scene_ID;
         return_Inv_Scene_ID="";
         per_Scene_ID = "";
@@ -99,6 +99,7 @@ public partial class ChiefManager : MonoBehaviour
 
         LoadScene(2);
         yield return new WaitUntil(() => FindFirstObjectByType<Inv_GameManager>() != null);
+        print("Investigation scene loaded");
         saveManager.OnInvestigationSceneStart();
 
         inv_GameManager = GameObject.FindFirstObjectByType<Inv_GameManager>();
@@ -130,7 +131,7 @@ public partial class ChiefManager : MonoBehaviour
     }
     IEnumerator StartPersuasionScene(string id)
     {
-        ExitScene();
+        ExitScene(true);
         return_Inv_Scene_ID = inv_Scene_ID;
         inv_Scene_ID = "";
         per_Scene_ID = id;

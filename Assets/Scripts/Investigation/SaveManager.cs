@@ -18,9 +18,6 @@ public partial class SaveManager : MonoBehaviour
 
     public static SaveManager Instance { get; private set; }
 
-    // Prevents save files from being recreated during shutdown.
-    private bool isQuittingAndResetting = false;
-
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -36,7 +33,7 @@ public partial class SaveManager : MonoBehaviour
     public void OnInvestigationSceneStart()
     {
         gameManager = GameObject.FindFirstObjectByType<Inv_GameManager>();
-
+        print("??");
         if (LoadData(
             "progress",
             out Dictionary<string, object> loadedProgress
@@ -46,7 +43,7 @@ public partial class SaveManager : MonoBehaviour
                 loadedProgress ?? new Dictionary<string, object>()
             );
 
-            EnsureProgressDefaults();
+            //EnsureProgressDefaults();
             InitializedBasedOnProgress();
         }
         else
@@ -73,7 +70,7 @@ public partial class SaveManager : MonoBehaviour
 
         InitializedBasedOnProgress();
     }
-
+/*
     private void EnsureProgressDefaults()
     {
         bool changed = false;
@@ -89,9 +86,10 @@ public partial class SaveManager : MonoBehaviour
             SaveProgress();
         }
     }
-
+*/
     private void InitializedBasedOnProgress()
     {
+        
         if (gameManager == null)
         {
             Debug.LogWarning(
@@ -100,7 +98,7 @@ public partial class SaveManager : MonoBehaviour
 
             return;
         }
-
+/*
         bool noteLock = true;
 
         if (progress.TryGetValue("noteLock", out object value))
@@ -127,7 +125,8 @@ public partial class SaveManager : MonoBehaviour
             SaveProgress();
         }
 
-        gameManager.NoteLock(noteLock);
+        gameManager.NoteLock(noteLock);*/
+        gameManager.NoteLock(progress["noteLock"] is bool b && b);
     }
 
     private void OnApplicationQuit()
@@ -141,7 +140,7 @@ public partial class SaveManager : MonoBehaviour
         {
             // Set this before deleting anything so later save calls
             // cannot recreate the files.
-            isQuittingAndResetting = true;
+            //isQuittingAndResetting = true;
 
             Debug.Log(
                 "[SaveManager] Deleting save files on quit."
@@ -150,12 +149,13 @@ public partial class SaveManager : MonoBehaviour
             ResetAllSaveData();
             return;
         }
+        else{
+            Debug.Log(
+                "[SaveManager] Saving progress on quit."
+            );
 
-        Debug.Log(
-            "[SaveManager] Saving progress on quit."
-        );
-
-        SaveProgress();
+            SaveProgress();
+        }
     }
 
     private string PathGen(string fileName)
@@ -168,6 +168,7 @@ public partial class SaveManager : MonoBehaviour
 
     public void SaveData(string fileName, object data)
     {
+        /*
         if (isQuittingAndResetting)
         {
             Debug.LogWarning(
@@ -176,8 +177,8 @@ public partial class SaveManager : MonoBehaviour
             );
 
             return;
-        }
-
+        }*/
+/*
         if (
             string.Equals(
                 fileName,
@@ -194,7 +195,7 @@ public partial class SaveManager : MonoBehaviour
 
             return;
         }
-
+*/
         string path = PathGen(fileName);
 
         try
@@ -219,10 +220,7 @@ public partial class SaveManager : MonoBehaviour
         }
     }
 
-    public bool LoadData<T>(
-        string fileName,
-        out T result
-    ) where T : new()
+    public bool LoadData<T>(string fileName, out T result) where T : new()
     {
         string path = PathGen(fileName);
 
@@ -329,7 +327,7 @@ public partial class SaveManager : MonoBehaviour
     )
     {
         value = NormalizeProgressValue(value);
-
+        /*
         if (isQuittingAndResetting)
         {
             Debug.LogWarning(
@@ -338,7 +336,7 @@ public partial class SaveManager : MonoBehaviour
             );
 
             return;
-        }
+        }*/
 
         if (!progress.ContainsKey(key))
         {
@@ -376,9 +374,9 @@ public partial class SaveManager : MonoBehaviour
     {
         if (progress.TryGetValue(key, out object value))
         {
+            print(JToken.FromObject(value).ToString(Formatting.Indented));
             return NormalizeProgressValue(value);
         }
-
         return null;
     }
 
@@ -462,6 +460,7 @@ public partial class SaveManager : MonoBehaviour
 
     public void SaveProgress()
     {
+        /*
         if (isQuittingAndResetting)
         {
             Debug.LogWarning(
@@ -479,8 +478,9 @@ public partial class SaveManager : MonoBehaviour
             );
 
             return;
-        }
-
+        }*/
+        print("Saving progress:");
+        print(JsonConvert.SerializeObject(progress, Formatting.Indented));
         SaveData("progress", progress);
     }
 }

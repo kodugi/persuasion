@@ -31,6 +31,15 @@ namespace Investigation
             interactionScript = GameObject.FindFirstObjectByType<Inv_Interact>().GetComponent<Inv_Interact>();
             rigidbody_my = GetComponent<Rigidbody2D>();
         }
+        private void OnDestroy()
+        {
+            if (inputAction != null)
+            {
+                inputAction.Player.Disable();
+                inputAction.Dispose();
+                inputAction = null;
+            }
+        }
         // Update is called once per frame
         void FixedUpdate()
         {

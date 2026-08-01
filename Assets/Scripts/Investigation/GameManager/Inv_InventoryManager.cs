@@ -33,12 +33,13 @@ namespace Investigation
         }
         void InventoryOnApplicationQuit()
         {
+            /*
             if (saveManager != null && saveManager.resetOnQuit)
             {
                 return;
             }
 
-            saveManager.SaveData("inventory", inventoryItems);
+            saveManager.SaveData("inventory", inventoryItems);*/
         }
         void InventoryUpdate()
         {

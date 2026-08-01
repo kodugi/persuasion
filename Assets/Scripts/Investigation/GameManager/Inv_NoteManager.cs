@@ -26,12 +26,13 @@ namespace Investigation
         }
         void NoteOnApplicationQuit()
         {
+            /*
             if (saveManager != null && saveManager.resetOnQuit)
             {
                 return;
             }
 
-            saveManager.SaveData("notes", notes);
+            saveManager.SaveData("notes", notes);*/
         }
         public void NoteLock(bool doLock)
         {

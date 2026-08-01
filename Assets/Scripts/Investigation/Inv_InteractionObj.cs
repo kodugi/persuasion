@@ -15,10 +15,10 @@ public class Inv_InteractionObj : Utility
         {
             obj_name = gameObject.name;
             saveManager = GameObject.FindFirstObjectByType<SaveManager>();
-            if (saveManager != null)
+            /*if (saveManager != null)
             {
                 CheckState();
-            }
+            }*/
             Starter();
         }
         virtual public void StartInteraction()
