@@ -27,6 +27,13 @@ public class Inv_InteractionObj_Map1_Pigeon: Inv_InteractionObj
                         }
                     }
                 );
+                interactManager.Effects(
+                    new JObject
+                    {
+                        ["type"] = "item_remove",
+                        ["name"] = "잠자리채"
+                    }
+                );
                 interactManager.ForceInteraction("Map1/Writer");
                 saveManager.AddProgress("pigeonCaught", true);
                 //Temp

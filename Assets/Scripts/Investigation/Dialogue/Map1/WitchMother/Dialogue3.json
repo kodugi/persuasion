@@ -1,0 +1,57 @@
+{
+    "title": "000(이름)",
+    "path": [
+        {
+            "description": "누구세요..?",
+            "buttons":[
+                {
+                    "title": "(무언가 말)",
+                    "next": 1,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(무언가 말)",
+            "buttons":[
+                {
+                    "title": "(무언가 말)",
+                    "next": 2,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(무언가 말)",
+            "buttons":[
+                {
+                    "title": "제가 당신의 딸의 옷을 찾아올게요.",
+                    "next": 3,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "고맙습니다!",
+            "buttons":[
+                {
+                    "title": "(노트에 적어두자)",
+                    "next": -1,
+                    "effects": [
+                        {
+                            "type":"note",
+                            "topic": "000(이름)",
+                            "content":["딸의 옷을 찾아오자"]
+                        },
+                        {
+                            "type":"variation",
+                            "target":"Map1/WitchMother",
+                            "parameters":["requested"]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+
+}

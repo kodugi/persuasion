@@ -151,6 +151,11 @@ namespace Investigation
             isInteracting = false;
             InteractionGuideUpdate();
         }
+        public void EndInteraction()
+        {
+            Destroy(dialogueScript.gameObject);
+            InteractionEnd();
+        }
         public Transform FindInteractableObj(string target)
         {
             Transform targetT = null;
@@ -180,6 +185,10 @@ namespace Investigation
                 case "item":
                     string item = (string)effect["name"];
                     manager.AddItem(item);
+                    break;
+                case "item_remove":
+                    string item_2_remove= (string)effect["name"];
+                    manager.RemoveItem(item_2_remove);
                     break;
                 case "persuade":
                     string autoInteractionOnReturn = null;

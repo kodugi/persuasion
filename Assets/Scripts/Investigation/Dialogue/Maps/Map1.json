@@ -71,7 +71,7 @@
       "title": "Map1/Guard1_Trigger",
       "position": {
         "x": 0,
-        "y": 5
+        "y": 4.98
       },
       "size": {
         "x": 1,
@@ -131,6 +131,39 @@
       "sortingOrder": 0,
       "image": "호수",
       "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/WitchMotherBlocker",
+      "position": {
+        "x": -15,
+        "y": 30
+      },
+      "size": {
+        "x": 4,
+        "y": 4
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 1,
+        "y": 1
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 1,
+        "y": 1
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 0,
+      "image": "",
+      "script": "Inv_InteractionObj_Map1_WitchMotherBlocker",
       "manually_touchable": false
     },
     {
@@ -266,6 +299,39 @@
       "manually_touchable": false
     },
     {
+      "title": "Map1/House3",
+      "position": {
+        "x": -13.46,
+        "y": 30.79
+      },
+      "size": {
+        "x": 3,
+        "y": 3
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0.6,
+        "y": 0.5
+      },
+      "colliderOffset": {
+        "x": -0.02,
+        "y": -0.15
+      },
+      "triggerSize": {
+        "x": 0.7,
+        "y": 0.9
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": -1.5,
+      "sortingOrder": 2,
+      "image": "집3",
+      "script": "Inv_InteractionObj_Map1_Houses",
+      "manually_touchable": false
+    },
+    {
       "title": "Map1/Guard1",
       "position": {
         "x": -5,
@@ -301,8 +367,8 @@
     {
       "title": "Map1/Writer",
       "position": {
-        "x": 5.52,
-        "y": 13.87
+        "x": 5.55,
+        "y": 13.72
       },
       "size": {
         "x": 1,
@@ -395,6 +461,39 @@
       "sortingOrder": 4,
       "image": "작가",
       "script": "Inv_InteractionObj_Map1_GuideToCave",
+      "manually_touchable": true
+    },
+    {
+      "title": "Map1/WitchMother",
+      "position": {
+        "x": -15,
+        "y": 30
+      },
+      "size": {
+        "x": 1,
+        "y": 1
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0.4,
+        "y": 0.4
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": -0.3
+      },
+      "triggerSize": {
+        "x": 3,
+        "y": 3
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": -0.5,
+      "sortingOrder": 4,
+      "image": "작가",
+      "script": "Inv_InteractionObj_WitchMother",
       "manually_touchable": true
     },
     {

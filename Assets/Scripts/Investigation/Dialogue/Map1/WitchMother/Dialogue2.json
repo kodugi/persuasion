@@ -1,0 +1,44 @@
+{
+    "title": "멀리서 수군거리는 소리",
+    "path": [
+        {
+            "description": "000의 딸이 얼마 전에 마녀라는 혐의를 받고 죽었다.",
+            "buttons":[
+                {
+                    "title": "(노트에 적어둔다)",
+                    "next": 1,
+                    "effects": [
+                        {
+                            "type":"note",
+                            "topic": "000(이름)",
+                            "content":[
+                                "딸이 얼마 전 마녀라는 혐의를 받고 죽었다."
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "사람들이 흩어지고 있다.",
+            "buttons":[
+                {
+                    "title": "(조용히 숨어 있자.)",
+                    "next": -1,
+                    "effects": [
+                        {
+                            "type":"variation",
+                            "target":"Map1/WitchMother",
+                            "parameters":["alone"]
+                        },
+                        {
+                            "type":"cutScene",
+                            "title":"CrowdAroundWitchMotherDisperse"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+
+}

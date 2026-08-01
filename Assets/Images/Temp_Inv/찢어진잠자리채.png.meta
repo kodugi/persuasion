@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b7da6399aecda41e18c8070937505205
+guid: d936dbf56860a412abe17c16f2216b17
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5125675428664706492
-    second: "\u110C\u1175\u11B83_0"
+      213: -540501720452887610
+    second: KakaoTalk_Photo_2026-07-15-16-26-50 007_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 1193
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\u110C\u1175\u11B83_0"
+      name: KakaoTalk_Photo_2026-07-15-16-26-50 007_0
       rect:
         serializedVersion: 2
-        x: 155
-        y: 28
-        width: 1429
-        height: 1122
+        x: 22
+        y: 46
+        width: 259
+        height: 109
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cb5028735ae022740800000000000000
-      internalID: 5125675428664706492
+      spriteID: 6cb0be78c80cf78f0800000000000000
+      internalID: -540501720452887610
       vertices: []
       indices: 
       edges: []
@@ -174,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "\u110C\u1175\u11B83_0": 5125675428664706492
+      KakaoTalk_Photo_2026-07-15-16-26-50 007_0: -540501720452887610
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

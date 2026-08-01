@@ -208,6 +208,14 @@ namespace Investigation
                         }
                     );
                     break;
+                case "IntoDream":
+                    print("잠에 들었다.");
+                    yield return null;
+                    break;
+                case "CrowdAroundWitchMotherDisperse":
+                    print("사람들이 흩어진다.");
+                    yield return null;
+                    break;
             }
         }
         public void ForceInteract(string title)

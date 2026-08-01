@@ -138,9 +138,9 @@ namespace Investigation
             GameObject floatingItem = Instantiate(inventoryItemPrefab, selectionObj.transform.position, Quaternion.identity, FindFirstObjectByType<Canvas>().gameObject.transform);
             floatingItem.name = item+"_"+selectionIdx.ToString()+"_Floating";
             SetSpriteImage<Image>(floatingItem, item, inventoryHandles);
-            floatingItem.AddComponent<Inv_FloatItemCTRL>();
-            floatingItem.GetComponent<Inv_FloatItemCTRL>().inventoryManager = this;
-            floatingItem.GetComponent<Inv_FloatItemCTRL>().index = selectionIdx;
+            Inv_FloatItemCTRL obj_inv_FloatItemCTRL = floatingItem.AddComponent<Inv_FloatItemCTRL>();
+            obj_inv_FloatItemCTRL.inventoryManager = this;
+            obj_inv_FloatItemCTRL.index = selectionIdx;
             floatingItemName = item;
             RemoveItem(item,false);
             OpenInventory();
@@ -178,7 +178,7 @@ namespace Investigation
                 //print(hit.gameObject.name);
                 if(hit.gameObject.tag == "Inv_Interactable")
                 {
-                    hit.gameObject.GetComponent<Inv_InteractionObj>().InventoryItemDraggedOn(inventoryItems[floatingIdx]);
+                    hit.gameObject.GetComponent<Inv_InteractionObj>().InventoryItemDraggedOn(floatingItemName);
                 }
             }
         }

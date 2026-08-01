@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: 8033f9627fd8b4c5eba242927dcae8e3
   m_SerializeEntries:
+  - m_GUID: 0c6d02c200c8c4f8fb607f0a67ad0866
+    m_Address: Map1_House3_Face
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0db2d191c345e42bfb7ba33888ed68f7
     m_Address: "\uB5A8\uC5B4\uC9C4\uB178\uD2B8"
     m_ReadOnly: 0
@@ -91,7 +96,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8a43683c3da3b45e39763ee01bc6f3e5
-    m_Address: "\uBC8C"
+    m_Address: "\uBC8C\uC9D1"
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -142,6 +147,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d5bbbff65cfe84c27a81720eec801b0b
     m_Address: "\uC9D11"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d936dbf56860a412abe17c16f2216b17
+    m_Address: "\uCC22\uC5B4\uC9C4\uC7A0\uC790\uB9AC\uCC44"
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

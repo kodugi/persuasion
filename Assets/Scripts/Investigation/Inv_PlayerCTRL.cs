@@ -14,9 +14,11 @@ namespace Investigation
         private Inv_Interact interactionScript;
         private Vector2 movementInput;
         Rigidbody2D rigidbody_my;
+        bool playerCanMove = true;
 
         List<GameObject> layer_consideredObjs = new List<GameObject>();
         int layer_maxBehind;
+        public bool isHiding = false;
 
         void Awake()
         {
@@ -29,38 +31,49 @@ namespace Investigation
             interactionScript = GameObject.FindFirstObjectByType<Inv_Interact>().GetComponent<Inv_Interact>();
             rigidbody_my = GetComponent<Rigidbody2D>();
         }
-
         // Update is called once per frame
         void FixedUpdate()
         {
-            if(!interactionScript.isInteracting){
+            if(!interactionScript.isInteracting && playerCanMove){
                 movementInput = inputAction.Player.Move.ReadValue<Vector2>();
                 rigidbody_my.MovePosition(rigidbody_my.position +new Vector2(movementInput.x, movementInput.y) * Time.deltaTime * moveSpeed);
             }
             layer_maxBehind = 0;
+            int hidingCnt=0;
             foreach(GameObject obj in layer_consideredObjs)
             {
                 if(gameObject.transform.position.y <= obj.transform.position.y + obj.GetComponent<Inv_InteractionObj>().hideCriteria)
                 {
                     layer_maxBehind = Math.Max(layer_maxBehind, obj.GetComponent<SpriteRenderer>().sortingOrder);
                 }
+                else if(obj.GetComponent<SpriteRenderer>().color.a > 0.05)
+                {
+                    hidingCnt++;
+                }
             }
+            isHiding = (hidingCnt)>0;
             gameObject.GetComponent<SpriteRenderer>().sortingOrder = layer_maxBehind+1;
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.CompareTag("Inv_Interactable"))
             {
-                interactionScript.QueueInteraction(collision.GetComponent<Inv_InteractionObj>().obj_name, true);
-                layer_consideredObjs.Add(collision.gameObject);
+                if(collision.GetComponent<Inv_InteractionObj>().manuallyTouchable)
+                {
+                    interactionScript.QueueInteraction(collision.GetComponent<Inv_InteractionObj>().obj_name, true);
+                    layer_consideredObjs.Add(collision.gameObject);
+                }
             }
         }
         private void OnTriggerExit2D(Collider2D collision)
         {
             if (collision.gameObject.CompareTag("Inv_Interactable"))
             {
-                interactionScript.QueueInteraction(collision.GetComponent<Inv_InteractionObj>().obj_name, false);
-                layer_consideredObjs.Remove(collision.gameObject);
+                if(collision.GetComponent<Inv_InteractionObj>().manuallyTouchable)
+                {
+                    interactionScript.QueueInteraction(collision.GetComponent<Inv_InteractionObj>().obj_name, false);
+                    layer_consideredObjs.Remove(collision.gameObject);
+                }
             }
         }
         public void Think(string thought)
@@ -68,6 +81,10 @@ namespace Investigation
             thoughtObj.SetActive(true);
             thoughtObj.transform.Find("Text").GetComponent<TMPro.TextMeshProUGUI>().text = thought;
             FadeObject(thoughtObj, false, 2f, 2f, false);
+        }
+        public void CanPlayerMove(bool canMove)
+        {
+            playerCanMove = canMove;
         }
     }
 }

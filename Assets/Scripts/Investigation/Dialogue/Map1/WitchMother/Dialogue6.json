@@ -1,0 +1,16 @@
+{
+    "title": "000(이름)",
+    "path": [
+        {
+            "description": "안녕히주무세요.",
+            "buttons":[
+                {
+                    "title": "네!",
+                    "next": -1,
+                    "effects": []
+                }
+            ]
+        }
+    ]
+
+}

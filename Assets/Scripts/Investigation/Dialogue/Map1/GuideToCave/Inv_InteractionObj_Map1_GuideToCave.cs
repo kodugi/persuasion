@@ -10,15 +10,18 @@ namespace Investigation
 public class Inv_InteractionObj_Map1_GuideToCave: Inv_InteractionObj
     {
         private Inv_Interact interactManager;
+        private Inv_PlayerCTRL playerCTRL;
         override protected void Starter()
         {
             interactManager = GameObject.FindFirstObjectByType<Inv_Interact>();
+            playerCTRL = GameObject.FindFirstObjectByType<Inv_PlayerCTRL>();
         }
         override public void CheckState()
         {
             switch (state)
             {
                 case 0:
+                    gameObject.GetComponent<SpriteRenderer>().enabled = false;
                     gameObject.GetComponent<SpriteRenderer>().sortingOrder = -1;
                     break;
             }
@@ -43,11 +46,20 @@ public class Inv_InteractionObj_Map1_GuideToCave: Inv_InteractionObj
             interactManager.Effects(
                 new JObject
                 {
+                    ["type"]="thought",
+                    ["thought"]="누군가 밖으로 나온다. 숨어있어야 한다!"
+                }
+            );
+            interactManager.Effects(
+                new JObject
+                {
                     ["type"]="variation",
                     ["target"]="Map1/House_Gathering",
                     ["parameters"]=new JArray{"OpenDoor"}
                 }
             );
+            playerCTRL.CanPlayerMove(false);
+            gameObject.GetComponent<SpriteRenderer>().enabled = true;
             gameObject.GetComponent<SpriteRenderer>().sortingOrder = 4;
             yield return new WaitForSeconds(0.5f);
             interactManager.Effects(
@@ -67,6 +79,7 @@ public class Inv_InteractionObj_Map1_GuideToCave: Inv_InteractionObj
             yield return footprintHandle;
             GameObject footprintPrefab = footprintHandle.Result;
             float footprintTimer = 0f;
+            Vector3 positionDiff = new Vector3(0,-0.5f,0);
             while (Vector3.Distance(transform.position, targetP) > 0.1f)
             {
                 transform.position = Vector3.MoveTowards(
@@ -81,11 +94,11 @@ public class Inv_InteractionObj_Map1_GuideToCave: Inv_InteractionObj
                     float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                     GameObject footprint = Instantiate(
                         footprintPrefab,
-                        transform.position,
+                        transform.position+positionDiff,
                         Quaternion.Euler(0f, 0f, angle)
                     );
                     footprintTimer = 0f;
-                    Destroy(footprint, 2f);
+                    FadeObject(footprint, false, 10f, 1f, true);
                 }
                 yield return null;
             }
@@ -94,6 +107,8 @@ public class Inv_InteractionObj_Map1_GuideToCave: Inv_InteractionObj
 
             colliderChild.SetActive(true);
             gameObject.GetComponent<SpriteRenderer>().sortingOrder = -1;
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            playerCTRL.CanPlayerMove(true);
         }
     }
 }
