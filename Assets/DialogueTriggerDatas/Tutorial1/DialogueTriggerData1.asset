@@ -48,7 +48,7 @@ MonoBehaviour:
       UseWidePanel: 0
     - SpeakerName: "\uC8FC\uC778\uACF5"
       DialogueText: "\u2026.\uC77C\uB2E8 \uD55C \uBC88 \uD574\uBCFC\uAE4C."
-      StateToTrigger: 0
+      StateToTrigger: 1
       StateTriggerTiming: 0
       UseWidePanel: 0
     - SpeakerName: "\uC8FC\uC778\uACF5"

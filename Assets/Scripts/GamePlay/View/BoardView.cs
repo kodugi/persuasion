@@ -2,6 +2,7 @@ using GamePlay;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using AnimationUtilsNameSpace;
 using UnityEngine;
 using Vector2Int = VectorUtils.Vector2Int;
 
@@ -114,7 +115,7 @@ public class BoardView : BoardViewBase
                 return;
             }
 
-            PlayGameOverAnimation();
+            StartCoroutine(PlayGameOverAnimation());
         }
         else
         {
@@ -156,7 +157,7 @@ public class BoardView : BoardViewBase
         }
     }
     
-    private void PlayGameOverAnimation()
+    private IEnumerator PlayGameOverAnimation()
     {
         StopBeforeGameOverAnimation();
         _isPlayingGameOverAnimation = true;
@@ -168,11 +169,13 @@ public class BoardView : BoardViewBase
             _spawnedBoardCellSuspicionViewsByCoord[coord.X, coord.Y].StopBeforeGameOverAnimation();
         }
         _spawnedBeforeGameOverAnimationCoroutineCoords = new List<Vector2Int>();
-        foreach (Vector2Int coord in coords)
+
+        StartCoroutine(AnimationUtils.ExecuteAccordingToCountsPreset(coords, (coord) =>
         {
             _spawnedBoardCellSuspicionViewsByCoord[coord.X, coord.Y].PlayGameOverAnimation();
             _spawnedGameOverAnimationCoroutineCoords.Add(coord);
-        }
+        }));
+        yield return null;
     }
     
     private void StopGameOverAnimation()

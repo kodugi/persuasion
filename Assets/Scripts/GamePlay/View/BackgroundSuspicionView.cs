@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using AnimationUtilsNameSpace;
 using SingletonUtils;
 using UnityEngine;
 using Random = System.Random;
@@ -8,9 +10,7 @@ namespace GamePlay
 {
     public class BackgroundSuspicionView: SelfInitializingMonoBehaviourSingleton<BackgroundSuspicionView>
     {
-        [SerializeField] private GameObject _suspicionPrefab;
-        
-        private List<GameObject> _spawnedSuspicionPrefabs;
+        private List<BackgroundSuspicionPrefabView> _backgroundSuspicionPrefabViews;
         
         protected override bool InitializeCore()
         {
@@ -19,16 +19,10 @@ namespace GamePlay
                 Debug.LogError("GameStateManager is null");
                 return false;
             }
-
-            if (_suspicionPrefab == null)
-            {
-                Debug.LogError("SuspicionPrefab is null");
-                return false;
-            }
-            
-            _spawnedSuspicionPrefabs = new List<GameObject>();
             
             GameStateManager.Instance.RaiseSetGameStateEvent += HandleSetGameStateEvent;
+            _backgroundSuspicionPrefabViews = GetComponentsInChildren<BackgroundSuspicionPrefabView>(true).ToList();
+            
             return true;
         }
 
@@ -36,24 +30,17 @@ namespace GamePlay
         {
             if (e.gameState == GameState.Lost)
             {
-                for (int i = 0; i < 20; i++)
+                StartCoroutine(AnimationUtils.ExecuteAccordingToCountsPreset(_backgroundSuspicionPrefabViews, (suspicionView) =>
                 {
-                    GameObject suspicionObject = Instantiate(_suspicionPrefab);
-                    Random random = new Random();
-                    suspicionObject.transform.position = new Vector3((float)random.NextDouble() * 16 - 8, (float)random.NextDouble() * 8 - 4, 0);
-                    _spawnedSuspicionPrefabs.Add(suspicionObject);
-                    BackgroundSuspicionPrefabView view = suspicionObject.AddComponent<BackgroundSuspicionPrefabView>();
-                    view.Initialize();
-                    view.PlayGameOverAnimation();
-                }
+                    suspicionView.PlayGameOverAnimation();
+                }));
             }
             else
             {
-                foreach (GameObject suspicionObject in _spawnedSuspicionPrefabs)
+                foreach (BackgroundSuspicionPrefabView suspicionView in _backgroundSuspicionPrefabViews)
                 {
-                    Destroy(suspicionObject);
+                    suspicionView.StopGameOverAnimation();
                 }
-                _spawnedSuspicionPrefabs.Clear();
             }
         }
     }

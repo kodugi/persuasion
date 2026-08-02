@@ -8,7 +8,7 @@ namespace GamePlay
         private Coroutine _gameOverAnimationCoroutine;
         private SpriteRenderer _sr;
         
-        public void Initialize()
+        private void Start()
         {
             _sr = GetComponent<SpriteRenderer>();
             
@@ -23,12 +23,12 @@ namespace GamePlay
         
         public IEnumerator GameOverAnimation()
         {
-            int steps = 100;
+            /*int steps = 100;
             for (int i = 0; i < steps; i++)
             {
                 _sr.color = new Color(_sr.color.r, _sr.color.g, _sr.color.b, (float)i / (float)steps);
                 yield return new WaitForSeconds(0.01f);
-            }
+            }*/
 
             yield return null;
         }

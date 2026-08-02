@@ -42,6 +42,8 @@ namespace GamePlay
                 _sr.color = new Color(_sr.color.r, _sr.color.g, _sr.color.b, (float)i / (float)steps);
                 yield return new WaitForSeconds(0.01f);
             }
+
+            yield return new WaitForSeconds(0.5f);
             
             for (int i = steps; i > 0; i--)
             {
@@ -67,12 +69,13 @@ namespace GamePlay
         
         public IEnumerator GameOverAnimation()
         {
-            int steps = 100;
+            // this part is currently unnecessary because the animation plays by itself on Active
+            /*int steps = 100;
             for (int i = 0; i < steps; i++)
             {
                 _sr.color = new Color(_sr.color.r, _sr.color.g, _sr.color.b, (float)i / (float)steps);
                 yield return new WaitForSeconds(0.01f);
-            }
+            }*/
 
             yield return null;
         }
