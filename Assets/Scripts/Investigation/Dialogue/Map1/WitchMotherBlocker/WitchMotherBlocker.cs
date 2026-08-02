@@ -8,8 +8,13 @@ public class Inv_InteractionObj_Map1_WitchMotherBlocker: Inv_InteractionObj
         private Inv_Interact interactManager;
         override protected void Starter()
         {
-            if(state!=0) Destroy(gameObject);
+            
             interactManager = GameObject.FindFirstObjectByType<Inv_Interact>();
+        }
+        override public void CheckState()
+        {
+            base.CheckState();
+            if(state!=0) Destroy(gameObject);
         }
         override public void variation(List<string> parameters=null)
         {

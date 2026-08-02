@@ -42,6 +42,7 @@ public class Inv_InteractionObj_Map1_Pigeon: Inv_InteractionObj
         }
         override public void CheckState()
         {
+            base.CheckState();
             object pigeonCaught = saveManager.LoadProgress("pigeonCaught");
             if(pigeonCaught != null && ((bool)pigeonCaught)==true)
             {

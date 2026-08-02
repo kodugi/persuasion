@@ -18,6 +18,7 @@ public class Inv_InteractionObj_Map1_GuideToCave: Inv_InteractionObj
         }
         override public void CheckState()
         {
+            base.CheckState();
             switch (state)
             {
                 case 0:

@@ -33,7 +33,7 @@ public partial class SaveManager : MonoBehaviour
     public void OnInvestigationSceneStart()
     {
         gameManager = GameObject.FindFirstObjectByType<Inv_GameManager>();
-        print("??");
+        //print("??");
         if (LoadData(
             "progress",
             out Dictionary<string, object> loadedProgress
@@ -255,7 +255,7 @@ public partial class SaveManager : MonoBehaviour
                 result = new T();
                 return false;
             }
-
+            print(JsonConvert.SerializeObject(result, Formatting.Indented));
             return true;
         }
         catch (Exception exception)
@@ -374,7 +374,7 @@ public partial class SaveManager : MonoBehaviour
     {
         if (progress.TryGetValue(key, out object value))
         {
-            print(JToken.FromObject(value).ToString(Formatting.Indented));
+            //print(JToken.FromObject(value).ToString(Formatting.Indented));
             return NormalizeProgressValue(value);
         }
         return null;

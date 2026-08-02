@@ -9,6 +9,7 @@ namespace Investigation
     {
         override public void CheckState()
         {
+            base.CheckState();
             switch (state)
             {
                 case 1:

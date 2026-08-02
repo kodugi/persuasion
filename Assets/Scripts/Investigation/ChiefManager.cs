@@ -57,7 +57,7 @@ public partial class ChiefManager : MonoBehaviour
         {
             throw new ArgumentException("id must be either string or int.");
         }
-        print(currScene);
+        //print(currScene);
     }
     void LoadingMotion()
     {
@@ -99,7 +99,7 @@ public partial class ChiefManager : MonoBehaviour
 
         LoadScene(2);
         yield return new WaitUntil(() => FindFirstObjectByType<Inv_GameManager>() != null);
-        print("Investigation scene loaded");
+        //print("Investigation scene loaded");
         saveManager.OnInvestigationSceneStart();
 
         inv_GameManager = GameObject.FindFirstObjectByType<Inv_GameManager>();

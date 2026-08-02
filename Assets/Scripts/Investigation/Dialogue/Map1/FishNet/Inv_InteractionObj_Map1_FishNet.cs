@@ -13,6 +13,7 @@ public class Inv_InteractionObj_Map1_FishNet: Inv_InteractionObj
         }
         override public void CheckState()
         {
+            base.CheckState();
             object fishNetPossessed = saveManager.LoadProgress("fishNetPossessed");
             if(fishNetPossessed != null && ((bool)fishNetPossessed)==true)
             {

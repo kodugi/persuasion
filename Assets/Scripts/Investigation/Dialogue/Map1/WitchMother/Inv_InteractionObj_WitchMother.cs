@@ -16,9 +16,12 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
         }
         override public void CheckState()
         {
+            base.CheckState();
+            //print(state);
             if (state==0)
             {
                 gameObject.transform.GetChild(0).GetComponent<BoxCollider2D>().enabled=false;
+                return;
             }
             else if(state==1 || state == 2)
             {
@@ -31,7 +34,7 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
             else if (state == 3 || state ==4)
             {
                 object possessed = saveManager.LoadProgress("possessedWitchsCloth");
-                if (saveManager.LoadProgress("possessedWitchsCloth")!=null && (bool)possessed==true)
+                if (possessed is bool b && b == true)
                 {
                     state = 5;
                 }
