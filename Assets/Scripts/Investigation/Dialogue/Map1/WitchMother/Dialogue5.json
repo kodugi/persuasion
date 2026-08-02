@@ -1,0 +1,46 @@
+{
+    "title": "000(이름)",
+    "path": [
+        {
+            "description": "감사합니다!!",
+            "buttons":[
+                {
+                    "title": "아니에요.",
+                    "next": 1,
+                    "effects": [
+                        {
+                            "type": "item_remove",
+                            "name": "WitchesCloth"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "오늘 밤은 여기서 주무세요.",
+            "buttons":[
+                {
+                    "title": "감사합니다!",
+                    "next": -1,
+                    "effects": [
+                        {
+                            "type":"variation",
+                            "target":"Map1/WitchMother",
+                            "parameters":["Accepted"]
+                        },
+                        {
+                            "type":"cutScene",
+                            "title":"IntoDream"
+                        },
+                        {
+                            "type":"progress",
+                            "key":"dreamt",
+                            "value":true
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+
+}

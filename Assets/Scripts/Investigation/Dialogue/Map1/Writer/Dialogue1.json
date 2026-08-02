@@ -1,0 +1,24 @@
+{
+    "title": "작가?",
+    "path": [
+        {
+            "description": "너 뭐야! 걔를 왜 잡아가는데?",
+            "buttons":[
+                {
+                    "title": "사정이 있어서요!! 죄송합니다!!!",
+                    "next": -1,
+                    "effects": [
+                        {
+                            "type": "variation",
+                            "target": "Map1/Writer",
+                            "parameters":[
+                                "PigeonRemoved"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+
+}

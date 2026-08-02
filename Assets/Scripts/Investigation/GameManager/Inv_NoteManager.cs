@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -11,30 +12,31 @@ namespace Investigation
     public partial class Inv_GameManager
     {
         private Dictionary<string, List<string>> notes = new Dictionary<string, List<string>>();
-        public GameObject notePanel;
-        public GameObject noteTitlePrefab;
-        public GameObject noteContentPrefab;
-        public GameObject interactablePrefab;
+        [SerializeField] private GameObject noteButton;
+        [SerializeField] private GameObject notePanel;
+        [SerializeField] private GameObject noteTitlePrefab;
+        [SerializeField] private GameObject noteContentPrefab;
         void NoteAwake()
         {
-            notes = saveManager.LoadData<Dictionary<string, List<string>>>("notes");
+            saveManager.LoadData<Dictionary<string, List<string>>>("notes", out notes);
         }
         void NoteStart()
         {
             GameObject.FindFirstObjectByType<Canvas>().transform.Find("NoteButton").GetComponent<Button>().onClick.AddListener(ViewNotes);
-            SetScene();
         }
-        private class Position
+        void NoteOnApplicationQuit()
         {
-            public float x;
-            public float y;
+            /*
+            if (saveManager != null && saveManager.resetOnQuit)
+            {
+                return;
+            }
+
+            saveManager.SaveData("notes", notes);*/
         }
-        private class InteractableObj
+        public void NoteLock(bool doLock)
         {
-            public string title;
-            public Position Position;
-            public string image;
-            public string script;
+            noteButton.SetActive(!doLock);
         }
         public void AddNote(string noteName, List<string> contents)
         {
@@ -46,6 +48,12 @@ namespace Investigation
             {
                 notes[noteName].AddRange(contents);
             }
+            StartCoroutine(HighlightNoteButton());
+            saveManager.SaveData("notes", notes);
+        }
+        private IEnumerator HighlightNoteButton()
+        {
+            yield return null;
         }
         public void ViewNotes()
         {

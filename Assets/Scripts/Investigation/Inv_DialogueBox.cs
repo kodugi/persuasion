@@ -4,16 +4,21 @@ using System.IO;
 
 namespace Investigation
 {
-    public class Inv_DialogueBox : MonoBehaviour
+    public class Inv_DialogueBox : Utility
     {
         public JObject data;
         public Inv_Interact interactionScript;
+        public string interactionName;
         [SerializeField] private GameObject buttonPrefab;
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         public void Initialize()
         {
             transform.Find("Title").GetComponent<TMPro.TextMeshProUGUI>().text = data["title"].ToString();
             DisplayDialogue(0);
+        }
+        public void ChangeTitle(string title)
+        {
+            transform.Find("Title").GetComponent<TMPro.TextMeshProUGUI>().text = title;
         }
         void DisplayDialogue(int index)
         {
@@ -41,6 +46,7 @@ namespace Investigation
                 if(nextIndex == -1)
                 {
                     button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => Destroy(gameObject));
+                    button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => interactionScript.SignalEnding(interactionName));
                 }
                 else
                 {

@@ -1,0 +1,36 @@
+{
+    "title": "노파",
+    "path": [
+        {
+            "description": "저어기 마을 끝에 있는 음침한 집에 한 번 찾아가 보든가.",
+            "buttons":[
+                {
+                    "title": "감사합니다!",
+                    "next": -1,
+                    "effects": [
+                        {
+                            "type": "variation",
+                            "target": "Map1/Cave",
+                            "parameters":[
+                                "Resolved"
+                            ]
+                        },
+                        {
+                            "type": "variation",
+                            "target": "Map1/WitchMotherBlocker",
+                            "parameters":[]
+                        },
+                        {
+                            "type": "variation",
+                            "target": "Map1/WitchMother",
+                            "parameters":[
+                                "CreateCollider"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+
+}

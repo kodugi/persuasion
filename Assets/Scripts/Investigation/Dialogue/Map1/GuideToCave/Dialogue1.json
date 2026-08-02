@@ -1,0 +1,16 @@
+{
+    "title": "경비원",
+    "path": [
+        {
+            "description": "뭐.",
+            "buttons":[
+                {
+                    "title": "죄송합니다...",
+                    "next": -1,
+                    "effects": []
+                }
+            ]
+        }
+    ]
+
+}
