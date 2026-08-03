@@ -76,7 +76,7 @@ namespace GamePlay
                 return;
             }
             int incrementAmount = selectedBlock.GetSuspicion();
-            Debug.Log("PlaceSelectedBlock called");
+
             RaisePlaceBlock?.Invoke(this, new PlaceBlockEventArgs(selectedBlock, incrementAmount));
             selectedBlock.RegisterPlacement(coord);
             RaiseSelectBlockEvent.Invoke(this, new SelectBlockEventArgs(selectedBlock.GetSuspicion()));

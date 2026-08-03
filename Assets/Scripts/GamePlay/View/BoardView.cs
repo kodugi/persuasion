@@ -18,8 +18,8 @@ public class BoardView : BoardViewBase
     private BoardCellMarker _allowedMarkers;
 
     private BoardCellSuspicionView[,] _spawnedBoardCellSuspicionViewsByCoord;
-    private bool _isPlayingBeforeGameOverAnimation;
-    private List<Vector2Int> _spawnedBeforeGameOverAnimationCoroutineCoords;
+    private bool _isPlayingPreGameOverAnimation;
+    private List<Vector2Int> _spawnedPreGameOverAnimationCoroutineCoords;
     private bool  _isPlayingGameOverAnimation;
     private List<Vector2Int> _spawnedGameOverAnimationCoroutineCoords;
 
@@ -91,18 +91,18 @@ public class BoardView : BoardViewBase
 
     private void HandleSetSuspicionPreviewEvent(object sender, SetSuspicionEventArgs e)
     {
-        if (e.Suspicion > _suspicionManager.GetMaxSuspicion())
+        if (_suspicionManager.GetCurrentSuspicionPreview() > _suspicionManager.GetMaxSuspicion() && _suspicionManager.GetCurrentSuspicion() <= _suspicionManager.GetMaxSuspicion())
         {
-            if (_isPlayingBeforeGameOverAnimation)
+            if (_isPlayingPreGameOverAnimation)
             {
                 return;
             }
 
-            PlayBeforeGameOverAnimation();
+            PlayPreGameOverAnimation();
         }
         else
         {
-            StopBeforeGameOverAnimation();
+            StopPreGameOverAnimation();
         }
     }
 
@@ -123,52 +123,49 @@ public class BoardView : BoardViewBase
         }
     }
 
-    private void PlayBeforeGameOverAnimation()
+    private void PlayPreGameOverAnimation()
     {
-        _isPlayingBeforeGameOverAnimation = true;
-        _spawnedBeforeGameOverAnimationCoroutineCoords = new List<Vector2Int>();
+        _isPlayingPreGameOverAnimation = true;
+        _spawnedPreGameOverAnimationCoroutineCoords = new List<Vector2Int>();
         List<Vector2Int> coords = BoardController.Instance.GetRandomBlackCellCoords(2);
-        ResetSpawnedBeforeGameOverAnimationCoroutineCoords();
+        ResetSpawnedPreGameOverAnimationCoroutineCoords();
         foreach (Vector2Int coord in coords)
         {
-            _spawnedBoardCellSuspicionViewsByCoord[coord.X, coord.Y].PlayBeforeGameOverAnimation();
-            _spawnedBeforeGameOverAnimationCoroutineCoords.Add(coord);
+            _spawnedBoardCellSuspicionViewsByCoord[coord.X, coord.Y].PlayPreGameOverAnimation();
+            _spawnedPreGameOverAnimationCoroutineCoords.Add(coord);
         }
     }
 
-    private void ResetSpawnedBeforeGameOverAnimationCoroutineCoords()
+    private void ResetSpawnedPreGameOverAnimationCoroutineCoords()
     {
-        foreach (Vector2Int coord in _spawnedBeforeGameOverAnimationCoroutineCoords)
+        foreach (Vector2Int coord in _spawnedPreGameOverAnimationCoroutineCoords)
         {
-            _spawnedBoardCellSuspicionViewsByCoord[coord.X, coord.Y].StopBeforeGameOverAnimation();
+            _spawnedBoardCellSuspicionViewsByCoord[coord.X, coord.Y].StopPreGameOverAnimation();
         }
-        _spawnedBeforeGameOverAnimationCoroutineCoords = new List<Vector2Int>();
+        _spawnedPreGameOverAnimationCoroutineCoords = new List<Vector2Int>();
     }
 
-    private void StopBeforeGameOverAnimation()
+    private void StopPreGameOverAnimation()
     {
-        if (_isPlayingBeforeGameOverAnimation)
+        if (_isPlayingPreGameOverAnimation)
         {
-            _isPlayingBeforeGameOverAnimation = false;
-            foreach (Vector2Int coord in _spawnedBeforeGameOverAnimationCoroutineCoords)
+            _isPlayingPreGameOverAnimation = false;
+            foreach (Vector2Int coord in _spawnedPreGameOverAnimationCoroutineCoords)
             {
-                _spawnedBoardCellSuspicionViewsByCoord[coord.X, coord.Y].StopBeforeGameOverAnimation();
+                _spawnedBoardCellSuspicionViewsByCoord[coord.X, coord.Y].StopPreGameOverAnimation();
             }
         }
     }
     
     private IEnumerator PlayGameOverAnimation()
     {
-        StopBeforeGameOverAnimation();
+        StopPreGameOverAnimation();
         _isPlayingGameOverAnimation = true;
         _spawnedGameOverAnimationCoroutineCoords = new List<Vector2Int>();
         
         List<Vector2Int> coords = BoardController.Instance.GetRandomBlackCellCoords(25);
-        foreach (Vector2Int coord in _spawnedGameOverAnimationCoroutineCoords)
-        {
-            _spawnedBoardCellSuspicionViewsByCoord[coord.X, coord.Y].StopBeforeGameOverAnimation();
-        }
-        _spawnedBeforeGameOverAnimationCoroutineCoords = new List<Vector2Int>();
+
+        _spawnedPreGameOverAnimationCoroutineCoords = new List<Vector2Int>();
 
         StartCoroutine(AnimationUtils.ExecuteAccordingToCountsPreset(coords, (coord) =>
         {

@@ -127,7 +127,7 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
                 StartCoroutine(ReplaceCellObject(cellChanges[j]));
             }
 
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.2f);
         }
 
         yield return StartCoroutine(AfterCellPlacement());

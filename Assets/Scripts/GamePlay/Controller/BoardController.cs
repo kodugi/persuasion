@@ -125,7 +125,6 @@ namespace GamePlay
                 Vector2Int curCoord = curCellChange.GetCoord();
                 cellChangeList.Add(curCellChange);
                 SetCell(curCellChange);
-                Debug.Log("set cell for " + curCoord);
                 List<CellChange> toFlipCellChanges = PlayerGetToFlipCellChanges(curCoord);
                 foreach (CellChange toFlipCellChange in toFlipCellChanges)
                 {
@@ -176,7 +175,7 @@ namespace GamePlay
                 {
                     int val = Math.Min(Vector2Int.TaxiDist(cellChange.GetOriginalCellCoord(), cellChange.GetCoord()),
                         Vector2Int.TaxiDist(cellChange.GetOtherCellCoord(), cellChange.GetCoord()));
-                    Debug.Log("coord: " + cellChange.GetCoord() + ", val: " + val);
+
                     if (!cellChangeDict.ContainsKey(val))
                     {
                         cellChangeDict[val] = new List<CellChange>();

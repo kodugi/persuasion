@@ -10,7 +10,7 @@ namespace GamePlay
 {
     public class BackgroundSuspicionView: SelfInitializingMonoBehaviourSingleton<BackgroundSuspicionView>
     {
-        private List<BackgroundSuspicionPrefabView> _backgroundSuspicionPrefabViews;
+        private List<BoardCellSuspicionView> _backgroundSuspicionPrefabViews;
         
         protected override bool InitializeCore()
         {
@@ -21,8 +21,12 @@ namespace GamePlay
             }
             
             GameStateManager.Instance.RaiseSetGameStateEvent += HandleSetGameStateEvent;
-            _backgroundSuspicionPrefabViews = GetComponentsInChildren<BackgroundSuspicionPrefabView>(true).ToList();
-            
+            _backgroundSuspicionPrefabViews = GetComponentsInChildren<BoardCellSuspicionView>(true).ToList();
+
+            foreach (BoardCellSuspicionView suspicionView in _backgroundSuspicionPrefabViews)
+            {
+                suspicionView.Initialize();
+            }
             return true;
         }
 
@@ -37,7 +41,7 @@ namespace GamePlay
             }
             else
             {
-                foreach (BackgroundSuspicionPrefabView suspicionView in _backgroundSuspicionPrefabViews)
+                foreach (BoardCellSuspicionView suspicionView in _backgroundSuspicionPrefabViews)
                 {
                     suspicionView.StopGameOverAnimation();
                 }

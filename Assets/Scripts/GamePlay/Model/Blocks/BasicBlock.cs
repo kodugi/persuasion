@@ -21,9 +21,9 @@ namespace GamePlay
                 case 0:
                     return 16;
                 case 1:
-                    return 24;
+                    return 30;
                 default:
-                    return 32;
+                    return 30;
             }
         }
     }
