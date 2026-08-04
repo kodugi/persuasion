@@ -51,7 +51,7 @@ public partial class ChiefManager : MonoBehaviour
     }
     void LoadScene(object id)
     {
-        //print(id);
+        print(id);
         if (id is string sceneName)
         {
             currScene = sceneName;
@@ -150,7 +150,7 @@ public partial class ChiefManager : MonoBehaviour
         return_Inv_Scene_ID = inv_Scene_ID;
         inv_Scene_ID = "";
         per_Scene_ID = id;
-        //temporarily 3, but should be 1
+
         LoadScene(1);
         //yield return new WaitUntil(() => FindFirstObjectByType<something>() != null);
         //temp
