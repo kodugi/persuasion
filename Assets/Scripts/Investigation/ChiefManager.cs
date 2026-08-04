@@ -106,6 +106,8 @@ public partial class ChiefManager : MonoBehaviour
     {
         ExitScene(false);
         if(id=="") id= return_Inv_Scene_ID;
+        //temp
+        if(id=="") id = "Map1";
         return_Inv_Scene_ID="";
         per_Scene_ID = "";
         inv_Scene_ID = id;
@@ -149,7 +151,7 @@ public partial class ChiefManager : MonoBehaviour
         inv_Scene_ID = "";
         per_Scene_ID = id;
         //temporarily 3, but should be 1
-        LoadScene(3);
+        LoadScene(1);
         //yield return new WaitUntil(() => FindFirstObjectByType<something>() != null);
         //temp
         yield return null;
