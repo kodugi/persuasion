@@ -1,0 +1,46 @@
+{
+    "title": "바닥에 놓여 있는 그물",
+    "path": [
+        {
+            "description": "바닥에 작은 고기잡이 그물 하나가 떨어져 있다. 누군가 쓰다 버린 것 같다. 이걸로 가방에 있는 잠자리채를 고칠 수 있을지도 모른다.",
+            "buttons":[
+                {
+                    "title": "줍는다.",
+                    "next": -1,
+                    "effects": [
+                        {
+                            "type": "progress",
+                            "key": "fishNetPossessed",
+                            "value": true
+                        },
+                        {
+                            "type": "delete",
+                            "target": "Map1/FishNet"
+                        },
+                        {
+                            "type": "item",
+                            "name": "그물"
+                        },
+                        {
+                            "type": "variation",
+                            "target": "Map1/ButterflyNet",
+                            "parameters":["1"]
+                        }
+                    ]
+                },
+                {
+                    "title": "고쳐봤자 별 쓸모도 없어 보이니 두고 간다.",
+                    "next": -1,
+                    "effects": [
+                        {
+                            "type": "variation",
+                            "target": "Map1/ButterflyNet",
+                            "parameters":["2"]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+
+}

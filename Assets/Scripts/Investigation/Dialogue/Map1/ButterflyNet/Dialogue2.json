@@ -1,0 +1,46 @@
+{
+    "title": "바닥에 떨어진 잠자리채",
+    "path": [
+        {
+            "description": "바닥에 잠자리채가 떨어져 있다. 살짝 찢어져 있는데, 아까 호수 옆에서 봤던 그물이랑 이어 붙이면 고칠 수 있을지도 모른다.",
+            "buttons":[
+                {
+                    "title": "줍는다.",
+                    "next": -1,
+                    "effects": [
+                        {
+                            "type": "progress",
+                            "key": "bfNetPossessed",
+                            "value": true
+                        },
+                        {
+                            "type": "delete",
+                            "target": "Map1/ButterflyNet"
+                        },
+                        {
+                            "type": "item",
+                            "name": "찢어진잠자리채"
+                        },
+                        {
+                            "type": "variation",
+                            "target": "Map1/FishNet",
+                            "parameters":["1"]
+                        }
+                    ]
+                },
+                {
+                    "title": "고쳐봤자 별 쓸모도 없어 보이니 두고 간다.",
+                    "next": -1,
+                    "effects": [
+                        {
+                            "type": "variation",
+                            "target": "Map1/FishNet",
+                            "parameters":["2"]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+
+}

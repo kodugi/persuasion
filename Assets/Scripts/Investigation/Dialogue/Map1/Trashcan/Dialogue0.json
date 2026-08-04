@@ -1,0 +1,32 @@
+{
+    "title": "쓰레기통",
+    "path": [
+        {
+            "description": "도움이 될만한 물건이 있을까?",
+            "buttons":[
+                {
+                    "title": "뒤져본다.",
+                    "next": -1,
+                    "effects": [
+                        {
+                            "type": "item",
+                            "name": "WitchesCloth"
+                        },
+                        {
+                            "type": "progress",
+                            "key": "possessedWitchsCloth",
+                            "value": true
+                        }
+                    ]
+                },
+                {
+                    "title": "그냥 간다.",
+                    "next": -1,
+                    "effects": [
+                    ]
+                }
+            ]
+        }
+    ]
+
+}

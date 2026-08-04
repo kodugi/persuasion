@@ -1,0 +1,46 @@
+{
+    "title": "바닥에 놓여 있는 그물",
+    "path": [
+        {
+            "description": "바닥에 작은 고기잡이 그물 하나가 떨어져 있다. 누군가 쓰다 버린 것 같다. 어딘가 쓸모가 있을까?",
+            "buttons":[
+                {
+                    "title": "줍는다.",
+                    "next": -1,
+                    "effects": [
+                        {
+                            "type": "progress",
+                            "key": "fishNetPossessed",
+                            "value": true
+                        },
+                        {
+                            "type": "delete",
+                            "target": "Map1/FishNet"
+                        },
+                        {
+                            "type": "variation",
+                            "target": "Map1/ButterflyNet",
+                            "parameters":["1"]
+                        },
+                        {
+                            "type": "item",
+                            "name": "그물"
+                        }
+                    ]
+                },
+                {
+                    "title": "별 쓸모도 없어 보이니 두고 간다.",
+                    "next": -1,
+                    "effects": [
+                        {
+                            "type": "variation",
+                            "target": "Map1/ButterflyNet",
+                            "parameters":["2"]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+
+}

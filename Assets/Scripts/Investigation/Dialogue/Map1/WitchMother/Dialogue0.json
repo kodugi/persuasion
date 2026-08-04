@@ -1,0 +1,16 @@
+{
+    "title": "이거 보이면 진짜 안됨",
+    "path": [
+        {
+            "description": "",
+            "buttons":[
+                {
+                    "title": "",
+                    "next": -1,
+                    "effects": []
+                }
+            ]
+        }
+    ]
+
+}
