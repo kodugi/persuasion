@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GamePlay.GameInfo
   _width: 5
   _height: 5
-  _maxTurns: 10
+  _maxTurns: 3
   _targetNumber: 5
   _boardRows:
   - Cells: 0000000001000000000000000100000000000000
