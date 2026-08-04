@@ -16,6 +16,7 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
         }
         override public void CheckState()
         {
+            int original_state = state;
             base.CheckState();
             //print(state);
             if (state==0)
@@ -40,7 +41,10 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
                 }
             }
             saveManager.AddProgress(obj_name + "state", state);
-            if(amIInteracting) interactManager.ForceInteraction(obj_name);
+            if(amIInteracting && original_state != state)
+            {
+                interactManager.ForceInteraction(obj_name);
+            }
         }
         override public void StartInteraction()
         {
