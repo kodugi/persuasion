@@ -530,6 +530,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Inv_DialogueBox
   interactionScript: {fileID: 0}
+  interactionName: 
   buttonPrefab: {fileID: 7074669923880004495, guid: e6e6b1983a3f84ef0b3714b2187548a6, type: 3}
 --- !u!114 &139109051
 MonoBehaviour:
@@ -2094,6 +2095,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Inv_DialogueBox
   interactionScript: {fileID: 0}
+  interactionName: 
   buttonPrefab: {fileID: 7074669923880004495, guid: e6e6b1983a3f84ef0b3714b2187548a6, type: 3}
 --- !u!114 &1032258474
 MonoBehaviour:
@@ -3277,6 +3279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Inv_DialogueBox
   interactionScript: {fileID: 0}
+  interactionName: 
   buttonPrefab: {fileID: 7074669923880004495, guid: e6e6b1983a3f84ef0b3714b2187548a6, type: 3}
 --- !u!114 &1873757240
 MonoBehaviour:
@@ -3368,7 +3371,6 @@ MonoBehaviour:
   - Start
   - Persuasion
   - Investigation
-  - Persuasion
 --- !u!114 &1879756581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3861,6 +3863,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Inv_DialogueBox
   interactionScript: {fileID: 0}
+  interactionName: 
   buttonPrefab: {fileID: 7074669923880004495, guid: e6e6b1983a3f84ef0b3714b2187548a6, type: 3}
 --- !u!224 &1917085899827519529
 RectTransform:
@@ -4002,6 +4005,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Inv_DialogueBox
   interactionScript: {fileID: 0}
+  interactionName: 
   buttonPrefab: {fileID: 7074669923880004495, guid: e6e6b1983a3f84ef0b3714b2187548a6, type: 3}
 --- !u!224 &4797310136710664156
 RectTransform:

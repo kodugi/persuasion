@@ -20,6 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scripts/Investigation/Temp/TempGamePlay.unity
     guid: 66eca3dfefbc34588bfea1a3e0b6d09b
+
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 96a28069d1d1e44cbb2f34a8e62342d2, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
