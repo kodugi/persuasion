@@ -42,7 +42,7 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
             saveManager.AddProgress(obj_name + "state", state);
             if(amIInteracting) interactManager.ForceInteraction(obj_name);
         }
-        virtual public void StartInteraction()
+        override public void StartInteraction()
         {
             amIInteracting = true;
             base.StartInteraction();
