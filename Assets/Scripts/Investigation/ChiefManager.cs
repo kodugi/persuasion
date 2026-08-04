@@ -38,8 +38,20 @@ public partial class ChiefManager : MonoBehaviour
         currScene = "Investigation";
         StartInvestigation("Map1");
     }
+    void FixedUpdate()
+    {
+        if(currScene == "Persuasion")
+        {
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                print("Developer Option: Skipping the Puzzle");
+                StartInvestigation();
+            }
+        }
+    }
     void LoadScene(object id)
     {
+        //print(id);
         if (id is string sceneName)
         {
             currScene = sceneName;
@@ -47,10 +59,11 @@ public partial class ChiefManager : MonoBehaviour
         }
         else if (id is int sceneIndex)
         {
+            /*
             //temp
             if(sceneIndex == 2) currScene = "Investigation";
-            else currScene = "Persuasion";
-            //currScene = sceneNames[sceneIndex];
+            else currScene = "Persuasion";*/
+            currScene = sceneNames[sceneIndex];
             SceneManager.LoadScene(sceneIndex);
         }
         else
@@ -93,6 +106,8 @@ public partial class ChiefManager : MonoBehaviour
     {
         ExitScene(false);
         if(id=="") id= return_Inv_Scene_ID;
+        //temp
+        if(id=="") id = "Map1";
         return_Inv_Scene_ID="";
         per_Scene_ID = "";
         inv_Scene_ID = id;
@@ -135,8 +150,8 @@ public partial class ChiefManager : MonoBehaviour
         return_Inv_Scene_ID = inv_Scene_ID;
         inv_Scene_ID = "";
         per_Scene_ID = id;
-
-        LoadScene(3);
+        //temporarily 3, but should be 1
+        LoadScene(1);
         //yield return new WaitUntil(() => FindFirstObjectByType<something>() != null);
         //temp
         yield return null;
