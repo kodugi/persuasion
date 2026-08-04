@@ -3369,10 +3369,8 @@ MonoBehaviour:
   per_Scene_ID: 
   sceneNames:
   - Start
-  - Editor
   - Persuasion
   - Investigation
-  - Persuasion
 --- !u!114 &1879756581
 MonoBehaviour:
   m_ObjectHideFlags: 0

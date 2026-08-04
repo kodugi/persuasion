@@ -112,7 +112,7 @@ public partial class ChiefManager : MonoBehaviour
         per_Scene_ID = "";
         inv_Scene_ID = id;
 
-        LoadScene(3);
+        LoadScene(2);
         yield return new WaitUntil(() => FindFirstObjectByType<Inv_GameManager>() != null);
         //print("Investigation scene loaded");
         saveManager.OnInvestigationSceneStart();
@@ -151,7 +151,7 @@ public partial class ChiefManager : MonoBehaviour
         inv_Scene_ID = "";
         per_Scene_ID = id;
 
-        LoadScene(2);
+        LoadScene(1);
         //yield return new WaitUntil(() => FindFirstObjectByType<something>() != null);
         //temp
         yield return null;
