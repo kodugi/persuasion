@@ -12,7 +12,6 @@ public class BoardCellClickView : MonoBehaviour
     {
         _boardView = boardView;
         _coord = coord;
-        
     }
 
     private void OnMouseDown()

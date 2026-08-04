@@ -175,6 +175,14 @@ namespace GamePlay
             return true;
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                OnNextButtonClick();
+            }
+        }
+
         private void OnNextButtonClick()
         {
             if (_typeDialogueEntry != null)

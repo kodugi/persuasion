@@ -20,7 +20,7 @@ public partial class ChiefManager : MonoBehaviour
     string return_Inv_Scene_ID="";
     private Vector3? invSceneLastPos=null;
     private string autoInteractOnReturntoInv=null;
-    public List<string> sceneNames = new List<string>{"Start", "Persuasion", "Investigation", "Persuasion"};
+    public List<string> sceneNames = new List<string>{"Start", "GamePlayScene", "Investigation", "GamePlayScene"};
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {

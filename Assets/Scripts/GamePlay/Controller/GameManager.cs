@@ -5,6 +5,8 @@ using System.Linq;
 using MapEditor.Model;
 using UnityEngine;
 using SingletonUtils;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Vector2Int = VectorUtils.Vector2Int;
 
 namespace GamePlay
@@ -13,7 +15,8 @@ namespace GamePlay
     {
         [SerializeField] private GameInfo _gameInfo;
         [SerializeField] private List<TutorialEntryGroup> _tutorialEntryGroups = new List<TutorialEntryGroup>();
-
+        [SerializeField] private List<GameInfoEntry> _gameInfoList = new List<GameInfoEntry>();
+        
         private TurnManager _turnManager;
         private BlockSelectionManager _blockSelectionManager;
         private BoardController _boardController;
@@ -22,7 +25,19 @@ namespace GamePlay
         private GameStateManager  _gameStateManager;
         private DialogueManager _dialogueManager;
         private TutorialController _tutorialController;
+
         private void Awake()
+        {
+            Initialize();
+        }
+
+        private void ResetGame()
+        {
+            //Initialize();
+            SceneManager.LoadScene("GamePlayScene");
+        }
+        
+        private void Initialize()
         {
             _turnManager = new TurnManager();
             _blockSelectionManager = new BlockSelectionManager();
@@ -39,45 +54,28 @@ namespace GamePlay
             
             // IBlock[] blockList = { new BasicBlock(), new LieBlock(), new ThreatBlock(), new ReligiousBlock() };
             IBlock[] blockList = { new BasicBlock() };
-            Cell[,] exampleBoard = new Cell[5, 5];
-            for(int i = 0; i < 5; i++) {
-                for(int j = 0; j < 5; j++)
-                {
-                    if(i == 1 && j == 2)
-                    {
-                        exampleBoard[i, j] = new DisdainCell(new Vector2Int(i, j));
-                        continue;
-                    }
-                    if((i + j) % 2 == 0)
-                    {
-                        exampleBoard[i, j] = new BlackCell(new Vector2Int(i, j));
-                    }
-                    else
-                    {
-                        exampleBoard[i, j] = new EmptyCell(new Vector2Int(i, j));
-                    }
-                }
-            }
-            List<List<DialogueEntry>> exampleDialogueList = new List<List<DialogueEntry>>();
-            exampleDialogueList.Add(new List<DialogueEntry>());
-            exampleDialogueList[0].Add(new DialogueEntry("testSpeaker", "testText", TutorialState.None));
-            exampleDialogueList[0].Add(new DialogueEntry("testSpeaker", "testText2", TutorialState.None));
-            exampleDialogueList[0].Add(new DialogueEntry("testSpeaker", "next will be a tutorial", TutorialState.PlaceFirstCell));
-            exampleDialogueList.Add(new List<DialogueEntry>());
-            exampleDialogueList[1].Add(new DialogueEntry("testSpeaker", "now end turn", TutorialState.ExplainEndTurn));
-            DialogueData dialogueData = new DialogueData(exampleDialogueList);
-            Dictionary<int, Dictionary<TurnState, DialogueData>> dialogueDataDict = new Dictionary<int, Dictionary<TurnState, DialogueData>>();
-            Dictionary<TurnState, DialogueData> turnZeroDialogueDataDict = new Dictionary<TurnState, DialogueData>();
-            turnZeroDialogueDataDict.Add(TurnState.Start, dialogueData);
-            dialogueDataDict.Add(0, turnZeroDialogueDataDict);
-            GameInfo exampleGameInfo = ScriptableObject.CreateInstance<GameInfo>();
-            exampleGameInfo.Initialize(5, 5, exampleBoard, 10, 5);
-            
             Dictionary<TutorialState, List<TutorialEntry>> tutorialEntryDict = CreateTutorialEntryDict();
+            Dictionary<string, GameInfo> gameInfoDict = CreateGameInfoDict();
             // hardcoding ends here
             
             _turnManager.Initialize();
-            if(_gameInfo != null)
+            if(GameInfoHolder.GetGameInfo() == null)
+            {
+                if (ChiefManager.Instance != null && gameInfoDict.TryGetValue(ChiefManager.Instance.per_Scene_ID, out GameInfo gameInfo))
+                {
+                    GameInfoHolder.SetGameInfo(gameInfo);
+                }
+                else
+                {
+                    Debug.LogWarning("designated scene id does not exist in GameInfoList; scene id: " + ChiefManager.Instance?.per_Scene_ID);
+                    if(_gameInfo != null)
+                    {
+                        Debug.LogWarning("using temporary gameinfo instead");
+                        GameInfoHolder.SetGameInfo(_gameInfo);
+                    }
+                }
+            }
+            else if(_gameInfo != null)
             {
                 GameInfoHolder.SetGameInfo(_gameInfo);
             }
@@ -85,10 +83,7 @@ namespace GamePlay
             {
                 GameInfoHolder.SetGameInfo(EditorInfoHolder.GetGameInfo());
             }
-            else if(GameInfoHolder.GetGameInfo() == null)
-            {
-                GameInfoHolder.SetGameInfo(exampleGameInfo);
-            }
+            
             _dialogueManager.Initialize(GameInfoHolder.GetGameInfo().GetDialogueDataDict());
             _blockSelectionManager.Initialize(blockList.ToList());
             _boardController.Initialize();
@@ -104,7 +99,7 @@ namespace GamePlay
         // Use this for initialization
         void Start()
         {
-
+            ReplayButtonView.Instance.gameObject.GetComponent<Button>().onClick.AddListener(ResetGame);
         }
 
         // Update is called once per frame
@@ -140,6 +135,17 @@ namespace GamePlay
             }
 
             return CreateFallbackTutorialEntryDict();
+        }
+
+        private Dictionary<string, GameInfo> CreateGameInfoDict()
+        {
+            Dictionary<string, GameInfo> gameInfoDict = new Dictionary<string, GameInfo>();
+            foreach(GameInfoEntry gameInfoEntry in _gameInfoList)
+            {
+                gameInfoDict.Add(gameInfoEntry.MapName, gameInfoEntry.GameInfo);
+            }
+
+            return gameInfoDict;
         }
 
         private static Dictionary<TutorialState, List<TutorialEntry>> CreateFallbackTutorialEntryDict()
@@ -194,6 +200,13 @@ namespace GamePlay
         {
             public TutorialState State;
             public List<TutorialEntry> Entries = new List<TutorialEntry>();
+        }
+
+        [Serializable]
+        private class GameInfoEntry
+        {
+            public string MapName;
+            public GameInfo GameInfo;
         }
     }
 }
