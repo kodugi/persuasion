@@ -10,7 +10,7 @@ namespace GamePlay
         }
 
         public override int MaxNumTotal { get; } = 0;
-        public override int MaxNumPerTurn { get; } = 3;
+        public override int MaxNumPerTurn { get; } = 0;
 
         public override String Name { get; } = "무해함";
 
@@ -19,13 +19,11 @@ namespace GamePlay
             switch (countPerTurn)
             {
                 case 0:
-                    return 18;
+                    return 16;
                 case 1:
-                    return 34;
-                case 2:
-                    return 40;
+                    return 30;
                 default:
-                    return 0;
+                    return 30;
             }
         }
     }

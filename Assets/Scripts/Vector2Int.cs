@@ -1,6 +1,7 @@
 using System;
+using UnityEngine;
 
-namespace GamePlay
+namespace VectorUtils
 {
     public sealed class Vector2Int : IEquatable<Vector2Int>
     {
@@ -106,6 +107,27 @@ namespace GamePlay
         public static bool IsAdjacent(Vector2Int left, Vector2Int right)
         {
             return Math.Abs(left.X - right.X) <= 1 && Math.Abs(left.Y - right.Y) <= 1;
+        }
+
+        public static Vector2Int GetEightDirection(Vector2Int vector)
+        {
+            if (vector.X == 0)
+            {
+                return new Vector2Int(0, Math.Sign(vector.Y));
+            }
+            else if (vector.Y == 0)
+            {
+                return new Vector2Int(Math.Sign(vector.X), 0);
+            }
+            else if (Math.Abs(vector.X) == Math.Abs(vector.Y))
+            {
+                return new Vector2Int(vector.X / Math.Abs(vector.X), vector.Y / Math.Abs(vector.Y));
+            }
+            else
+            {
+                Debug.LogError("Current vector " + vector + " cannot be normalized to eight directions.");
+                return new Vector2Int(0, 0);
+            }
         }
     }
 }

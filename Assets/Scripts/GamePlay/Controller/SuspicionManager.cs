@@ -1,4 +1,6 @@
 ﻿using System;
+using SingletonUtils;
+using UnityEngine;
 
 namespace GamePlay
 {
@@ -79,11 +81,8 @@ namespace GamePlay
 
         private void HandleSetTurnEvent(object sender, SetTurnEventArgs e)
         {
-            if(e.turnState == TurnState.Start)
-            {
-                DecrementSuspicion();
-                SetSuspicionPreview(_blockSelectionManager.GetSelectedBlock().GetSuspicion());
-            }
+            DecrementSuspicion();
+            SetSuspicionPreview(_currentSuspicion + _blockSelectionManager.GetSelectedBlock().GetSuspicion());
         }
     }
 

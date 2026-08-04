@@ -1,4 +1,5 @@
 ﻿using System;
+using Vector2Int = VectorUtils.Vector2Int;
 
 namespace GamePlay
 {
@@ -31,5 +32,6 @@ namespace GamePlay
 
         public virtual int FlippedPrecedence { get; } = 0;
         public virtual int FlipperPrecedence { get; } = 0;
+        public override CellKind CellKind { get; } = CellKind.Black;
     }
 }

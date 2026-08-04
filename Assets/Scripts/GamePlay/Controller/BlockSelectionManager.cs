@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using SingletonUtils;
+using Vector2Int = VectorUtils.Vector2Int;
 
 namespace GamePlay
 {
@@ -38,7 +40,7 @@ namespace GamePlay
             _turnManager = TurnManager.Instance;
             _blockSelectionView = BlockSelectionView.Instance;
 
-            _turnManager.RaiseSetTurnEvent += HandleSetTurnEvent;
+            _turnManager.RaiseSetTurnStateEvent += HandleSetTurnStateEvent;
 
             _blockSelectionView.SetBlockUI(_blocks);
         }
@@ -74,7 +76,7 @@ namespace GamePlay
                 return;
             }
             int incrementAmount = selectedBlock.GetSuspicion();
-            Debug.Log("PlaceSelectedBlock called");
+
             RaisePlaceBlock?.Invoke(this, new PlaceBlockEventArgs(selectedBlock, incrementAmount));
             selectedBlock.RegisterPlacement(coord);
             RaiseSelectBlockEvent.Invoke(this, new SelectBlockEventArgs(selectedBlock.GetSuspicion()));
@@ -116,8 +118,13 @@ namespace GamePlay
             }
         }
 
-        private void HandleSetTurnEvent(object sender, SetTurnEventArgs e)
+        private void HandleSetTurnStateEvent(object sender, SetTurnStateEventArgs e)
         {
+            if (_turnManager.GetTurnState() != e.turnState)
+            {
+                return;
+            }
+
             switch (e.turnState)
             {
                 case TurnState.Start:

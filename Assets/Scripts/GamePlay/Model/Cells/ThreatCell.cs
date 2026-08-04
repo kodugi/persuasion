@@ -1,5 +1,6 @@
 ﻿using System;
 using Unity.VisualScripting;
+using Vector2Int = VectorUtils.Vector2Int;
 
 namespace GamePlay
 {
@@ -19,5 +20,6 @@ namespace GamePlay
         }
 
         public override int FlippedPrecedence { get; } = 1;
+        public override CellKind CellKind { get; } = CellKind.Threat;
     }
 }

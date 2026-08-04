@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac4c5291f8b8a3841a23c08fc53a54b4, type: 3}
+  m_Name: ExampleGameInfo
+  m_EditorClassIdentifier: Assembly-CSharp::GamePlay.GameInfo
+  _width: 5
+  _height: 5
+  _maxTurns: 10
+  _targetNumber: 5
+  _boardRows:
+  - Cells: 0000000000000000000000000000000000000000
+  - Cells: 0000000000000000000000000000000000000000
+  - Cells: 0100000001000000010000000100000001000000
+  - Cells: 0000000000000000000000000000000000000000
+  - Cells: 0000000000000000000000000000000000000000
+  _dialogueTriggers:
+  - {fileID: 11400000, guid: 6d7c0966d3830714ba7e58a4ee61381e, type: 2}
+  - {fileID: 11400000, guid: f8fda310b7240de4fb1502f100e09e5c, type: 2}
+  _allowedMarkers: 5

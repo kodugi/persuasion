@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace GamePlay
+namespace SingletonUtils
 {
     public abstract class MonoBehaviourSingleton<T> : MonoBehaviour where T : MonoBehaviourSingleton<T>
     {

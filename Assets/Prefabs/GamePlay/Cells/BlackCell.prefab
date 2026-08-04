@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1737356789251898457}
   - component: {fileID: 5046194203957863108}
   - component: {fileID: -8895218548336153223}
-  - component: {fileID: 3154364591714759035}
   m_Layer: 0
   m_Name: BlackCell
   m_TagString: Untagged
@@ -139,15 +138,3 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &3154364591714759035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9176317101700136124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82a2b815a770480bab79e8d56c2eeac1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BoardCellView

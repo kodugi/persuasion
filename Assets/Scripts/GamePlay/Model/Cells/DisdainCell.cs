@@ -1,4 +1,5 @@
 ﻿using System;
+using Vector2Int = VectorUtils.Vector2Int;
 
 namespace GamePlay
 {
@@ -18,5 +19,6 @@ namespace GamePlay
         public DisdainCell(Vector2Int coord) : base(coord) { }
 
         public override int FlippedPrecedence { get; } = 2;
+        public override CellKind CellKind { get; } = CellKind.Disdain;
     }
 }

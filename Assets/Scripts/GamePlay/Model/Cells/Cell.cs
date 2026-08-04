@@ -1,4 +1,5 @@
 using System;
+using Vector2Int = VectorUtils.Vector2Int;
 
 namespace GamePlay
 {
@@ -34,5 +35,7 @@ namespace GamePlay
         {
             return _coord;
         }
+        
+        public virtual CellKind CellKind { get; }
     }
 }

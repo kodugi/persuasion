@@ -2,10 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using SingletonUtils;
 
 namespace GamePlay
 {
-    public class BlockSelectionView : GamePlay.SelfInitializingMonoBehaviourSingleton<BlockSelectionView>
+    public class BlockSelectionView : SelfInitializingMonoBehaviourSingleton<BlockSelectionView>
     {
         [SerializeField] private GameObject _blockPanelPrefab;
 

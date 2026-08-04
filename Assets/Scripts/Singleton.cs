@@ -1,6 +1,7 @@
 using System;
+using UnityEngine;
 
-namespace GamePlay
+namespace SingletonUtils
 {
     public abstract class Singleton<T> where T : Singleton<T>
     {
@@ -10,7 +11,7 @@ namespace GamePlay
         {
             if (Instance != null)
             {
-                throw new Exception(typeof(T).Name + " instance already exists!");
+                Debug.LogWarning(typeof(T).Name + " instance already exists!");
             }
 
             Instance = (T)this;

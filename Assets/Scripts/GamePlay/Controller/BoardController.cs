@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using SingletonUtils;
+using Vector2Int = VectorUtils.Vector2Int;
 
 namespace GamePlay
 {
@@ -10,19 +13,24 @@ namespace GamePlay
         private TurnManager _turnManager;
         private BlockSelectionManager _blockSelectionManager;
 
-        public event EventHandler RaiseCellPlacementEvent;
+        public event EventHandler<CellPlacementEventArgs> RaiseCellPlacementEvent;
         public void Initialize()
         {
             _blockSelectionManager = BlockSelectionManager.Instance;
-            _board = new Board(GameInfoManager.GetGameInfo().GetBoard());
+            _board = new Board(GameInfoHolder.GetGameInfo().GetBoard());
             _turnManager = TurnManager.Instance;
-            _turnManager.RaiseSetTurnEvent += HandleSetTurnEvent;
+            _turnManager.RaiseSetTurnStateEvent += HandleSetTurnStateEvent;
         }
 
         public void HandleCellPlacementInput(Vector2Int coord)
         {
             TurnState turnState = _turnManager.GetTurnState();
             if (turnState != TurnState.PlayerIdle && turnState != TurnState.PlayerPlacingContinue)
+            {
+                return;
+            }
+
+            if (TutorialController.Instance != null && !TutorialController.Instance.CanPlaceCellAt(coord))
             {
                 return;
             }
@@ -36,10 +44,11 @@ namespace GamePlay
                 {
                     if (_blockSelectionManager.IsSelectedBlockAvailable())
                     {
-                        PlayerPlaceCell(coord, selectedBlock.GetCellType());
+                        Type cellType =  selectedBlock.GetCellType();
+                        CellChange cellChange = new CellChange(coord, cellType, coord, coord);
+                        PlayerPlaceCell(cellChange, selectedBlock is IMultipleBlock ? TurnState.PlayerPlacingContinue : TurnState.PlayerIdle);
                         _blockSelectionManager.PlaceSelectedBlock(coord);
-                        _turnManager.SetTurnState(selectedBlock is IMultipleBlock ? TurnState.PlayerPlacingContinue : TurnState.PlayerIdle);
-                        RaiseCellPlacementEvent.Invoke(this, null);
+                        RaiseCellPlacementEvent?.Invoke(this, new CellPlacementEventArgs(cellChange));
                     }
                 }
                 return;
@@ -50,10 +59,11 @@ namespace GamePlay
                 CellPlacementResult placementResult = multipleBlock.TryContinuedPlacement(_board.GetBoard(), coord);
                 if (placementResult.GetSuccess())
                 {
-                    PlayerPlaceCell(coord, multipleBlock.GetCellType());
+                    Type cellType =  multipleBlock.GetCellType();
+                    CellChange cellChange = new CellChange(coord, cellType, coord, coord);
+                    PlayerPlaceCell(cellChange, (multipleBlock.InputState == MultipleBlockInputState.AwaitingContinuedPlacement) ? TurnState.PlayerPlacingContinue : TurnState.PlayerIdle);
                     _blockSelectionManager.PlaceContinuedBlock(coord);
-                    _turnManager.SetTurnState((multipleBlock.InputState == MultipleBlockInputState.AwaitingContinuedPlacement) ? TurnState.PlayerPlacingContinue : TurnState.PlayerIdle);
-                    RaiseCellPlacementEvent.Invoke(this, null);
+                    RaiseCellPlacementEvent?.Invoke(this, new CellPlacementEventArgs(cellChange));
                 }
                 return;
             }
@@ -77,11 +87,13 @@ namespace GamePlay
             return false;
         }
 
-        private void PlayerPlaceCell(Vector2Int coord, Type cellType)
+        private void PlayerPlaceCell(CellChange placedCellChange, TurnState nextTurnState)
         {
-            Queue<(Vector2Int, Type)> toFlipQueue = new Queue<(Vector2Int, Type)>();
-            toFlipQueue.Enqueue((coord, cellType));
-            SetCell(coord, cellType);
+            Vector2Int coord = placedCellChange.GetCoord();
+            Queue<CellChange> toFlipQueue = new Queue<CellChange>();
+            bool[,] visited = new bool[_board.GetWidth(), _board.GetHeight()];
+            EnqueueCellChangeIfUnvisited(toFlipQueue, visited, placedCellChange);
+            SetCell(placedCellChange);
             
             Vector2Int[] dirs = {new Vector2Int(1, 0), new Vector2Int(1, 1), new Vector2Int(0, 1), new Vector2Int(-1, 1),
                 new Vector2Int(-1, 0), new Vector2Int(-1, -1), new Vector2Int(0, -1), new Vector2Int(1, -1)};
@@ -97,38 +109,92 @@ namespace GamePlay
                     Cell otherCell = _board.GetCell(coord + dir);
                     if (otherCell is WeakBlackCell)
                     {
-                        toFlipQueue.Enqueue((coord + dir, ((IWeakFlipperCell)originCell).TryFlipWeakCell(otherCell)));
+                        // TODO: needs more discussion on how to flip weak cells
+                        EnqueueCellChangeIfUnvisited(
+                            toFlipQueue,
+                            visited,
+                            new CellChange(coord + dir, ((IWeakFlipperCell)originCell).TryFlipWeakCell(otherCell), coord, coord + dir));
                     }
                 }
             }
 
+            List<CellChange> cellChangeList = new List<CellChange>();
             while (toFlipQueue.Count > 0)
             {
-                (Vector2Int curCoord, Type curCellType) = toFlipQueue.Dequeue();
-                SetCell(curCoord, curCellType);
-                List<(Vector2Int, Type)> toFlipCoordsAndTypes = PlayerGetToFlipCoordsAndTypes(curCoord);
-                foreach ((Vector2Int toFlipCoord, Type toFlipType) in toFlipCoordsAndTypes)
+                CellChange curCellChange = toFlipQueue.Dequeue();
+                Vector2Int curCoord = curCellChange.GetCoord();
+                cellChangeList.Add(curCellChange);
+                SetCell(curCellChange);
+                List<CellChange> toFlipCellChanges = PlayerGetToFlipCellChanges(curCoord);
+                foreach (CellChange toFlipCellChange in toFlipCellChanges)
                 {
-                    toFlipQueue.Enqueue((toFlipCoord, toFlipType));
+                    EnqueueCellChangeIfUnvisited(toFlipQueue, visited, toFlipCellChange);
                 }
             }
+            
+            SendCellChanges(cellChangeList, nextTurnState);
         }
 
-        private void SetCell(Vector2Int coord, Type cellType)
+        private bool EnqueueCellChangeIfUnvisited(Queue<CellChange> queue, bool[,] visited, CellChange cellChange)
         {
-            Cell cell = CreateCell(coord, cellType);
-            _board.SetCell(coord, cell);
+            if (cellChange == null)
+            {
+                return false;
+            }
 
+            Vector2Int coord = cellChange.GetCoord();
+            if (coord == null
+                || coord.X < 0
+                || coord.X >= visited.GetLength(0)
+                || coord.Y < 0
+                || coord.Y >= visited.GetLength(1)
+                || visited[coord.X, coord.Y])
+            {
+                return false;
+            }
+
+            visited[coord.X, coord.Y] = true;
+            queue.Enqueue(cellChange);
+            return true;
+        }
+
+        private void SetCell(CellChange cellChange)
+        {
+            Vector2Int coord = cellChange.GetCoord();
+            Cell cell = CreateCell(coord, cellChange.GetCellType());
+            _board.SetCell(coord, cell);
+        }
+
+        private void SendCellChanges(List<CellChange> cellChangeList, TurnState nextState)
+        {
             if (BoardView.Instance != null)
             {
-                BoardView.Instance.SetCell(coord, cell);
+                ((BoardView)BoardView.Instance).SetTurnStateAfterTransition(nextState);
+                SortedDictionary<int, List<CellChange>> cellChangeDict = new SortedDictionary<int, List<CellChange>>();
+                foreach (CellChange cellChange in cellChangeList)
+                {
+                    int val = Math.Min(Vector2Int.TaxiDist(cellChange.GetOriginalCellCoord(), cellChange.GetCoord()),
+                        Vector2Int.TaxiDist(cellChange.GetOtherCellCoord(), cellChange.GetCoord()));
+
+                    if (!cellChangeDict.ContainsKey(val))
+                    {
+                        cellChangeDict[val] = new List<CellChange>();
+                    }
+                    cellChangeDict[val].Add(cellChange);
+                }
+
+                List<List<CellChange>> result = new List<List<CellChange>>();
+                foreach (var x in cellChangeDict)
+                {
+                    result.Add(x.Value);
+                }
+                BoardView.Instance.SetCell(result);
             }
         }
 
-        private void PsuedoSetCell(Vector2Int coord, Type cellType, Board board)
+        private void PseudoSetCell(CellChange cellChange, Board board)
         {
-            Cell cell = CreateCell(coord, cellType);
-            board.SetCell(coord, cell);
+            board.SetCell(cellChange.GetCoord(), CreateCell(cellChange.GetCoord(), cellChange.GetCellType()));
         }
 
         private Cell CreateCell(Vector2Int coord, Type cellType)
@@ -137,20 +203,19 @@ namespace GamePlay
             return cell;
         }
 
-        private List<(Vector2Int, Type)> PlayerGetToFlipCoordsAndTypes(Vector2Int origin, Board board)
+        private List<CellChange> PlayerGetToFlipCellChanges(Vector2Int origin, Board board)
         {
-            // 일반 오셀로 규칙에 따른 처리
-            return GetToFlipCoordsAndTypes(origin, typeof(BlackCell), typeof(ConceptCell), board);
+            return GetToFlipCellChanges(origin, typeof(BlackCell), typeof(ConceptCell), board);
         }
 
-        private List<(Vector2Int, Type)> PlayerGetToFlipCoordsAndTypes(Vector2Int origin)
+        private List<CellChange> PlayerGetToFlipCellChanges(Vector2Int origin)
         {
-            return PlayerGetToFlipCoordsAndTypes(origin, _board);
+            return PlayerGetToFlipCellChanges(origin, _board);
         }
         
-        private List<(Vector2Int, Type)> GetToFlipCoordsAndTypes(Vector2Int origin, Type targetType, Type otherType, Board board)
+        private List<CellChange> GetToFlipCellChanges(Vector2Int origin, Type targetType, Type otherType, Board board)
         {
-            List<(Vector2Int, Type)> toFlipCoordsAndTypes = new List<(Vector2Int, Type)>();
+            List<CellChange> toFlipCellChanges = new List<CellChange>();
             Cell originCell = board.GetCell(origin);
             Vector2Int[] dirs = {new Vector2Int(1, 0), new Vector2Int(1, 1), new Vector2Int(0, 1), new Vector2Int(-1, 1),
             new Vector2Int(-1, 0), new Vector2Int(-1, -1), new Vector2Int(0, -1), new Vector2Int(1, -1)};
@@ -186,17 +251,17 @@ namespace GamePlay
 
                     for (Vector2Int cur = new Vector2Int(origin) + dir; cur != otherCellCoord; cur += dir)
                     {
-                        toFlipCoordsAndTypes.Add((cur, GetFlippedCellType(originCell, otherCell, board.GetCell(cur))));
+                        toFlipCellChanges.Add(new CellChange(cur, GetFlippedCellType(originCell, otherCell, board.GetCell(cur)), origin, otherCellCoord));
                     }
                 }
             }
 
-            return toFlipCoordsAndTypes;
+            return toFlipCellChanges;
         }
 
-        private List<(Vector2Int, Type)> GetToFlipCoordsAndTypes(Vector2Int origin, Type targetType, Type otherType)
+        private List<CellChange> GetToFlipCellChanges(Vector2Int origin, Type targetType, Type otherType)
         {
-            return GetToFlipCoordsAndTypes(origin, targetType, otherType, _board);
+            return GetToFlipCellChanges(origin, targetType, otherType, _board);
         }
 
         private Type GetFlippedCellType(Cell first, Cell second, Cell cellToFlip)
@@ -265,25 +330,34 @@ namespace GamePlay
         public void HandleEnemyTurn()
         {
             EnemyFlipCells();
-            _turnManager.SetTurnState(TurnState.End);
         }
 
         private void EnemyFlipCells()
         {
-            List<(Vector2Int, Type)> toFlipCoordsAndTypes = new List<(Vector2Int, Type)> ();
+            List<CellChange> toFlipCellChanges = new List<CellChange> ();
             for(int i = 0; i < _board.GetWidth(); i++) {
                 for(int j = 0; j < _board.GetHeight(); j++)
                 {
                     if(_board.GetCell(new Vector2Int(i, j)) is BlackCell)
                     {
-                        toFlipCoordsAndTypes.AddRange(GetToFlipCoordsAndTypes(new Vector2Int(i, j), typeof(ConceptCell), typeof(BlackCell)));
+                        toFlipCellChanges.AddRange(GetToFlipCellChanges(new Vector2Int(i, j), typeof(ConceptCell), typeof(BlackCell)));
                     }
                 }
             }
-            foreach ((Vector2Int coord, Type cellType) in toFlipCoordsAndTypes)
+
+            List<CellChange> cellChangeList = new List<CellChange>();
+            foreach (CellChange toFlipCellChange in toFlipCellChanges)
             {
-                SetCell(coord, cellType);
+                Vector2Int coord = toFlipCellChange.GetCoord();
+                Type cellType = toFlipCellChange.GetCellType();
+                if (_board.GetCell(coord).GetType() != cellType)
+                {
+                    SetCell(toFlipCellChange);
+                    cellChangeList.Add(toFlipCellChange);
+                }
             }
+            
+            SendCellChanges(cellChangeList, TurnState.End);
         }
 
         public void HandlePlayerPlacingEnd()
@@ -292,8 +366,13 @@ namespace GamePlay
             _turnManager.SetTurnState(TurnState.PlayerIdle);
         }
 
-        private void HandleSetTurnEvent(object sender, SetTurnEventArgs e)
+        private void HandleSetTurnStateEvent(object sender, SetTurnStateEventArgs e)
         {
+            if (_turnManager.GetTurnState() != e.turnState)
+            {
+                return;
+            }
+
             switch (e.turnState)
             {
                 case TurnState.PlayerPlacingEnd:
@@ -309,7 +388,7 @@ namespace GamePlay
 
         public int GetConvertedBlackCellCount()
         {
-            Cell[,] originalBoard = GameInfoManager.GetGameInfo().GetBoard();
+            Cell[,] originalBoard = GameInfoHolder.GetGameInfo().GetBoard();
             int cnt = 0;
             for(int i = 0; i < _board.GetWidth(); i++)
             {
@@ -326,39 +405,50 @@ namespace GamePlay
         
         public bool[,] CanBeReached()
         {
-            Board psuedoBoard = new Board(_board.GetBoard());
-            Queue<(Vector2Int, Type)> toFlipQueue = new Queue<(Vector2Int, Type)>();
+            Board pseudoBoard = new Board(GameInfoHolder.GetGameInfo().GetBoard());
+            Queue<ReachableCellCandidate> toFlipQueue = new Queue<ReachableCellCandidate>();
             IBlock selectedBlock = Activator.CreateInstance(_blockSelectionManager.GetSelectedBlock().GetType()) as IBlock;
-            bool[,] visited = new bool[psuedoBoard.GetWidth(), psuedoBoard.GetHeight()];
+            bool[,] canBeReached = new bool[pseudoBoard.GetWidth(), pseudoBoard.GetHeight()];
+            bool[,] processedReachableOrigins = new bool[pseudoBoard.GetWidth(), pseudoBoard.GetHeight()];
             
-            for (int i = 0; i < psuedoBoard.GetWidth(); i++)
+            for (int i = 0; i < pseudoBoard.GetWidth(); i++)
             {
-                for (int j = 0; j < psuedoBoard.GetHeight(); j++)
+                for (int j = 0; j < pseudoBoard.GetHeight(); j++)
                 {
+                    Vector2Int coord = new Vector2Int(i, j);
+                    Cell currentCell = pseudoBoard.GetCell(coord);
+
                     selectedBlock.Reset();
+
+                    if (currentCell is ConceptCell)
+                    {
+                        EnqueueReachableCell(toFlipQueue, canBeReached, new CellChange(coord, currentCell.GetType(), coord, coord), false);
+                        
+                        if (selectedBlock is IMultipleBlock multipleBlockFromConcept)
+                        {
+                            multipleBlockFromConcept.RegisterPlacement(coord);
+                            EnqueueContinuedPlacementCandidates(pseudoBoard, selectedBlock, multipleBlockFromConcept, toFlipQueue, canBeReached);
+                        }
+                        
+                        continue;
+                    }
+
                     CellPlacementResult cellPlacementResult =
-                        selectedBlock.TryPlacement(psuedoBoard.GetBoard(), new Vector2Int(i, j));
+                        selectedBlock.TryPlacement(pseudoBoard.GetBoard(), coord);
                     if (cellPlacementResult.GetSuccess())
                     {
-                        toFlipQueue.Enqueue((new Vector2Int(i, j), selectedBlock.GetCellType()));
+                        EnqueueReachableCell(toFlipQueue, canBeReached, new CellChange(coord, selectedBlock.GetCellType(), coord, coord), true);
                         
                         if (selectedBlock is IMultipleBlock multipleBlock)
                         {
-                            multipleBlock.RegisterPlacement(new Vector2Int(i, j));
-                            for (int k = 0; k < psuedoBoard.GetWidth(); k++)
-                            {
-                                for (int l = 0; l < psuedoBoard.GetHeight(); l++)
-                                {
-                                    CellPlacementResult multipleCellPlacementResult = multipleBlock.TryContinuedPlacement(psuedoBoard.GetBoard(), new Vector2Int(k, l));
-                                    if (multipleCellPlacementResult.GetSuccess())
-                                    {
-                                        toFlipQueue.Enqueue((new Vector2Int(k, l), selectedBlock.GetCellType()));
-                                        PsuedoSetCell(new Vector2Int(k, l), selectedBlock.GetCellType(), psuedoBoard);
-                                        visited[k, l] = true;
-                                    }
-                                }
-                            }
+                            multipleBlock.RegisterPlacement(coord);
+                            EnqueueContinuedPlacementCandidates(pseudoBoard, selectedBlock, multipleBlock, toFlipQueue, canBeReached);
                         }
+                    }
+
+                    if (currentCell is EmptyCell)
+                    {
+                        canBeReached[i, j] = true;
                     }
                 }
             }
@@ -366,41 +456,184 @@ namespace GamePlay
             while (toFlipQueue.Count > 0)
             {
                 selectedBlock.Reset();
-                (Vector2Int curCoord, Type curCellType) = toFlipQueue.Dequeue();
-                if (visited[curCoord.X, curCoord.Y])
+                ReachableCellCandidate reachableCellCandidate = toFlipQueue.Dequeue();
+                Vector2Int curCoord = reachableCellCandidate.GetCoord();
+                if (processedReachableOrigins[curCoord.X, curCoord.Y])
                 {
                     continue;
                 }
+
+                processedReachableOrigins[curCoord.X, curCoord.Y] = true;
                 
-                PsuedoSetCell(curCoord, curCellType, psuedoBoard);
-                visited[curCoord.X, curCoord.Y] = true;
-                
-                List<(Vector2Int, Type)> toFlipCoordsAndTypes = PlayerGetToFlipCoordsAndTypes(curCoord, psuedoBoard);
-                foreach ((Vector2Int toFlipCoord, Type toFlipType) in toFlipCoordsAndTypes)
+                if (reachableCellCandidate.GetShouldSetCell())
                 {
-                    toFlipQueue.Enqueue((toFlipCoord, toFlipType));
+                    PseudoSetCell(reachableCellCandidate.GetCellChange(), pseudoBoard);
+                }
+
+                canBeReached[curCoord.X, curCoord.Y] = true;
+                
+                List<CellChange> toFlipCellChanges = PlayerGetToFlipCellChanges(curCoord, pseudoBoard);
+                foreach (CellChange toFlipCellChange in toFlipCellChanges)
+                {
+                    EnqueueReachableCell(toFlipQueue, canBeReached, toFlipCellChange, true);
                     
                     if (selectedBlock is IMultipleBlock multipleBlock)
                     {
-                        multipleBlock.RegisterPlacement(toFlipCoord);
-                        for (int k = 0; k < psuedoBoard.GetWidth(); k++)
-                        {
-                            for (int l = 0; l < psuedoBoard.GetHeight(); l++)
-                            {
-                                CellPlacementResult multipleCellPlacementResult = multipleBlock.TryContinuedPlacement(psuedoBoard.GetBoard(), new Vector2Int(k, l));
-                                if (multipleCellPlacementResult.GetSuccess())
-                                {
-                                    toFlipQueue.Enqueue((new Vector2Int(k, l), selectedBlock.GetCellType()));
-                                    PsuedoSetCell(new Vector2Int(k, l), selectedBlock.GetCellType(), psuedoBoard);
-                                    visited[k, l] = true;
-                                }
-                            }
-                        }
+                        multipleBlock.RegisterPlacement(toFlipCellChange.GetCoord());
+                        EnqueueContinuedPlacementCandidates(pseudoBoard, selectedBlock, multipleBlock, toFlipQueue, canBeReached);
                     }
                 }
             }
 
-            return visited;
+            return canBeReached;
+        }
+
+        private void EnqueueReachableCell(
+            Queue<ReachableCellCandidate> queue,
+            bool[,] canBeReached,
+            CellChange cellChange,
+            bool shouldSetCell)
+        {
+            queue.Enqueue(new ReachableCellCandidate(cellChange, shouldSetCell));
+            Vector2Int coord = cellChange.GetCoord();
+            canBeReached[coord.X, coord.Y] = true;
+        }
+
+        private void EnqueueContinuedPlacementCandidates(
+            Board pseudoBoard,
+            IBlock selectedBlock,
+            IMultipleBlock multipleBlock,
+            Queue<ReachableCellCandidate> queue,
+            bool[,] canBeReached)
+        {
+            for (int k = 0; k < pseudoBoard.GetWidth(); k++)
+            {
+                for (int l = 0; l < pseudoBoard.GetHeight(); l++)
+                {
+                    Vector2Int coord = new Vector2Int(k, l);
+                    CellPlacementResult multipleCellPlacementResult = multipleBlock.TryContinuedPlacement(pseudoBoard.GetBoard(), coord);
+                    if (multipleCellPlacementResult.GetSuccess())
+                    {
+                        EnqueueReachableCell(queue, canBeReached, new CellChange(coord, selectedBlock.GetCellType(), coord, coord), true);
+                    }
+                }
+            }
+        }
+
+        public List<Vector2Int> GetRandomBlackCellCoords(int cnt)
+        {
+            List<Vector2Int> blackCellCoords = new List<Vector2Int>();
+            for (int i = 0; i < _board.GetWidth(); i++)
+            {
+                for (int j = 0; j < _board.GetHeight(); j++)
+                {
+                    if (_board.GetCell(new Vector2Int(i, j)).GetType().IsAssignableFrom(typeof(BlackCell)))
+                    {
+                        blackCellCoords.Add(new Vector2Int(i, j));
+                    }
+                }
+            }
+            return blackCellCoords.OrderBy(x => Guid.NewGuid()).Take(Math.Min(blackCellCoords.Count, cnt)).ToList();
+        }
+    }
+    
+    public class CellPlacementEventArgs: EventArgs{
+        private readonly CellChange _cellChange;
+
+        public CellPlacementEventArgs(CellChange cellChange)
+        {
+            _cellChange = cellChange;
+        }
+
+        public CellChange GetCellChange()
+        {
+            return _cellChange;
+        }
+
+        public Vector2Int GetCoord()
+        {
+            return _cellChange.GetCoord();
+        }
+
+        public Type GetCellType()
+        {
+            return _cellChange.GetCellType();
+        }
+    }
+
+    public sealed class CellChange
+    {
+        private readonly Vector2Int _coord;
+        private readonly Type _cellType;
+        private readonly Vector2Int _originalCellCoord;
+        private readonly Vector2Int _otherCellCoord;
+
+        public CellChange(Vector2Int coord, Type cellType, Vector2Int originalCellCoord, Vector2Int otherCellCoord)
+        {
+            _coord = coord;
+            _cellType = cellType;
+            _originalCellCoord = originalCellCoord;
+            _otherCellCoord = otherCellCoord;
+        }
+
+        public CellChange(Vector2Int coord, Type cellType)
+        {
+            _coord = coord;
+            _cellType = cellType;
+            _originalCellCoord = coord;
+            _otherCellCoord = coord;
+        }
+
+        public Vector2Int GetCoord()
+        {
+            return _coord;
+        }
+
+        public Type GetCellType()
+        {
+            return _cellType;
+        }
+
+        public Vector2Int GetOriginalCellCoord()
+        {
+            return _originalCellCoord;
+        }
+
+        public Vector2Int GetOtherCellCoord()
+        {
+            return _otherCellCoord;
+        }
+    }
+
+    public sealed class ReachableCellCandidate
+    {
+        private readonly CellChange _cellChange;
+        private readonly bool _shouldSetCell;
+
+        public ReachableCellCandidate(CellChange cellChange, bool shouldSetCell)
+        {
+            _cellChange = cellChange;
+            _shouldSetCell = shouldSetCell;
+        }
+
+        public Vector2Int GetCoord()
+        {
+            return _cellChange.GetCoord();
+        }
+
+        public Type GetCellType()
+        {
+            return _cellChange.GetCellType();
+        }
+
+        public CellChange GetCellChange()
+        {
+            return _cellChange;
+        }
+
+        public bool GetShouldSetCell()
+        {
+            return _shouldSetCell;
         }
     }
 }

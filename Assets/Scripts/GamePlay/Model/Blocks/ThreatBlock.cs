@@ -1,4 +1,5 @@
 ﻿using System;
+using Vector2Int = VectorUtils.Vector2Int;
 
 namespace GamePlay
 {
@@ -24,8 +25,7 @@ namespace GamePlay
                 }
                 Cell targetCell = board[targetCoord.X, targetCoord.Y];
 
-                // TODO: 일반 생각 위에 다시 배치도 가능하게 할 것인지?
-                if(targetCell is EmptyCell || targetCell is ConceptCell)
+                if(PlacementTargetPolicies.EmptyCellOnly.TryPlaceOn(targetCell).GetSuccess())
                 {
                     return new CellPlacementResult(true, CellPlacementResultType.SUCCESS);
                 }
@@ -45,7 +45,7 @@ namespace GamePlay
                 return new CellPlacementResult(false, CellPlacementResultType.THREAT_NOT_ADJACENT);
             }
 
-            if (board[coord.X, coord.Y] is EmptyCell || board[coord.X, coord.Y] is ConceptCell)
+            if (PlacementTargetPolicies.EmptyCellOnly.TryPlaceOn(board[coord.X, coord.Y]).GetSuccess())
             {
                 return new CellPlacementResult(true, CellPlacementResultType.SUCCESS);
             }

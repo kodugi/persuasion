@@ -1,5 +1,6 @@
 ﻿using System;
 using Unity.VisualScripting;
+using Vector2Int = VectorUtils.Vector2Int;
 
 namespace GamePlay
 {
@@ -10,5 +11,6 @@ namespace GamePlay
         }
 
         public WeakBlackCell(Vector2Int coord) : base(coord) { }
+        public override CellKind CellKind { get; } = CellKind.WeakBlack;
     }
 }
