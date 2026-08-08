@@ -320,6 +320,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498286f4c5d448529989ad5d8aafb753, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GamePlay.BoardCellMarkerView
-  _border: {fileID: 8418595855206267116}
-  _lockIcon: {fileID: 7389101480777082790}
+  _border: {fileID: 0}
+  _lockIcon: {fileID: 0}
   _preview: {fileID: 4597648691314603867}

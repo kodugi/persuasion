@@ -48,6 +48,7 @@ public class BoardView : BoardViewBase
         _suspicionManager = SuspicionManager.Instance;
         _suspicionManager.RaiseSetSuspicionPreviewEvent += HandleSetSuspicionPreviewEvent;
         _turnManager = TurnManager.Instance;
+        _turnManager.RaiseSetTurnStateEvent += HandleSetTurnStateEvent;
         GameStateManager.Instance.RaiseSetGameStateEvent += HandleSetGameStateEvent;
         _spawnedBoardCellSuspicionViewsByCoord = new BoardCellSuspicionView[GetGameInfo().GetWidth(), GetGameInfo().GetHeight()];
         SpawnBoardCellSuspicionViews();
@@ -56,13 +57,28 @@ public class BoardView : BoardViewBase
 
     protected override GameInfo GetGameInfo()
     {
-        return GameInfoHolder.GetGameInfo();
+        return GameInfoHolder.GetCurrentGameInfo();
     }
 
     public override void Refresh()
     {
         base.Refresh();
         SubscribeToBlockSelectionEvents();
+    }
+
+    public void ResetGame()
+    {
+        StopAllCoroutines();
+        StopPreGameOverAnimation();
+        StopGameOverAnimation();
+        ClearBoardCellSuspicionViews();
+
+        _allowedMarkers = _gameInfo.GetAllowedMarkers();
+        _turnStateAfterTransition = TurnState.None;
+        base.Refresh();
+
+        _spawnedBoardCellSuspicionViewsByCoord = new BoardCellSuspicionView[GetGameInfo().GetWidth(), GetGameInfo().GetHeight()];
+        SpawnBoardCellSuspicionViews();
     }
 
     private void SpawnBoardCellSuspicionViews()
@@ -89,6 +105,30 @@ public class BoardView : BoardViewBase
         }
     }
 
+    private void ClearBoardCellSuspicionViews()
+    {
+        if (_spawnedBoardCellSuspicionViewsByCoord == null)
+        {
+            return;
+        }
+
+        int width = _spawnedBoardCellSuspicionViewsByCoord.GetLength(0);
+        int height = _spawnedBoardCellSuspicionViewsByCoord.GetLength(1);
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                BoardCellSuspicionView suspicionView = _spawnedBoardCellSuspicionViewsByCoord[x, y];
+                if (suspicionView != null)
+                {
+                    Destroy(suspicionView.gameObject);
+                }
+            }
+        }
+
+        _spawnedBoardCellSuspicionViewsByCoord = null;
+    }
+
     private void HandleSetSuspicionPreviewEvent(object sender, SetSuspicionEventArgs e)
     {
         if (_suspicionManager.GetCurrentSuspicionPreview() > _suspicionManager.GetMaxSuspicion() && _suspicionManager.GetCurrentSuspicion() <= _suspicionManager.GetMaxSuspicion())
@@ -98,7 +138,17 @@ public class BoardView : BoardViewBase
                 return;
             }
 
-            PlayPreGameOverAnimation();
+            switch (GameInfoHolder.GetCurrentGameInfo().GetMapType())
+            {
+                case GameInfo.MapType.Dream1:
+                case GameInfo.MapType.Dream2:
+                case GameInfo.MapType.Dream3:
+                case GameInfo.MapType.Dream4:
+                    break;
+                default:
+                    PlayPreGameOverAnimation();
+                    break;
+            }
         }
         else
         {
@@ -480,5 +530,10 @@ public class BoardView : BoardViewBase
                 RefreshCellMarkers();
                 break;
         }
+    }
+
+    private void HandleSetTurnStateEvent(object sender, SetTurnStateEventArgs e)
+    {
+        RefreshCellMarkers();
     }
 }

@@ -11,6 +11,7 @@ namespace GamePlay
         private GameStateManager _gameStateManager;
         private TurnManager _turnManager;
         private bool _isGameEnded;
+        private bool _isResetting;
         
         public void Initialize()
         {
@@ -23,6 +24,17 @@ namespace GamePlay
             _boardController.RaiseCellPlacementEvent += HandleCellPlacementEvent;
             _suspicionManager.RaiseSetSuspicionEvent += HandleSetSuspicionEvent;
             _turnManager.RaiseSetTurnEvent += HandleSetTurnEvent;
+        }
+
+        public void BeginReset()
+        {
+            _isResetting = true;
+        }
+
+        public void EndReset()
+        {
+            _isGameEnded = false;
+            _isResetting = false;
         }
 
         private void HandleCellPlacementEvent(object sender, EventArgs e)
@@ -42,28 +54,52 @@ namespace GamePlay
 
         private void EvaluateGameResult()
         {
-            if (_isGameEnded)
+            if (_isGameEnded || _isResetting)
             {
                 return;
             }
 
-            if (_suspicionManager.GetCurrentSuspicion() > _suspicionManager.GetMaxSuspicion() ||
-                _turnManager.GetCurrentTurn() >= GameInfoHolder.GetGameInfo().GetMaxTurns())
+            if (_turnManager.GetCurrentTurn() >= GameInfoHolder.GetCurrentGameInfo().GetMaxTurns())
             {
-                // TODO: 패배 판정
-                _isGameEnded = true;
-                Debug.Log("설득 실패!");
-                _gameStateManager.SetGameState(GameState.Lost);
+                Lose();
                 return;
             }
 
-            if(_boardController.GetConvertedBlackCellCount() >= GameInfoHolder.GetGameInfo().GetTargetNumber())
+            if (_suspicionManager.GetCurrentSuspicion() > _suspicionManager.GetMaxSuspicion())
             {
-                // TODO: 승리 판정
-                _isGameEnded = true;
-                Debug.Log("설득 성공!");
-                _gameStateManager.SetGameState(GameState.Won);
+                switch (GameInfoHolder.GetCurrentGameInfo().GetMapType())
+                {
+                    case GameInfo.MapType.Dream1:
+                    case GameInfo.MapType.Dream2:
+                    case GameInfo.MapType.Dream3:
+                    case GameInfo.MapType.Dream4:
+                        _isGameEnded = true;
+                        GameInfoHolder.SetCurrentIdx(0);
+                        GameManager.Instance.QueueResetGame();
+                        return;
+                }
+                Lose();
+                return;
             }
+
+            if(_boardController.GetConvertedBlackCellCount() >= GameInfoHolder.GetCurrentGameInfo().GetTargetNumber())
+            {
+                Win();
+            }
+        }
+
+        private void Lose()
+        {
+            // TODO: 패배 판정
+            _isGameEnded = true;
+            _gameStateManager.SetGameState(GameState.Lost);
+        }
+
+        private void Win()
+        {
+            // TODO: 승리 판정
+            _isGameEnded = true;
+            _gameStateManager.SetGameState(GameState.Won);
         }
     }
 }

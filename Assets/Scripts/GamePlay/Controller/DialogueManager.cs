@@ -20,9 +20,9 @@ namespace GamePlay
 
         private TurnManager _turnManager;
         
-        public void Initialize(Dictionary<int, Dictionary<TurnState, DialogueData>> dialogueDataDict)
+        public void Initialize()
         {
-            _dialogueDataDict = dialogueDataDict ?? new Dictionary<int, Dictionary<TurnState, DialogueData>>();
+            _dialogueDataDict = GameInfoHolder.GetCurrentGameInfo().GetDialogueDataDict() ?? new Dictionary<int, Dictionary<TurnState, DialogueData>>();
             _gameStateManager = GameStateManager.Instance;
             _currentDialogueData = null;
             _currentPage = 0;
@@ -33,6 +33,19 @@ namespace GamePlay
 
             _turnManager = TurnManager.Instance;
             _turnManager.RaiseSetTurnStateEvent += HandleSetTurnStateEvent;
+        }
+
+        public void ResetGame()
+        {
+            _dialogueDataDict = GameInfoHolder.GetCurrentGameInfo().GetDialogueDataDict() ?? new Dictionary<int, Dictionary<TurnState, DialogueData>>();
+            _currentDialogueData = null;
+            _currentPage = 0;
+            _currentEntry = 0;
+            _resumeTurnState = TurnState.PlayerIdle;
+            _hasResumeTurnState = false;
+            _playedDialogueTriggers?.Clear();
+
+            DialogueView.Instance?.Hide();
         }
 
         public DialogueEntry GetCurrentDialogueEntry()

@@ -30,6 +30,15 @@ namespace GamePlay
             return true;
         }
 
+        public void ResetGame()
+        {
+            StopAllCoroutines();
+            foreach (BoardCellSuspicionView suspicionView in _backgroundSuspicionPrefabViews)
+            {
+                suspicionView.StopGameOverAnimation();
+            }
+        }
+
         private void HandleSetGameStateEvent(object sender, SetGameStateEventArgs e)
         {
             if (e.gameState == GameState.Lost)

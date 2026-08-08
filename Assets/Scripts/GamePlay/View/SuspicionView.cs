@@ -35,6 +35,13 @@ namespace GamePlay
             return true;
         }
 
+        public void ResetGame()
+        {
+            SetSuspicionUI(SuspicionManager.Instance.GetCurrentSuspicion());
+            SetSuspicionPreviewUI(SuspicionManager.Instance.GetCurrentSuspicionPreview());
+            Debug.Log("setting suspicion to " + SuspicionManager.Instance.GetCurrentSuspicion());
+        }
+
         protected override void OnDestroy()
         {
             if (SuspicionManager.Instance != null)

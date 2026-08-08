@@ -591,7 +591,15 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
 
         if (Application.isPlaying)
         {
-            cellObject.GetComponent<BoardCellView>().DestroyGameObject();
+            BoardCellView boardCellView = cellObject.GetComponent<BoardCellView>();
+            if (boardCellView != null)
+            {
+                boardCellView.DestroyGameObject();
+            }
+            else
+            {
+                Destroy(cellObject);
+            }
         }
         else
         {

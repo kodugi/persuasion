@@ -50,7 +50,7 @@ public class GameStateView : SelfInitializingMonoBehaviourSingleton<GameStateVie
             Debug.LogError("BoardController is null");
             return false;
         }
-        if (GameInfoHolder.GetGameInfo() == null)
+        if (GameInfoHolder.GetCurrentGameInfo() == null)
         {
             Debug.LogError("GameInfo is null");
             return false;
@@ -94,9 +94,20 @@ public class GameStateView : SelfInitializingMonoBehaviourSingleton<GameStateVie
         SetTargetNumText();
     }
 
+    public void ResetGame()
+    {
+        if (!IsInitialized)
+        {
+            return;
+        }
+
+        SetCurrentTurnText(0, false);
+        SetTargetNumText();
+    }
+
     private void SetCurrentTurnText(int currentTurn, bool animate)
     {
-        int remainingTurn = Mathf.Max(0, GameInfoHolder.GetGameInfo().GetMaxTurns() - currentTurn);
+        int remainingTurn = Mathf.Max(0, GameInfoHolder.GetCurrentGameInfo().GetMaxTurns() - currentTurn);
 
         if (!animate || _displayedRemainingTurn < 0)
         {
@@ -263,6 +274,6 @@ public class GameStateView : SelfInitializingMonoBehaviourSingleton<GameStateVie
 
     private void SetTargetNumText()
     {
-        _targetNumText.text = "목표: " + BoardController.Instance.GetConvertedBlackCellCount().ToString() + "/" + GameInfoHolder.GetGameInfo().GetTargetNumber().ToString();
+        _targetNumText.text = BoardController.Instance.GetConvertedBlackCellCount().ToString() + "/" + GameInfoHolder.GetCurrentGameInfo().GetTargetNumber().ToString();
     }
 }

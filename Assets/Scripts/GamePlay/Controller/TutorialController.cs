@@ -35,6 +35,16 @@ namespace GamePlay
             _boardController.RaiseCellPlacementEvent += HandleCellPlacementEvent;
         }
 
+        public void ResetGame()
+        {
+            _currentState = TutorialState.None;
+            _currentStateWasTriggeredWithDialogue = false;
+            _currentCellCoords = new List<Vector2Int>();
+            RaiseSetTutorialStateEvent?.Invoke(
+                this,
+                new SetTutorialStateEventArgs(TutorialState.None, GetTutorialEntries(TutorialState.None)));
+        }
+
         public bool CanPlaceCellAt(Vector2Int coord)
         {
             if (_currentState == TutorialState.None)

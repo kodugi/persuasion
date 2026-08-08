@@ -20,6 +20,23 @@ namespace GamePlay
 
         public event EventHandler<SelectBlockEventArgs> RaiseSelectBlockEvent;
 
+        public void ResetGame()
+        {
+            if (_blocks == null || _blocks.Count == 0)
+            {
+                return;
+            }
+
+            foreach (IBlock block in _blocks)
+            {
+                block.Reset();
+            }
+
+            _selectedBlockIdx = 0;
+            _blockSelectionView?.SetSelectedBlockUI(_selectedBlockIdx);
+            RaiseSelectBlockEvent?.Invoke(this, new SelectBlockEventArgs(GetSelectedBlock().GetSuspicion()));
+        }
+
         public void SetSelectedBlockIdx(int selectedBlockIdx) {
             if(_turnManager.GetTurnState() == TurnState.PlayerIdle)
             {

@@ -47,6 +47,12 @@ namespace GamePlay
             return _maxSuspicion;
         }
 
+        public void ResetGame()
+        {
+            SetSuspicion(0);
+            SetSuspicionPreview(_blockSelectionManager.GetSelectedBlock().GetSuspicion());
+        }
+
         public void IncrementSuspicion(int incrementAmount)
         {
             SetSuspicion(_currentSuspicion + incrementAmount);

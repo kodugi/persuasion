@@ -15,7 +15,7 @@ namespace GamePlay
         [SerializeField] private List<BoardRowData> _boardRows = new List<BoardRowData>();
         [SerializeField] private List<DialogueTriggerData> _dialogueTriggers = new List<DialogueTriggerData>();
         [SerializeField] private BoardViewBase.BoardCellMarker _allowedMarkers = new BoardViewBase.BoardCellMarker();
-
+        [SerializeField] private MapType _mapType = MapType.Normal;
         public int GetWidth()
         {
             return Math.Max(1, _width);
@@ -85,6 +85,11 @@ namespace GamePlay
             }
 
             return dialogueDataDict;
+        }
+
+        public MapType GetMapType()
+        {
+            return _mapType;
         }
 
         public void Initialize(
@@ -327,5 +332,13 @@ namespace GamePlay
             }
         }
 
+        public enum MapType
+        {
+            Normal = 0,
+            Dream1 = 1,
+            Dream2 = 2,
+            Dream3 = 3,
+            Dream4 = 4
+        }
     }
 }

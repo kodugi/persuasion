@@ -17,9 +17,14 @@ namespace GamePlay
         public void Initialize()
         {
             _blockSelectionManager = BlockSelectionManager.Instance;
-            _board = new Board(GameInfoHolder.GetGameInfo().GetBoard());
+            _board = new Board(GameInfoHolder.GetCurrentGameInfo().GetBoard());
             _turnManager = TurnManager.Instance;
             _turnManager.RaiseSetTurnStateEvent += HandleSetTurnStateEvent;
+        }
+
+        public void ResetGame()
+        {
+            _board = new Board(GameInfoHolder.GetCurrentGameInfo().GetBoard());
         }
 
         public void HandleCellPlacementInput(Vector2Int coord)
@@ -388,7 +393,7 @@ namespace GamePlay
 
         public int GetConvertedBlackCellCount()
         {
-            Cell[,] originalBoard = GameInfoHolder.GetGameInfo().GetBoard();
+            Cell[,] originalBoard = GameInfoHolder.GetCurrentGameInfo().GetBoard();
             int cnt = 0;
             for(int i = 0; i < _board.GetWidth(); i++)
             {
@@ -405,7 +410,7 @@ namespace GamePlay
         
         public bool[,] CanBeReached()
         {
-            Board pseudoBoard = new Board(GameInfoHolder.GetGameInfo().GetBoard());
+            Board pseudoBoard = new Board(GameInfoHolder.GetCurrentGameInfo().GetBoard());
             Queue<ReachableCellCandidate> toFlipQueue = new Queue<ReachableCellCandidate>();
             IBlock selectedBlock = Activator.CreateInstance(_blockSelectionManager.GetSelectedBlock().GetType()) as IBlock;
             bool[,] canBeReached = new bool[pseudoBoard.GetWidth(), pseudoBoard.GetHeight()];

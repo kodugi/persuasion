@@ -197,8 +197,18 @@ namespace GamePlay
             {
                 return;
             }
-            
-            suspicionView.PlayPreGameOverAnimation();
+
+            switch (GameInfoHolder.GetCurrentGameInfo().GetMapType())
+            {
+                case GameInfo.MapType.Dream1:
+                case GameInfo.MapType.Dream2:
+                case GameInfo.MapType.Dream3:
+                case GameInfo.MapType.Dream4:
+                    break;
+                default:
+                    suspicionView.PlayPreGameOverAnimation();
+                    break;
+            }
         }
 
         private void StopSuspicionOverflowAnimation()

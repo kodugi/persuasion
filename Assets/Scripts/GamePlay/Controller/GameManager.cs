@@ -5,17 +5,15 @@ using System.Linq;
 using MapEditor.Model;
 using UnityEngine;
 using SingletonUtils;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using Vector2Int = VectorUtils.Vector2Int;
 
 namespace GamePlay
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : MonoBehaviourSingleton<GameManager>
     {
-        [SerializeField] private GameInfo _gameInfo;
+        [SerializeField] private List<GameInfo> _gameInfoList;
         [SerializeField] private List<TutorialEntryGroup> _tutorialEntryGroups = new List<TutorialEntryGroup>();
-        [SerializeField] private List<GameInfoEntry> _gameInfoList = new List<GameInfoEntry>();
+        [SerializeField] private List<StageEntry> _stageList = new List<StageEntry>();
         
         private TurnManager _turnManager;
         private BlockSelectionManager _blockSelectionManager;
@@ -25,16 +23,12 @@ namespace GamePlay
         private GameStateManager  _gameStateManager;
         private DialogueManager _dialogueManager;
         private TutorialController _tutorialController;
+        private Coroutine _queuedResetCoroutine;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             Initialize();
-        }
-
-        private void ResetGame()
-        {
-            //Initialize();
-            SceneManager.LoadScene("GamePlayScene");
         }
         
         private void Initialize()
@@ -55,36 +49,36 @@ namespace GamePlay
             // IBlock[] blockList = { new BasicBlock(), new LieBlock(), new ThreatBlock(), new ReligiousBlock() };
             IBlock[] blockList = { new BasicBlock() };
             Dictionary<TutorialState, List<TutorialEntry>> tutorialEntryDict = CreateTutorialEntryDict();
-            Dictionary<string, GameInfo> gameInfoDict = CreateGameInfoDict();
+            Dictionary<string, List<GameInfo>> stageDict = CreateStageDict();
             // hardcoding ends here
             
             _turnManager.Initialize();
-            if(GameInfoHolder.GetGameInfo() == null)
+            if(GameInfoHolder.GetGameInfoList() == null)
             {
-                if (ChiefManager.Instance != null && gameInfoDict.TryGetValue(ChiefManager.Instance.per_Scene_ID, out GameInfo gameInfo))
+                if (ChiefManager.Instance != null && stageDict.TryGetValue(ChiefManager.Instance.per_Scene_ID, out List<GameInfo> gameInfoList))
                 {
-                    GameInfoHolder.SetGameInfo(gameInfo);
+                    GameInfoHolder.SetGameInfoList(gameInfoList);
                 }
                 else
                 {
                     Debug.LogWarning("designated scene id does not exist in GameInfoList; scene id: " + ChiefManager.Instance?.per_Scene_ID);
-                    if(_gameInfo != null)
+                    if(_gameInfoList != null && _gameInfoList.Count > 0)
                     {
                         Debug.LogWarning("using temporary gameinfo instead");
-                        GameInfoHolder.SetGameInfo(_gameInfo);
+                        GameInfoHolder.SetGameInfoList(_gameInfoList);
                     }
                 }
             }
-            else if(_gameInfo != null)
+            else if(_gameInfoList != null && _gameInfoList.Count > 0)
             {
-                GameInfoHolder.SetGameInfo(_gameInfo);
+                GameInfoHolder.SetGameInfoList(_gameInfoList);
             }
             else if (EditorInfoHolder.GetGameInfo() != null)
             {
                 GameInfoHolder.SetGameInfo(EditorInfoHolder.GetGameInfo());
             }
             
-            _dialogueManager.Initialize(GameInfoHolder.GetGameInfo().GetDialogueDataDict());
+            _dialogueManager.Initialize();
             _blockSelectionManager.Initialize(blockList.ToList());
             _boardController.Initialize();
             _suspicionManager.Initialize(maxSuspicion, decrementAmount);
@@ -96,16 +90,64 @@ namespace GamePlay
             _gameStateManager.SetGameState(GameState.Playing);
         }
 
-        // Use this for initialization
-        void Start()
+        public void ResetGame()
         {
-            ReplayButtonView.Instance.gameObject.GetComponent<Button>().onClick.AddListener(ResetGame);
+            if (_queuedResetCoroutine != null)
+            {
+                StopCoroutine(_queuedResetCoroutine);
+                _queuedResetCoroutine = null;
+            }
+
+            if (_turnManager == null ||
+                _blockSelectionManager == null ||
+                _boardController == null ||
+                _suspicionManager == null ||
+                _winConditionManager == null ||
+                _gameStateManager == null ||
+                _dialogueManager == null ||
+                _tutorialController == null)
+            {
+                Debug.LogWarning("GameManager could not reset because initialization has not completed.", this);
+                return;
+            }
+
+            _winConditionManager.BeginReset();
+
+            _gameStateManager.ResetGame();
+            _dialogueManager.ResetGame();
+            _tutorialController.ResetGame();
+            _blockSelectionManager.ResetGame();
+            _boardController.ResetGame();
+            _suspicionManager.ResetGame();
+            _turnManager.ResetGame();
+
+            _winConditionManager.EndReset();
+
+            if (BoardView.Instance is BoardView boardView)
+            {
+                boardView.ResetGame();
+            }
+
+            GameStateView.Instance?.ResetGame();
+            BackgroundSuspicionView.Instance?.ResetGame();
+            SuspicionView.Instance?.ResetGame();
         }
 
-        // Update is called once per frame
-        void Update()
+        public void QueueResetGame()
         {
+            if (_queuedResetCoroutine != null)
+            {
+                return;
+            }
 
+            _queuedResetCoroutine = StartCoroutine(ResetGameAfterCurrentEvent());
+        }
+
+        private IEnumerator ResetGameAfterCurrentEvent()
+        {
+            yield return null;
+            _queuedResetCoroutine = null;
+            ResetGame();
         }
 
         private Dictionary<TutorialState, List<TutorialEntry>> CreateTutorialEntryDict()
@@ -136,16 +178,16 @@ namespace GamePlay
 
             return CreateFallbackTutorialEntryDict();
         }
-
-        private Dictionary<string, GameInfo> CreateGameInfoDict()
+        
+        private Dictionary<string, List<GameInfo>> CreateStageDict()
         {
-            Dictionary<string, GameInfo> gameInfoDict = new Dictionary<string, GameInfo>();
-            foreach(GameInfoEntry gameInfoEntry in _gameInfoList)
+            Dictionary<string, List<GameInfo>> stageDict = new Dictionary<string, List<GameInfo>>();
+            foreach(StageEntry stageEntry in _stageList)
             {
-                gameInfoDict.Add(gameInfoEntry.MapName, gameInfoEntry.GameInfo);
+                stageDict.Add(stageEntry.MapName, stageEntry.GameInfoList);
             }
 
-            return gameInfoDict;
+            return stageDict;
         }
 
         private static Dictionary<TutorialState, List<TutorialEntry>> CreateFallbackTutorialEntryDict()
@@ -207,6 +249,13 @@ namespace GamePlay
         {
             public string MapName;
             public GameInfo GameInfo;
+        }
+
+        [Serializable]
+        private class StageEntry
+        {
+            public string MapName;
+            public List<GameInfo> GameInfoList;
         }
     }
 }
