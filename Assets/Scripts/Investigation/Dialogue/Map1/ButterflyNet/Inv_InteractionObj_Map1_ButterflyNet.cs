@@ -17,7 +17,7 @@ public class Inv_InteractionObj_Map1_ButterflyNet: Inv_InteractionObj
             object bfNetPossessed = saveManager.LoadProgress("bfNetPossessed");
             if(bfNetPossessed != null && ((bool)bfNetPossessed)==true)
             {
-                print("Butterfly net possessed");
+                //print("Butterfly net possessed");
                 Destroy(gameObject);
             }
         }

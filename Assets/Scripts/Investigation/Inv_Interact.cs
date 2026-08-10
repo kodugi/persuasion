@@ -203,11 +203,12 @@ namespace Investigation
                     string autoInteractionOnReturn = null;
                     if(effect.ContainsKey("autoReturn")) autoInteractionOnReturn = (string)effect["autoReturn"];
                     manager.LoadGameScene((string)effect["title"], autoInteractionOnReturn);
-                    /*
-                    previewMap.SetActive(true);
-                    previewMap.transform.Find("ProgressButton").GetComponent<Button>().onClick.RemoveAllListeners();
-                    previewMap.transform.Find("ProgressButton").GetComponent<Button>().onClick.AddListener(()=>manager.LoadGameScene((string)effect["title"]));
-                    */
+                    break;
+                case "anotherMap":
+                    //string autoInteractionOnReturn = null;
+                    //if(effect.ContainsKey("autoReturn")) autoInteractionOnReturn = (string)effect["autoReturn"];
+                    print("hi");
+                    manager.LoadAnotherInvestigationScene((string)effect["title"]);
                     break;
                 case "delete":
                     string target_deletion = (string)effect["target"];

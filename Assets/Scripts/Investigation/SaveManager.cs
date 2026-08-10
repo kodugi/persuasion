@@ -259,7 +259,7 @@ public partial class SaveManager : MonoBehaviour
                 result = new T();
                 return false;
             }
-            print(JsonConvert.SerializeObject(result, Formatting.Indented));
+            //print(JsonConvert.SerializeObject(result, Formatting.Indented));
             return true;
         }
         catch (Exception exception)
@@ -483,8 +483,8 @@ public partial class SaveManager : MonoBehaviour
 
             return;
         }*/
-        print("Saving progress:");
-        print(JsonConvert.SerializeObject(progress, Formatting.Indented));
+        //print("Saving progress:");
+        //print(JsonConvert.SerializeObject(progress, Formatting.Indented));
         SaveData("progress", progress);
     }
 }

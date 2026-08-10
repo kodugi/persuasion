@@ -51,7 +51,7 @@ public partial class ChiefManager : MonoBehaviour
     }
     void LoadScene(object id)
     {
-        print(id);
+        print("LoadScene: "+id);
         if (id is string sceneName)
         {
             currScene = sceneName;
@@ -99,6 +99,7 @@ public partial class ChiefManager : MonoBehaviour
     }
     public void StartInvestigation(string id = "")
     {
+        print("LoadingInvestigationScene");
         LoadingMotion();
         StartCoroutine(StartInvestigationScene(id));
     }

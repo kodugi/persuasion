@@ -192,12 +192,18 @@ namespace Investigation
         }
         string getID()
         {
+            //print(chiefManager.inv_Scene_ID);
             return chiefManager.inv_Scene_ID;
         }
         public void LoadGameScene(string id, string autoInteractionOnReturn)
         {
             print(id);
             chiefManager.StartPersuasion(id, autoInteractionOnReturn);
+        }
+        public void LoadAnotherInvestigationScene(string id, string autoInteractionOnReturn=null)
+        {
+            print(id);
+            chiefManager.StartInvestigation(id);
         }
         public void CutScene(string title)
         {
@@ -220,6 +226,7 @@ namespace Investigation
                     break;
                 case "IntoDream":
                     print("잠에 들었다.");
+                    chiefManager.StartInvestigation("Dream");
                     yield return null;
                     break;
                 case "CrowdAroundWitchMotherDisperse":
