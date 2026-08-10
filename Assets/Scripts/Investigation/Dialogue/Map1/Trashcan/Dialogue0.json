@@ -11,11 +11,6 @@
                         {
                             "type": "item",
                             "name": "WitchesCloth"
-                        },
-                        {
-                            "type": "progress",
-                            "key": "possessedWitchsCloth",
-                            "value": true
                         }
                     ]
                 },

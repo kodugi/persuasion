@@ -181,6 +181,10 @@ namespace Investigation
                 {
                     hit.gameObject.GetComponent<Inv_InteractionObj>().InventoryItemDraggedOn(floatingItemName);
                 }
+                else if(hit.gameObject.tag == "Player")
+                {
+                    hit.gameObject.GetComponent<Inv_PlayerCTRL>().InventoryItemDraggedOn(floatingItemName);
+                }
             }
         }
         Dictionary<string, string> combinations = new Dictionary<string, string>

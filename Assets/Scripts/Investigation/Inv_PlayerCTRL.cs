@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
  
 namespace Investigation
 {
@@ -94,6 +96,29 @@ namespace Investigation
         public void CanPlayerMove(bool canMove)
         {
             playerCanMove = canMove;
+        }
+        public void InventoryItemDraggedOn(string itemName)
+        {
+            switch (itemName)
+            {
+                case "WitchesCloth":
+                    interactionScript.Effects(
+                        new JObject
+                        {
+                            ["type"] = "progress",
+                            ["key"] = "possessedWitchsCloth",
+                            ["value"] = true
+                        }
+                    );
+                    interactionScript.Effects(
+                        new JObject
+                        {
+                            ["type"] = "item_remove",
+                            ["name"] = "WitchesCloth"
+                        }
+                    );
+                    break;
+            }
         }
     }
 }

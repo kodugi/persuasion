@@ -21,6 +21,11 @@
                             "parameters":[]
                         },
                         {
+                            "type": "progress",
+                            "key": "Map1/SurroundingWitchMotherstate",
+                            "value": "1"
+                        },
+                        {
                             "type": "variation",
                             "target": "Map1/WitchMother",
                             "parameters":[

@@ -32,6 +32,11 @@
                             "parameters":["alone"]
                         },
                         {
+                            "type": "progress",
+                            "key": "Map1/SurroundingWitchMotherstate",
+                            "value": "2"
+                        },
+                        {
                             "type":"cutScene",
                             "title":"CrowdAroundWitchMotherDisperse"
                         }

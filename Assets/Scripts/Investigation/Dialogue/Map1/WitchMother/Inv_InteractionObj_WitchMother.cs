@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Investigation
 {
@@ -32,10 +34,30 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
                 }
                 else state=1;
             }
-            else if (state == 3 || state ==4)
+            else if (state ==3)
             {
                 object possessed = saveManager.LoadProgress("possessedWitchsCloth");
-                if (possessed is bool b && b == true)
+                bool isPossessed = possessed switch
+                {
+                    bool b => b,
+                    JValue j => j.Value<bool>(),
+                    _ => false
+                };
+                if (isPossessed)
+                {
+                    state = 7;
+                }
+            }
+            else if (state ==4)
+            {
+                object possessed = saveManager.LoadProgress("possessedWitchsCloth");
+                bool isPossessed = possessed switch
+                {
+                    bool b => b,
+                    JValue j => j.Value<bool>(),
+                    _ => false
+                };
+                if (isPossessed)
                 {
                     state = 5;
                 }

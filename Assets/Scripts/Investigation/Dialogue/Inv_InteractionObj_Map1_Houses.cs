@@ -14,7 +14,7 @@ public class Inv_InteractionObj_Map1_Houses: Inv_InteractionObj
         {
             gameManager = FindFirstObjectByType<Inv_GameManager>();
 
-
+            
             faceImg = new GameObject($"{gameObject.name}_Face");
 
             faceImg.transform.SetParent(transform, false);
@@ -31,18 +31,8 @@ public class Inv_InteractionObj_Map1_Houses: Inv_InteractionObj
             string path = obj_name.Replace("/", "_") + "_Face";
 
             faceImg.SetActive(false);
-            gameManager.SetSpriteImage<SpriteRenderer>(faceImg, path, handles);
             /*
-            faceImg = Instantiate(gameObject, gameObject.transform.position, Quaternion.identity, gameObject.transform);
-            Destroy(faceImg.GetComponent<BoxCollider2D>());
-            Destroy(faceImg.GetComponent(GetType()));
-            Destroy(faceImg.transform.GetChild(0));
-            Vector3 originalScale = faceImg.transform.localScale;
-            faceImg.transform.localScale = originalScale/2;
-            string path = obj_name.Replace("/", "_")+"_Face";
-            faceImg.SetActive(false);
             gameManager.SetSpriteImage<SpriteRenderer>(faceImg, path, handles);
-            faceImg.GetComponent<SpriteRenderer>().sortingOrder = gameObject.GetComponent<SpriteRenderer>().sortingOrder+1;
             */
         }
         void OnDestroy()

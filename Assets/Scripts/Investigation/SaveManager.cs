@@ -10,6 +10,8 @@ public partial class SaveManager : MonoBehaviour
 {
     [SerializeField]
     public bool resetOnQuit = true;
+    [SerializeField]
+    public bool saveWhilePlaying = true;
 
     private Inv_GameManager gameManager;
 
@@ -196,6 +198,8 @@ public partial class SaveManager : MonoBehaviour
             return;
         }
 */
+        if(!saveWhilePlaying) return;
+        
         string path = PathGen(fileName);
 
         try
