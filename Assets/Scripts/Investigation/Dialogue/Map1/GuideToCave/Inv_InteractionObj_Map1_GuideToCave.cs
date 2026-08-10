@@ -42,6 +42,7 @@ public class Inv_InteractionObj_Map1_GuideToCave: Inv_InteractionObj
         }
         private float walkingSpeed = 3f;
         private float footprintInterval = 0.3f;
+        private float footprintLasting = 20f;
         private IEnumerator WalkingMotion()
         {
             interactManager.Effects(
@@ -99,7 +100,7 @@ public class Inv_InteractionObj_Map1_GuideToCave: Inv_InteractionObj
                         Quaternion.Euler(0f, 0f, angle)
                     );
                     footprintTimer = 0f;
-                    FadeObject(footprint, false, 10f, 1f, true);
+                    FadeObject(footprint, false, footprintLasting, 1f, true);
                 }
                 yield return null;
             }
