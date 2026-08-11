@@ -1,17 +1,132 @@
 {
-    "title": "작가?",
+    "title": "남자",
     "path": [
         {
-            "description": "너 뭐야! 걔를 왜 잡아가는데?",
-            "buttons":[
+            "description": "내, 내 비둘기!",
+            "buttons": [
                 {
-                    "title": "사정이 있어서요!! 죄송합니다!!!",
+                    "title": "",
+                    "next": 1,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "남자"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "내 비둘기 어디갔어!!",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 2,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "갈 곳을 잃은 남자의 눈은 이리저리 방황하다 이내 바로 옆에 있는 나를 향했다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 3,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "남자는 내 손에 들려 있는 잠자리채와 비둘기를 발견하고는 나의 어깨를 강하게 붙잡았다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 4,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "남자"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "내, 내 비둘기.....",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 5,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "남자"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "내 비둘기한테 무슨 짓이야!!",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 6,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "자, 잠시만요, 진정 좀 해보세요.....!",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 7,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "남자"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "비둘기!! 내 비둘기 내놔!!",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 8,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "흐릿하게 보이는 남자의 머릿속은 검붉은 분노로 가득 차 있었다. (임시: 이 뒤에는 뭐가 오나요)",
+            "buttons": [
+                {
+                    "title": "",
                     "next": -1,
                     "effects": [
                         {
                             "type": "variation",
                             "target": "Map1/Writer",
-                            "parameters":[
+                            "parameters": [
                                 "PigeonRemoved"
                             ]
                         }
@@ -20,5 +135,4 @@
             ]
         }
     ]
-
 }

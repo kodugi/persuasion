@@ -1,41 +1,283 @@
 {
-    "title": "멀리서 수군거리는 소리",
+    "title": "",
     "path": [
         {
-            "description": "000의 딸이 얼마 전에 마녀라는 혐의를 받고 죽었다.",
-            "buttons":[
+            "description": "﻿날카로운 절규가 귀를 찢을 듯 울려퍼졌다. 도저히 사람의 소리라고는 생각되지 않는 괴성이었다.",
+            "buttons": [
                 {
-                    "title": "(노트에 적어둔다)",
+                    "title": "",
                     "next": 1,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "초췌한 행색을 한 그 여자는 오열하며 목적도 없이 허공에 팔을 휘둘러대고 있었다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 2,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "여자를 말리는 사람들도 슬슬 버겁다는 생각이 들었는지 하나 둘 손을 떼기 시작했다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 3,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "여자는 울부짖으며 땅바닥을 쥐어뜯다가, 두 손을 모으고 땅에 머리를 박았다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 4,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "그 모습은 꼭 신을 향해 기도하는 것 같기도 했다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 5,
                     "effects": [
                         {
-                            "type":"note",
-                            "topic": "000(이름)",
-                            "content":[
-                                "딸이 얼마 전 마녀라는 혐의를 받고 죽었다."
-                            ]
+                            "type": "changeTitle",
+                            "title": "여자"
                         }
                     ]
                 }
             ]
         },
         {
-            "description": "사람들이 흩어지고 있다.",
-            "buttons":[
+            "description": "아니야…. 아니야, 내 딸은 마녀가 아니야….",
+            "buttons": [
                 {
-                    "title": "(조용히 숨어 있자.)",
-                    "next": -1,
+                    "title": "",
+                    "next": 6,
                     "effects": [
                         {
-                            "type":"variation",
-                            "target":"Map1/WitchMother",
-                            "parameters":["alone"]
-                        },
+                            "type": "changeTitle",
+                            "title": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "울먹거리던 여자는 이내 벌떡 일어나 앞에 있던 사람의 목을 두 손으로 움켜쥐었다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 7,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "두어 사람이 여자의 팔을 잡고 여자의 손을 떼어놓으려 애썼다. 그럼에도 여자는 굴하지 않고 온 힘을 다해 손 안에 쥔 생명을 으스러뜨리려 애썼다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 8,
+                    "effects": [
                         {
-                            "type": "progress",
-                            "key": "Map1/SurroundingWitchMotherstate",
-                            "value": "2"
-                        },
+                            "type": "changeTitle",
+                            "title": "여자"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "이 개자식들, 너넨 다 미쳤어!! 내가, 내가 죽여버릴 거야.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 9,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "내 딸을 내놔! 내 딸을 내놓으라고!!",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 10,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "여자의 처절한 비명이 공간을 가득 채울 무렵.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 11,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "퍽, 하는 소리와 함께 여자의 등에 억센 주먹이 꽂혔다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 12,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "여자는 신음소리도 내지 못하고 바닥에 엎어졌다. 간신히 여자의 손아귀에서 탈출한 남자는 목을 문지르며 욕지거리를 내뱉었다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 13,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "주위 사람들은 여자의 모습을 내려다보며 웅성거렸다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 14,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "사람1"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "단단히 미쳤군.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 15,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "사람2"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "딸이 마녀로 밝혀졌으니 그럴 법도 하지….",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 16,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "사람3"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "처형식 때까지는 슬퍼 보이긴 했어도 제정신 같았는데? 딸이 마녀인 걸 일찍 눈치채지 못해서 미안하다고 사과도 하고.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 17,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "사람2"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "괜찮은 척 한 거지. 그 상황에서 딸을 대변하다간 본인도 불 타 죽었을걸?",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 18,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "사람1"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "거참, 마녀 한 명 때문에 이게 다 무슨 일이람.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 19,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "사람2"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "아니, 그래서 마녀 옷은 어디 있다는 거야? 알아내고 기절시켰어야지.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 20,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "사람3"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "어떻게 알아내. 또 물어보면 누구 한 명 죽일 기세던데. 그냥 우리가 직접 찾는 게 빠를걸.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 21,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "그 뒤로 옷이 어디 있을지 토론하는 사람들의 대화 소리가 들리더니, 이내 그 대화 소리도 점차 멀어지기 시작했다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 22,
+                    "effects": [
                         {
                             "type":"cutScene",
                             "title":"CrowdAroundWitchMotherDisperse"
@@ -43,7 +285,184 @@
                     ]
                 }
             ]
+        },
+        {
+            "description": "나는 살짝 고개를 내밀어 여자의 상태를 확인했다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 23,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "놀랍게도 여자는 사람들의 생각과는 달리 기절하지 않은 상태였다. 미세하게 떨리는 손이 그 사실을 알려주었다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 24,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "아주 작게, 들릴락 말락한 흐느낌이 여자의 입에서 새어나왔다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 25,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "여자"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "우리 딸...",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 26,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "그 모습을 보고 가장 처음으로 나를 덮친 것은 끔찍한 안쓰러움과 안타까움이었다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 27,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "이 마을 사람들의 광기에 가까운 마녀사냥에 대한 분노와 두려움이 그 뒤를 이었다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 28,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "그리고 그 사이로 한 가지 생각이 불쑥 머리를 들이밀었다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 29,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "(내가 아무리 내 영혼을 통해 사람들을 억지로 설득할 수 있다고 해도, 마녀로 의심받는 이방인을 하룻밤 재워달라는 건 큰 부탁이야.)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 30,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(일반적인 사람한테 이런 부탁을 하면서 설득시키려 들었다간 내 영혼을 모조리 소모해버릴지도 몰라.)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 31,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(하지만 마녀사냥에 대해 부정적인 인식을 갖고 있고, 정신적으로 약해져 있는 이 사람이라면...)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 32,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(조금 더 수월하게 설득할 수 있을지도 모르지.)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 33,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(마녀로 몰려서 죽은 게 딸이라고 했나?)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 34,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(날 보고 딸을 떠올리게 할 수 있으면 설득이 더 쉬워질지도 몰라.)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 35,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(잔인한 방법이지만... 어쩔 수 없어.)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 36,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(나도 살아야 하니까...)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": -1,
+                    "effects": [
+                        {
+                            "type": "variation",
+                            "target": "Map1/WitchMother",
+                            "parameters": [
+                                "alone"
+                            ]
+                        },
+                        {
+                            "type": "progress",
+                            "key": "Map1/SurroundingWitchMotherstate",
+                            "value": "2"
+                        }
+                    ]
+                }
+            ]
         }
     ]
-
 }

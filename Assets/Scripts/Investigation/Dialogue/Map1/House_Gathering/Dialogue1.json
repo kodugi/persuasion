@@ -1,21 +1,296 @@
 {
-    "title": "사람들이 몰려 들어간 집",
+    "title": "",
     "path": [
         {
-            "description": "조금 전에 나를 쳐다보다가 몰려간 사람들이 이곳에 있는 것 같다.",
-            "buttons":[
+            "description": "﻿창문 근처에 몸을 숨기고 조심스럽게 귀를 기울이자....",
+            "buttons": [
                 {
-                    "title": "무슨 말을 하는지 엿들어보자.",
+                    "title": "",
                     "next": 1,
                     "effects": []
                 }
             ]
         },
         {
-            "description": "(대충 노파에 대한 이야기, 노파의 동굴에 대한 이야기)",
-            "buttons":[
+            "description": "사람들의 말소리가 흐릿하게 들리기 시작했다.",
+            "buttons": [
                 {
-                    "title": "그 노파를 찾아가야겠다. 근데 동굴은 어디 있는거지?.",
+                    "title": "",
+                    "next": 2,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "사람1"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": ".....아니, 그러니까 뭔가 이상하다니까? (경비원 이름)이 그 여자애는 마녀가 아니라고 했다고!",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 3,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "이게 말이 돼? 여기 들어오는 침입자는 무조건 마녀니까 싹 다 죽여버려야 한다고 하던 놈이?",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 4,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "사람2"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "무슨 정신 조작이라도 당한 건가? 소름끼치는군.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 5,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "사람3"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "무턱대고 공격했다간 우리도 당할 수 있겠어. 대책을 세워야 할 것 같은데.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 6,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "사람4"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "자는 사이에 다같이 가서 기습할까? 마을에 재워줄 사람이 아무도 없을 테니, 분명 길거리에서 잘 텐데.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 7,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "장작이랑 라이터랑, 쇠붙이도 좀 챙겨가고..... 눈부터 찌르면 반격 못할걸.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 8,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "사람1"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "아냐, 너무 위험해. 자는 척 하면서 우리를 유인한 뒤에 공격하면 어떡해?",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 9,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "우리까지 정신이 지배당할 수도 있어.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 10,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "사람5"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": ".....",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 11,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "아무래도 이건 우리끼리 대화한다고 결론이 날 문제가 아닌 것 같다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 12,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "그 할머니한테 가서 물어보자.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 13,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "사람1"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "뭐? 갔다가 또 한소리 들을 것 같은데.... 그 할멈, 성격이 보통 괴팍한 게 아닌 거 알잖아.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 14,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "사람5"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "그럼 어떡해? 이 마을에서 제일 많은 걸 알고 있는 게 그 여자인데.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 15,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "찾아갈 때마다 쌍욕을 퍼붓긴 해도 그 뒤에 정보는 항상 주잖아.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 16,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "사람1"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "그럼 네가 가. 난 저번에 찾아갔다가 한 시간 동안 욕 얻어먹고 정신 나갈 뻔했다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 17,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "사람5"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "알았어, 알았어.....",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 18,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "시금3"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "지금 바로 가게?",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 19,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "사람5"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "한시가 급한 상황이잖아. 해가 지기 전에는 들어올게.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 20,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": ".....!",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 21,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(잠깐만, 지금 나온다고? 내가 엿들었던 걸 들키면 큰일날 텐데.)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 22,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(빨리 어딘가에 숨어야....)",
+            "buttons": [
+                {
+                    "title": "",
                     "next": -1,
                     "effects": [
                         {
@@ -53,5 +328,4 @@
             ]
         }
     ]
-
 }

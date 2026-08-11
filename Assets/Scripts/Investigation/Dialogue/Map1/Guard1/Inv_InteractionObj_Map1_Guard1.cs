@@ -35,8 +35,11 @@ public class Inv_InteractionObj_Map1_Guard1: Inv_InteractionObj
                     case "Chase":
                         if(state ==0) chasing = true;
                         break;
-                    case "Met":
+                    case "Caught":
                         state = 1;
+                        break;
+                    case "Met":
+                        state = 2;
                         break;
                 }
             }

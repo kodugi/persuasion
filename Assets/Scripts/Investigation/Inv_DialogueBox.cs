@@ -1,6 +1,7 @@
 using UnityEngine;
 using Newtonsoft.Json.Linq;
 using System.IO;
+using System.Collections.Generic;
 
 namespace Investigation
 {
@@ -10,6 +11,8 @@ namespace Investigation
         public Inv_Interact interactionScript;
         public string interactionName;
         [SerializeField] private GameObject buttonPrefab;
+        int singleOption_nextIndex = -100;
+        List<JObject> effectList = new List<JObject>();
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         public void Initialize()
         {
@@ -19,6 +22,26 @@ namespace Investigation
         public void ChangeTitle(string title)
         {
             transform.Find("Title").GetComponent<TMPro.TextMeshProUGUI>().text = title;
+        }
+        void Update()
+        {
+            if(singleOption_nextIndex == -100) return;
+            if(Input.GetMouseButtonDown(0))
+            {
+                foreach (JObject effect in effectList)
+                {
+                    interactionScript.Effects(effect);
+                }
+                if(singleOption_nextIndex == -1)
+                {
+                    interactionScript.SignalEnding(interactionName);
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    DisplayDialogue(singleOption_nextIndex);
+                }
+            }
         }
         void DisplayDialogue(int index)
         {
@@ -31,26 +54,43 @@ namespace Investigation
                     Destroy(child.gameObject);
                 }
             }
-            for(int i = 0; i < ((JArray)dialogue["buttons"]).Count; i++)
+
+            effectList = new List<JObject>();
+
+            if(((JArray)dialogue["buttons"]).Count == 1)
             {
-                GameObject button = Instantiate(buttonPrefab, transform.Find("Buttons"));
-                button.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = dialogue["buttons"][i]["title"].ToString();
-                button.GetComponent<RectTransform>().anchoredPosition = new Vector2(275, 25-50* i);
-                
-                int nextIndex = (int)dialogue["buttons"][i]["next"];
-                for(int j = 0; j < ((JArray)dialogue["buttons"][i]["effects"]).Count; j++)
+                singleOption_nextIndex = (int)dialogue["buttons"][0]["next"];
+                for (int j = 0; j < ((JArray)dialogue["buttons"][0]["effects"]).Count; j++)
                 {
-                    JObject effect = (JObject)dialogue["buttons"][i]["effects"][j];
-                    button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => interactionScript.Effects(effect));
+                    effectList.Add(
+                        (JObject)dialogue["buttons"][0]["effects"][j]
+                    );
                 }
-                if(nextIndex == -1)
+            }
+            else
+            {
+                singleOption_nextIndex = -100;
+                for(int i = 0; i < ((JArray)dialogue["buttons"]).Count; i++)
                 {
-                    button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => Destroy(gameObject));
-                    button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => interactionScript.SignalEnding(interactionName));
-                }
-                else
-                {
-                    button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => DisplayDialogue(nextIndex));
+                    GameObject button = Instantiate(buttonPrefab, transform.Find("Buttons"));
+                    button.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = dialogue["buttons"][i]["title"].ToString();
+                    button.GetComponent<RectTransform>().anchoredPosition = new Vector2(275, 25-50* i);
+                    
+                    int nextIndex = (int)dialogue["buttons"][i]["next"];
+                    for(int j = 0; j < ((JArray)dialogue["buttons"][i]["effects"]).Count; j++)
+                    {
+                        JObject effect = (JObject)dialogue["buttons"][i]["effects"][j];
+                        button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => interactionScript.Effects(effect));
+                    }
+                    if(nextIndex == -1)
+                    {
+                        button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => Destroy(gameObject));
+                        button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => interactionScript.SignalEnding(interactionName));
+                    }
+                    else
+                    {
+                        button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => DisplayDialogue(nextIndex));
+                    }
                 }
             }
         }
