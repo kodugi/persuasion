@@ -195,7 +195,7 @@
       },
       "hideCriteria": -1.5,
       "sortingOrder": 2,
-      "image": "집1",
+      "image": "house1",
       "script": "Inv_InteractionObj_Map1_Houses",
       "manually_touchable": true
     },
@@ -228,7 +228,7 @@
       },
       "hideCriteria": 0,
       "sortingOrder": 2,
-      "image": "나무1",
+      "image": "tree1",
       "script": "",
       "manually_touchable": false
     },
@@ -261,19 +261,19 @@
       },
       "hideCriteria": -1.5,
       "sortingOrder": 2,
-      "image": "집1",
+      "image": "house1",
       "script": "Inv_InteractionObj_Map1_House_Gathering",
       "manually_touchable": true
     },
     {
       "title": "Map1/Cave",
       "position": {
-        "x": 48.47,
+        "x": 48.52,
         "y": 0.64
       },
       "size": {
-        "x": 1,
-        "y": 1
+        "x": 10,
+        "y": 10
       },
       "colliderShape": "box",
       "colliderSize": {
@@ -294,7 +294,7 @@
       },
       "hideCriteria": 0,
       "sortingOrder": 2,
-      "image": "그루터기",
+      "image": "cave",
       "script": "Inv_InteractionObj_Map1_Cave",
       "manually_touchable": false
     },
@@ -327,7 +327,7 @@
       },
       "hideCriteria": -1.5,
       "sortingOrder": 2,
-      "image": "집3",
+      "image": "house1",
       "script": "Inv_InteractionObj_Map1_Houses",
       "manually_touchable": false
     },
@@ -360,7 +360,7 @@
       },
       "hideCriteria": -1.5,
       "sortingOrder": 2,
-      "image": "집1",
+      "image": "house1",
       "script": "Inv_InteractionObj_Map1_Houses",
       "manually_touchable": false
     },
@@ -393,7 +393,7 @@
       },
       "hideCriteria": -1.5,
       "sortingOrder": 2,
-      "image": "집1",
+      "image": "house1",
       "script": "Inv_InteractionObj_Map1_Houses",
       "manually_touchable": false
     },
@@ -426,7 +426,7 @@
       },
       "hideCriteria": -1.5,
       "sortingOrder": 2,
-      "image": "집1",
+      "image": "house1",
       "script": "Inv_InteractionObj_Map1_Houses",
       "manually_touchable": false
     },
@@ -459,7 +459,7 @@
       },
       "hideCriteria": -1.5,
       "sortingOrder": 2,
-      "image": "집1",
+      "image": "house1",
       "script": "Inv_InteractionObj_Map1_Houses",
       "manually_touchable": false
     },
@@ -492,7 +492,7 @@
       },
       "hideCriteria": -1.5,
       "sortingOrder": 2,
-      "image": "집1",
+      "image": "house1",
       "script": "Inv_InteractionObj_Map1_Houses",
       "manually_touchable": false
     },
@@ -525,7 +525,7 @@
       },
       "hideCriteria": -1.5,
       "sortingOrder": 2,
-      "image": "집1",
+      "image": "house1",
       "script": "Inv_InteractionObj_Map1_Houses",
       "manually_touchable": false
     },
@@ -558,7 +558,7 @@
       },
       "hideCriteria": -1.5,
       "sortingOrder": 2,
-      "image": "집1",
+      "image": "house1",
       "script": "Inv_InteractionObj_Map1_Houses",
       "manually_touchable": false
     },
@@ -591,7 +591,7 @@
       },
       "hideCriteria": -1.5,
       "sortingOrder": 2,
-      "image": "집1",
+      "image": "house1",
       "script": "Inv_InteractionObj_Map1_Houses",
       "manually_touchable": false
     },
@@ -624,7 +624,7 @@
       },
       "hideCriteria": -1.5,
       "sortingOrder": 2,
-      "image": "집1",
+      "image": "house1",
       "script": "Inv_InteractionObj_Map1_Houses",
       "manually_touchable": false
     },
@@ -657,7 +657,7 @@
       },
       "hideCriteria": -1.5,
       "sortingOrder": 2,
-      "image": "집1",
+      "image": "house1",
       "script": "Inv_InteractionObj_Map1_Houses",
       "manually_touchable": false
     },
@@ -690,7 +690,7 @@
       },
       "hideCriteria": -1.5,
       "sortingOrder": 2,
-      "image": "집1",
+      "image": "house1",
       "script": "Inv_InteractionObj_Map1_Houses",
       "manually_touchable": false
     },
@@ -723,7 +723,7 @@
       },
       "hideCriteria": -1.5,
       "sortingOrder": 2,
-      "image": "집1",
+      "image": "house1",
       "script": "Inv_InteractionObj_Map1_Houses",
       "manually_touchable": false
     },
@@ -756,7 +756,7 @@
       },
       "hideCriteria": 0,
       "sortingOrder": 4,
-      "image": "벌집",
+      "image": "beehive",
       "script": "",
       "manually_touchable": false
     },
@@ -987,7 +987,7 @@
       },
       "hideCriteria": 0,
       "sortingOrder": 12,
-      "image": "새",
+      "image": "pigeon",
       "script": "Inv_InteractionObj_Map1_Pigeon",
       "manually_touchable": false
     },
@@ -998,8 +998,8 @@
         "y": 7.53
       },
       "size": {
-        "x": 0.5,
-        "y": 0.5
+        "x": 1,
+        "y": 1
       },
       "colliderShape": "box",
       "colliderSize": {
@@ -1020,7 +1020,7 @@
       },
       "hideCriteria": 0,
       "sortingOrder": 50,
-      "image": "떨어진노트",
+      "image": "note_on_the_ground",
       "script": "Inv_InteractionObj_Map1_Note_On_Ground",
       "manually_touchable": true
     },
@@ -1053,7 +1053,7 @@
       },
       "hideCriteria": 0,
       "sortingOrder": 52,
-      "image": "잠자리채",
+      "image": "butterflynet_torn",
       "script": "Inv_InteractionObj_Map1_ButterflyNet",
       "manually_touchable": true
     },
@@ -1086,7 +1086,7 @@
       },
       "hideCriteria": 0,
       "sortingOrder": 52,
-      "image": "그물",
+      "image": "fishnet",
       "script": "Inv_InteractionObj_Map1_FishNet",
       "manually_touchable": true
     },
@@ -1097,8 +1097,8 @@
         "y": 20.79
       },
       "size": {
-        "x": 0.5,
-        "y": 0.5
+        "x": 1,
+        "y": 1
       },
       "colliderShape": "box",
       "colliderSize": {
@@ -1119,12 +1119,12 @@
       },
       "hideCriteria": 0,
       "sortingOrder": 52,
-      "image": "그물",
+      "image": "trashcan_w_cloth",
       "script": "Inv_InteractionObj_Map1_Trashcan",
       "manually_touchable": true
     },
     {
-      "title": "New Object",
+      "title": "Map1/Bush1",
       "position": {
         "x": -0.6,
         "y": 20.94

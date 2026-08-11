@@ -20,13 +20,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0db2d191c345e42bfb7ba33888ed68f7
-    m_Address: "\uB5A8\uC5B4\uC9C4\uB178\uD2B8"
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 12703d95bf42d482ab4dd6a4a27f95c4
-    m_Address: "\uADF8\uBB3C"
+  - m_GUID: 1a892d934f24346efb8c3a25754de1b6
+    m_Address: stump
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -35,13 +30,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 234008efdfe8442338c1f7f545bfb037
-    m_Address: "\uB098\uBB343"
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 275301334ef6a4d21bb722b1ec1aed06
-    m_Address: "\uB098\uBB342"
+  - m_GUID: 24dd3b160316e4d27a64a7eac4ef3478
+    m_Address: bush2
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -50,18 +40,33 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 2fb5856f1f0d749a99ae201bffa29926
-    m_Address: "\uC0C8"
+  - m_GUID: 2ed4b7937564a4bffb5bed6d325a3e5b
+    m_Address: trashcan
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4791f519076664859bd12502b4e17720
-    m_Address: "\uADF8\uB8E8\uD130\uAE30"
+  - m_GUID: 30b0f98f724df4785adeb985c73513ad
+    m_Address: writer
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 58a296d5b811f4d138212d793ca0e29e
-    m_Address: "\uB098\uBB341"
+  - m_GUID: 345fdc151734f4b2386314a921738c1d
+    m_Address: beehive
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3f5d2b4b6b8d947c097833e7f43ed25d
+    m_Address: tree4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 56d733c7835034bb99d1adb2044444d2
+    m_Address: bush1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5763138ef95e54279979337ed23dc266
+    m_Address: grass2
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -75,6 +80,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5edaae9bc9c3c47b19b7cf9cd0706876
+    m_Address: grass1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6bec7c061b3ed4a67ae3c254c4685299
     m_Address: Player_Temp
     m_ReadOnly: 0
@@ -85,18 +95,13 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 832757c57891a4578a1e85fb115a57d7
-    m_Address: "\uC9D12"
+  - m_GUID: 8e447553c06ab4d89a772815671d4b55
+    m_Address: trashcan_w_cloth
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 89ee8c13c024b4cb0a669d58df92318c
-    m_Address: "\uB098\uBB344"
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8a43683c3da3b45e39763ee01bc6f3e5
-    m_Address: "\uBC8C\uC9D1"
+  - m_GUID: 8fc3e6e80f14d4dfd8c24ea4c8fb1198
+    m_Address: tree1
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -105,8 +110,13 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 92c9d182f0b7c475893fab0c5b057eb1
-    m_Address: "\uC9D14"
+  - m_GUID: 982bb64c455dd42afabdc3fb27c406e0
+    m_Address: butterflynet_torn
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9da108559617643f1be7ac1839d5c046
+    m_Address: house1
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -120,8 +130,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: aa4babc20f7c64259b0b1267ab5de8c8
-    m_Address: Player
+  - m_GUID: ac6d8fa42af5141f08b36f7f2aebb365
+    m_Address: cave
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -130,18 +140,23 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b7da6399aecda41e18c8070937505205
-    m_Address: "\uC9D13"
+  - m_GUID: bce43460a1e0a4f6aa3a8bc6c0f708ea
+    m_Address: house3
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: bdf5116f7981b42788c9b4460ff2d04a
-    m_Address: Guard1
+  - m_GUID: c581af494346c435aa217799adf9ba60
+    m_Address: pigeon
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d117a1b551ea14bc485e3b9e1acf0ce9
-    m_Address: "\uB364\uBD881"
+  - m_GUID: cc1bffd0aeda848f1b20bdf8a4c0f51d
+    m_Address: tree3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cf60c05ee795e4bedbab805e3636c7e5
+    m_Address: fishnet
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -155,8 +170,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d5bbbff65cfe84c27a81720eec801b0b
-    m_Address: "\uC9D11"
+  - m_GUID: d78387ad527794720947beeaf67fe864
+    m_Address: note_on_the_ground
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -165,13 +180,33 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dcaeeaa12ddb84364ae7a5b2e970930a
+    m_Address: grass3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e0e00a0f1e1b9483cbca74e17394ac9d
     m_Address: Writer
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f61c398c2b68d4647ae1cc0cc43e3f71
-    m_Address: "\uC7A0\uC790\uB9AC\uCC44"
+  - m_GUID: e29d4f4d9c5164cd69c1fdb49d17ed54
+    m_Address: house4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e5972bbeb389b4861a6d89ec159ee252
+    m_Address: tree2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f999cc744d29a4a9fa8117489d5a8d9f
+    m_Address: trashcan_lid
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fb110befc1f0a43bbbcbc1cc1ef35b06
+    m_Address: house2
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

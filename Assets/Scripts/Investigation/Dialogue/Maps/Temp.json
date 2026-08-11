@@ -301,7 +301,7 @@
     {
       "title": "Map1/House3",
       "position": {
-        "x": -8.13,
+        "x": -8.16,
         "y": 23.59
       },
       "size": {
@@ -329,7 +329,7 @@
       "sortingOrder": 2,
       "image": "집3",
       "script": "Inv_InteractionObj_Map1_Houses",
-      "manually_touchable": true
+      "manually_touchable": false
     },
     {
       "title": "Map1/House2",
@@ -362,7 +362,7 @@
       "sortingOrder": 2,
       "image": "집1",
       "script": "Inv_InteractionObj_Map1_Houses",
-      "manually_touchable": true
+      "manually_touchable": false
     },
     {
       "title": "Map1/House4",
@@ -395,7 +395,7 @@
       "sortingOrder": 2,
       "image": "집1",
       "script": "Inv_InteractionObj_Map1_Houses",
-      "manually_touchable": true
+      "manually_touchable": false
     },
     {
       "title": "Map1/House5",
@@ -428,7 +428,7 @@
       "sortingOrder": 2,
       "image": "집1",
       "script": "Inv_InteractionObj_Map1_Houses",
-      "manually_touchable": true
+      "manually_touchable": false
     },
     {
       "title": "Map1/House6",
@@ -461,7 +461,7 @@
       "sortingOrder": 2,
       "image": "집1",
       "script": "Inv_InteractionObj_Map1_Houses",
-      "manually_touchable": true
+      "manually_touchable": false
     },
     {
       "title": "Map1/House7",
@@ -494,7 +494,7 @@
       "sortingOrder": 2,
       "image": "집1",
       "script": "Inv_InteractionObj_Map1_Houses",
-      "manually_touchable": true
+      "manually_touchable": false
     },
     {
       "title": "Map1/House8",
@@ -527,7 +527,7 @@
       "sortingOrder": 2,
       "image": "집1",
       "script": "Inv_InteractionObj_Map1_Houses",
-      "manually_touchable": true
+      "manually_touchable": false
     },
     {
       "title": "Map1/House9",
@@ -560,7 +560,7 @@
       "sortingOrder": 2,
       "image": "집1",
       "script": "Inv_InteractionObj_Map1_Houses",
-      "manually_touchable": true
+      "manually_touchable": false
     },
     {
       "title": "Map1/House10",
@@ -593,7 +593,7 @@
       "sortingOrder": 2,
       "image": "집1",
       "script": "Inv_InteractionObj_Map1_Houses",
-      "manually_touchable": true
+      "manually_touchable": false
     },
     {
       "title": "Map1/House11",
@@ -626,7 +626,7 @@
       "sortingOrder": 2,
       "image": "집1",
       "script": "Inv_InteractionObj_Map1_Houses",
-      "manually_touchable": true
+      "manually_touchable": false
     },
     {
       "title": "Map1/House12",
@@ -659,7 +659,7 @@
       "sortingOrder": 2,
       "image": "집1",
       "script": "Inv_InteractionObj_Map1_Houses",
-      "manually_touchable": true
+      "manually_touchable": false
     },
     {
       "title": "Map1/House13",
@@ -692,13 +692,13 @@
       "sortingOrder": 2,
       "image": "집1",
       "script": "Inv_InteractionObj_Map1_Houses",
-      "manually_touchable": true
+      "manually_touchable": false
     },
     {
       "title": "Map1/House14",
       "position": {
-        "x": -12.3,
-        "y": 26.09
+        "x": -8.66,
+        "y": 27.03
       },
       "size": {
         "x": 3,
@@ -725,7 +725,7 @@
       "sortingOrder": 2,
       "image": "집1",
       "script": "Inv_InteractionObj_Map1_Houses",
-      "manually_touchable": true
+      "manually_touchable": false
     },
     {
       "title": "Map1/Beehive",
@@ -829,7 +829,7 @@
     {
       "title": "Map1/GuideToCave",
       "position": {
-        "x": -3.19,
+        "x": -3.22,
         "y": 21.49
       },
       "size": {
@@ -897,6 +897,39 @@
       "position": {
         "x": -5,
         "y": 26
+      },
+      "size": {
+        "x": 1,
+        "y": 1
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 0.1,
+        "y": 0.1
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": -100,
+      "sortingOrder": 10,
+      "image": "Player",
+      "script": "Inv_InteractionObj_Map1_SurroundingWitchMother",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/SurroundingWitchMother2",
+      "position": {
+        "x": -5.16,
+        "y": 25.19
       },
       "size": {
         "x": 1,

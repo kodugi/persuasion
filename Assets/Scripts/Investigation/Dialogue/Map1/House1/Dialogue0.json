@@ -66,6 +66,13 @@
                             ]
                         },
                         {
+                            "type": "variation",
+                            "target": "Map1/Writer",
+                            "parameters":[
+                                "NeedNote"
+                            ]
+                        },
+                        {
                             "type": "thought",
                             "thought": "언니의 얼굴을 그려서 보여줘야겠다. 그림 그릴 수 있는 것을 찾아보자."
                         }

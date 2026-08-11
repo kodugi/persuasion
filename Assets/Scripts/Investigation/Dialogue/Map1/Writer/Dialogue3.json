@@ -1,39 +1,64 @@
 {
-    "title": "작가 아저씨",
+    "title": "작가?",
     "path": [
         {
-            "description": "흠. 알겠소. 펜을 빌려주도록 하지요. 그리 귀한 물건도 아니니.\n자네가 그리 나쁜 사람은 아닌 것 같구만.",
+            "description": "비둘기를 잡아버렸더니 아까 비둘기에게 밥 주던 아저씨는 나무 앞에 앉아서 글을 쓰고 있다. \n 이제는 대화가 통할지도 모르겠다.",
             "buttons":[
                 {
-                    "title": "감사합니다!!\n(펜을 받는다)",
+                    "title": "저... 안녕하세요?",
+                    "next": 1,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "뭐야, 당신 아까 비둘기 잡아간 놈 아니오? 내게 볼 일이 있는거요? \n 그보다, 누구시오? 처음 보는 거 같은데.",
+            "buttons":[
+                {
+                    "title": "맞아요. 이 마을에 사는 건 아니고, 언니를 찾으러 왔어요.",
+                    "next": 2,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "언니? 무슨 언니. 여기에서? 어떻게 찾으려고 하시나.",
+            "buttons":[
+                {
+                    "title": "사실 그래서 선생님께 도움을 청하려고요.",
+                    "next": 3,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "나한테?",
+            "buttons":[
+                {
+                    "title": "네, 초면에 정말 죄송하지만, 펜 한 자루만 빌려주시면 안 될까요..?",
+                    "next": 4,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "펜이라... 펜이라면 많이 있지.\n그런데 내가 당신의 무엇을 믿고 빌려주나? 미안하지만 난 못 빌려주겠네.",
+            "buttons":[
+                {
+                    "title": "(초능력으로 설득해 봐야겠다.)",
                     "next": -1,
                     "effects": [
                         {
-                            "type": "progress",
-                            "key": "penPossessed",
-                            "value": true
+                            "type": "persuade",
+                            "title": "Map1_Writer",
+                            "autoReturn": "Map1/Writer"
                         },
                         {
                             "type": "variation",
                             "target": "Map1/Writer",
                             "parameters":[
-                                "PenGiven"
+                                "Met"
                             ]
-                        },
-                        {
-                            "type": "variation",
-                            "target": "Map1/House_Gathering",
-                            "parameters":[
-                                "Gathered"
-                            ]
-                        },
-                        {
-                            "type": "cutScene",
-                            "title": "PeopleRunningAfterReceivingPen"
-                        },
-                        {
-                            "type": "thought",
-                            "thought": "어째서인지 나를 바라보는 수많은 시선이 느껴진다."
                         }
                     ]
                 }
