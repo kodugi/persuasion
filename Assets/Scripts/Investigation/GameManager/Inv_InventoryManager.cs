@@ -76,7 +76,7 @@ namespace Investigation
                 //RectTransform rt = newItem.GetComponent<RectTransform>();
                 //rt.anchoredPosition = InventoryItemPosCalc(i);
                 newItem.name = item+"_"+i.ToString();
-                SetSpriteImage<Image>(newItem, "Inventory_"+item, inventoryHandles);
+                SetSpriteImage<Image>(newItem.transform.GetChild(0).gameObject, "Inventory_"+item, inventoryHandles);
             }
             inventoryPanel.SetActive(true);
         }
