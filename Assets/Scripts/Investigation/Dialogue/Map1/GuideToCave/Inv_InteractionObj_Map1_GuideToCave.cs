@@ -134,7 +134,7 @@ public class Inv_InteractionObj_Map1_GuideToCave: Inv_InteractionObj
             
 
 
-
+            float shortenedTime = 0f;
             foreach (Transform child in pathObj.transform)
             {
                 Vector3 targetP = child.localPosition;
@@ -175,11 +175,11 @@ public class Inv_InteractionObj_Map1_GuideToCave: Inv_InteractionObj
                             );
 
                         footprintTimer = 0f;
-
+                        shortenedTime += footprintInterval * (1-(1/modifier));
                         FadeObject(
                             footprint,
                             false,
-                            footprintLasting,
+                            footprintLasting+shortenedTime,
                             1f,
                             true
                         );
