@@ -1130,20 +1130,20 @@
         "y": 20.94
       },
       "size": {
-        "x": 1,
-        "y": 1
+        "x": 1.2,
+        "y": 1.2
       },
       "colliderShape": "box",
       "colliderSize": {
-        "x": 0,
-        "y": 0
+        "x": 1.2,
+        "y": 0.2
       },
       "colliderOffset": {
         "x": 0,
-        "y": 0
+        "y": -0.3
       },
       "triggerSize": {
-        "x": 1,
+        "x": 1.87,
         "y": 1
       },
       "triggerOffset": {
@@ -1151,10 +1151,10 @@
         "y": 0
       },
       "hideCriteria": 0,
-      "sortingOrder": 53,
-      "image": "덤불",
+      "sortingOrder": 4,
+      "image": "bush1",
       "script": "",
-      "manually_touchable": true
+      "manually_touchable": false
     }
   ]
 }

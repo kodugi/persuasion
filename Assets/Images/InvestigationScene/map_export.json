@@ -761,6 +761,39 @@
       "manually_touchable": false
     },
     {
+      "title": "Map1/Bush1",
+      "position": {
+        "x": -0.59,
+        "y": 20.84
+      },
+      "size": {
+        "x": 1,
+        "y": 1
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 1,
+        "y": 1
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 4,
+      "image": "bush1",
+      "script": "",
+      "manually_touchable": false
+    },
+    {
       "title": "Map1/Guard1",
       "position": {
         "x": -5,
@@ -789,7 +822,7 @@
       },
       "hideCriteria": -0.5,
       "sortingOrder": 10,
-      "image": "Guard1",
+      "image": "writer",
       "script": "Inv_InteractionObj_Map1_Guard1",
       "manually_touchable": true
     },
@@ -822,7 +855,7 @@
       },
       "hideCriteria": -0.5,
       "sortingOrder": 10,
-      "image": "작가",
+      "image": "writer",
       "script": "Inv_InteractionObj_Map1_Writer",
       "manually_touchable": true
     },
@@ -1121,39 +1154,6 @@
       "sortingOrder": 52,
       "image": "trashcan_w_cloth",
       "script": "Inv_InteractionObj_Map1_Trashcan",
-      "manually_touchable": true
-    },
-    {
-      "title": "Map1/Bush1",
-      "position": {
-        "x": -0.6,
-        "y": 20.94
-      },
-      "size": {
-        "x": 1,
-        "y": 1
-      },
-      "colliderShape": "box",
-      "colliderSize": {
-        "x": 0,
-        "y": 0
-      },
-      "colliderOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerSize": {
-        "x": 1,
-        "y": 1
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "hideCriteria": 0,
-      "sortingOrder": 53,
-      "image": "덤불",
-      "script": "",
       "manually_touchable": true
     }
   ]

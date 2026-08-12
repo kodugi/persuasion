@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 6895045085400614638}
   - component: {fileID: 1241907007642818613}
   m_Layer: 5
-  m_Name: Temp_InventoryItem
+  m_Name: InventoryItem
   m_TagString: InventoryObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

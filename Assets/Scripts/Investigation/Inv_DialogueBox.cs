@@ -17,11 +17,13 @@ namespace Investigation
         public void Initialize()
         {
             transform.Find("Title").GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = data["title"].ToString();
+            transform.Find("Title").gameObject.SetActive(data["title"].ToString()!="");
             DisplayDialogue(0);
         }
         public void ChangeTitle(string title)
         {
             transform.Find("Title").GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = title;
+            transform.Find("Title").gameObject.SetActive(title!="");
         }
         void Update()
         {

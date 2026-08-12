@@ -304,13 +304,6 @@
                         },
                         {
                             "type": "variation",
-                            "target": "Map1/GuideToCave",
-                            "parameters": [
-                                "walk"
-                            ]
-                        },
-                        {
-                            "type": "variation",
                             "target": "Map1/Cave",
                             "parameters": [
                                 "visible"
@@ -322,6 +315,10 @@
                             "parameters": [
                                 "dispersed"
                             ]
+                        },
+                        {
+                            "type": "cutScene",
+                            "title": "GuideLeavesHouse"
                         }
                     ]
                 }

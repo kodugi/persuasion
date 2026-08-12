@@ -69,10 +69,11 @@ namespace Investigation
         {
             if (collision.gameObject.CompareTag("Inv_Interactable"))
             {
+                layer_consideredObjs.Add(collision.gameObject);
                 if(collision.GetComponent<Inv_InteractionObj>().manuallyTouchable)
                 {
                     interactionScript.QueueInteraction(collision.GetComponent<Inv_InteractionObj>().obj_name, true);
-                    layer_consideredObjs.Add(collision.gameObject);
+                    
                 }
             }
         }
@@ -80,10 +81,11 @@ namespace Investigation
         {
             if (collision.gameObject.CompareTag("Inv_Interactable"))
             {
+                layer_consideredObjs.Remove(collision.gameObject);
                 if(collision.GetComponent<Inv_InteractionObj>().manuallyTouchable)
                 {
                     interactionScript.QueueInteraction(collision.GetComponent<Inv_InteractionObj>().obj_name, false);
-                    layer_consideredObjs.Remove(collision.gameObject);
+                    
                 }
             }
         }

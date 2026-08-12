@@ -16,6 +16,7 @@ namespace Investigation
         private GameObject inventoryContentHolder;
         private CustomScrollRect inventoryOperator;
         [SerializeField] private GameObject inventoryItemPrefab;
+        [SerializeField] private GameObject inventoryItemFloatingPrefab;
         List<string> inventoryItems = new List<string>();
         List<AsyncOperationHandle<Sprite>> inventoryHandles = new List<AsyncOperationHandle<Sprite>>();
         private Coroutine panelFading;
@@ -76,6 +77,7 @@ namespace Investigation
                 //RectTransform rt = newItem.GetComponent<RectTransform>();
                 //rt.anchoredPosition = InventoryItemPosCalc(i);
                 newItem.name = item+"_"+i.ToString();
+                newItem.transform.GetChild(0).name = item+"_"+i.ToString();
                 SetSpriteImage<Image>(newItem.transform.GetChild(0).gameObject, "Inventory_"+item, inventoryHandles);
             }
             inventoryPanel.SetActive(true);
@@ -136,7 +138,7 @@ namespace Investigation
         public void ItemClicked(int selectionIdx, GameObject selectionObj)
         {
             string item = inventoryItems[selectionIdx];
-            GameObject floatingItem = Instantiate(inventoryItemPrefab, selectionObj.transform.position, Quaternion.identity, FindFirstObjectByType<Canvas>().gameObject.transform);
+            GameObject floatingItem = Instantiate(inventoryItemFloatingPrefab, selectionObj.transform.position, Quaternion.identity, FindFirstObjectByType<Canvas>().gameObject.transform);
             floatingItem.name = item+"_"+selectionIdx.ToString()+"_Floating";
             SetSpriteImage<Image>(floatingItem, item, inventoryHandles);
             Inv_FloatItemCTRL obj_inv_FloatItemCTRL = floatingItem.AddComponent<Inv_FloatItemCTRL>();

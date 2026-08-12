@@ -157,4 +157,14 @@ public partial class ChiefManager : MonoBehaviour
         //temp
         yield return null;
     }
+    public void GameOver()
+    {
+        print("Game Over");
+        LoadingMotion();
+        StartCoroutine(GameOverScene());
+    }
+    IEnumerator GameOverScene()
+    {
+        yield return null;
+    }
 }

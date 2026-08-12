@@ -15,8 +15,10 @@ namespace Investigation
         private SaveManager saveManager;
         private ChiefManager chiefManager;
         private Inv_Interact interactManager;
+        private Inv_PlayerCTRL playerCTRL;
         [SerializeField] private GameObject interactablePrefab;
         [SerializeField] private GameObject backgroundPrefab;
+        [SerializeField] private GameObject timerObj;
         List<AsyncOperationHandle<Sprite>> mapHandles = new List<AsyncOperationHandle<Sprite>>();
         BoxCollider2D footCollider;
         
@@ -54,6 +56,7 @@ namespace Investigation
             saveManager = GameObject.FindFirstObjectByType<SaveManager>();
             chiefManager = GameObject.FindFirstObjectByType<ChiefManager>();
             interactManager = GameObject.FindFirstObjectByType<Inv_Interact>();
+            playerCTRL = GameObject.FindFirstObjectByType<Inv_PlayerCTRL>();
             NoteAwake();
             InventoryAwake();
 
@@ -64,7 +67,7 @@ namespace Investigation
             inputAction.Player.Enable();
             NoteStart();
             InventoryStart();
-            footCollider = FindFirstObjectByType<Inv_PlayerCTRL>().gameObject.transform.Find("FootCollider").GetComponent<BoxCollider2D>();
+            footCollider = playerCTRL.gameObject.transform.Find("FootCollider").GetComponent<BoxCollider2D>();
             SetScene();
         }
         private void Update()
@@ -232,6 +235,41 @@ namespace Investigation
                 case "CrowdAroundWitchMotherDisperse":
                     print("사람들이 흩어진다.");
                     yield return null;
+                    break;
+                case "GuideLeavesHouse":
+                    interactManager.Effects(
+                        new JObject
+                        {
+                            ["type"] = "thought",
+                            ["thought"] = "3초 안에 숨어야 한다!"
+                        }
+                    );
+                    float timePassed = 0f;
+                    timerObj.SetActive(true);
+                    while (timePassed < 3f)
+                    {
+                        timePassed += Time.deltaTime;
+                        timerObj.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = (3f - timePassed).ToString("F2");
+                        yield return null;
+                    }
+                    timerObj.SetActive(false);
+                    if (!playerCTRL.isHiding)
+                    {
+                        // 들키는 연출
+                        chiefManager.GameOver();
+                        break;
+                    }
+                    interactManager.Effects(
+                        new JObject
+                        {
+                            ["type"] = "variation",
+                            ["target"] = "Map1/GuideToCave",
+                            ["parameters"] = new JArray
+                            {
+                                "walk"
+                            }
+                        }
+                    );
                     break;
             }
         }
