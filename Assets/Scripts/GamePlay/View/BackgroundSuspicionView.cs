@@ -10,7 +10,8 @@ namespace GamePlay
 {
     public class BackgroundSuspicionView: SelfInitializingMonoBehaviourSingleton<BackgroundSuspicionView>
     {
-        private List<BoardCellSuspicionView> _backgroundSuspicionPrefabViews;
+        private List<SuspicionPrefabView> _backgroundSuspicionPrefabViews;
+        [SerializeField] private BackgroundBigSuspicionPrefabView _backgroundBigSuspicionPrefabView;
         
         protected override bool InitializeCore()
         {
@@ -21,19 +22,22 @@ namespace GamePlay
             }
             
             GameStateManager.Instance.RaiseSetGameStateEvent += HandleSetGameStateEvent;
-            _backgroundSuspicionPrefabViews = GetComponentsInChildren<BoardCellSuspicionView>(true).ToList();
-
-            foreach (BoardCellSuspicionView suspicionView in _backgroundSuspicionPrefabViews)
+            SuspicionManager.Instance.RaiseSuspicionOverflowEvent += HandleSuspicionOverflowEvent;
+            _backgroundSuspicionPrefabViews = GetComponentsInChildren<SuspicionPrefabView>(true).ToList();
+            
+            foreach (SuspicionPrefabView suspicionView in _backgroundSuspicionPrefabViews)
             {
                 suspicionView.Initialize();
             }
+            
+            _backgroundBigSuspicionPrefabView.Initialize();
             return true;
         }
 
         public void ResetGame()
         {
             StopAllCoroutines();
-            foreach (BoardCellSuspicionView suspicionView in _backgroundSuspicionPrefabViews)
+            foreach (SuspicionPrefabView suspicionView in _backgroundSuspicionPrefabViews)
             {
                 suspicionView.StopGameOverAnimation();
             }
@@ -50,10 +54,20 @@ namespace GamePlay
             }
             else
             {
-                foreach (BoardCellSuspicionView suspicionView in _backgroundSuspicionPrefabViews)
+                foreach (SuspicionPrefabView suspicionView in _backgroundSuspicionPrefabViews)
                 {
                     suspicionView.StopGameOverAnimation();
                 }
+            }
+        }
+
+        private void HandleSuspicionOverflowEvent(object sender, SetSuspicionEventArgs e)
+        {
+            switch (GameInfoHolder.GetCurrentGameInfo().GetMapType())
+            {
+                case GameInfo.MapType.Dream3:
+                    _backgroundBigSuspicionPrefabView.PlayBlinkAnimation();
+                    break;
             }
         }
     }

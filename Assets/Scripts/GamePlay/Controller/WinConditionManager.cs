@@ -10,6 +10,7 @@ namespace GamePlay
         private SuspicionManager _suspicionManager;
         private GameStateManager _gameStateManager;
         private TurnManager _turnManager;
+        private TutorialController _tutorialController;
         private bool _isGameEnded;
         private bool _isResetting;
         
@@ -19,11 +20,13 @@ namespace GamePlay
             _suspicionManager = SuspicionManager.Instance;
             _gameStateManager = GameStateManager.Instance;
             _turnManager = TurnManager.Instance;
+            _tutorialController = TutorialController.Instance;
             _isGameEnded = false;
 
             _boardController.RaiseCellPlacementEvent += HandleCellPlacementEvent;
             _suspicionManager.RaiseSetSuspicionEvent += HandleSetSuspicionEvent;
             _turnManager.RaiseSetTurnEvent += HandleSetTurnEvent;
+            _tutorialController.RaiseSetTutorialStateEvent += HandleSetTutorialStateEvent;
         }
 
         public void BeginReset()
@@ -73,9 +76,7 @@ namespace GamePlay
                     case GameInfo.MapType.Dream2:
                     case GameInfo.MapType.Dream3:
                     case GameInfo.MapType.Dream4:
-                        _isGameEnded = true;
-                        GameInfoHolder.SetCurrentIdx(0);
-                        GameManager.Instance.QueueResetGame();
+                        LoseDream();
                         return;
                 }
                 Lose();
@@ -85,6 +86,15 @@ namespace GamePlay
             if(_boardController.GetConvertedBlackCellCount() >= GameInfoHolder.GetCurrentGameInfo().GetTargetNumber())
             {
                 Win();
+            }
+        }
+
+        private void HandleSetTutorialStateEvent(object sender, SetTutorialStateEventArgs e)
+        {
+            if (e.CurrentState == TutorialState.Dream2)
+            {
+                _isGameEnded = true;
+                _gameStateManager.SetGameState(GameState.Lost);
             }
         }
 
@@ -100,6 +110,12 @@ namespace GamePlay
             // TODO: 승리 판정
             _isGameEnded = true;
             _gameStateManager.SetGameState(GameState.Won);
+        }
+
+        private void LoseDream()
+        {
+            _isGameEnded = true;
+            GameManager.Instance.QueueResetGame();
         }
     }
 }

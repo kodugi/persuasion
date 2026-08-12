@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GamePlay
 {
-    public class BoardCellSuspicionView: MonoBehaviour
+    public class SuspicionPrefabView: MonoBehaviour
     {
         private SpriteRenderer _sr;
         private Animator _anim;

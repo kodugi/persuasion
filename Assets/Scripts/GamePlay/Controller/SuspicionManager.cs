@@ -16,6 +16,7 @@ namespace GamePlay
 
         public event EventHandler<SetSuspicionEventArgs> RaiseSetSuspicionEvent;
         public event EventHandler<SetSuspicionEventArgs> RaiseSetSuspicionPreviewEvent;
+        public event EventHandler<SetSuspicionEventArgs> RaiseSuspicionOverflowEvent;
 
         public void Initialize(int maxSuspicion, int decrementAmount)
         {
@@ -73,6 +74,11 @@ namespace GamePlay
         {
             _currentSuspicionPreview = suspicion;
             RaiseSetSuspicionPreviewEvent?.Invoke(this, new SetSuspicionEventArgs(suspicion));
+
+            if (suspicion > _maxSuspicion && _currentSuspicion <= _maxSuspicion)
+            {
+                RaiseSuspicionOverflowEvent?.Invoke(this, new SetSuspicionEventArgs(suspicion));
+            }
         }
 
         private void HandlePlaceBlockEvent(object sender, PlaceBlockEventArgs e)

@@ -17,7 +17,7 @@ public class BoardView : BoardViewBase
 
     private BoardCellMarker _allowedMarkers;
 
-    private BoardCellSuspicionView[,] _spawnedBoardCellSuspicionViewsByCoord;
+    private SuspicionPrefabView[,] _spawnedBoardCellSuspicionViewsByCoord;
     private bool _isPlayingPreGameOverAnimation;
     private List<Vector2Int> _spawnedPreGameOverAnimationCoroutineCoords;
     private bool  _isPlayingGameOverAnimation;
@@ -50,7 +50,7 @@ public class BoardView : BoardViewBase
         _turnManager = TurnManager.Instance;
         _turnManager.RaiseSetTurnStateEvent += HandleSetTurnStateEvent;
         GameStateManager.Instance.RaiseSetGameStateEvent += HandleSetGameStateEvent;
-        _spawnedBoardCellSuspicionViewsByCoord = new BoardCellSuspicionView[GetGameInfo().GetWidth(), GetGameInfo().GetHeight()];
+        _spawnedBoardCellSuspicionViewsByCoord = new SuspicionPrefabView[GetGameInfo().GetWidth(), GetGameInfo().GetHeight()];
         SpawnBoardCellSuspicionViews();
         return true;
     }
@@ -77,7 +77,7 @@ public class BoardView : BoardViewBase
         _turnStateAfterTransition = TurnState.None;
         base.Refresh();
 
-        _spawnedBoardCellSuspicionViewsByCoord = new BoardCellSuspicionView[GetGameInfo().GetWidth(), GetGameInfo().GetHeight()];
+        _spawnedBoardCellSuspicionViewsByCoord = new SuspicionPrefabView[GetGameInfo().GetWidth(), GetGameInfo().GetHeight()];
         SpawnBoardCellSuspicionViews();
     }
 
@@ -91,12 +91,12 @@ public class BoardView : BoardViewBase
             {
                 Transform parent = GetRenderRoot(_cellRoot);
                 GameObject boardCellSuspicionView = Instantiate(_boardCellSuspicionPrefab, parent);
-                _spawnedBoardCellSuspicionViewsByCoord[x, y] = boardCellSuspicionView.AddComponent<BoardCellSuspicionView>();
+                _spawnedBoardCellSuspicionViewsByCoord[x, y] = boardCellSuspicionView.AddComponent<SuspicionPrefabView>();
                 boardCellSuspicionView.name = "board cell suspicion view" + " (" + x + ", " + y + ")";
                 _spawnedBoardCellSuspicionViewsByCoord[x, y].Initialize();
                 if (!TryGetTopSpriteSorting(_spawnedCellsByCoord[x, y], out int sortingLayerID, out int sortingOrder))
                 {
-                    // Might need a better logic such as placing BoardCellSuspicionView under Cell
+                    // Might need a better logic such as placing SuspicionPrefabView under Cell
                     return;
                 }
                 _spawnedBoardCellSuspicionViewsByCoord[x, y].SetRendererSorting(sortingLayerID, sortingOrder);
@@ -118,10 +118,10 @@ public class BoardView : BoardViewBase
         {
             for (int y = 0; y < height; y++)
             {
-                BoardCellSuspicionView suspicionView = _spawnedBoardCellSuspicionViewsByCoord[x, y];
-                if (suspicionView != null)
+                SuspicionPrefabView suspicionPrefabView = _spawnedBoardCellSuspicionViewsByCoord[x, y];
+                if (suspicionPrefabView != null)
                 {
-                    Destroy(suspicionView.gameObject);
+                    Destroy(suspicionPrefabView.gameObject);
                 }
             }
         }

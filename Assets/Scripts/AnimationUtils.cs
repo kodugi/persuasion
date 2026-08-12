@@ -10,7 +10,7 @@ namespace AnimationUtilsNameSpace
         public static IEnumerator ExecuteAccordingToCountsPreset<T>(List<T> list, Action<T> action)
         {
             List<int> countsPreset = new List<int>() {1, 4, 9};
-            float delayWithinGroup = 0.05f;
+            float delayWithinGroup = 0.02f;
             float delayBetweenGroups = 1f;
             
             int sum = 0;

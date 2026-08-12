@@ -13,6 +13,8 @@ namespace GamePlay
         [SerializeField] private TutorialCellType _cellType = TutorialCellType.Concept;
         [Tooltip("Scene object path used by GameObject.Find, for example Canvas/RightPanel/ButtonsPanel/EndTurnButton.")]
         [SerializeField] private string _gameObjectPath;
+        [Tooltip("Seconds to wait before advancing to the next tutorial state.")]
+        [SerializeField, Min(0f)] private float _nextStateDelay = 1f;
 
         public Vector2Int CellCoord
         {
@@ -51,6 +53,16 @@ namespace GamePlay
             }
         }
 
+        public float NextStateDelay
+        {
+            get
+            {
+                return _entryKind == TutorialEntryKind.NextStateAfterDelay
+                    ? Mathf.Max(0f, _nextStateDelay)
+                    : -1f;
+            }
+        }
+
         public static TutorialEntry CreateCellEntry(Vector2Int cellCoord, Type cellType)
         {
             TutorialEntry entry = CreateInstance<TutorialEntry>();
@@ -83,6 +95,14 @@ namespace GamePlay
             TutorialEntry entry = CreateInstance<TutorialEntry>();
             entry._entryKind = TutorialEntryKind.GameObject;
             entry._gameObjectPath = gameObjectPath;
+            return entry;
+        }
+
+        public static TutorialEntry CreateNextStateAfterDelayEntry(float delay)
+        {
+            TutorialEntry entry = CreateInstance<TutorialEntry>();
+            entry._entryKind = TutorialEntryKind.NextStateAfterDelay;
+            entry._nextStateDelay = Mathf.Max(0f, delay);
             return entry;
         }
 
@@ -172,7 +192,8 @@ namespace GamePlay
         {
             Cell,
             GameObject,
-            HighlightedCell
+            HighlightedCell,
+            NextStateAfterDelay
         }
 
         public enum TutorialCellType

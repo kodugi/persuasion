@@ -24,11 +24,17 @@ namespace GamePlay
         private DialogueManager _dialogueManager;
         private TutorialController _tutorialController;
         private Coroutine _queuedResetCoroutine;
+        private Coroutine _delayedResetCoroutine;
 
         protected override void Awake()
         {
             base.Awake();
             Initialize();
+        }
+
+        private void Update()
+        {
+            _tutorialController?.Tick(Time.deltaTime);
         }
         
         private void Initialize()
@@ -88,10 +94,18 @@ namespace GamePlay
             
             _turnManager.SetTurnState(TurnState.Start);
             _gameStateManager.SetGameState(GameState.Playing);
+
+            _gameStateManager.RaiseSetGameStateEvent += HandleSetGameStateEvent;
         }
 
         public void ResetGame()
         {
+            if (_delayedResetCoroutine != null)
+            {
+                StopCoroutine(_delayedResetCoroutine);
+                _delayedResetCoroutine = null;
+            }
+
             if (_queuedResetCoroutine != null)
             {
                 StopCoroutine(_queuedResetCoroutine);
@@ -111,6 +125,36 @@ namespace GamePlay
                 return;
             }
 
+            StartCoroutine(ResetCore());
+        }
+
+        public void ResetGameAfterDelay(float delaySeconds)
+        {
+            if (_delayedResetCoroutine != null)
+            {
+                StopCoroutine(_delayedResetCoroutine);
+            }
+
+            if (delaySeconds <= 0f)
+            {
+                _delayedResetCoroutine = null;
+                ResetGame();
+                return;
+            }
+
+            _delayedResetCoroutine = StartCoroutine(ResetGameAfterDelayCore(delaySeconds));
+        }
+
+        private IEnumerator ResetGameAfterDelayCore(float delaySeconds)
+        {
+            yield return new WaitForSeconds(delaySeconds);
+            _delayedResetCoroutine = null;
+            ResetGame();
+        }
+
+        private IEnumerator ResetCore()
+        {
+            yield return new WaitForSeconds(0.5f);
             _winConditionManager.BeginReset();
 
             _gameStateManager.ResetGame();
@@ -130,7 +174,10 @@ namespace GamePlay
 
             GameStateView.Instance?.ResetGame();
             BackgroundSuspicionView.Instance?.ResetGame();
+            RightPanelView.Instance?.ResetGame();
             SuspicionView.Instance?.ResetGame();
+            FindAnyObjectByType<UIImageView>().ResetGame();
+            FindAnyObjectByType<FigureView>()?.ResetGame();
         }
 
         public void QueueResetGame()
@@ -235,6 +282,28 @@ namespace GamePlay
                     entries.Add(tutorialEntry);
                 }
             }
+        }
+
+        private void HandleSetGameStateEvent(System.Object sender, SetGameStateEventArgs e)
+        {
+            if (e.gameState == GameState.Lost)
+            {
+                if (GameInfoHolder.GetCurrentGameInfo().GetMapType() == GameInfo.MapType.Dream4)
+                {
+                    Invoke("ToInvestigation", 2f);
+                }
+                else
+                {
+                    // TODO: what happens after game over?
+                    //ResetGameAfterDelay(2f);
+                }
+            }
+        }
+
+        private void ToInvestigation()
+        {
+            Debug.Log("ToInvestigation");
+            ChiefManager.Instance?.StartInvestigation();
         }
 
         [Serializable]

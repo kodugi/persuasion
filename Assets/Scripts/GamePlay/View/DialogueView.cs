@@ -210,7 +210,7 @@ namespace GamePlay
                 return;
             }
             StopTypeDialogueEntry();
-            ApplyPanelLayout(dialogueEntry.UseWidePanel);
+            ApplyPanelLayout(dialogueEntry);
             _dialoguePanel.SetActive(true);
             _dialogueContent = dialogueEntry.DialogueText;
             _speakerNameText.text = dialogueEntry.SpeakerName;
@@ -267,10 +267,11 @@ namespace GamePlay
             return true;
         }
 
-        private void ApplyPanelLayout(bool useWidePanel)
+        private void ApplyPanelLayout(DialogueEntry dialogueEntry)
         {
             DialoguePanelLayout panelLayout = _normalPanelLayout;
-            if (useWidePanel && _widePanelLayout != null && _widePanelLayout.HasOverrides())
+
+            if (dialogueEntry.UseWidePanel && _widePanelLayout != null && _widePanelLayout.HasOverrides())
             {
                 panelLayout = _widePanelLayout;
             }
@@ -280,6 +281,23 @@ namespace GamePlay
                 panelLayout.Apply(
                     _dialoguePanelImage,
                     _dialoguePanelRectTransform,
+                    null,
+                    _normalPanelLayout);
+            }
+
+            DialoguePanelLayout textLayout = panelLayout;
+            if (dialogueEntry.StateToTrigger == TutorialState.Dream2 &&
+                _widePanelLayout != null &&
+                _widePanelLayout.HasOverrides())
+            {
+                textLayout = _widePanelLayout;
+            }
+
+            if (textLayout != null)
+            {
+                textLayout.Apply(
+                    null,
+                    null,
                     _dialogueTextRectTransform,
                     _normalPanelLayout);
             }

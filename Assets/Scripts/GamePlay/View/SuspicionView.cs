@@ -39,7 +39,6 @@ namespace GamePlay
         {
             SetSuspicionUI(SuspicionManager.Instance.GetCurrentSuspicion());
             SetSuspicionPreviewUI(SuspicionManager.Instance.GetCurrentSuspicionPreview());
-            Debug.Log("setting suspicion to " + SuspicionManager.Instance.GetCurrentSuspicion());
         }
 
         protected override void OnDestroy()

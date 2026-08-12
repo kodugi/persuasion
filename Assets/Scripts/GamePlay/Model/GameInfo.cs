@@ -16,6 +16,7 @@ namespace GamePlay
         [SerializeField] private List<DialogueTriggerData> _dialogueTriggers = new List<DialogueTriggerData>();
         [SerializeField] private BoardViewBase.BoardCellMarker _allowedMarkers = new BoardViewBase.BoardCellMarker();
         [SerializeField] private MapType _mapType = MapType.Normal;
+        [SerializeField] private FigureProfile _figureProfile;
         public int GetWidth()
         {
             return Math.Max(1, _width);
@@ -90,6 +91,11 @@ namespace GamePlay
         public MapType GetMapType()
         {
             return _mapType;
+        }
+
+        public FigureProfile GetFigureProfile()
+        {
+            return _figureProfile;
         }
 
         public void Initialize(

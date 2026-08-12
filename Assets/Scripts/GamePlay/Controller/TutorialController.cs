@@ -12,6 +12,7 @@ namespace GamePlay
         private TutorialState _currentState;
         private bool _currentStateWasTriggeredWithDialogue;
         private List<Vector2Int> _currentCellCoords;
+        private float _nextStateDelayRemaining = -1f;
 
         private DialogueManager _dialogueManager;
         private TurnManager _turnManager;
@@ -25,6 +26,7 @@ namespace GamePlay
             _currentState = TutorialState.None;
             _currentStateWasTriggeredWithDialogue = false;
             _currentCellCoords = new List<Vector2Int>();
+            _nextStateDelayRemaining = -1f;
             _dialogueManager = DialogueManager.Instance;
             _turnManager = TurnManager.Instance;
             _boardController = BoardController.Instance;
@@ -40,9 +42,27 @@ namespace GamePlay
             _currentState = TutorialState.None;
             _currentStateWasTriggeredWithDialogue = false;
             _currentCellCoords = new List<Vector2Int>();
+            _nextStateDelayRemaining = -1f;
             RaiseSetTutorialStateEvent?.Invoke(
                 this,
                 new SetTutorialStateEventArgs(TutorialState.None, GetTutorialEntries(TutorialState.None)));
+        }
+
+        public void Tick(float deltaTime)
+        {
+            if (_nextStateDelayRemaining < 0f)
+            {
+                return;
+            }
+
+            _nextStateDelayRemaining -= Mathf.Max(0f, deltaTime);
+            if (_nextStateDelayRemaining > 0f)
+            {
+                return;
+            }
+
+            _nextStateDelayRemaining = -1f;
+            ToNextState();
         }
 
         public bool CanPlaceCellAt(Vector2Int coord)
@@ -118,10 +138,32 @@ namespace GamePlay
 
         private void SetTutorialState(TutorialState tutorialState, bool triggeredWithDialogue = false)
         {
+            _nextStateDelayRemaining = -1f;
             _currentState = tutorialState;
             _currentStateWasTriggeredWithDialogue = tutorialState != TutorialState.None && triggeredWithDialogue;
             Debug.Log("set tutorial state to " + tutorialState);
-            RaiseSetTutorialStateEvent?.Invoke(this, new SetTutorialStateEventArgs(tutorialState, GetTutorialEntries(tutorialState)));
+            List<TutorialEntry> tutorialEntries = GetTutorialEntries(tutorialState);
+            RaiseSetTutorialStateEvent?.Invoke(this, new SetTutorialStateEventArgs(tutorialState, tutorialEntries));
+            ScheduleNextStateAfterDelay(tutorialState, tutorialEntries);
+        }
+
+        private void ScheduleNextStateAfterDelay(TutorialState tutorialState, List<TutorialEntry> tutorialEntries)
+        {
+            if (tutorialState == TutorialState.None || tutorialEntries == null)
+            {
+                return;
+            }
+
+            foreach (TutorialEntry tutorialEntry in tutorialEntries)
+            {
+                if (tutorialEntry == null || tutorialEntry.NextStateDelay < 0f)
+                {
+                    continue;
+                }
+
+                _nextStateDelayRemaining = tutorialEntry.NextStateDelay;
+                return;
+            }
         }
 
         private void HandleSetTutorialStateEvent(object sender, SetTutorialStateEventArgs e)
@@ -309,6 +351,8 @@ namespace GamePlay
         ExplainSuspicionManagement = 16,
         BeforeExplainLock = 17,
         ExplainLock = 18,
+        Dream1 = 19,
+        Dream2 = 20,
         None = 0
     }
 

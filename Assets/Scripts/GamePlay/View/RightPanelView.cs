@@ -12,8 +12,8 @@ namespace GamePlay
 
         [SerializeField] private Transform _suspicionViewParent;
 
-        private readonly List<BoardCellSuspicionView> _suspicionViews = new List<BoardCellSuspicionView>();
-        private readonly List<BoardCellSuspicionView> _playingSuspicionOverflowViews = new List<BoardCellSuspicionView>();
+        private readonly List<SuspicionPrefabView> _suspicionViews = new List<SuspicionPrefabView>();
+        private readonly List<SuspicionPrefabView> _playingSuspicionOverflowViews = new List<SuspicionPrefabView>();
 
         private SuspicionManager _suspicionManager;
         private GameStateManager _gameStateManager;
@@ -59,6 +59,29 @@ namespace GamePlay
                 RefreshOverflowAnimationState();
             }
             return true;
+        }
+
+        public void ResetGame()
+        {
+            if (!IsInitialized)
+            {
+                Initialize();
+                if (!IsInitialized)
+                {
+                    return;
+                }
+            }
+
+            StopGameOverAnimation();
+            StopSuspicionOverflowAnimation();
+
+            foreach (SuspicionPrefabView suspicionView in _suspicionViews)
+            {
+                StopSuspicionOverflowAnimation(suspicionView);
+            }
+
+            _isShowingOverflowAnimations = false;
+            RefreshOverflowAnimationState();
         }
 
         protected override void OnDestroy()
@@ -167,8 +190,8 @@ namespace GamePlay
                 _suspicionViewParent.SetAsFirstSibling();
             }
 
-            _suspicionViews.AddRange(_suspicionViewParent.GetComponentsInChildren<BoardCellSuspicionView>(true));
-            foreach (BoardCellSuspicionView suspicionView in _suspicionViews)
+            _suspicionViews.AddRange(_suspicionViewParent.GetComponentsInChildren<SuspicionPrefabView>(true));
+            foreach (SuspicionPrefabView suspicionView in _suspicionViews)
             {
                 suspicionView.Initialize();
             }
@@ -179,21 +202,21 @@ namespace GamePlay
             StopSuspicionOverflowAnimation();
 
             int animationCount = Random.Range(0, Mathf.Min(2, _suspicionViews.Count) + 1);
-            List<BoardCellSuspicionView> candidates = new List<BoardCellSuspicionView>(_suspicionViews);
+            List<SuspicionPrefabView> candidates = new List<SuspicionPrefabView>(_suspicionViews);
             for (int i = 0; i < animationCount; i++)
             {
                 int candidateIndex = Random.Range(0, candidates.Count);
-                BoardCellSuspicionView suspicionView = candidates[candidateIndex];
+                SuspicionPrefabView suspicionPrefabView = candidates[candidateIndex];
                 candidates.RemoveAt(candidateIndex);
 
-                PlaySuspicionOverflowAnimation(suspicionView);
-                _playingSuspicionOverflowViews.Add(suspicionView);
+                PlaySuspicionOverflowAnimation(suspicionPrefabView);
+                _playingSuspicionOverflowViews.Add(suspicionPrefabView);
             }
         }
 
-        private void PlaySuspicionOverflowAnimation(BoardCellSuspicionView suspicionView)
+        private void PlaySuspicionOverflowAnimation(SuspicionPrefabView suspicionPrefabView)
         {
-            if (suspicionView == null)
+            if (suspicionPrefabView == null)
             {
                 return;
             }
@@ -206,14 +229,14 @@ namespace GamePlay
                 case GameInfo.MapType.Dream4:
                     break;
                 default:
-                    suspicionView.PlayPreGameOverAnimation();
+                    suspicionPrefabView.PlayPreGameOverAnimation();
                     break;
             }
         }
 
         private void StopSuspicionOverflowAnimation()
         {
-            foreach (BoardCellSuspicionView suspicionView in _playingSuspicionOverflowViews)
+            foreach (SuspicionPrefabView suspicionView in _playingSuspicionOverflowViews)
             {
                 StopSuspicionOverflowAnimation(suspicionView);
             }
@@ -224,17 +247,25 @@ namespace GamePlay
         private IEnumerator PlayGameOverAnimation()
         {
             StopSuspicionOverflowAnimation();
-            yield return AnimationUtils.ExecuteAccordingToCountsPreset(_suspicionViews, PlayGameOverAnimation);
+            switch (GameInfoHolder.GetCurrentGameInfo().GetMapType())
+            {
+                case GameInfo.MapType.Dream1:
+                    yield return null;
+                    break;
+                default:
+                    yield return AnimationUtils.ExecuteAccordingToCountsPreset(_suspicionViews, PlayGameOverAnimation);
+                    break;
+            }
         }
 
-        private void PlayGameOverAnimation(BoardCellSuspicionView suspicionView)
+        private void PlayGameOverAnimation(SuspicionPrefabView suspicionPrefabView)
         {
-            if (suspicionView == null)
+            if (suspicionPrefabView == null)
             {
                 return;
             }
             
-            suspicionView.PlayGameOverAnimation();
+            suspicionPrefabView.PlayGameOverAnimation();
         }
 
         private void StopGameOverAnimation()
@@ -242,36 +273,36 @@ namespace GamePlay
             StopAnimationCoroutine(_gameOverAnimationCoroutine);
             _gameOverAnimationCoroutine = null;
 
-            foreach (BoardCellSuspicionView suspicionView in _suspicionViews)
+            foreach (SuspicionPrefabView suspicionView in _suspicionViews)
             {
                 StopGameOverAnimation(suspicionView);
             }
         }
 
-        private void StopSuspicionOverflowAnimation(BoardCellSuspicionView suspicionView)
+        private void StopSuspicionOverflowAnimation(SuspicionPrefabView suspicionPrefabView)
         {
-            if (suspicionView == null)
+            if (suspicionPrefabView == null)
             {
                 return;
             }
 
-            if (suspicionView.gameObject.activeInHierarchy)
+            if (suspicionPrefabView.gameObject.activeInHierarchy)
             {
-                suspicionView.StopPreGameOverAnimation();
+                suspicionPrefabView.StopPreGameOverAnimation();
             }
             
         }
 
-        private void StopGameOverAnimation(BoardCellSuspicionView suspicionView)
+        private void StopGameOverAnimation(SuspicionPrefabView suspicionPrefabView)
         {
-            if (suspicionView == null)
+            if (suspicionPrefabView == null)
             {
                 return;
             }
 
-            if (suspicionView.gameObject.activeInHierarchy)
+            if (suspicionPrefabView.gameObject.activeInHierarchy)
             {
-                suspicionView.StopGameOverAnimation();
+                suspicionPrefabView.StopGameOverAnimation();
             }
         }
 
