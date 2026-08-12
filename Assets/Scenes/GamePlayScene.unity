@@ -6358,7 +6358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GamePlay.GameManager
   _gameInfoList:
-  - {fileID: 11400000, guid: 656bfe3fc2d82fa41aa2b5c35b563488, type: 2}
+  - {fileID: 11400000, guid: c72e97b95506a8b4ba130fe6446d62f1, type: 2}
   - {fileID: 11400000, guid: b07d6474a645f60408f7ec9b09dba023, type: 2}
   _tutorialEntryGroups:
   - State: 1
@@ -6473,7 +6473,7 @@ MonoBehaviour:
   - mapType: 3
     color: {r: 0.6, g: 0.48000002, b: 0.48000002, a: 1}
   - mapType: 4
-    color: {r: 0.5019608, g: 0.2509804, b: 0.2509804, a: 1}
+    color: {r: 0.397, g: 0.1985, b: 0.1985, a: 1}
 --- !u!1001 &1381773429
 PrefabInstance:
   m_ObjectHideFlags: 0
