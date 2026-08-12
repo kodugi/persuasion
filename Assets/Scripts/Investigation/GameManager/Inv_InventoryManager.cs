@@ -191,7 +191,7 @@ namespace Investigation
         }
         Dictionary<string, string> combinations = new Dictionary<string, string>
         {
-            { "그물&찢어진잠자리채", "잠자리채" }
+            { "Inventory_FishNet&Inventory_ButterflyNet_torn", "Inventory_ButterflyNet" }
         };
         void CombinationEffect(int id1, int id2)
         {

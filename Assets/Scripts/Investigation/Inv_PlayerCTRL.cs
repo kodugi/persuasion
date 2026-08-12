@@ -103,7 +103,7 @@ namespace Investigation
         {
             switch (itemName)
             {
-                case "WitchesCloth":
+                case "Inventory_WitchesCloth":
                     interactionScript.Effects(
                         new JObject
                         {
@@ -116,7 +116,7 @@ namespace Investigation
                         new JObject
                         {
                             ["type"] = "item_remove",
-                            ["name"] = "WitchesCloth"
+                            ["name"] = "Inventory_WitchesCloth"
                         }
                     );
                     break;

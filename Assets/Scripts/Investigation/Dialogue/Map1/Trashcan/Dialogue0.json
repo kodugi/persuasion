@@ -10,7 +10,7 @@
                     "effects": [
                         {
                             "type": "item",
-                            "name": "WitchesCloth"
+                            "name": "Inventory_WitchesCloth"
                         }
                     ]
                 },
