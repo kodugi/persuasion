@@ -1,0 +1,228 @@
+{
+    "title": "",
+    "path": [
+        {
+            "description": "﻿.....이상한 시선이 몸에 엉겨붙는 것이 느껴졌다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 1,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "한 사람만의 것이 아니었다. 여러 사람이 집요하게 나를 갉아먹듯 쳐다보고 있었다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 2,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "나는 이 감각이 전혀 낯설지 않았다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 3,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "나와 나의 언니가 괴물이라고 외치던 이들이 던지던 시선과 같은 류의 시선이었다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 4,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "그건 나를 쳐다보는 사람들과 굳이 눈을 마주하지 않고도 알 수 있는 사실이었다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 5,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "피부가 겉에서부터 타들어가는 감각에서, 나는 그들의 눈빛에 담긴 명백한 적대감을 느꼈다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 6,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "(진정하자, 진정.....)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 7,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(그냥 기분 탓일 수도 있잖아. 내가 아까 죽을 뻔 했던 것 때문에 괜한 망상을 하는 건가....)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 8,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(.....)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 9,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(그런데 이 거리....)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 10,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(원래 이렇게 길에 서 있는 사람들이 많았던가?)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 11,
+                    "effects": [
+                        {
+                            "type": "cutScene",
+                            "title": "PeopleStaringAfterReceivingPen"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "(아냐, 틀림없어! 분명히 쳐다보고 있어.)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 12,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "(하지만 대체 왜지? 난 아무것도 한 게 없는데.)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 13,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(설마 능력을 쓴 걸 들킨 건....)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 14,
+                    "effects": [
+                        {
+                            "type": "cutScene",
+                            "title": "PeopleRunningAfterReceivingPen"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": ".....!!",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 15,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "(뭐지.....? 갑자기 왜 다들 저기로....)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 16,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(설마 다 가족일 리는 없을 거고.)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 17,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(무슨 회의라도 하는 건가?)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 18,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(느낌이 너무 안 좋아.... 직접 확인해봐야겠어.)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": -1,
+                    "effects": [
+                        {
+                            "type": "variation",
+                            "target": "Map1/Player",
+                            "parameters": [
+                                0
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

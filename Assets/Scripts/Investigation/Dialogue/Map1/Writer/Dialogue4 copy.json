@@ -28,15 +28,12 @@
                             ]
                         },
                         {
-                            "type": "variation",
-                            "target": "Map1/Player",
-                            "parameters":[
-                                2
-                            ]
+                            "type": "cutScene",
+                            "title": "PeopleRunningAfterReceivingPen"
                         },
                         {
-                            "type": "forceInteraction",
-                            "target": "Map1/Player"
+                            "type": "thought",
+                            "thought": "어째서인지 나를 바라보는 수많은 시선이 느껴진다."
                         }
                     ]
                 }

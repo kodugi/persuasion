@@ -235,6 +235,10 @@ namespace Investigation
                 case "cutScene":
                     manager.CutScene((string)effect["title"]);
                     break;
+                case "forceInteraction":
+                    string target_interaction = (string)effect["target"];
+                    ForceInteraction(target_interaction);
+                    break;
             }
         }
     }

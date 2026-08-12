@@ -227,6 +227,10 @@ namespace Investigation
                         }
                     );
                     break;
+                case "PeopleStaringAfterReceivingPen":
+                    print("사람들이 쳐다본대요");
+                    yield return new WaitForSeconds(1);
+                    break;
                 case "IntoDream":
                     print("잠에 들었다.");
                     chiefManager.StartInvestigation("Dream");
