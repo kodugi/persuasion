@@ -60,6 +60,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4ed4881b226e14a0eacede79e5c1863c
+    m_Address: GuideToCavePathPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 56d733c7835034bb99d1adb2044444d2
     m_Address: bush1
     m_ReadOnly: 0

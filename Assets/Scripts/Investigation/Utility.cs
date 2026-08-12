@@ -8,6 +8,7 @@ using Newtonsoft.Json.Linq;
 using Investigation;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using System.Threading.Tasks;
 
 namespace Investigation
 {
@@ -26,7 +27,7 @@ namespace Investigation
                 StopCoroutine(runningFadingCoroutine[targetObj]);
                 runningFadingCoroutine.Remove(targetObj);
             }
-            Coroutine currCoroutine = StartCoroutine(FadeSlowly(targetObj, doDestroy, delay, fadingTime, fadeIn));
+            Coroutine currCoroutine = StartCoroutine(FadeSlowly(targetObj, fadeIn, delay, fadingTime, doDestroy));
             runningFadingCoroutine[targetObj] = currCoroutine;
             return currCoroutine;
         }
