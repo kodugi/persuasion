@@ -16,12 +16,12 @@ namespace Investigation
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         public void Initialize()
         {
-            transform.Find("Title").GetComponent<TMPro.TextMeshProUGUI>().text = data["title"].ToString();
+            transform.Find("Title").GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = data["title"].ToString();
             DisplayDialogue(0);
         }
         public void ChangeTitle(string title)
         {
-            transform.Find("Title").GetComponent<TMPro.TextMeshProUGUI>().text = title;
+            transform.Find("Title").GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = title;
         }
         void Update()
         {
@@ -73,8 +73,8 @@ namespace Investigation
                 for(int i = 0; i < ((JArray)dialogue["buttons"]).Count; i++)
                 {
                     GameObject button = Instantiate(buttonPrefab, transform.Find("Buttons"));
-                    button.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = dialogue["buttons"][i]["title"].ToString();
-                    button.GetComponent<RectTransform>().anchoredPosition = new Vector2(275, 25-50* i);
+                    button.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = dialogue["buttons"][i]["title"].ToString();
+                    button.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -100* i);
                     
                     int nextIndex = (int)dialogue["buttons"][i]["next"];
                     for(int j = 0; j < ((JArray)dialogue["buttons"][i]["effects"]).Count; j++)
