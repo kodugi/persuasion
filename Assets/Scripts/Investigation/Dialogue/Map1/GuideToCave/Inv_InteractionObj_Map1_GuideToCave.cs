@@ -202,6 +202,16 @@ public class Inv_InteractionObj_Map1_GuideToCave: Inv_InteractionObj
             spriteRenderer.sortingOrder = -1;
             spriteRenderer.enabled = false;
 
+            interactManager.Effects(
+                new JObject
+                {
+                    ["type"]= "variation",
+                    ["target"]= "Map1/Player",
+                    ["parameters"]= new JArray { 1 }
+                }
+            );
+            interactManager.ForceInteraction("Map1/Player");
+
             playerCTRL.CanPlayerMove(true);
         }
     }

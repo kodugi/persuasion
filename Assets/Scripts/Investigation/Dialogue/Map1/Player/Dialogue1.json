@@ -1,0 +1,68 @@
+{
+    "title": "주인공",
+    "path": [
+        {
+            "description": "다행이다..... 들키진 않은 것 같아.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 1,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "(그나저나 그 할머니라는 사람은 대체 누구지?)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 2,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(이 마을에서 제일 많은 걸 알고 있는 사람이라고?)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 3,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(그 사람한테 언니의 초상화를 보여주면 뭔가를 알 수 있을지도 몰라.)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 4,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(아까 그 할머니를 찾아간다고 했던 사람의 발자국을 따라가 보자.)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": -1,
+                    "effects": [
+                        {
+                            "type": "variation",
+                            "target": "Map1/Player",
+                            "parameters": [
+                                0
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

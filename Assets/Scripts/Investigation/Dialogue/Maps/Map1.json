@@ -101,6 +101,39 @@
       "manually_touchable": false
     },
     {
+      "title": "Map1/Player",
+      "position": {
+        "x": 100,
+        "y": 100
+      },
+      "size": {
+        "x": 1,
+        "y": 1
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 0,
+      "image": "",
+      "script": "Inv_InteractionObj_Map1_Player",
+      "manually_touchable": false
+    },
+    {
       "title": "Map1/Pond",
       "position": {
         "x": 27.71,
