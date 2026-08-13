@@ -36,13 +36,20 @@ namespace Investigation
             yield return new WaitForSeconds(delay);
             //Fade Effect
             yield return new WaitForSeconds(fadingTime);
-            if (doDestroy)
+            if (fadeIn)
             {
-                Destroy(targetObj);
+                
             }
             else
             {
-                targetObj.SetActive(false);
+                if (doDestroy)
+                {
+                    Destroy(targetObj);
+                }
+                else
+                {
+                    targetObj.SetActive(false);
+                }
             }
         }
         protected void StopFading(GameObject targetObj, float originalOpacity)
@@ -52,7 +59,7 @@ namespace Investigation
             targetObj.GetComponent<Image>().color = new Color(orgColor.r, orgColor.g, orgColor.b, originalOpacity);
         }
 
-        public void SetSpriteImage<T>(GameObject obj, string imagePath, List<AsyncOperationHandle<Sprite>> handles) where T : Component
+        public void SetSpriteImage<T>(GameObject obj, string imagePath, List<AsyncOperationHandle<Sprite>> handles=null) where T : Component
         {
             Addressables.LoadAssetAsync<Sprite>(imagePath).Completed += handle =>
             {
@@ -86,7 +93,8 @@ namespace Investigation
                     curr.color = new Color(original.r, original.g, original.b, 1);
                 }
 
-                handles.Add(handle);
+                if(handles != null) handles.Add(handle);
+                else print("handle not assigned");
             };
         }
     }

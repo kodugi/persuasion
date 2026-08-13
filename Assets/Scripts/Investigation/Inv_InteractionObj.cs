@@ -10,10 +10,22 @@ public class Inv_InteractionObj : Utility
     {
         public string obj_name;
         public float hideCriteria;
-        public int state=0;
+        private int _state=0;
+        public int state
+        {
+            get
+            {
+                return _state;
+            }
+            set
+            {
+                if(_state != value) SetImage(value);
+                _state = value;
+            }
+        }
         protected SaveManager saveManager;
         public bool manuallyTouchable = true;
-        public List<string> images;
+        public List<string> images = null;
         public bool singleImage;
         List<AsyncOperationHandle<Sprite>> handles = new List<AsyncOperationHandle<Sprite>>();
 
@@ -79,16 +91,17 @@ public class Inv_InteractionObj : Utility
         {
             //print("hey!"+itemName);
         }
-        virtual public void SetImage(int _state)
+        virtual public void SetImage(int stateI)
         {
+            if(images == null) return;
             foreach(var handle in handles)
             {
-                Addressables.Release(handle);
+                if(handle.IsValid()) Addressables.Release(handle);
             }
             //if (!string.IsNullOrEmpty(obj.image)) 
-            if(images.Count > _state)
+            if(images.Count > stateI)
             {
-                SetSpriteImage<SpriteRenderer>(gameObject, images[_state], handles);
+                SetSpriteImage<SpriteRenderer>(gameObject, images[stateI], handles);
             }
             else if(images.Count == 1)//singleImage)
             {

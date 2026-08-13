@@ -240,6 +240,17 @@ namespace Investigation
                     yield return null;
                     break;
                 case "CrowdAroundWitchMotherDisperse":
+                    interactManager.Effects(
+                        new JObject
+                        {
+                            ["type"] = "variation",
+                            ["target"] = "Map1/WitchMother",
+                            ["parameters"] = new JArray
+                            {
+                                "Dispersed"
+                            }
+                        }
+                    );
                     print("사람들이 흩어진다.");
                     yield return null;
                     break;

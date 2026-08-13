@@ -98,6 +98,14 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
                         state=3;
                         gameObject.GetComponent<BoxCollider2D>().size = new Vector2(0.4f, 1f);
                         break;
+                    case "Dispersed":
+                        GameObject fadingOut = new GameObject();
+                        fadingOut.AddComponent<SpriteRenderer>();
+                        SetSpriteImage<SpriteRenderer>(fadingOut, images[2]);
+                        SetImage(0);
+                        FadeObject(gameObject, true, 0, 1f, false);
+                        FadeObject(fadingOut, false, 0, 1f, true);
+                        break;
                 }
             }
             base.variation();

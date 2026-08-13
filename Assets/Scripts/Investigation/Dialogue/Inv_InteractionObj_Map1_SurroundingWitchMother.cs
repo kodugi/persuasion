@@ -19,7 +19,7 @@ public class Inv_InteractionObj_Map1_SurroundingWitchMother: Inv_InteractionObj
             base.CheckState();
             if(state == 1)
             {
-                gameObject.GetComponent<SpriteRenderer>().enabled = true;
+                gameObject.GetComponent<SpriteRenderer>().enabled = false;//true;
             }
             else
             {
