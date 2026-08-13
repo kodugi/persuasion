@@ -117,8 +117,8 @@ namespace GamePlay
         {
             while (true)
             {
-                yield return new WaitForSeconds(Random.Range(4f, 5f));
-                _animator.SetTrigger("glitch");
+                yield return new WaitForSeconds(Random.Range(2f, 5f));
+                _animator.SetTrigger("glitch_flash");
             }
         }
 

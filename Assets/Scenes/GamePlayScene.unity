@@ -6358,7 +6358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GamePlay.GameManager
   _gameInfoList:
-  - {fileID: 11400000, guid: c72e97b95506a8b4ba130fe6446d62f1, type: 2}
+  - {fileID: 11400000, guid: 656bfe3fc2d82fa41aa2b5c35b563488, type: 2}
   - {fileID: 11400000, guid: b07d6474a645f60408f7ec9b09dba023, type: 2}
   _tutorialEntryGroups:
   - State: 1
