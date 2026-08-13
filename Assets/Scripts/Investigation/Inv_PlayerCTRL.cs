@@ -17,6 +17,7 @@ namespace Investigation
         private Vector2 movementInput;
         Rigidbody2D rigidbody_my;
         bool playerCanMove = true;
+        Animator animator_my;
 
         List<GameObject> layer_consideredObjs = new List<GameObject>();
         int layer_maxBehind;
@@ -32,6 +33,7 @@ namespace Investigation
         {
             interactionScript = GameObject.FindFirstObjectByType<Inv_Interact>().GetComponent<Inv_Interact>();
             rigidbody_my = GetComponent<Rigidbody2D>();
+            animator_my = GetComponent<Animator>();
         }
         private void OnDestroy()
         {
@@ -42,9 +44,18 @@ namespace Investigation
                 inputAction = null;
             }
         }
+        Vector2 prevPosition = new Vector2();
+        float speedThreshold = 0.1f;
         // Update is called once per frame
         void FixedUpdate()
         {
+            Vector2 velocity = (rigidbody_my.position - prevPosition) / Time.fixedDeltaTime;
+            float xSpeed = (Mathf.Abs(velocity.x)>=speedThreshold)?(velocity.x/Mathf.Abs(velocity.x)):0;
+            float ySpeed = (Mathf.Abs(velocity.y)>=speedThreshold)?(velocity.y/Mathf.Abs(velocity.y)):0;
+            animator_my.SetFloat("xSpeed", xSpeed);
+            animator_my.SetFloat("ySpeed", ySpeed);
+            prevPosition = rigidbody_my.position;
+
             if(!interactionScript.isInteracting && playerCanMove){
                 movementInput = inputAction.Player.Move.ReadValue<Vector2>();
                 rigidbody_my.MovePosition(rigidbody_my.position +new Vector2(movementInput.x, movementInput.y) * Time.deltaTime * moveSpeed);
