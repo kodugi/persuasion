@@ -1,19 +1,44 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Investigation
 {
 public class Inv_InteractionObj_Map1_Guard1: Inv_InteractionObj
     {
-        [SerializeField] private float moveSpeed = 12f;
+        [SerializeField] private float moveSpeed = 3f;
         private Inv_Interact interactManager;
         private bool chasing = false;
         private Transform player;
-
-        override protected void Starter()
+        private AsyncOperationHandle<RuntimeAnimatorController> animatorHandle;
+        private Animator animator;
+        protected override void Starter()
         {
             interactManager = GameObject.FindFirstObjectByType<Inv_Interact>();
-            player = GameObject.FindFirstObjectByType<Inv_PlayerCTRL>().gameObject.transform;
+            player = GameObject.FindFirstObjectByType<Inv_PlayerCTRL>().transform;
+
+            StartCoroutine(LoadAnim());
+        }
+
+        IEnumerator LoadAnim()
+        {
+            var handle =
+                Addressables.LoadAssetAsync<RuntimeAnimatorController>("Map1_Guard_Animator");
+
+            yield return handle;
+
+            if (handle.Status == AsyncOperationStatus.Succeeded)
+            {
+                animator = gameObject.AddComponent<Animator>();
+                animator.runtimeAnimatorController = handle.Result;
+                animatorHandle = handle;
+            }
+            else
+            {
+                Debug.LogError("Failed to load Animator Controller");
+            }
         }
         void Update()
         {
@@ -23,7 +48,9 @@ public class Inv_InteractionObj_Map1_Guard1: Inv_InteractionObj
         {
             if (collision.gameObject.CompareTag("Player") && chasing) {
                 chasing = false;
+                animator.SetBool("Running", false);
                 interactManager.ForceInteraction(obj_name);
+
             }
         }
         override public void variation(List<string> parameters)
@@ -33,13 +60,34 @@ public class Inv_InteractionObj_Map1_Guard1: Inv_InteractionObj
                 switch (parameter)
                 {
                     case "Chase":
-                        if(state ==0) chasing = true;
+                        if(state ==0) {
+                            chasing = true;
+                            animator.SetBool("Running", true);
+                        }
                         break;
                     case "Caught":
                         state = 1;
                         break;
                     case "Met":
                         state = 2;
+                        break;
+                    case "Pull":
+                        animator.enabled = false;
+                        FadeSwitch(0,4, 0, 1f);
+                        FadeObject(player.gameObject, false, 0, 1f,false);
+                        if (animatorHandle.IsValid())
+                        {
+                            Addressables.Release(animatorHandle);
+                        }
+                        break;
+                    case "Throw":
+                        animator.enabled = false;
+                        FadeSwitch(4,5, 0, 1f);
+                        FadeObject(player.gameObject, false, 0, 1f,false);
+                        if (animatorHandle.IsValid())
+                        {
+                            Addressables.Release(animatorHandle);
+                        }
                         break;
                 }
             }

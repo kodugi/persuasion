@@ -101,16 +101,28 @@ public class Inv_InteractionObj : Utility
             //if (!string.IsNullOrEmpty(obj.image)) 
             if(images.Count > stateI)
             {
+                print(images[stateI]);
                 SetSpriteImage<SpriteRenderer>(gameObject, images[stateI], handles);
             }
             else if(images.Count == 1)//singleImage)
             {
+                //print("ww");
                 SetSpriteImage<SpriteRenderer>(gameObject, images[0], handles);
             }
             else
             {
                 print("No Allocated Image");
             }
+        }
+        protected void FadeSwitch(int curr_img_id, int change_img_id, float delay, float fadingTime)
+        {
+            GameObject fadingOut = new GameObject();
+            fadingOut.transform.position = gameObject.transform.position;
+            fadingOut.AddComponent<SpriteRenderer>();
+            SetSpriteImage<SpriteRenderer>(fadingOut, images[curr_img_id]);
+            SetImage(change_img_id);
+            FadeObject(gameObject, true, delay, fadingTime, false);
+            FadeObject(fadingOut, false, delay, fadingTime, true);
         }
     }
 }

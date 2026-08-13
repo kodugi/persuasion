@@ -85,12 +85,12 @@ namespace Investigation
                 }
                 else if (typeof(T) == typeof(SpriteRenderer))
                 {
-                    SpriteRenderer curr = (SpriteRenderer)(object)obj.GetComponent<T>();
-                    if (curr == null) return;
-
+                    SpriteRenderer curr = obj.GetComponent<SpriteRenderer>();
+                    if (curr == null)
+                        return;
                     curr.sprite = sprite;
                     Color original = curr.color;
-                    curr.color = new Color(original.r, original.g, original.b, 1);
+                    curr.color = new Color(original.r, original.g, original.b, 1f);
                 }
 
                 if(handles != null) handles.Add(handle);

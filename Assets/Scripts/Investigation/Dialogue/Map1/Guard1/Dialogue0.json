@@ -252,7 +252,15 @@
                 {
                     "title": "",
                     "next": 20,
-                    "effects": []
+                    "effects": [
+                        {
+                            "type": "variation",
+                            "target": "Map1/Guard1",
+                            "parameters": [
+                                "Pull"
+                            ]
+                        }
+                    ]
                 }
             ]
         },
@@ -352,7 +360,15 @@
                 {
                     "title": "",
                     "next": 28,
-                    "effects": []
+                    "effects": [
+                        {
+                            "type": "variation",
+                            "target": "Map1/Guard1",
+                            "parameters": [
+                                "Throw"
+                            ]
+                        }
+                    ]
                 }
             ]
         },
