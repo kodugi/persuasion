@@ -7,11 +7,21 @@ namespace GamePlay
     [RequireComponent(typeof(Image), typeof(Animator))]
     public class FigureView : MonoBehaviour
     {
+        private static readonly int GlitchTrigger = Animator.StringToHash("glitch");
+        private static readonly int GlitchFlashTrigger = Animator.StringToHash("glitch_flash");
+        private static readonly int GameOverTrigger = Animator.StringToHash("gameover");
+
         [SerializeField] private FigureProfile _fallbackProfile;
+        [Header("Glitch Effect")]
+        [SerializeField, Min(0f)] private float _glitchEffectDuration = 0.92f;
+        [SerializeField, Range(0f, 1f)] private float _glitchEffectIntensity = 0.75f;
+        [SerializeField, Min(0f)] private float _glitchFlashEffectDuration = 0.68f;
+        [SerializeField, Range(0f, 1f)] private float _glitchFlashEffectIntensity = 0.4f;
 
         private Image _image;
         private RectTransform _rectTransform;
         private Animator _animator;
+        private UIGlitchEffect _uiGlitchEffect;
         private Coroutine _glitchCoroutine;
 
         private void Awake()
@@ -19,6 +29,12 @@ namespace GamePlay
             _image = GetComponent<Image>();
             _rectTransform = GetComponent<RectTransform>();
             _animator = GetComponent<Animator>();
+            _uiGlitchEffect = GetComponent<UIGlitchEffect>();
+
+            if (_uiGlitchEffect == null)
+            {
+                _uiGlitchEffect = gameObject.AddComponent<UIGlitchEffect>();
+            }
         }
 
         private void Start()
@@ -34,7 +50,10 @@ namespace GamePlay
             if (_glitchCoroutine != null)
             {
                 StopCoroutine(_glitchCoroutine);
+                _glitchCoroutine = null;
             }
+
+            _uiGlitchEffect.Stop();
             
             GameInfo gameInfo = GetCurrentGameInfo();
             FigureProfile profile = gameInfo != null ? gameInfo.GetFigureProfile() : null;
@@ -102,7 +121,7 @@ namespace GamePlay
                 switch (GameInfoHolder.GetCurrentGameInfo().GetMapType())
                 {
                     case GameInfo.MapType.Dream2:
-                        _animator.SetTrigger("glitch");
+                        TriggerGlitch();
                         break;
                 }
             }
@@ -117,16 +136,28 @@ namespace GamePlay
         {
             while (true)
             {
-                yield return new WaitForSeconds(Random.Range(2f, 5f));
-                _animator.SetTrigger("glitch_flash");
+                yield return new WaitForSeconds(Random.Range(3f, 6f));
+                TriggerGlitchFlash();
             }
+        }
+
+        private void TriggerGlitch()
+        {
+            _animator.SetTrigger(GlitchTrigger);
+            _uiGlitchEffect.Play(_glitchEffectDuration, _glitchEffectIntensity);
+        }
+
+        private void TriggerGlitchFlash()
+        {
+            _animator.SetTrigger(GlitchFlashTrigger);
+            _uiGlitchEffect.Play(_glitchFlashEffectDuration, _glitchFlashEffectIntensity);
         }
 
         private void HandleSetTutorialStateEvent(object sender, SetTutorialStateEventArgs e)
         {
             if (e.CurrentState == TutorialState.Dream1)
             {
-                _animator.SetTrigger("gameover");
+                _animator.SetTrigger(GameOverTrigger);
             }
         }
     }
