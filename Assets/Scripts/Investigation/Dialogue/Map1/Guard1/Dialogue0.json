@@ -600,7 +600,7 @@
                     "effects": [
                         {
                             "type": "persuade",
-                            "title": "Map1_Guard1_1",
+                            "title": "Map1_Guard1",
                             "autoReturn": "Map1/Guard1"
                         },
                         {

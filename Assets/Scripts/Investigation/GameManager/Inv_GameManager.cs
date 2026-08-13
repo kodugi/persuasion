@@ -39,7 +39,8 @@ namespace Investigation
             public Vector_2D triggerOffset;
             public float hideCriteria; // y offset (float) from centre
             public int sortingOrder;
-            public string image;
+            public List<string> image;
+            //public bool singleImage;
             public string script;
             public bool manually_touchable;
         }
@@ -134,7 +135,6 @@ namespace Investigation
                 }
 
                 interactable.name = obj.title;
-                if (!string.IsNullOrEmpty(obj.image)) SetSpriteImage<SpriteRenderer>(interactable, obj.image, mapHandles);
                 interactable.GetComponent<SpriteRenderer>().sortingOrder = obj.sortingOrder;
 
                 interactable.transform.localScale = Vector_2D_to_Vector3(obj.size);
@@ -181,8 +181,11 @@ namespace Investigation
                 {
                     interactable.AddComponent<Inv_InteractionObj>();
                 }
+                interactable.GetComponent<Inv_InteractionObj>().state = -1;
                 interactable.GetComponent<Inv_InteractionObj>().hideCriteria = obj.hideCriteria;
                 interactable.GetComponent<Inv_InteractionObj>().manuallyTouchable = obj.manually_touchable;
+                interactable.GetComponent<Inv_InteractionObj>().images = obj.image;
+                //interactable.GetComponent<Inv_InteractionObj>().singleImage = obj.singleImage;
                 if (Mathf.Abs(obj.colliderSize.x) + Mathf.Abs(obj.colliderSize.y) > 0.00001f)
                 {
                     if(obj.colliderShape =="box"){

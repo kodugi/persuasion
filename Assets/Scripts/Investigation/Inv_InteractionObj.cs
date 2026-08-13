@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Investigation
 {
@@ -11,6 +13,10 @@ public class Inv_InteractionObj : Utility
         public int state=0;
         protected SaveManager saveManager;
         public bool manuallyTouchable = true;
+        public List<string> images;
+        public bool singleImage;
+        List<AsyncOperationHandle<Sprite>> handles = new List<AsyncOperationHandle<Sprite>>();
+
         void Start()
         {
             obj_name = gameObject.name;
@@ -19,6 +25,7 @@ public class Inv_InteractionObj : Utility
             {
                 CheckState();
             }*/
+            CheckState();
             Starter();
         }
         virtual public void StartInteraction()
@@ -40,6 +47,7 @@ public class Inv_InteractionObj : Utility
                 check_name = obj_name;
             }*/
             string check_name = obj_name;
+            int original_state = state;
             if (saveManager.progress != null && saveManager.progress.ContainsKey(check_name + "state"))
             {
                 state = Convert.ToInt32(saveManager.progress[check_name + "state"]);
@@ -49,6 +57,10 @@ public class Inv_InteractionObj : Utility
             {
                 state = 0;
                 //dbg+="no";
+            }
+            if(original_state != state)
+            {
+                SetImage(state);
             }
             //print(dbg);
         }
@@ -65,7 +77,27 @@ public class Inv_InteractionObj : Utility
         }
         virtual public void InventoryItemDraggedOn(string itemName)
         {
-            print("hey!"+itemName);
+            //print("hey!"+itemName);
+        }
+        virtual public void SetImage(int _state)
+        {
+            foreach(var handle in handles)
+            {
+                Addressables.Release(handle);
+            }
+            //if (!string.IsNullOrEmpty(obj.image)) 
+            if(images.Count > _state)
+            {
+                SetSpriteImage<SpriteRenderer>(gameObject, images[_state], handles);
+            }
+            else if(images.Count == 1)//singleImage)
+            {
+                SetSpriteImage<SpriteRenderer>(gameObject, images[0], handles);
+            }
+            else
+            {
+                print("No Allocated Image");
+            }
         }
     }
 }

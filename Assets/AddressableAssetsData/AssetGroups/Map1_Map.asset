@@ -1,0 +1,143 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Map1_Map
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: Map1_Map
+  m_GUID: e38b59f225fd84f28aee02e9b9bd004e
+  m_SerializeEntries:
+  - m_GUID: 1a892d934f24346efb8c3a25754de1b6
+    m_Address: stump
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 24dd3b160316e4d27a64a7eac4ef3478
+    m_Address: bush2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2ed4b7937564a4bffb5bed6d325a3e5b
+    m_Address: trashcan
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 345fdc151734f4b2386314a921738c1d
+    m_Address: beehive
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3f5d2b4b6b8d947c097833e7f43ed25d
+    m_Address: tree4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 56d733c7835034bb99d1adb2044444d2
+    m_Address: bush1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5763138ef95e54279979337ed23dc266
+    m_Address: grass2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5edaae9bc9c3c47b19b7cf9cd0706876
+    m_Address: grass1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8e447553c06ab4d89a772815671d4b55
+    m_Address: trashcan_w_cloth
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8fc3e6e80f14d4dfd8c24ea4c8fb1198
+    m_Address: tree1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 982bb64c455dd42afabdc3fb27c406e0
+    m_Address: butterflynet_torn
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9da108559617643f1be7ac1839d5c046
+    m_Address: house1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ac6d8fa42af5141f08b36f7f2aebb365
+    m_Address: cave
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bce43460a1e0a4f6aa3a8bc6c0f708ea
+    m_Address: house3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c581af494346c435aa217799adf9ba60
+    m_Address: pigeon
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cc1bffd0aeda848f1b20bdf8a4c0f51d
+    m_Address: tree3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cf60c05ee795e4bedbab805e3636c7e5
+    m_Address: fishnet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d78387ad527794720947beeaf67fe864
+    m_Address: note_on_the_ground
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dcaeeaa12ddb84364ae7a5b2e970930a
+    m_Address: grass3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e29d4f4d9c5164cd69c1fdb49d17ed54
+    m_Address: house4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e5972bbeb389b4861a6d89ec159ee252
+    m_Address: tree2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f999cc744d29a4a9fa8117489d5a8d9f
+    m_Address: trashcan_lid
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fb110befc1f0a43bbbcbc1cc1ef35b06
+    m_Address: house2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fe149b6e95a2b4cb39fa53f0ada39847
+    m_Address: Pigeon
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 318b521c047bc464eadf7877914e918f, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: d36245eed70e04ccfa50bfd7e0025549, type: 2}
+    - {fileID: 11400000, guid: 38660eb688e764a7b9b5f939b2faee14, type: 2}
