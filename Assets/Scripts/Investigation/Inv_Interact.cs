@@ -157,7 +157,7 @@ namespace Investigation
             string json = File.ReadAllText(path);
             JObject data = JObject.Parse(json);
             GameObject obj = Instantiate(dialogueBox, GameObject.Find("Canvas").transform);
-            obj.GetComponent<RectTransform>().anchoredPosition = anchorPos;
+            //obj.GetComponent<RectTransform>().anchoredPosition = anchorPos;
             dialogueScript = obj.GetComponent<Inv_DialogueBox>();
             dialogueScript.interactionName = name;
             dialogueScript.interactionScript = this;

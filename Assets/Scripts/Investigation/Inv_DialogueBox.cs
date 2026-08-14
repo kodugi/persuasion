@@ -17,14 +17,13 @@ namespace Investigation
         public void Initialize()
         {
             //interactionScript.dialogueScript = this;
-            transform.Find("Title").GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = data["title"].ToString();
-            transform.Find("Title").gameObject.SetActive(data["title"].ToString()!="");
+            ChangeTitle(data["title"].ToString());
             DisplayDialogue(0);
         }
         public void ChangeTitle(string title)
         {
-            transform.Find("Title").GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = title;
-            transform.Find("Title").gameObject.SetActive(title!="");
+            transform.Find("Dialogue").Find("Title").GetComponent<TMPro.TextMeshProUGUI>().text = title;
+            transform.Find("Dialogue").Find("Title").gameObject.SetActive(title!="");
         }
         void Update()
         {
@@ -49,7 +48,7 @@ namespace Investigation
         void DisplayDialogue(int index)
         {
             JObject dialogue = (JObject)data["path"][index];
-            transform.Find("Description").GetComponent<TMPro.TextMeshProUGUI>().text = dialogue["description"].ToString();
+            transform.Find("Dialogue").Find("Description").GetComponent<TMPro.TextMeshProUGUI>().text = dialogue["description"].ToString();
             if(transform.Find("Buttons").childCount > 0)
             {
                 foreach(Transform child in transform.Find("Buttons"))
