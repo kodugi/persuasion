@@ -14,6 +14,7 @@ namespace Investigation
         [SerializeField] private float moveSpeed = 5f;
         [SerializeField] private GameObject thoughtObj;
         private Inv_Interact interactionScript;
+        private Inv_GameManager gameManager;
         private Vector2 movementInput;
         Rigidbody2D rigidbody_my;
         bool playerCanMove = true;
@@ -32,6 +33,7 @@ namespace Investigation
         void Start()
         {
             interactionScript = GameObject.FindFirstObjectByType<Inv_Interact>().GetComponent<Inv_Interact>();
+            gameManager = FindFirstObjectByType<Inv_GameManager>();
             rigidbody_my = GetComponent<Rigidbody2D>();
             animator_my = GetComponent<Animator>();
         }
@@ -86,6 +88,10 @@ namespace Investigation
                     interactionScript.QueueInteraction(collision.GetComponent<Inv_InteractionObj>().obj_name, true);
                     
                 }
+            }
+            else if (collision.gameObject.CompareTag("Inv_Trigger"))
+            {
+                gameManager.Triggered(collision.gameObject.name);
             }
         }
         private void OnTriggerExit2D(Collider2D collision)

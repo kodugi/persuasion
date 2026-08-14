@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Inv_Interactable
   - InventoryObj
+  - Inv_Trigger
   layers:
   - Default
   - TransparentFX

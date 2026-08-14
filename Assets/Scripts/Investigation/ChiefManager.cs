@@ -90,7 +90,7 @@ public partial class ChiefManager : MonoBehaviour
                 {
                     inv_PlayerCTRL.inputAction?.Player.Disable();
                     invSceneLastPos = inv_PlayerCTRL.gameObject.transform.position;
-                    print(invSceneLastPos);
+                    //print(invSceneLastPos);
                 }
                 else Debug.LogWarning("PlayerCTRL not detected");
                 

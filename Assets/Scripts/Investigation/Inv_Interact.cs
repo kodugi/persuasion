@@ -17,7 +17,23 @@ namespace Investigation
         [SerializeField] private GameObject interactables;
         [SerializeField] private GameObject previewMap;
         Inv_GameManager manager;
-        Inv_DialogueBox dialogueScript;
+        private Inv_DialogueBox _dialogueScript;
+        private Inv_DialogueBox dialogueScript
+        {
+            get
+            {
+                if(_dialogueScript == null)
+                {
+                    //Find Manually
+                    _dialogueScript = FindFirstObjectByType<Inv_DialogueBox>();
+                }
+                return _dialogueScript;
+            }
+            set
+            {
+                _dialogueScript = value;
+            }
+        }
         Inv_PlayerCTRL playerCTRL;
         private Vector2 anchorPos;
         SaveManager saveManager;
@@ -55,6 +71,7 @@ namespace Investigation
         void FixedUpdate()
         {
             ImageBlink();
+            //print(dialogueScript);
         }
         [SerializeField] float blinkDuration = 2f;
         [SerializeField] float minOpacity = 0.2f;
@@ -188,7 +205,7 @@ namespace Investigation
                     break;
                 case "variation":
                     string target = (string)effect["target"];
-                    print(target);
+                    //print(target);
                     List<string> parameters = JsonConvert.DeserializeObject<List<string>>(effect["parameters"].ToString());
                     if(FindInteractableObj(target) != null) FindInteractableObj(target).GetComponent<Inv_InteractionObj>().variation(parameters);
                     else Debug.LogWarning("Tried to apply variation on a not-existing object: "+target);
@@ -238,6 +255,11 @@ namespace Investigation
                 case "forceInteraction":
                     string target_interaction = (string)effect["target"];
                     ForceInteraction(target_interaction);
+                    break;
+                case "triggerOnOff":
+                    string target_trigger = (string)effect["target"];
+                    bool triggerState = (bool)effect["state"];
+                    FindInteractableObj(target_trigger).gameObject.SetActive(triggerState);
                     break;
             }
         }

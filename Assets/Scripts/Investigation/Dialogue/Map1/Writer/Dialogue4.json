@@ -35,8 +35,9 @@
                             ]
                         },
                         {
-                            "type": "forceInteraction",
-                            "target": "Map1/Player"
+                            "type": "triggerOnOff",
+                            "target": "Map1/Player_Road_Trigger",
+                            "state": true
                         }
                     ]
                 }

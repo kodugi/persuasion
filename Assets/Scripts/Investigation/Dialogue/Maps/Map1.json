@@ -101,6 +101,39 @@
       "manually_touchable": false
     },
     {
+      "title": "Map1/Player_Road_Trigger",
+      "position": {
+        "x": 0,
+        "y": 10
+      },
+      "size": {
+        "x": 3,
+        "y": 100
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 1,
+        "y": 1
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 0,
+      "image": [],
+      "script": "Trigger",
+      "manually_touchable": false
+    },
+    {
       "title": "Map1/Player",
       "position": {
         "x": 100,

@@ -101,7 +101,7 @@ public class Inv_InteractionObj : Utility
             //if (!string.IsNullOrEmpty(obj.image)) 
             if(images.Count > stateI)
             {
-                print(images[stateI]);
+                //print(images[stateI]);
                 SetSpriteImage<SpriteRenderer>(gameObject, images[stateI], handles);
             }
             else if(images.Count == 1)//singleImage)
@@ -111,7 +111,7 @@ public class Inv_InteractionObj : Utility
             }
             else
             {
-                print("No Allocated Image");
+                //print("No Allocated Image");
             }
         }
         protected void FadeSwitch(int curr_img_id, int change_img_id, float delay, float fadingTime)

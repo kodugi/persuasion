@@ -32,7 +32,7 @@ namespace Investigation
             GameObject selectedObj = results[0].gameObject;
             if (selectedObj.tag == "InventoryObj")
             {
-                print(selectedObj.name);
+                //print(selectedObj.name);
                 selectedObjIdx = int.Parse(selectedObj.name.Substring(selectedObj.name.LastIndexOf('_')+1));
                 inventoryManager.ItemClicked(selectedObjIdx, selectedObj);
             }

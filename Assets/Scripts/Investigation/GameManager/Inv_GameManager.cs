@@ -165,12 +165,18 @@ namespace Investigation
                     }
                 }
 
-                if (!string.IsNullOrEmpty(obj.script))
+                Inv_InteractionObj obj_script = null;
+                if(obj.script == "Trigger")
+                {
+                    interactable.tag = "Inv_Trigger";
+                    interactable.SetActive(obj.manually_touchable);
+                }
+                else if (!string.IsNullOrEmpty(obj.script))
                 {
                     System.Type scriptType = System.Type.GetType("Investigation." + obj.script);
                     if (scriptType != null)
                     {
-                        interactable.AddComponent(scriptType);
+                        obj_script = (Inv_InteractionObj)interactable.AddComponent(scriptType);
                     }
                     else
                     {
@@ -179,20 +185,22 @@ namespace Investigation
                 }
                 else
                 {
-                    interactable.AddComponent<Inv_InteractionObj>();
+                    obj_script = interactable.AddComponent<Inv_InteractionObj>();
                 }
-                interactable.GetComponent<Inv_InteractionObj>().state = -1;
-                interactable.GetComponent<Inv_InteractionObj>().hideCriteria = obj.hideCriteria;
-                interactable.GetComponent<Inv_InteractionObj>().manuallyTouchable = obj.manually_touchable;
-                interactable.GetComponent<Inv_InteractionObj>().images = obj.image;
-                //interactable.GetComponent<Inv_InteractionObj>().singleImage = obj.singleImage;
-                if (Mathf.Abs(obj.colliderSize.x) + Mathf.Abs(obj.colliderSize.y) > 0.00001f)
+                if(obj_script != null)
                 {
-                    if(obj.colliderShape =="box"){
-                        interactable.GetComponent<Inv_InteractionObj>().hideCriteria = obj.colliderOffset.y-obj.colliderSize.y/2-footCollider.offset.y-footCollider.size.y/2;
+                    obj_script.state = -1;
+                    obj_script.hideCriteria = obj.hideCriteria;
+                    obj_script.manuallyTouchable = obj.manually_touchable;
+                    obj_script.images = obj.image;
+                    //interactable.GetComponent<Inv_InteractionObj>().singleImage = obj.singleImage;
+                    if (Mathf.Abs(obj.colliderSize.x) + Mathf.Abs(obj.colliderSize.y) > 0.00001f)
+                    {
+                        if(obj.colliderShape =="box"){
+                            obj_script.hideCriteria = obj.colliderOffset.y-obj.colliderSize.y/2-footCollider.offset.y-footCollider.size.y/2;
+                        }
                     }
                 }
-
 
             }
         }
@@ -210,6 +218,22 @@ namespace Investigation
         {
             print(id);
             chiefManager.StartInvestigation(id);
+        }
+        public void Triggered(string title)
+        {
+            interactManager.FindInteractableObj(title).gameObject.SetActive(false);
+            // 다시 켜져야 하는 거면 coroutine 끝나고 다시 켜기
+            StartCoroutine(TriggeredProgress(title));
+        }
+        private IEnumerator TriggeredProgress(string title)
+        {
+            yield return null;
+            switch (title)
+            {
+                case "Map1/Player_Road_Trigger":
+                    ForceInteract("Map1/Player");
+                    break;
+            }
         }
         public void CutScene(string title)
         {

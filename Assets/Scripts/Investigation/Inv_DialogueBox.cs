@@ -16,6 +16,7 @@ namespace Investigation
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         public void Initialize()
         {
+            //interactionScript.dialogueScript = this;
             transform.Find("Title").GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = data["title"].ToString();
             transform.Find("Title").gameObject.SetActive(data["title"].ToString()!="");
             DisplayDialogue(0);
