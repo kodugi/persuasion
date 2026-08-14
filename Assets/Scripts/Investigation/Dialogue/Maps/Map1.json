@@ -1064,8 +1064,8 @@
         "y": 7.53
       },
       "size": {
-        "x": 1,
-        "y": 1
+        "x": 0.1,
+        "y": 0.1
       },
       "colliderShape": "box",
       "colliderSize": {

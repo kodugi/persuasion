@@ -48,6 +48,7 @@ namespace Investigation
                 }
                 else
                 {
+                    print(targetObj);
                     targetObj.SetActive(false);
                 }
             }

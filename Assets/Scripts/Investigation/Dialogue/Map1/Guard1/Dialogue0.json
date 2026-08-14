@@ -630,6 +630,10 @@
                             "type": "variation",
                             "target": "Map1/Guard1_Trigger",
                             "parameters": []
+                        },
+                        {
+                            "type": "canPlayerMove",
+                            "able": true
                         }
                     ]
                 }

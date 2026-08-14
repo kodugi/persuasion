@@ -244,6 +244,10 @@ namespace Investigation
                     string thought = (string)effect["thought"];
                     playerCTRL.Think(thought);
                     break;
+                case "canPlayerMove":
+                    bool canPlayerMove = (bool)effect["able"];
+                    playerCTRL.CanPlayerMove(canPlayerMove);
+                    break;
                 case "progress":
                     string key = (string)effect["key"];
                     object value = effect["value"];

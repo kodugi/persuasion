@@ -111,7 +111,7 @@ public class Inv_InteractionObj : Utility
             }
             else
             {
-                //print("No Allocated Image");
+                print("No Allocated Image");
             }
         }
         protected void FadeSwitch(int curr_img_id, int change_img_id, float delay, float fadingTime)

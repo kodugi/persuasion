@@ -22,8 +22,8 @@ namespace Investigation
         }
         public void ChangeTitle(string title)
         {
-            transform.Find("Dialogue").Find("Title").Find("Title").GetComponent<TMPro.TextMeshProUGUI>().text = title;
-            transform.Find("Dialogue").Find("Title").gameObject.SetActive(title!="");
+            transform.Find("Dialogue").GetChild(0).Find("Title").GetComponent<TMPro.TextMeshProUGUI>().text = title;
+            transform.Find("Dialogue").GetChild(0).gameObject.SetActive(title!="");
         }
         void Update()
         {
