@@ -138,7 +138,7 @@ namespace Investigation
 
             runningFadingCoroutines.Remove(headObj);
 
-
+            ResetOpacity(headObj, originalOpacity);
         }
         private void ResetOpacity(GameObject obj, float originalOpacity)
         {
@@ -197,6 +197,10 @@ namespace Investigation
                 }
             }
             handles.Clear();
+        }
+        protected void FadeScreen(bool fadeIn)
+        {
+            
         }
     }
 }

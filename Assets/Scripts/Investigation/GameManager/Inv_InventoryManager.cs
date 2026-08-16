@@ -21,6 +21,7 @@ namespace Investigation
         List<AsyncOperationHandle<Sprite>> inventoryHandles = new List<AsyncOperationHandle<Sprite>>();
         private Coroutine panelFading;
         string floatingItemName="";
+        bool autoClose = false;
         void InventoryAwake()
         {
             saveManager.LoadData<List<string>>("inventory", out inventoryItems);
@@ -46,16 +47,22 @@ namespace Investigation
         {
             if(inputAction.Player.Interact.WasPressedThisFrame())
             {
-                if(inventoryPanel.activeSelf) {
-                    if(panelFading!=null) {
-                        StopFading(inventoryPanel, 0.5f);
+                autoClose = false;
+                if(inventoryPanel.activeSelf)
+                {
+                    if(panelFading != null)
+                    {
+                        StopFading(inventoryPanel, 1f);
+                        panelFading = null;
+                        OpenInventory(false);
                     }
-                    else CloseInventory();
+                    else
+                    {
+                        CloseInventory();
+                    }
                 }
-                else {
-                    if(panelFading!=null) {
-                        StopFading(inventoryPanel, 0.5f);
-                    }
+                else
+                {
                     OpenInventory();
                 }
             }
@@ -65,7 +72,7 @@ namespace Investigation
             Vector2 pos = new Vector2(0,0);
             return pos;
         }
-        void OpenInventory()
+        void OpenInventory(bool doFade = true)
         {
             CloseInventory(false);
             for(int i = 0; i < inventoryItems.Count; i++)
@@ -79,13 +86,14 @@ namespace Investigation
                 SetSpriteImage<Image>(newItem.gameObject, item, inventoryHandles);
             }
             inventoryPanel.SetActive(true);
-            FadeObject(inventoryPanel, true, 0f, 1f, false);
+            if(doFade) FadeObject(inventoryPanel, true, 0f, 1f, false);
+            panelFading = null;
         }
         void CloseInventory(bool doFade=true)
         {
             if (doFade)
             {
-                FadeObject(inventoryPanel, false, 0f, 1f, false);
+                panelFading = FadeObject(inventoryPanel, false, 0f, 1f, false);
             }
             else
             {
@@ -104,14 +112,16 @@ namespace Investigation
         {
             OpenInventory();
             //panelFading = FadeObject(inventoryPanel, false, 2f, 2f, false);
-            StartCoroutine(ResetPanelFading(4f));
+            panelFading = StartCoroutine(AutoCloseInventory(4f));
             // delay
             //CloseInventory();
         }
-        IEnumerator ResetPanelFading(float time)
+        IEnumerator AutoCloseInventory(float time)
         {
+            autoClose = true;
             yield return new WaitForSeconds(time);
-            if(panelFading != null) panelFading = null;
+            //if(panelFading != null) panelFading = null;
+            if(!autoClose) yield break;
             CloseInventory();
         }
         public void AddItem(string itemName, bool doPreview=true)
