@@ -82,7 +82,7 @@ namespace Investigation
             foreach (Transform child in parent.transform)
             {
                 GameObject childObj = child.gameObject;
-
+                
                 StartFadeCoroutine(childObj, headObj, fadeIn, delay, fadingTime, doDestroy, lowOpacity, highOpacity);
                 CheckAllChildrenToFade(childObj, headObj, fadeIn, delay, fadingTime, doDestroy, lowOpacity, highOpacity);
             }
@@ -99,7 +99,7 @@ namespace Investigation
         private IEnumerator FadeSlowly(GameObject targetObj, GameObject headObj, bool fadeIn, float delay, float fadingTime, bool doDestroy = true, float lowOpacity = 0f, float highOpacity = 1f)
         {
             yield return new WaitForSeconds(delay);
-
+            SetOpacity(targetObj, (fadeIn?lowOpacity:highOpacity));
             float elapsed = 0f;
             while (elapsed < fadingTime)
             {
@@ -197,10 +197,6 @@ namespace Investigation
                 }
             }
             handles.Clear();
-        }
-        protected void FadeScreen(bool fadeIn)
-        {
-            
         }
     }
 }
