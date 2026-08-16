@@ -101,7 +101,7 @@ public class Inv_InteractionObj : Utility
             //if (!string.IsNullOrEmpty(obj.image)) 
             if(images.Count > stateI)
             {
-                print(images[stateI]);
+                //print(images[stateI]);
                 SetSpriteImage<SpriteRenderer>(gameObject, images[stateI], handles);
             }
             else if(images.Count == 1)//singleImage)

@@ -190,7 +190,7 @@ namespace Investigation
                     break;
                 case "variation":
                     string target = (string)effect["target"];
-                    print(target);
+                    //print(target);
                     List<string> parameters = JsonConvert.DeserializeObject<List<string>>(effect["parameters"].ToString());
                     if(FindInteractableObj(target) != null) FindInteractableObj(target).GetComponent<Inv_InteractionObj>().variation(parameters);
                     else Debug.LogWarning("Tried to apply variation on a not-existing object: "+target);

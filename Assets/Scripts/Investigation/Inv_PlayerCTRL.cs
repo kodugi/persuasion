@@ -109,7 +109,7 @@ namespace Investigation
         public void CanPlayerMove(bool canMove)
         {
             playerCanMove = canMove;
-            print(canMove);
+            //print(canMove);
         }
         public void InventoryItemDraggedOn(string itemName)
         {

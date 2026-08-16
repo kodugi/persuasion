@@ -227,11 +227,11 @@ public partial class SaveManager : MonoBehaviour
     public bool LoadData<T>(string fileName, out T result) where T : new()
     {
         string path = PathGen(fileName);
-
+        /*
         Debug.Log(
             $"[SaveManager] Loading {fileName}: " +
             $"{path}, exists={File.Exists(path)}"
-        );
+        );*/
 
         if (!File.Exists(path))
         {
