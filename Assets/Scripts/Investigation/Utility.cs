@@ -14,33 +14,64 @@ namespace Investigation
 {
     public class Utility : MonoBehaviour
     {
+        private Color NewColorwithSetOpacity(Color color, float value)
+        {
+            return new Color(color.r, color.g, color.b, value);
+        }
+        private void SetOpacity(object target, float value)
+        {
+            if(target is GameObject target_g)
+            {
+                if(target_g.TryGetComponent<SpriteRenderer>(out SpriteRenderer temp_s)) target = temp_s;
+                else if(target_g.TryGetComponent<Image>(out Image temp_i)) target = temp_i;
+            }
+            if(target is SpriteRenderer target_s)
+            {
+                target_s.color = NewColorwithSetOpacity(target_s.color, value);
+            }
+            else if(target is Image target_i)
+            {
+                target_i.color = NewColorwithSetOpacity(target_i.color, value);
+            }
+        }
         Dictionary<GameObject, Coroutine> runningFadingCoroutine = new Dictionary<GameObject, Coroutine>();
         /// <summary>
         /// Fade In/Out an Object
         /// </summary>
         /// <param name="fadeIn">true: fade in / false: fade out</param>
         /// <param name="doDestroy">true(default): destory object after fading <para>false: SetActive(false) after fading</param>
-        protected Coroutine FadeObject(GameObject targetObj, bool fadeIn, float delay, float fadingTime, bool doDestroy=true)
+        protected Coroutine FadeObject(GameObject targetObj, bool fadeIn, float delay, float fadingTime, bool doDestroy=true, float lowOpacity=0f, float highOpacity=1f)
         {
             if (runningFadingCoroutine.ContainsKey(targetObj))
             {
                 StopCoroutine(runningFadingCoroutine[targetObj]);
                 runningFadingCoroutine.Remove(targetObj);
             }
-            Coroutine currCoroutine = StartCoroutine(FadeSlowly(targetObj, fadeIn, delay, fadingTime, doDestroy));
+
+            Coroutine currCoroutine = StartCoroutine(FadeSlowly(targetObj, fadeIn, delay, fadingTime, doDestroy, lowOpacity, highOpacity));
+            
             runningFadingCoroutine[targetObj] = currCoroutine;
             return currCoroutine;
         }
-        protected IEnumerator FadeSlowly(GameObject targetObj, bool fadeIn, float delay, float fadingTime, bool doDestroy=true)
+        protected IEnumerator FadeSlowly(GameObject targetObj, bool fadeIn, float delay, float fadingTime, bool doDestroy=true, float lowOpacity=0f, float highOpacity=1f)
         {
             yield return new WaitForSeconds(delay);
             //Fade Effect
             yield return new WaitForSeconds(fadingTime);
-            if (fadeIn)
+            float elapsed = 0f;
+            while (elapsed < fadingTime)
             {
-                
+                float ratio = elapsed/fadingTime;
+                if(!fadeIn) ratio = 1-ratio;
+
+                float value = lowOpacity+ratio*(highOpacity-lowOpacity);
+
+                SetOpacity(targetObj, value);
+
+                elapsed += Time.deltaTime;
+                yield return null;
             }
-            else
+            if (!fadeIn)
             {
                 if (doDestroy)
                 {
@@ -76,7 +107,7 @@ namespace Investigation
 
                 if (typeof(T) == typeof(Image))
                 {
-                    Image curr = (Image)(object)obj.GetComponent<T>();
+                    Image curr = obj.GetComponent<Image>();
                     if (curr == null) return;
 
                     curr.sprite = sprite;
@@ -86,8 +117,8 @@ namespace Investigation
                 else if (typeof(T) == typeof(SpriteRenderer))
                 {
                     SpriteRenderer curr = obj.GetComponent<SpriteRenderer>();
-                    if (curr == null)
-                        return;
+                    if (curr == null) return;
+
                     curr.sprite = sprite;
                     Color original = curr.color;
                     curr.color = new Color(original.r, original.g, original.b, 1f);
