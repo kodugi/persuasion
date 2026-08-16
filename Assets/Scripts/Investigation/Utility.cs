@@ -97,5 +97,16 @@ namespace Investigation
                 else print("handle not assigned");
             };
         }
+        public void ClearHandles(List<AsyncOperationHandle<Sprite>> handles)
+        {
+            foreach (var handle in handles)
+            {
+                if(handle.IsValid())
+                {
+                    Addressables.Release(handle);
+                }
+            }
+            handles.Clear();
+        }
     }
 }
