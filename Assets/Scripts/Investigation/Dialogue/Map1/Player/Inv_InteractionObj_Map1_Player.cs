@@ -10,5 +10,10 @@ public class Inv_InteractionObj_Map1_Player: Inv_InteractionObj
             state = int.Parse(parameters[0]);
             base.variation();
         }
+        override public void StartInteraction()
+        {
+            base.StartInteraction();
+            print(state);
+        }
     }
 }

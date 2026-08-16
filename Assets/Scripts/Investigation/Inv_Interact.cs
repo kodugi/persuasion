@@ -144,6 +144,7 @@ namespace Investigation
         {
             isInteracting = true;
             FinishBlinking();
+            playerCTRL.CanPlayerMove(false);
             //InteractionGuideUpdate("off");
 
             int state = 0;
@@ -171,17 +172,13 @@ namespace Investigation
             if(FindInteractableObj(name) != null) interactingObj = FindInteractableObj(name).GetComponent<Inv_InteractionObj>();
             if(interactingObj != null) interactingObj.EndInteraction();
         }
-        public void InteractionEnd()
-        {
-            dialogueScript = null;
-            isInteracting = false;
-            InteractionGuideUpdate();
-        }
         public void EndInteraction()
         {
             if (dialogueScript != null) Destroy(dialogueScript.gameObject);;
-            
-            InteractionEnd();
+            dialogueScript = null;
+            isInteracting = false;
+            playerCTRL.CanPlayerMove(true);
+            InteractionGuideUpdate();
         }
         public Transform FindInteractableObj(string target)
         {

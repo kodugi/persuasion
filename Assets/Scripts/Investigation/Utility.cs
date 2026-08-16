@@ -44,6 +44,7 @@ namespace Investigation
             {
                 if (doDestroy)
                 {
+                    print(targetObj);
                     Destroy(targetObj);
                 }
                 else

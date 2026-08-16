@@ -114,6 +114,7 @@ namespace Investigation
         }
         public void CanPlayerMove(bool canMove)
         {
+            print(canMove);
             playerCanMove = canMove;
         }
         public void InventoryItemDraggedOn(string itemName)

@@ -221,6 +221,7 @@ namespace Investigation
         }
         public void Triggered(string title)
         {
+            print("hi");
             interactManager.FindInteractableObj(title).gameObject.SetActive(false);
             // 다시 켜져야 하는 거면 coroutine 끝나고 다시 켜기
             StartCoroutine(TriggeredProgress(title));
@@ -231,6 +232,7 @@ namespace Investigation
             switch (title)
             {
                 case "Map1/Player_Road_Trigger":
+                    print("player");
                     ForceInteract("Map1/Player");
                     break;
             }
