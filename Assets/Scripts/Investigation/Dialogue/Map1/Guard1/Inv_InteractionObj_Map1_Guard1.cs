@@ -42,7 +42,11 @@ public class Inv_InteractionObj_Map1_Guard1: Inv_InteractionObj
         }
         void Update()
         {
-            if(chasing) transform.position = Vector3.MoveTowards(transform.position,player.position,moveSpeed * Time.deltaTime);
+            if(chasing) {
+                transform.position = Vector3.MoveTowards(transform.position,player.position,moveSpeed * Time.deltaTime);
+                player.gameObject.GetComponent<Inv_PlayerCTRL>().CanPlayerMove(false);
+
+            }
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
@@ -81,7 +85,7 @@ public class Inv_InteractionObj_Map1_Guard1: Inv_InteractionObj
                         }
                         break;
                     case "Throw":
-                        FadeSwitch(4,5, 0, 1f);
+                        FadeSwitch(4,3, 0, 1f);
                         break;
                 }
             }
