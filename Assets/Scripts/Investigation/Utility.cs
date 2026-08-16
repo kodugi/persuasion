@@ -55,9 +55,7 @@ namespace Investigation
         }
         protected IEnumerator FadeSlowly(GameObject targetObj, bool fadeIn, float delay, float fadingTime, bool doDestroy=true, float lowOpacity=0f, float highOpacity=1f)
         {
-            yield return new WaitForSeconds(delay);
-            //Fade Effect
-            yield return new WaitForSeconds(fadingTime);
+            yield return new WaitForSeconds(delay); 
             float elapsed = 0f;
             while (elapsed < fadingTime)
             {

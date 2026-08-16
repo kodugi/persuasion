@@ -81,13 +81,7 @@ public class Inv_InteractionObj_Map1_Guard1: Inv_InteractionObj
                         }
                         break;
                     case "Throw":
-                        animator.enabled = false;
                         FadeSwitch(4,5, 0, 1f);
-                        FadeObject(player.gameObject, false, 0, 1f,false);
-                        if (animatorHandle.IsValid())
-                        {
-                            Addressables.Release(animatorHandle);
-                        }
                         break;
                 }
             }

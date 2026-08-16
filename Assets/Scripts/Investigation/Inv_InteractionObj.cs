@@ -114,7 +114,7 @@ public class Inv_InteractionObj : Utility
                 print("No Allocated Image");
             }
         }
-        protected void FadeSwitch(int curr_img_id, int change_img_id, float delay, float fadingTime)
+        virtual protected void FadeSwitch(int curr_img_id, int change_img_id, float delay, float fadingTime)
         {
             GameObject fadingOut = new GameObject();
             fadingOut.transform.position = gameObject.transform.position;
