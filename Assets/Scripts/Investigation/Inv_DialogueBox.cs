@@ -13,17 +13,20 @@ namespace Investigation
         [SerializeField] private GameObject buttonPrefab;
         int singleOption_nextIndex = -100;
         List<JObject> effectList = new List<JObject>();
+        [SerializeField] private GameObject titleObj;
+        [SerializeField] private GameObject descriptionObj;
+        [SerializeField] private GameObject buttonsObj;
+        [SerializeField] private GameObject charactersObj;
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         public void Initialize()
         {
-            transform.Find("Title").GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = data["title"].ToString();
-            transform.Find("Title").gameObject.SetActive(data["title"].ToString()!="");
+            ChangeTitle(data["title"].ToString());
             DisplayDialogue(0);
         }
         public void ChangeTitle(string title)
         {
-            transform.Find("Title").GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = title;
-            transform.Find("Title").gameObject.SetActive(title!="");
+            titleObj.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = title;
+            titleObj.SetActive(title!="");
         }
         void Update()
         {
@@ -48,10 +51,10 @@ namespace Investigation
         void DisplayDialogue(int index)
         {
             JObject dialogue = (JObject)data["path"][index];
-            transform.Find("Description").GetComponent<TMPro.TextMeshProUGUI>().text = dialogue["description"].ToString();
-            if(transform.Find("Buttons").childCount > 0)
+            descriptionObj.GetComponent<TMPro.TextMeshProUGUI>().text = dialogue["description"].ToString();
+            if(buttonsObj.transform.childCount > 0)
             {
-                foreach(Transform child in transform.Find("Buttons"))
+                foreach(Transform child in buttonsObj.transform)
                 {
                     Destroy(child.gameObject);
                 }
@@ -74,7 +77,7 @@ namespace Investigation
                 singleOption_nextIndex = -100;
                 for(int i = 0; i < ((JArray)dialogue["buttons"]).Count; i++)
                 {
-                    GameObject button = Instantiate(buttonPrefab, transform.Find("Buttons"));
+                    GameObject button = Instantiate(buttonPrefab, buttonsObj.transform);
                     button.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = dialogue["buttons"][i]["title"].ToString();
                     button.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -100* i);
                     
