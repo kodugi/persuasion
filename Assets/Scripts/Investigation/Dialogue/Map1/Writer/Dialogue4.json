@@ -35,8 +35,11 @@
                             ]
                         },
                         {
-                            "type": "forceInteraction",
-                            "target": "Map1/Player"
+                            "type": "variation",
+                            "target": "Map1/Road_Running_Trigger",
+                            "parameters":[
+                                1
+                            ]
                         }
                     ]
                 }

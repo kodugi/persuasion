@@ -118,14 +118,15 @@ namespace Investigation
         }
         public void ForceInteraction(string name)
         {
-            EndInteraction();
             Interact(name);/*
             if (interactionQueue.Contains(name)) Interact(name);
             else Debug.LogWarning("Attempted to force an interaction that was not in the queue: " + name);*/
         }
         private void Interact(string name)
         {
+            EndInteraction(true);
             isInteracting = true;
+            playerCTRL.CanPlayerMove(false);
             FinishBlinking();
             //InteractionGuideUpdate("off");
 
@@ -158,11 +159,12 @@ namespace Investigation
         {
             dialogueScript = null;
             isInteracting = false;
+            playerCTRL.CanPlayerMove(true);
             InteractionGuideUpdate();
         }
-        public void EndInteraction()
+        public void EndInteraction(bool isStarting=false)
         {
-            if (dialogueScript != null) Destroy(dialogueScript.gameObject);;
+            if (dialogueScript != null && !isStarting) Destroy(dialogueScript.gameObject);
             
             InteractionEnd();
         }

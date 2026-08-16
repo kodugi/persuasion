@@ -219,6 +219,13 @@
                             "parameters": [
                                 0
                             ]
+                        },
+                        {
+                            "type": "variation",
+                            "target": "Map1/Road_Running_Trigger",
+                            "parameters": [
+                                2
+                            ]
                         }
                     ]
                 }
