@@ -31,15 +31,21 @@ namespace Investigation
                         }
                     );
                     break;
+
+
                 case "PeopleStaringAfterReceivingPen":
                     print("사람들이 쳐다본대요");
                     yield return new WaitForSeconds(1);
                     break;
+
+
                 case "IntoDream":
                     print("잠에 들었다.");
                     chiefManager.StartInvestigation("Dream");
                     yield return null;
                     break;
+
+
                 case "CrowdAroundWitchMotherDisperse":
                     interactManager.Effects(
                         new JObject
@@ -55,6 +61,8 @@ namespace Investigation
                     print("사람들이 흩어진다.");
                     yield return null;
                     break;
+
+                    
                 case "GuideLeavesHouse":
                     interactManager.Effects(
                         new JObject
