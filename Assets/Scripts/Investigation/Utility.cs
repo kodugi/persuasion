@@ -24,6 +24,7 @@ namespace Investigation
             {
                 if(target_g.TryGetComponent<SpriteRenderer>(out SpriteRenderer temp_s)) target = temp_s;
                 else if(target_g.TryGetComponent<Image>(out Image temp_i)) target = temp_i;
+                else return;
             }
             if(target is SpriteRenderer target_s)
             {
@@ -34,28 +35,71 @@ namespace Investigation
                 target_i.color = NewColorwithSetOpacity(target_i.color, value);
             }
         }
-        Dictionary<GameObject, Coroutine> runningFadingCoroutine = new Dictionary<GameObject, Coroutine>();
+        private Color GetColor(object target)
+        {
+            if(target is GameObject target_g)
+            {
+                if(target_g.TryGetComponent<SpriteRenderer>(out SpriteRenderer temp_s)) target = temp_s;
+                else if(target_g.TryGetComponent<Image>(out Image temp_i)) target = temp_i;
+                else {
+                    Debug.LogError("Couldn't Get Color from: "+target_g.name);
+                    return new Color();
+                }
+            }
+            if(target is SpriteRenderer target_s)
+            {
+                return target_s.color;
+            }
+            else if(target is Image target_i)
+            {
+                return target_i.color;
+            }
+            else{
+                    Debug.LogError("Couldn't Get Color");
+                    return new Color();
+            }
+        }
         /// <summary>
         /// Fade In/Out an Object
         /// </summary>
         /// <param name="fadeIn">true: fade in / false: fade out</param>
         /// <param name="doDestroy">true(default): destory object after fading <para>false: SetActive(false) after fading</param>
-        protected Coroutine FadeObject(GameObject targetObj, bool fadeIn, float delay, float fadingTime, bool doDestroy=true, float lowOpacity=0f, float highOpacity=1f)
-        {
-            if (runningFadingCoroutine.ContainsKey(targetObj))
-            {
-                StopCoroutine(runningFadingCoroutine[targetObj]);
-                runningFadingCoroutine.Remove(targetObj);
-            }
+        private Dictionary<GameObject, List<Coroutine>> runningFadingCoroutines = new Dictionary<GameObject, List<Coroutine>>();
 
-            Coroutine currCoroutine = StartCoroutine(FadeSlowly(targetObj, fadeIn, delay, fadingTime, doDestroy, lowOpacity, highOpacity));
-            
-            runningFadingCoroutine[targetObj] = currCoroutine;
-            return currCoroutine;
-        }
-        protected IEnumerator FadeSlowly(GameObject targetObj, bool fadeIn, float delay, float fadingTime, bool doDestroy=true, float lowOpacity=0f, float highOpacity=1f)
+        protected Coroutine FadeObject(GameObject targetObj, bool fadeIn, float delay, float fadingTime, bool doDestroy = true, float lowOpacity = 0f, float highOpacity = 1f)
         {
-            yield return new WaitForSeconds(delay); 
+            StopFading(targetObj, GetColor(targetObj).a);
+
+            runningFadingCoroutines[targetObj] = new List<Coroutine>();
+
+            Coroutine coroutine = StartFadeCoroutine(targetObj, targetObj, fadeIn, delay, fadingTime, doDestroy, lowOpacity, highOpacity);
+            CheckAllChildrenToFade(targetObj, targetObj, fadeIn, delay, fadingTime, doDestroy, lowOpacity, highOpacity);
+            return coroutine;
+        }
+
+        private void CheckAllChildrenToFade(GameObject parent, GameObject headObj, bool fadeIn, float delay, float fadingTime, bool doDestroy, float lowOpacity, float highOpacity)
+        {
+            foreach (Transform child in parent.transform)
+            {
+                GameObject childObj = child.gameObject;
+
+                StartFadeCoroutine(childObj, headObj, fadeIn, delay, fadingTime, doDestroy, lowOpacity, highOpacity);
+                CheckAllChildrenToFade(childObj, headObj, fadeIn, delay, fadingTime, doDestroy, lowOpacity, highOpacity);
+            }
+        }
+
+        private Coroutine StartFadeCoroutine(GameObject targetObj, GameObject headObj, bool fadeIn, float delay, float fadingTime, bool doDestroy, float lowOpacity, float highOpacity)
+        {
+            Coroutine coroutine = StartCoroutine(FadeSlowly(targetObj, headObj, fadeIn, delay, fadingTime, doDestroy, lowOpacity, highOpacity));
+
+            runningFadingCoroutines[headObj].Add(coroutine);
+            return coroutine;
+        }
+
+        private IEnumerator FadeSlowly(GameObject targetObj, GameObject headObj, bool fadeIn, float delay, float fadingTime, bool doDestroy = true, float lowOpacity = 0f, float highOpacity = 1f)
+        {
+            yield return new WaitForSeconds(delay);
+
             float elapsed = 0f;
             while (elapsed < fadingTime)
             {
@@ -69,7 +113,7 @@ namespace Investigation
                 elapsed += Time.deltaTime;
                 yield return null;
             }
-            if (!fadeIn)
+            if (!fadeIn && targetObj == headObj)
             {
                 if (doDestroy)
                 {
@@ -81,11 +125,28 @@ namespace Investigation
                 }
             }
         }
-        protected void StopFading(GameObject targetObj, float originalOpacity)
+        protected void StopFading(GameObject headObj, float originalOpacity)
         {
-            //temp
-            Color orgColor = targetObj.GetComponent<Image>().color;
-            targetObj.GetComponent<Image>().color = new Color(orgColor.r, orgColor.g, orgColor.b, originalOpacity);
+            if (!runningFadingCoroutines.TryGetValue(headObj, out List<Coroutine> coroutines))
+                return;
+
+            foreach (Coroutine coroutine in coroutines)
+            {
+                if (coroutine != null)
+                    StopCoroutine(coroutine);
+            }
+
+            runningFadingCoroutines.Remove(headObj);
+
+
+        }
+        private void ResetOpacity(GameObject obj, float originalOpacity)
+        {
+            SetOpacity(obj, originalOpacity);
+            foreach(Transform child in obj.transform)
+            {
+                ResetOpacity(child.gameObject, originalOpacity);
+            }
         }
 
         public void SetSpriteImage<T>(GameObject obj, string imagePath, List<AsyncOperationHandle<Sprite>> handles=null) where T : Component

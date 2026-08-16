@@ -48,14 +48,12 @@ namespace Investigation
             {
                 if(inventoryPanel.activeSelf) {
                     if(panelFading!=null) {
-                        StopCoroutine(panelFading);
                         StopFading(inventoryPanel, 0.5f);
                     }
                     else CloseInventory();
                 }
                 else {
                     if(panelFading!=null) {
-                        StopCoroutine(panelFading);
                         StopFading(inventoryPanel, 0.5f);
                     }
                     OpenInventory();
@@ -69,7 +67,7 @@ namespace Investigation
         }
         void OpenInventory()
         {
-            CloseInventory();
+            CloseInventory(false);
             for(int i = 0; i < inventoryItems.Count; i++)
             {
                 string item = inventoryItems[i];
@@ -81,10 +79,18 @@ namespace Investigation
                 SetSpriteImage<Image>(newItem.gameObject, item, inventoryHandles);
             }
             inventoryPanel.SetActive(true);
+            FadeObject(inventoryPanel, true, 0f, 1f, false);
         }
-        void CloseInventory()
+        void CloseInventory(bool doFade=true)
         {
-            inventoryPanel.SetActive(false);
+            if (doFade)
+            {
+                FadeObject(inventoryPanel, false, 0f, 1f, false);
+            }
+            else
+            {
+                inventoryPanel.SetActive(false);
+            }
             if (inventoryContentHolder.transform.childCount > 0)
             {
                 foreach (Transform child in inventoryContentHolder.transform)
@@ -97,7 +103,7 @@ namespace Investigation
         void PreviewInventory()
         {
             OpenInventory();
-            panelFading = FadeObject(inventoryPanel, false, 2f, 2f, false);
+            //panelFading = FadeObject(inventoryPanel, false, 2f, 2f, false);
             StartCoroutine(ResetPanelFading(4f));
             // delay
             //CloseInventory();
@@ -106,6 +112,7 @@ namespace Investigation
         {
             yield return new WaitForSeconds(time);
             if(panelFading != null) panelFading = null;
+            CloseInventory();
         }
         public void AddItem(string itemName, bool doPreview=true)
         {            
