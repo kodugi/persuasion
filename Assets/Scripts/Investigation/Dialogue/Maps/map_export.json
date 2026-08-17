@@ -992,7 +992,7 @@
         "house1"
       ],
       "script": "Inv_InteractionObj_Map1_Houses",
-      "manually_touchable": false
+      "manually_touchable": true
     },
     {
       "title": "Map1/House16",
@@ -1027,7 +1027,7 @@
         "house1"
       ],
       "script": "Inv_InteractionObj_Map1_Houses",
-      "manually_touchable": false
+      "manually_touchable": true
     },
     {
       "title": "Map1/House17",
@@ -1062,7 +1062,7 @@
         "house1"
       ],
       "script": "Inv_InteractionObj_Map1_Houses",
-      "manually_touchable": false
+      "manually_touchable": true
     },
     {
       "title": "Map1/House18",
