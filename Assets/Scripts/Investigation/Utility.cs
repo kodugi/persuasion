@@ -59,13 +59,13 @@ namespace Investigation
                     return new Color();
             }
         }
+        private Dictionary<GameObject, List<Coroutine>> runningFadingCoroutines = new Dictionary<GameObject, List<Coroutine>>();
+
         /// <summary>
         /// Fade In/Out an Object
         /// </summary>
         /// <param name="fadeIn">true: fade in / false: fade out</param>
         /// <param name="doDestroy">true(default): destory object after fading <para>false: SetActive(false) after fading</param>
-        private Dictionary<GameObject, List<Coroutine>> runningFadingCoroutines = new Dictionary<GameObject, List<Coroutine>>();
-
         protected Coroutine FadeObject(GameObject targetObj, bool fadeIn, float delay, float fadingTime, bool doDestroy = true, float lowOpacity = 0f, float highOpacity = 1f)
         {
             StopFading(targetObj, GetColor(targetObj).a);

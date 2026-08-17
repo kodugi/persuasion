@@ -12,6 +12,7 @@ namespace Investigation
 {
     public partial class Inv_GameManager : Utility
     {
+        [SerializeField] GameObject screenHider;
         public void CutScene(string title)
         {
             StartCoroutine(CutSceneProgress(title));
@@ -98,7 +99,24 @@ namespace Investigation
                         }
                     );
                     break;
+                case "Teleport_After_Cave_Interaction":
+                    playerCTRL.CanPlayerMove(false);
+                    yield return FadeScreen(true);
+                    playerCTRL.gameObject.transform.position = new Vector2(0,0);
+                    yield return new WaitForSeconds(1f);
+                    yield return FadeScreen(false);
+                    playerCTRL.CanPlayerMove(true);
+                    break;
             }
+        }
+        Coroutine FadeScreen(bool fadeIn)
+        {
+            return StartCoroutine(FadeScreenCoroutine(fadeIn));
+        }
+        IEnumerator FadeScreenCoroutine(bool fadeIn){
+            if(fadeIn) screenHider.SetActive(true);
+            yield return FadeObject(screenHider,fadeIn,0f, 1f, false);
+            if(!fadeIn) screenHider.SetActive(false);
         }
     }
 }

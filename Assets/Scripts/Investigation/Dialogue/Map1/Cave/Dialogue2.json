@@ -31,6 +31,10 @@
                             "parameters":[
                                 "CreateCollider"
                             ]
+                        },
+                        {
+                            "type": "cutScene",
+                            "title": "Teleport_After_Cave_Interaction"
                         }
                     ]
                 }
