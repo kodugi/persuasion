@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: 8033f9627fd8b4c5eba242927dcae8e3
   m_SerializeEntries:
+  - m_GUID: c1275653f9d944e35a2a5787e7a08ee8
+    m_Address: Assets/Prefabs/Investigation/PeopleStaring.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d3b1d2f915c6e4206aa9ca25090cd6bb
     m_Address: Map1_Guard_Animator
     m_ReadOnly: 0

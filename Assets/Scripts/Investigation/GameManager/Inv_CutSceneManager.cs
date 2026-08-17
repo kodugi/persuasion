@@ -13,6 +13,9 @@ namespace Investigation
     public partial class Inv_GameManager : Utility
     {
         [SerializeField] GameObject screenHider;
+        GameObject staringPeople = null;
+        AsyncOperationHandle<GameObject> staringPeopleHandle;
+
         public void CutScene(string title)
         {
             StartCoroutine(CutSceneProgress(title));
@@ -22,21 +25,28 @@ namespace Investigation
             switch (title)
             {
                 case "PeopleRunningAfterReceivingPen":
-                    print("사람들이 뛰어다닌대요");
-                    yield return new WaitForSeconds(1);
-                    interactManager.Effects(
-                        new JObject
-                        {
-                            ["type"] = "thought",
-                            ["thought"] = "나를 쳐다보던 사람들이 갑자기 어딘가로 몰려가기 시작했다."
-                        }
-                    );
+                    //running
+                    staringPeople.GetComponent<Inv_Obj_Staring_People>().StartRunning();
+                    yield return new WaitForSeconds(10f);
+                    Destroy(staringPeople);
+                    Addressables.Release(staringPeopleHandle);
                     break;
 
 
                 case "PeopleStaringAfterReceivingPen":
-                    print("사람들이 쳐다본대요");
-                    yield return new WaitForSeconds(1);
+                    staringPeopleHandle = Addressables.LoadAssetAsync<GameObject>("PeopleStaring");
+                    yield return staringPeopleHandle;
+                    if (staringPeopleHandle.Status == AsyncOperationStatus.Succeeded)
+                    {
+                        GameObject obj = staringPeopleHandle.Result;
+                        staringPeople = Instantiate(obj);
+                        staringPeople.GetComponent<Inv_Obj_Staring_People>().player = playerCTRL.gameObject;
+                        staringPeople.GetComponent<Inv_Obj_Staring_People>().house_gather = interactManager.FindInteractableObj("Map1/House_Gathering").gameObject;
+                    }
+                    else
+                    {
+                        Debug.LogError("Couldn't Load PeopleStaringAsset");
+                    }
                     break;
 
 

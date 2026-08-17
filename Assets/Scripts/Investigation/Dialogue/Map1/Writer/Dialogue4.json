@@ -40,6 +40,10 @@
                             "parameters":[
                                 1
                             ]
+                        },
+                        {
+                            "type": "cutScene",
+                            "title": "PeopleStaringAfterReceivingPen"
                         }
                     ]
                 }
