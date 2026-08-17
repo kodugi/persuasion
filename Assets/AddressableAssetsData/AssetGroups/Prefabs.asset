@@ -15,11 +15,6 @@ MonoBehaviour:
   m_GroupName: Prefabs
   m_GUID: 7386846b61a1d46b3a6b91754ce1b15f
   m_SerializeEntries:
-  - m_GUID: 4ed4881b226e14a0eacede79e5c1863c
-    m_Address: GuideToCavePathPrefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d28e90bb629a44e01bb33ec1d5ffd630
     m_Address: FootprintPrefab
     m_ReadOnly: 0
