@@ -174,10 +174,11 @@ namespace GamePlay
 
             GameStateView.Instance?.ResetGame();
             BackgroundSuspicionView.Instance?.ResetGame();
-            RightPanelView.Instance?.ResetGame();
             SuspicionView.Instance?.ResetGame();
             FindAnyObjectByType<UIImageView>().ResetGame();
             FindAnyObjectByType<FigureView>()?.ResetGame();
+            BlackOutPanelView.Instance?.ResetGame();
+            GameOverPopupView.Instance?.ResetGame();
         }
 
         public void QueueResetGame()
@@ -288,9 +289,10 @@ namespace GamePlay
         {
             if (e.gameState == GameState.Lost)
             {
-                if (GameInfoHolder.GetCurrentGameInfo().GetMapType() == GameInfo.MapType.Dream4)
+                if (GameInfoHolder.GetCurrentGameInfo().GetMapType() == GameInfo.MapType.Dream4 &&
+                    _winConditionManager.GetLastDefeatReason() == DefeatReason.Scripted)
                 {
-                    Invoke("ToInvestigation", 2f);
+                    StartCoroutine(DreamGameOver());
                 }
                 else
                 {
@@ -298,6 +300,12 @@ namespace GamePlay
                     //ResetGameAfterDelay(2f);
                 }
             }
+        }
+
+        private IEnumerator DreamGameOver()
+        {
+            yield return new WaitForSeconds(6f);
+            ToInvestigation();
         }
 
         private void ToInvestigation()

@@ -13,6 +13,14 @@ namespace GamePlay
         private TutorialController _tutorialController;
         private bool _isGameEnded;
         private bool _isResetting;
+        private DefeatReason _lastDefeatReason;
+
+        public DefeatReason GetLastDefeatReason()
+        {
+            return _lastDefeatReason;
+        }
+
+        public event EventHandler<DefeatEventArgs> RaiseDefeatEvent;
         
         public void Initialize()
         {
@@ -22,6 +30,7 @@ namespace GamePlay
             _turnManager = TurnManager.Instance;
             _tutorialController = TutorialController.Instance;
             _isGameEnded = false;
+            _lastDefeatReason = DefeatReason.None;
 
             _boardController.RaiseCellPlacementEvent += HandleCellPlacementEvent;
             _suspicionManager.RaiseSetSuspicionEvent += HandleSetSuspicionEvent;
@@ -38,6 +47,7 @@ namespace GamePlay
         {
             _isGameEnded = false;
             _isResetting = false;
+            _lastDefeatReason = DefeatReason.None;
         }
 
         private void HandleCellPlacementEvent(object sender, EventArgs e)
@@ -64,7 +74,7 @@ namespace GamePlay
 
             if (_turnManager.GetCurrentTurn() >= GameInfoHolder.GetCurrentGameInfo().GetMaxTurns())
             {
-                Lose();
+                Lose(DefeatReason.TurnLimitExceeded);
                 return;
             }
 
@@ -79,7 +89,7 @@ namespace GamePlay
                         LoseDream();
                         return;
                 }
-                Lose();
+                Lose(DefeatReason.SuspicionOverflow);
                 return;
             }
 
@@ -93,15 +103,20 @@ namespace GamePlay
         {
             if (e.CurrentState == TutorialState.Dream2)
             {
-                _isGameEnded = true;
-                _gameStateManager.SetGameState(GameState.Lost);
+                Lose(DefeatReason.Scripted);
             }
         }
 
-        private void Lose()
+        private void Lose(DefeatReason defeatReason)
         {
-            // TODO: 패배 판정
+            if (_isGameEnded || _isResetting)
+            {
+                return;
+            }
+
             _isGameEnded = true;
+            _lastDefeatReason = defeatReason;
+            RaiseDefeatEvent?.Invoke(this, new DefeatEventArgs(defeatReason));
             _gameStateManager.SetGameState(GameState.Lost);
         }
 
@@ -115,7 +130,26 @@ namespace GamePlay
         private void LoseDream()
         {
             _isGameEnded = true;
+            _lastDefeatReason = DefeatReason.None;
             GameManager.Instance.QueueResetGame();
         }
+    }
+
+    public class DefeatEventArgs : EventArgs
+    {
+        public DefeatReason Reason { get; }
+
+        public DefeatEventArgs(DefeatReason reason)
+        {
+            Reason = reason;
+        }
+    }
+
+    public enum DefeatReason
+    {
+        None,
+        SuspicionOverflow,
+        TurnLimitExceeded,
+        Scripted
     }
 }

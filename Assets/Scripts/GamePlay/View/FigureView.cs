@@ -1,4 +1,5 @@
 using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,16 +19,31 @@ namespace GamePlay
         [SerializeField, Min(0f)] private float _glitchFlashEffectDuration = 0.68f;
         [SerializeField, Range(0f, 1f)] private float _glitchFlashEffectIntensity = 0.4f;
 
+        [Header("Defeat Presentation (Shared)")]
+        [SerializeField, Min(0f)] private float _defeatStartDelay = 3f;
+        [SerializeField, Min(0f)] private float _defeatCloseUpDuration = 3f;
+        [SerializeField, Min(1f)] private float _defeatCloseUpScale = 1.5f;
+        [SerializeField, Min(0f)] private float _defeatShakeStrength = 35f;
+        [SerializeField, Min(1)] private int _defeatShakeVibrato = 35;
+        [SerializeField, Range(0f, 180f)] private float _defeatShakeRandomness = 90f;
+
         private Image _image;
         private RectTransform _rectTransform;
         private Animator _animator;
         private UIGlitchEffect _uiGlitchEffect;
         private Coroutine _glitchCoroutine;
+        private Coroutine _suspicionOverflowDefeatCoroutine;
+        private Coroutine _turnLimitDefeatCoroutine;
+        private Sequence _suspicionOverflowDefeatSequence;
+        private Sequence _turnLimitDefeatSequence;
+        private FigureProfile _activeProfile;
+        private Vector2 _defaultPivot;
 
         private void Awake()
         {
             _image = GetComponent<Image>();
             _rectTransform = GetComponent<RectTransform>();
+            _defaultPivot = _rectTransform.pivot;
             _animator = GetComponent<Animator>();
             _uiGlitchEffect = GetComponent<UIGlitchEffect>();
 
@@ -42,7 +58,27 @@ namespace GamePlay
             SuspicionManager.Instance.RaiseSuspicionOverflowEvent += HandleSuspicionOverflowEvent;
             SuspicionManager.Instance.RaiseSetSuspicionEvent += HandleSetSuspicionEvent;
             TutorialController.Instance.RaiseSetTutorialStateEvent += HandleSetTutorialStateEvent;
+            WinConditionManager.Instance.RaiseDefeatEvent += HandleDefeatEvent;
             ResetGame();
+        }
+
+        private void OnDestroy()
+        {
+            if (SuspicionManager.Instance != null)
+            {
+                SuspicionManager.Instance.RaiseSuspicionOverflowEvent -= HandleSuspicionOverflowEvent;
+                SuspicionManager.Instance.RaiseSetSuspicionEvent -= HandleSetSuspicionEvent;
+            }
+
+            if (TutorialController.Instance != null)
+            {
+                TutorialController.Instance.RaiseSetTutorialStateEvent -= HandleSetTutorialStateEvent;
+            }
+
+            if (WinConditionManager.Instance != null)
+            {
+                WinConditionManager.Instance.RaiseDefeatEvent -= HandleDefeatEvent;
+            }
         }
 
         public void ResetGame()
@@ -53,13 +89,30 @@ namespace GamePlay
                 _glitchCoroutine = null;
             }
 
+            if (_suspicionOverflowDefeatCoroutine != null)
+            {
+                StopCoroutine(_suspicionOverflowDefeatCoroutine);
+                _suspicionOverflowDefeatCoroutine = null;
+            }
+
+            if (_turnLimitDefeatCoroutine != null)
+            {
+                StopCoroutine(_turnLimitDefeatCoroutine);
+                _turnLimitDefeatCoroutine = null;
+            }
+
+            _suspicionOverflowDefeatSequence?.Kill();
+            _suspicionOverflowDefeatSequence = null;
+            _turnLimitDefeatSequence?.Kill();
+            _turnLimitDefeatSequence = null;
+
             _uiGlitchEffect.Stop();
             
             GameInfo gameInfo = GetCurrentGameInfo();
             FigureProfile profile = gameInfo != null ? gameInfo.GetFigureProfile() : null;
             Apply(profile != null ? profile : _fallbackProfile);
             
-            if (gameInfo.GetMapType() == GameInfo.MapType.Dream3)
+            if (gameInfo != null && gameInfo.GetMapType() == GameInfo.MapType.Dream3)
             {
                 _glitchCoroutine = StartCoroutine(PlayRepetitiveGlitchAnimation());
             }
@@ -74,6 +127,8 @@ namespace GamePlay
             }
 
             _image.sprite = profile.Sprite;
+            _activeProfile = profile;
+            _rectTransform.pivot = _defaultPivot;
             _rectTransform.anchoredPosition = profile.AnchoredPosition;
             _rectTransform.sizeDelta = profile.SizeDelta;
             _rectTransform.localScale = profile.LocalScale;
@@ -130,6 +185,144 @@ namespace GamePlay
         private void HandleSetSuspicionEvent(object sender, SetSuspicionEventArgs e)
         {
             
+        }
+
+        private void HandleDefeatEvent(object sender, DefeatEventArgs e)
+        {
+            switch (e.Reason)
+            {
+                case DefeatReason.SuspicionOverflow:
+                    _suspicionOverflowDefeatCoroutine = StartCoroutine(PlaySuspicionOverflowDefeatSequence());
+                    break;
+                case DefeatReason.TurnLimitExceeded:
+                    _turnLimitDefeatCoroutine = StartCoroutine(PlayTurnLimitDefeatSequence());
+                    break;
+            }
+        }
+
+        private IEnumerator PlaySuspicionOverflowDefeatSequence()
+        {
+            if (_defeatStartDelay > 0f)
+            {
+                yield return new WaitForSeconds(_defeatStartDelay);
+            }
+
+            if (_glitchCoroutine != null)
+            {
+                StopCoroutine(_glitchCoroutine);
+                _glitchCoroutine = null;
+            }
+
+            Vector2 suspicionHeadPivot = _activeProfile != null
+                ? _activeProfile.HeadPosition
+                : _defaultPivot;
+            suspicionHeadPivot = new Vector2(
+                Mathf.Clamp01(suspicionHeadPivot.x),
+                Mathf.Clamp01(suspicionHeadPivot.y));
+            Vector2 suspicionPivotOffset = suspicionHeadPivot - _rectTransform.pivot;
+            Vector2 suspicionScaledRectSize = Vector2.Scale(
+                _rectTransform.rect.size,
+                new Vector2(_rectTransform.localScale.x, _rectTransform.localScale.y));
+            _rectTransform.anchoredPosition += Vector2.Scale(suspicionPivotOffset, suspicionScaledRectSize);
+            _rectTransform.pivot = suspicionHeadPivot;
+
+            Vector3 closeUpScale = _rectTransform.localScale * _defeatCloseUpScale;
+            _suspicionOverflowDefeatSequence = DOTween.Sequence();
+            _suspicionOverflowDefeatSequence.Join(
+                _rectTransform
+                    .DOScale(closeUpScale, _defeatCloseUpDuration)
+                    .SetEase(Ease.InCubic));
+            _suspicionOverflowDefeatSequence.Join(
+                _rectTransform
+                    .DOShakeAnchorPos(
+                        _defeatCloseUpDuration,
+                        _defeatShakeStrength,
+                        _defeatShakeVibrato,
+                        _defeatShakeRandomness,
+                        false,
+                        false)
+                    .SetEase(Ease.Linear));
+
+            yield return _suspicionOverflowDefeatSequence.WaitForCompletion();
+
+            if (BlackOutPanelView.Instance != null)
+            {
+                yield return BlackOutPanelView.Instance.PlaySuspicionOverflowBlackOut();
+            }
+            else
+            {
+                Debug.LogWarning("Suspicion-overflow defeat could not play its blackout because BlackOutPanelView is missing.", this);
+            }
+
+            if (GameOverPopupView.Instance != null)
+            {
+                GameOverPopupView.Instance.ShowSuspicionOverflowGameOver();
+            }
+            else
+            {
+                Debug.LogError("Suspicion-overflow defeat could not show the game-over screen because GameOverPopupView is missing.", this);
+            }
+
+            _suspicionOverflowDefeatSequence = null;
+            _suspicionOverflowDefeatCoroutine = null;
+        }
+
+        private IEnumerator PlayTurnLimitDefeatSequence()
+        {
+            if (_defeatStartDelay > 0f)
+            {
+                yield return new WaitForSeconds(_defeatStartDelay);
+            }
+
+            if (_glitchCoroutine != null)
+            {
+                StopCoroutine(_glitchCoroutine);
+                _glitchCoroutine = null;
+            }
+
+            Vector2 turnLimitHeadPivot = _activeProfile != null
+                ? _activeProfile.HeadPosition
+                : _defaultPivot;
+            turnLimitHeadPivot = new Vector2(
+                Mathf.Clamp01(turnLimitHeadPivot.x),
+                Mathf.Clamp01(turnLimitHeadPivot.y));
+            Vector2 turnLimitPivotOffset = turnLimitHeadPivot - _rectTransform.pivot;
+            Vector2 turnLimitScaledRectSize = Vector2.Scale(
+                _rectTransform.rect.size,
+                new Vector2(_rectTransform.localScale.x, _rectTransform.localScale.y));
+            _rectTransform.anchoredPosition += Vector2.Scale(turnLimitPivotOffset, turnLimitScaledRectSize);
+            _rectTransform.pivot = turnLimitHeadPivot;
+
+            Vector3 closeUpScale = _rectTransform.localScale * _defeatCloseUpScale;
+            _turnLimitDefeatSequence = DOTween.Sequence();
+            _turnLimitDefeatSequence.Join(
+                _rectTransform
+                    .DOScale(closeUpScale, _defeatCloseUpDuration)
+                    .SetEase(Ease.OutQuart));
+            _turnLimitDefeatSequence.Join(
+                _rectTransform
+                    .DOShakeAnchorPos(
+                        _defeatCloseUpDuration,
+                        _defeatShakeStrength,
+                        _defeatShakeVibrato,
+                        _defeatShakeRandomness,
+                        false,
+                        true)
+                    .SetEase(Ease.InOutSine));
+
+            yield return _turnLimitDefeatSequence.WaitForCompletion();
+
+            if (GameOverPopupView.Instance != null)
+            {
+                GameOverPopupView.Instance.ShowTurnLimitGameOver();
+            }
+            else
+            {
+                Debug.LogError("Turn-limit defeat could not show the game-over screen because GameOverPopupView is missing.", this);
+            }
+
+            _turnLimitDefeatSequence = null;
+            _turnLimitDefeatCoroutine = null;
         }
 
         private IEnumerator PlayRepetitiveGlitchAnimation()

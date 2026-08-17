@@ -11,6 +11,10 @@ namespace GamePlay
         [SerializeField] private Vector2 _sizeDelta = new Vector2(700f, 2000f);
         [SerializeField] private Vector3 _localScale = Vector3.one;
 
+        [Header("Focus")]
+        [Tooltip("Normalized head position inside the figure image. (0, 0) is bottom-left and (1, 1) is top-right.")]
+        [SerializeField] private Vector2 _headPosition = new Vector2(0.5f, 0.5f);
+
         [Header("Animation")]
         [Tooltip("Each figure may use a different Animator Controller.")]
         [SerializeField] private RuntimeAnimatorController _animatorController;
@@ -21,7 +25,15 @@ namespace GamePlay
         public Vector2 AnchoredPosition => _anchoredPosition;
         public Vector2 SizeDelta => _sizeDelta;
         public Vector3 LocalScale => _localScale;
+        public Vector2 HeadPosition => _headPosition;
         public RuntimeAnimatorController AnimatorController => _animatorController;
         public string InitialState => _initialState;
+
+        private void OnValidate()
+        {
+            _headPosition = new Vector2(
+                Mathf.Clamp01(_headPosition.x),
+                Mathf.Clamp01(_headPosition.y));
+        }
     }
 }
