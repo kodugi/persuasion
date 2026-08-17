@@ -8,7 +8,7 @@ namespace AnimationUtilsNameSpace
     public class AnimationUtils
     {
         
-        public static IEnumerator ExecuteAccordingToCountsPreset<T>(List<T> list, Action<T> action, float delayWithinGroup = 0.05f, float delayBetweenGroups = 1.5f)
+        public static IEnumerator ExecuteAccordingToCountsPreset<T>(List<T> list, Action<T> action, float delayWithinGroup = 0.001f, float delayBetweenGroups = 1.25f)
         {
             List<int> countsPreset = new List<int>() {1, 4, 9};
             

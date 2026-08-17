@@ -63,7 +63,7 @@ namespace GamePlay
                 StartCoroutine(AnimationUtils.ExecuteAccordingToCountsPreset(_backgroundSuspicionPrefabViews, (suspicionView) =>
                 {
                     suspicionView.PlayGameOverAnimation();
-                }, 0.015f));
+                }));
             }
             else
             {
