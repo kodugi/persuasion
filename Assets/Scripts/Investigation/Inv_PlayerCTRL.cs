@@ -22,6 +22,8 @@ namespace Investigation
         List<GameObject> layer_consideredObjs = new List<GameObject>();
         int layer_maxBehind;
         public bool isHiding = false;
+        public bool canHide = false;
+        string hidingBehind="";
 
         void Awake()
         {
@@ -56,6 +58,14 @@ namespace Investigation
             animator_my.SetFloat("ySpeed", ySpeed);
             prevPosition = rigidbody_my.position;
 
+            if (inputAction.Player.Move.ReadValue<Vector2>().sqrMagnitude > 0.01f)
+            {
+                if(isHiding) {
+                    isHiding=false;
+                    Think("더이상 숨어 있지 않다.");//hidingBehind+"뒤에서 나왔다.");
+                }
+            }
+
             if(!interactionScript.isInteracting && playerCanMove){
                 movementInput = inputAction.Player.Move.ReadValue<Vector2>();
                 rigidbody_my.MovePosition(rigidbody_my.position +new Vector2(movementInput.x, movementInput.y) * Time.deltaTime * moveSpeed);
@@ -73,7 +83,7 @@ namespace Investigation
                     hidingCnt++;
                 }
             }
-            isHiding = (hidingCnt)>0;
+            canHide = (hidingCnt)>0;
             gameObject.GetComponent<SpriteRenderer>().sortingOrder = layer_maxBehind+1;
         }
         private void OnTriggerEnter2D(Collider2D collision)
@@ -133,6 +143,12 @@ namespace Investigation
                     );
                     break;
             }
+        }
+        public void Hide(string id)
+        {
+            if(canHide) isHiding = true;
+            hidingBehind = id;
+            Think("숨었다.");//hidingBehind+"뒤에 숨었다.");
         }
     }
 }

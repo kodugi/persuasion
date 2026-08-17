@@ -40,12 +40,13 @@ public class Inv_InteractionObj : Utility
             CheckState();
             Starter();
         }
-        virtual public void StartInteraction()
+        virtual public string StartInteraction()
         {
             if (saveManager != null)
             {
                 CheckState();
             }
+            return obj_name;
         }
         virtual public void EndInteraction()
         {

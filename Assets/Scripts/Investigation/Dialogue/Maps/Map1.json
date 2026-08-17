@@ -3791,8 +3791,8 @@
       "image": [
         "tree1"
       ],
-      "script": "",
-      "manually_touchable": false
+      "script": "Hidable",
+      "manually_touchable": true
     },
     {
       "title": "Map1/나무76",

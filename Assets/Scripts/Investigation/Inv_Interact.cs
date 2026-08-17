@@ -124,6 +124,7 @@ namespace Investigation
         }
         private void Interact(string name)
         {
+            string id = name;
             EndInteraction(true);
             isInteracting = true;
             playerCTRL.CanPlayerMove(false);
@@ -131,13 +132,13 @@ namespace Investigation
             //InteractionGuideUpdate("off");
 
             int state = 0;
-            if(FindInteractableObj(name) != null)
+            if(FindInteractableObj(id) != null)
             {
-                Inv_InteractionObj interactingObj = FindInteractableObj(name).GetComponent<Inv_InteractionObj>();
-                interactingObj.StartInteraction();
+                Inv_InteractionObj interactingObj = FindInteractableObj(id).GetComponent<Inv_InteractionObj>();
+                id = interactingObj.StartInteraction();
                 state = interactingObj.state;
             }
-            string path = "Assets/Scripts/Investigation/Dialogue/" + name + "/Dialogue" + state.ToString() + ".json";
+            string path = "Assets/Scripts/Investigation/Dialogue/" + id + "/Dialogue" + state.ToString() + ".json";
             string json = File.ReadAllText(path);
             JObject data = JObject.Parse(json);
             GameObject obj = Instantiate(dialogueBox, GameObject.Find("Canvas").transform);
@@ -240,6 +241,9 @@ namespace Investigation
                 case "forceInteraction":
                     string target_interaction = (string)effect["target"];
                     ForceInteraction(target_interaction);
+                    break;
+                case "hide":
+                    playerCTRL.Hide((string)effect["name"]);
                     break;
             }
         }

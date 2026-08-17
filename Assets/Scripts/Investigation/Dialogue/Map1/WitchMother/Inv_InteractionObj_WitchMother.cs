@@ -68,10 +68,10 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
                 interactManager.ForceInteraction(obj_name);
             }
         }
-        override public void StartInteraction()
+        override public string StartInteraction()
         {
             amIInteracting = true;
-            base.StartInteraction();
+            return base.StartInteraction();
         }
         override public void EndInteraction()
         {

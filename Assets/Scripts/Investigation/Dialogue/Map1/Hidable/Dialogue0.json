@@ -1,0 +1,27 @@
+{
+    "title": "",
+    "path": [
+        {
+            "description": "숨을까?",
+            "buttons":[
+                {
+                    "title": "숨는다.",
+                    "next": -1,
+                    "effects": [
+                        {
+                            "type": "hide",
+                            "name":""
+                        }
+                    ]
+                },
+                {
+                    "title": "그냥 간다.",
+                    "next": -1,
+                    "effects": [
+                    ]
+                }
+            ]
+        }
+    ]
+
+}

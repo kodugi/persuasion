@@ -154,7 +154,12 @@ namespace Investigation
                     }
                 }
 
-                if (!string.IsNullOrEmpty(obj.script))
+                if (obj.script == "Hidable")
+                {
+                    interactable.AddComponent<Inv_InteractionObj_Hidable>();
+                    interactable.GetComponent<Inv_InteractionObj_Hidable>().SetName(obj.title);
+                }
+                else if (!string.IsNullOrEmpty(obj.script))
                 {
                     System.Type scriptType = System.Type.GetType("Investigation." + obj.script);
                     if (scriptType != null)
