@@ -36,7 +36,7 @@ public partial class ChiefManager : MonoBehaviour
         //currScene = "Start";
         //temporary
         currScene = "Investigation";
-        StartInvestigation("Map1");
+        StartInvestigation("Map_House");
     }
     void FixedUpdate()
     {
@@ -97,14 +97,26 @@ public partial class ChiefManager : MonoBehaviour
                 break;
         }
     }
-    public void StartInvestigation(string id = "")
+    public void StartInvestigation(string id = "", bool preservePlayerPosition = true)
     {
         LoadingMotion();
-        StartCoroutine(StartInvestigationScene(id));
+        StartCoroutine(StartInvestigationScene(id, preservePlayerPosition));
     }
-    IEnumerator StartInvestigationScene(string id="")
+    public void ChangeInvestigationMap(string id)
+    {
+        StartCoroutine(ChangeInvestigationMapAfterDialogue(id));
+    }
+    IEnumerator ChangeInvestigationMapAfterDialogue(string id)
+    {
+        // Let the current dialogue finish its button callbacks before reloading the scene.
+        yield return null;
+        Debug.Log("[ChiefManager] Changing investigation map to: " + id);
+        StartInvestigation(id, false);
+    }
+    IEnumerator StartInvestigationScene(string id="", bool preservePlayerPosition = true)
     {
         ExitScene(false);
+        if (!preservePlayerPosition) invSceneLastPos = null;
         if(id=="") id= return_Inv_Scene_ID;
         //temp
         if(id=="") id = "Map1";

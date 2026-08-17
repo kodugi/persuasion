@@ -1,0 +1,30 @@
+{
+  "title": "000(이름)",
+  "path": [
+    {
+      "description": "(잠자리에 든 뒤의 대사)",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 1,
+          "effects": []
+        }
+      ]
+    },
+    {
+      "description": "(의식이 흐려지며 꿈으로 넘어간다.)",
+      "buttons": [
+        {
+          "title": "(잠든다)",
+          "next": -1,
+          "effects": [
+            {
+              "type": "changeMap",
+              "title": "Map_Dream"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

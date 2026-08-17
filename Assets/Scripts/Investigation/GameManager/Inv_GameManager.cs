@@ -189,6 +189,20 @@ namespace Investigation
 
 
             }
+
+            if (currScene == "Map_House")
+            {
+                Inv_PlayerCTRL player = FindFirstObjectByType<Inv_PlayerCTRL>();
+                player.CanPlayerMove(false);
+                player.GetComponent<SpriteRenderer>().enabled = false;
+                StartCoroutine(StartHouseDialogue());
+            }
+        }
+        private IEnumerator StartHouseDialogue()
+        {
+            // Inv_Interact initializes its dialogue anchor during Start, so wait one frame.
+            yield return null;
+            interactManager.ForceInteraction("Map_House/Cutscene");
         }
         string getID()
         {
@@ -221,6 +235,7 @@ namespace Investigation
                 case "IntoDream":
                     print("잠에 들었다.");
                     yield return null;
+                    chiefManager.StartInvestigation("Map_House", false);
                     break;
                 case "CrowdAroundWitchMotherDisperse":
                     print("사람들이 흩어진다.");

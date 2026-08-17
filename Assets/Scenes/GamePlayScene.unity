@@ -3957,7 +3957,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GamePlay.GameManager
   _gameInfoList:
-  - {fileID: 11400000, guid: c72e97b95506a8b4ba130fe6446d62f1, type: 2}
+  - {fileID: 11400000, guid: d30f406ff9cfb8c4182310313102e03f, type: 2}
   - {fileID: 11400000, guid: b07d6474a645f60408f7ec9b09dba023, type: 2}
   _tutorialEntryGroups:
   - State: 1
@@ -4163,7 +4163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GamePlay.BlackOutPanelView
   _suspicionOverflowFadeDuration: 0.45
   _suspicionOverflowHoldDuration: 0.35
-  _scriptedDreamDelay: 3
+  _scriptedDreamDelay: 5
 --- !u!1 &1427285069
 GameObject:
   m_ObjectHideFlags: 0

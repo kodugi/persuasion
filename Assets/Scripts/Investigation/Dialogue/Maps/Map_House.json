@@ -1,0 +1,137 @@
+{
+  "title": "Map_House",
+  "interactables": [
+    {
+      "title": "background",
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "size": {
+        "x": 20,
+        "y": 12
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 0,
+      "image": "",
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map_House/Bed",
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "size": {
+        "x": 4,
+        "y": 2
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 10,
+      "image": "",
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map_House/Player_Lying",
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "size": {
+        "x": 2,
+        "y": 1
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 11,
+      "image": "",
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map_House/Cutscene",
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "size": {
+        "x": 1,
+        "y": 1
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 0,
+      "image": "",
+      "script": "",
+      "manually_touchable": false
+    }
+  ]
+}

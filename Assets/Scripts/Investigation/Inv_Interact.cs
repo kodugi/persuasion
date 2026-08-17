@@ -232,6 +232,9 @@ namespace Investigation
                 case "cutScene":
                     manager.CutScene((string)effect["title"]);
                     break;
+                case "changeMap":
+                    ChiefManager.Instance.ChangeInvestigationMap((string)effect["title"]);
+                    break;
             }
         }
     }
