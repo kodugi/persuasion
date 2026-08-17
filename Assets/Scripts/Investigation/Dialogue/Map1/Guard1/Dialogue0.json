@@ -253,13 +253,6 @@
                     "title": "",
                     "next": 20,
                     "effects": [
-                        {
-                            "type": "variation",
-                            "target": "Map1/Guard1",
-                            "parameters": [
-                                "Pull"
-                            ]
-                        }
                     ]
                 }
             ]

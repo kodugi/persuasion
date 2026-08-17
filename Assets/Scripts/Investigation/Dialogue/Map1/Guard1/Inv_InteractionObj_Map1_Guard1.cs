@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Investigation
 {
 public class Inv_InteractionObj_Map1_Guard1: Inv_InteractionObj
     {
-        [SerializeField] private float moveSpeed = 3f;
+        [SerializeField] private float moveSpeed = 5f;
         private Inv_Interact interactManager;
         private bool chasing = false;
         private Transform player;
@@ -54,7 +56,14 @@ public class Inv_InteractionObj_Map1_Guard1: Inv_InteractionObj
                 chasing = false;
                 animator.SetBool("Running", false);
                 interactManager.ForceInteraction(obj_name);
-
+                interactManager.Effects(
+                    new JObject
+                    {
+                        ["type"]= "variation",
+                        ["target"]= "Map1/Guard1",
+                        ["parameters"]= new JArray{"Pull"}
+                    }
+                );
             }
         }
         override public void variation(List<string> parameters)
