@@ -1,0 +1,39 @@
+{
+    "title": "",
+    "path": [
+        {
+            "description": "()",
+            "buttons": [
+                {
+                    "title": "들어가자.",
+                    "next": -1,
+                    "effects": [
+                        {
+                            "type": "variation",
+                            "target": "Map1/Player",
+                            "parameters": [
+                                0
+                            ]
+                        },
+                        {
+                            "type": "variation",
+                            "target": "Map1/Dream_Trigger",
+                            "parameters":[
+                                2
+                            ]
+                        },
+                        {
+                            "type":"cutScene",
+                            "title":"IntoDream"
+                        },
+                        {
+                            "type":"progress",
+                            "key":"dreamt",
+                            "value":true
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

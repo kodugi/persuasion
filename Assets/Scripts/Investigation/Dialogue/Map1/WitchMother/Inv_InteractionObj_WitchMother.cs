@@ -92,6 +92,22 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
                         state=4;
                         break;
                     case "Accepted":
+                        interactManager.Effects(
+                            new JObject
+                            {
+                                ["type"]="variation",
+                                ["target"]="Map1/Dream_Trigger",
+                                ["parameters"]=new JArray{1}
+                            }
+                        );
+                        interactManager.Effects(
+                            new JObject
+                            {
+                                ["type"]="variation",
+                                ["target"]="Map1/Player",
+                                ["parameters"]=new JArray{3}
+                            }
+                        );
                         state=6;
                         break;
                     case "alone":

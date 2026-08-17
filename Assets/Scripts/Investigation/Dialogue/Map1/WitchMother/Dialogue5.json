@@ -27,15 +27,6 @@
                             "type":"variation",
                             "target":"Map1/WitchMother",
                             "parameters":["Accepted"]
-                        },
-                        {
-                            "type":"cutScene",
-                            "title":"IntoDream"
-                        },
-                        {
-                            "type":"progress",
-                            "key":"dreamt",
-                            "value":true
                         }
                     ]
                 }

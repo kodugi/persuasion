@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Investigation
 {
-public class Inv_InteractionObj_Map1_Road_Running_Trigger: Inv_InteractionObj
+public class Inv_InteractionObj_Map1_Dream_Trigger: Inv_InteractionObj
     {
         private Inv_Interact interactManager;
         override protected void Starter()

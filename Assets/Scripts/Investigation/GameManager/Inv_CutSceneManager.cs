@@ -65,8 +65,8 @@ namespace Investigation
 
                 case "IntoDream":
                     print("잠에 들었다.");
+                    yield return new WaitForSeconds(1f);
                     chiefManager.StartInvestigation("Dream");
-                    yield return null;
                     break;
 
 

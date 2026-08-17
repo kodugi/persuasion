@@ -235,6 +235,39 @@
       "manually_touchable": false
     },
     {
+      "title": "Map1/Dream_Trigger",
+      "position": {
+        "x": -22.6417,
+        "y": 27.1362
+      },
+      "size": {
+        "x": 0.6094725,
+        "y": 1.171812
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 1,
+        "y": 1
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 0,
+      "image": [],
+      "script": "Inv_InteractionObj_Map1_Dream_Trigger",
+      "manually_touchable": false
+    },
+    {
       "title": "Map1/WitchMotherBlocker",
       "position": {
         "x": -17.85,
