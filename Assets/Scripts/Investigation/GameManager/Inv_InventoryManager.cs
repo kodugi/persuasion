@@ -86,14 +86,14 @@ namespace Investigation
                 SetSpriteImage<Image>(newItem.gameObject, item, inventoryHandles);
             }
             inventoryPanel.SetActive(true);
-            if(doFade) FadeObject(inventoryPanel, true, 0f, 1f, false);
+            if(doFade) FadeObject(inventoryPanel, true, 0f, 0f, false);
             panelFading = null;
         }
         void CloseInventory(bool doFade=true)
         {
             if (doFade)
             {
-                panelFading = FadeObject(inventoryPanel, false, 0f, 1f, false);
+                panelFading = FadeObject(inventoryPanel, false, 0f, 0f, false);
             }
             else
             {

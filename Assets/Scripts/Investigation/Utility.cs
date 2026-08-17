@@ -42,7 +42,7 @@ namespace Investigation
                 if(target_g.TryGetComponent<SpriteRenderer>(out SpriteRenderer temp_s)) target = temp_s;
                 else if(target_g.TryGetComponent<Image>(out Image temp_i)) target = temp_i;
                 else {
-                    Debug.LogError("Couldn't Get Color from: "+target_g.name);
+                    Debug.LogWarning("Couldn't Get Color from: "+target_g.name);
                     return new Color();
                 }
             }
@@ -113,6 +113,7 @@ namespace Investigation
                 elapsed += Time.deltaTime;
                 yield return null;
             }
+            SetOpacity(targetObj, lowOpacity+(fadeIn?1:0)*(highOpacity-lowOpacity));
             if (!fadeIn && targetObj == headObj)
             {
                 if (doDestroy)
