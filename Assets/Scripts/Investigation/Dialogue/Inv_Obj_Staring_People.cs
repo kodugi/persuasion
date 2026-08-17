@@ -9,8 +9,7 @@ public class Inv_Obj_Staring_People: Utility
     {
         public GameObject player;
         public GameObject house_gather;
-        Dictionary<GameObject, Vector3> eyes = new Dictionary<GameObject, Vector3>();
-        List<GameObject> people = new List<GameObject>();
+        Dictionary<GameObject, (GameObject eye, Vector3 originalPos)> people = new Dictionary<GameObject, (GameObject eye, Vector3 originalPos)>();
         [SerializeField] float maxDistance = 0.1f;
         bool doRun = false;
         float moveSpeed = 3f;
@@ -29,42 +28,46 @@ public class Inv_Obj_Staring_People: Utility
         }        
         void Start()
         {
-            CheckEye(gameObject);
+            CheckPeople(gameObject);
         }
-        void CheckEye(GameObject parent)
+        void CheckPeople(GameObject parent)
+        {
+            foreach(Transform child in parent.transform)
+            {
+                if (child.gameObject.CompareTag("Inv_Staring_People"))
+                {
+                    people[child.gameObject] = default;
+                }
+
+                CheckEye(child.gameObject, child.gameObject);
+            }
+        }
+        void CheckEye(GameObject parent, GameObject idx)
         {
             foreach(Transform child in parent.transform)
             {
                 if (child.gameObject.CompareTag("Inv_Staring_People_Eye"))
                 {
-                    eyes[child.gameObject] = child.position;
+                    people[idx] = (child.gameObject, child.gameObject.transform.position);
                 }
-                else if (child.gameObject.CompareTag("Inv_Staring_People"))
-                {
-                    people.Add(child.gameObject);
-                }
-
-                CheckEye(child.gameObject);
+                else CheckEye(child.gameObject, idx);
             }
         }
         void Update()
         {
-            foreach(var pair in eyes)
+            foreach(var pair in people)
             {
-                GameObject eye = pair.Key;
-                if(eye == null) continue;
-                Vector3 originalPos = pair.Value;
-                eye.transform.position = (player.transform.position-originalPos).normalized*maxDistance+originalPos;
-            }
-            if (doRun)
-            {
-                foreach(GameObject person in people)
+                GameObject person = pair.Key;
+                if(person == null) continue;
+                GameObject eye = pair.Value.eye;
+                Vector3 originalPos = pair.Value.originalPos;
+                eye.transform.position = (player.transform.position-originalPos).normalized*maxDistance+originalPos+person.transform.position;
+                if (doRun)
                 {
                     person.transform.position = Vector3.MoveTowards(person.transform.position,house_gather.transform.position,moveSpeed * Time.deltaTime);
                     if(Vector3.Distance(person.transform.position, house_gather.transform.position) < 0.1f)
                     {
                         Destroy(person);
-                        people.Remove(person);
                     }
                 }
             }

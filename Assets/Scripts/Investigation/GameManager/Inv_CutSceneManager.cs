@@ -13,7 +13,20 @@ namespace Investigation
     public partial class Inv_GameManager : Utility
     {
         [SerializeField] GameObject screenHider;
-        GameObject staringPeople = null;
+        GameObject _staringPeople = null;
+        GameObject staringPeople{
+            get{
+                if(_staringPeople == null)
+                {
+                    _staringPeople = FindFirstObjectByType<Inv_Obj_Staring_People>().gameObject;
+                }
+                return _staringPeople;
+            }
+            set
+            {
+                _staringPeople = value;
+            }
+        }
         AsyncOperationHandle<GameObject> staringPeopleHandle;
 
         public void CutScene(string title)
