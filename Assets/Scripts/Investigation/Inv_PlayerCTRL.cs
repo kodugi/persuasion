@@ -86,6 +86,10 @@ namespace Investigation
             canHide = (hidingCnt)>0;
             gameObject.GetComponent<SpriteRenderer>().sortingOrder = layer_maxBehind+1;
         }
+        public bool AlreadyHiding(GameObject obj)
+        {
+            return (isHiding && obj.GetComponent<Inv_InteractionObj>() is Inv_InteractionObj_Hidable);
+        }
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.CompareTag("Inv_Interactable"))
@@ -93,7 +97,11 @@ namespace Investigation
                 layer_consideredObjs.Add(collision.gameObject);
                 if(collision.GetComponent<Inv_InteractionObj>().manuallyTouchable)
                 {
-                    interactionScript.QueueInteraction(collision.GetComponent<Inv_InteractionObj>().obj_name, true);
+                    if(AlreadyHiding(collision.gameObject))
+                    {
+                        //nothing
+                    }
+                    else interactionScript.QueueInteraction(collision.GetComponent<Inv_InteractionObj>().obj_name, true);
                     
                 }
             }
@@ -112,9 +120,16 @@ namespace Investigation
         }
         public void Think(string thought)
         {
-            thoughtObj.SetActive(true);
+            StartCoroutine(ThinkC(thought));
+        }
+        IEnumerator ThinkC(string thought)
+        {
             thoughtObj.transform.Find("Text").GetComponent<TMPro.TextMeshProUGUI>().text = thought;
-            FadeObject(thoughtObj, false, 2f, 2f, false);
+            thoughtObj.SetActive(true);
+            //FadeObject(thoughtObj, true, 0f, 0f, false, 0f, 0.5f);
+            //FadeObject(thoughtObj, false, 2f, 0f, false, 0f, 0.5f);
+            yield return new WaitForSeconds(2f);
+            thoughtObj.SetActive(false);
         }
         public void CanPlayerMove(bool canMove)
         {
@@ -146,9 +161,15 @@ namespace Investigation
         }
         public void Hide(string id)
         {
-            if(canHide) isHiding = true;
-            hidingBehind = id;
-            Think("숨었다.");//hidingBehind+"뒤에 숨었다.");
+            if(canHide) {
+                isHiding = true;
+                hidingBehind = id;
+                Think("숨었다.");//hidingBehind+"뒤에 숨었다.");
+            }
+            else
+            {
+                Think("좀 더 몸을 가려야 숨길 수 있을 것 같다.");
+            }
         }
     }
 }

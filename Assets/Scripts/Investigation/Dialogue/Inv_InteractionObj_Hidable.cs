@@ -7,6 +7,27 @@ public class Inv_InteractionObj_Hidable: Inv_InteractionObj
     {
         string naturalName;
         Inv_Interact interactCTRL;
+        bool _isHidingMode =true;
+        bool original_mt;
+        protected bool isHidingMode
+        {
+            get
+            {
+                return _isHidingMode;
+            }
+            set
+            {
+                _isHidingMode = value;
+                if(_isHidingMode) {
+                    original_mt = manuallyTouchable;
+                    manuallyTouchable = true;
+                }
+                else
+                {
+                    manuallyTouchable = original_mt;
+                }
+            }
+        }
         public void SetName(string rawText)
         {
             naturalName = rawText;
@@ -17,7 +38,8 @@ public class Inv_InteractionObj_Hidable: Inv_InteractionObj
             {
                 CheckState();
             }
-            return "Map1/Hidable";
+            if(isHidingMode) return "Map1/Hidable";
+            else return obj_name;
         }
     }
 }

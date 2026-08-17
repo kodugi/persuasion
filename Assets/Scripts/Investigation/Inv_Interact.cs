@@ -31,11 +31,25 @@ namespace Investigation
             playerCTRL = GameObject.FindFirstObjectByType<Inv_PlayerCTRL>().GetComponent<Inv_PlayerCTRL>();
             saveManager = GameObject.FindFirstObjectByType<SaveManager>().GetComponent<SaveManager>();
         }
+        string GetLastQueue()
+        {
+            for(int i = interactionQueue.Count - 1; i >=0; i--)
+            {
+                string id = interactionQueue[i];
+                if (playerCTRL.AlreadyHiding(FindInteractableObj(id).gameObject))
+                {
+                    continue;
+                }
+                return id;
+            }
+            return null;
+        }
         void Update()
         {
-            if (!isInteracting && interactionQueue.Count > 0 && Input.GetKeyDown(KeyCode.X))
+            if (!isInteracting && GetLastQueue()!=null && Input.GetKeyDown(KeyCode.X))
             {
-                Interact(interactionQueue[interactionQueue.Count - 1]);
+                string id = GetLastQueue();
+                if(id != null) Interact(id);
             }
         }
         /// <summary>
@@ -76,12 +90,13 @@ namespace Investigation
         }
         private void InteractionGuideUpdate(string mode = "default")
         {
-            if(interactionQueue.Count <= 0) {
+            string id = GetLastQueue();
+            if(id == null) {
                 FinishBlinking();
                 curr_img = null;
             }
             else {
-                GameObject temp_obj = FindInteractableObj(interactionQueue[interactionQueue.Count-1]).gameObject;
+                GameObject temp_obj = FindInteractableObj(id).gameObject;
                 if (temp_obj.GetComponent<Inv_InteractionObj>().manuallyTouchable)
                 {
                     SpriteRenderer temp_img = temp_obj.GetComponent<SpriteRenderer>();
@@ -92,29 +107,6 @@ namespace Investigation
                     original_Color = curr_img.color;
                 }
             }
-            // do we need it?
-            /*
-            bool targetState=true;
-            if (mode == "default")
-            {
-                if (interactionQueue.Count > 0) targetState = true;
-                else targetState = false;
-            }
-            else if (mode == "on") targetState = true;
-            else if (mode == "off") targetState = false;
-            
-            if (targetState)
-            {
-                if (!isInteracting)
-                {
-                    interactionGuide.SetActive(true);
-                    interactionGuide.transform.Find("Text").GetComponent<TMPro.TextMeshProUGUI>().text = "Press X to interact";
-                }
-            }
-            else
-            {
-                interactionGuide.SetActive(false);
-            }*/
         }
         public void ForceInteraction(string name)
         {
@@ -137,6 +129,7 @@ namespace Investigation
                 Inv_InteractionObj interactingObj = FindInteractableObj(id).GetComponent<Inv_InteractionObj>();
                 id = interactingObj.StartInteraction();
                 state = interactingObj.state;
+                if(id.Contains("Hidable")) state = 0;
             }
             string path = "Assets/Scripts/Investigation/Dialogue/" + id + "/Dialogue" + state.ToString() + ".json";
             string json = File.ReadAllText(path);

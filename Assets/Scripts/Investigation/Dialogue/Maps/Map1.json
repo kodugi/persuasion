@@ -5226,7 +5226,7 @@
       "image": [
         "bush2"
       ],
-      "script": "",
+      "script": "Hidable",
       "manually_touchable": true
     },
     {

@@ -5,13 +5,14 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Investigation
 {
-public class Inv_InteractionObj_Map1_Houses: Inv_InteractionObj
+public class Inv_InteractionObj_Map1_Houses: Inv_InteractionObj_Hidable
     {
         GameObject faceImg;
         private Inv_GameManager gameManager;
         List<AsyncOperationHandle<Sprite>> handles = new List<AsyncOperationHandle<Sprite>>();
         override protected void Starter()
         {
+            isHidingMode = true; // 나중에 대사 생기면 false로하고
             gameManager = FindFirstObjectByType<Inv_GameManager>();
 
             
