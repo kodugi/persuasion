@@ -1,29 +1,40 @@
 {
     "title": "",
-    "LD_images": ["Artboard 1_3A","Artboard 1_4A"],
+    "LD_images": ["", "LD_Player_6A",""],
     "path": [
+        {
+            "description": "…..어?",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 1,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": ""
+                        }
+                    ]
+                }
+            ]
+        },
         {
             "description": "손목을 잡아채는 우악스러운 손길에 나는 고개를 확 돌렸다.",
             "buttons": [
                 {
                     "title": "",
-                    "next": 1,
-                    "effects": []
+                    "next": 2,
+                    "effects": [
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Guard_2A",
+                            "position": 0
+                        }
+                    ]
                 }
             ]
         },
         {
             "description": "눈을 벌겋게 뜬 남자의 얼굴이 나를 노려보고 있었다. 명백한 적대감이 서린 눈빛이었다.",
-            "buttons": [
-                {
-                    "title": "",
-                    "next": 2,
-                    "effects": []
-                }
-            ]
-        },
-        {
-            "description": "남자와 눈을 마주하자마자, 남자의 머릿속 풍경이 흐릿하게 보였다.",
             "buttons": [
                 {
                     "title": "",
@@ -33,7 +44,7 @@
             ]
         },
         {
-            "description": "새까만 혐오감으로 가득 차 있는 공허한 공간.",
+            "description": "남자와 눈을 마주하자마자, 남자의 머릿속 풍경이 흐릿하게 보였다.",
             "buttons": [
                 {
                     "title": "",
@@ -43,7 +54,7 @@
             ]
         },
         {
-            "description": "그 광경을 보는 순간 팔 위로 수백 마리의 개미가 기어가는 듯한 기분이 들었다.",
+            "description": "새까만 혐오감으로 가득 차 있는 공허한 공간.",
             "buttons": [
                 {
                     "title": "",
@@ -53,11 +64,21 @@
             ]
         },
         {
-            "description": "손목이 으스러질 것 같은 통증이 팔을 타고 전해져 왔다. 통증은 곧 맹렬한 공포로 바뀌었다.",
+            "description": "그 광경을 보는 순간 팔 위로 수백 마리의 개미가 기어가는 듯한 기분이 들었다.",
             "buttons": [
                 {
                     "title": "",
                     "next": 6,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "손목이 으스러질 것 같은 통증이 팔을 타고 전해져 왔다. 통증은 곧 맹렬한 공포로 바뀌었다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 7,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -68,11 +89,11 @@
             ]
         },
         {
-            "description": "어딜 우리 마을에 침입하려고? 악아빠진 마녀년.",
+            "description": "어딜 우리 마을에 침입하려고? 약아빠진 마녀년.",
             "buttons": [
                 {
                     "title": "",
-                    "next": 7,
+                    "next": 8,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -83,11 +104,11 @@
             ]
         },
         {
-            "description": "네…. 네?",
+            "description": "네…. 네? 그게 무슨….",
             "buttons": [
                 {
                     "title": "",
-                    "next": 8,
+                    "next": 9,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -102,62 +123,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 9,
-                    "effects": []
-                }
-            ]
-        },
-        {
-            "description": "그렇게 중얼거리던 남자는 이내 목청을 높여 소리를 질렀다.",
-            "buttons": [
-                {
-                    "title": "",
                     "next": 10,
-                    "effects": [
-                        {
-                            "type": "changeTitle",
-                            "title": "남자"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "저기요, 누구 없어요? 여기 마녀가 있습니다. 마녀가!",
-            "buttons": [
-                {
-                    "title": "",
-                    "next": 11,
-                    "effects": [
-                        {
-                            "type": "changeTitle",
-                            "title": "남자"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "저희 마을에 악랄한 마녀가 들어왔다고요!",
-            "buttons": [
-                {
-                    "title": "",
-                    "next": 12,
-                    "effects": [
-                        {
-                            "type": "changeTitle",
-                            "title": "남자"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "누가 좀 줄 준비해 주쇼! 쇠기둥이랑 밧줄도!",
-            "buttons": [
-                {
-                    "title": "",
-                    "next": 13,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -168,11 +134,83 @@
             ]
         },
         {
-            "description": "나는 덜덜 떨리는 다리를 겨우 진정시키고 입을 뗐다. 당혹감에 목소리조차 제대로 나오지 않았다.",
+            "description": "그렇게 중얼거리던 남자는 이내 목청을 높여 소리를 질렀다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 11,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "남자"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Guard_4A",
+                            "position": 0
+                        }
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "저기요, 누구 없어요? 여기 마녀가 있습니다. 마녀가!",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 12,
+                    "effects": [
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Guard_5A",
+                            "position": 0
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "저희 마을에 악랄한 마녀가 들어왔다고요!",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 13,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "누가 좀 줄 준비해 주쇼! 쇠기둥이랑 밧줄도!",
             "buttons": [
                 {
                     "title": "",
                     "next": 14,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "대체 이게 무슨 상황이지? 도무지 상황 파악이 되질 않았다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 15,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "나는 덜덜 떨리는 다리를 겨우 진정시키고 입을 뗐다. 당혹감에 목소리조차 제대로 나오지 않았다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 16,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -187,12 +225,18 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 15,
+                    "next": 17,
                     "effects": [
                         {
                             "type": "changeTitle",
                             "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Guard_2A",
+                            "position": 0
                         }
+                    
                     ]
                 }
             ]
@@ -202,12 +246,18 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 16,
+                    "next": 18,
                     "effects": [
                         {
                             "type": "changeTitle",
                             "title": "남자"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Guard_5A",
+                            "position": 0
                         }
+                    
                     ]
                 }
             ]
@@ -217,7 +267,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 17,
+                    "next": 19,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -232,34 +282,19 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 18,
-                    "effects": []
-                }
-            ]
-        },
-        {
-            "description": "이내 남자는 자신의 행동이 별 소용이 없다는 것을 깨달은 모양이었다.",
-            "buttons": [
-                {
-                    "title": "",
-                    "next": 19,
-                    "effects": []
-                }
-            ]
-        },
-        {
-            "description": "혀를 찬 남자는 이내 내 팔을 강하게 끌어당기기 시작했다.",
-            "buttons": [
-                {
-                    "title": "",
                     "next": 20,
                     "effects": [
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Guard_2A",
+                            "position": 0
+                        }
                     ]
                 }
             ]
         },
         {
-            "description": "저항해보려 해도 역부족이었다. 땅바닥에 발이 질질 끌렸다.",
+            "description": "이내 남자는 자신의 행동이 별 소용이 없다는 것을 깨달은 모양이었다.",
             "buttons": [
                 {
                     "title": "",
@@ -269,37 +304,27 @@
             ]
         },
         {
-            "description": "이제는 떨고 있을 새도 없었다. 생존본능에 가까운 공포감에 나는 마구 몸을 비틀며 소리치기 시작했다.",
+            "description": "혀를 찬 남자는 이내 내 팔을 강하게 끌어당기기 시작했다.",
             "buttons": [
                 {
                     "title": "",
                     "next": 22,
-                    "effects": [
-                        {
-                            "type": "changeTitle",
-                            "title": "주인공"
-                        }
-                    ]
+                    "effects": []
                 }
             ]
         },
         {
-            "description": "저기요, 아저씨! 왜 이러세요! 살려주세요!!",
+            "description": "저항해보려 해도 역부족이었다. 땅바닥에 발이 질질 끌렸다.",
             "buttons": [
                 {
                     "title": "",
                     "next": 23,
-                    "effects": [
-                        {
-                            "type": "changeTitle",
-                            "title": "주인공"
-                        }
-                    ]
+                    "effects": []
                 }
             ]
         },
         {
-            "description": "저 사람이에요. 왜 사람 말을 안 들어요?",
+            "description": "이제는 떨고 있을 새도 없었다. 생존본능에 가까운 공포감에 나는 마구 몸을 비틀며 소리치기 시작했다.",
             "buttons": [
                 {
                     "title": "",
@@ -314,11 +339,37 @@
             ]
         },
         {
-            "description": "나 마녀 아니라고!!",
+            "description": "저기요, 아저씨! 왜 이러세요! 살려주세요!!",
             "buttons": [
                 {
                     "title": "",
                     "next": 25,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "저, 저 사람이에요. 왜 갑자기 마녀라고…. 저 마녀 아니에요. 저기요?",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 26,
+                    "effects": [
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_6A",
+                            "position": 1
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "나 마녀 아니라고!!",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 27,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -333,7 +384,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 26,
+                    "next": 28,
                     "effects": []
                 }
             ]
@@ -343,7 +394,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 27,
+                    "next": 29,
                     "effects": []
                 }
             ]
@@ -353,16 +404,8 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 28,
-                    "effects": [
-                        {
-                            "type": "variation",
-                            "target": "Map1/Guard1",
-                            "parameters": [
-                                "Throw"
-                            ]
-                        }
-                    ]
+                    "next": 30,
+                    "effects": []
                 }
             ]
         },
@@ -371,7 +414,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 29,
+                    "next": 31,
                     "effects": []
                 }
             ]
@@ -381,7 +424,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 30,
+                    "next": 32,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -396,48 +439,13 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 31,
-                    "effects": [
-                        {
-                            "type": "changeTitle",
-                            "title": "남자"
-                        }
-                    ]
+                    "next": 33,
+                    "effects": []
                 }
             ]
         },
         {
             "description": "그럼 지금 불태워주면 되나?",
-            "buttons": [
-                {
-                    "title": "",
-                    "next": 32,
-                    "effects": [
-                        {
-                            "type": "changeTitle",
-                            "title": ""
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "나는 간신히 몸을 일으켜 앉아 남자를 바라보았다. 주머니에 빠르게 들어갔다 나온 남자의 손에는 라이터가 들려 있었다.",
-            "buttons": [
-                {
-                    "title": "",
-                    "next": 33,
-                    "effects": [
-                        {
-                            "type": "changeTitle",
-                            "title": "남자"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "머리카락이 장작 역할을 하겠지.",
             "buttons": [
                 {
                     "title": "",
@@ -452,11 +460,41 @@
             ]
         },
         {
-            "description": "그 중얼거림을 듣고 나는 직감했다.",
+            "description": "나는 간신히 몸을 일으켜 앉아 남자를 바라보았다. 주머니에 빠르게 들어갔다 나온 남자의 손에는 라이터가 들려 있었다.",
             "buttons": [
                 {
                     "title": "",
                     "next": 35,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "남자"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "머리카락이 장작 역할을 하겠지.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 36,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "그 중얼거림을 듣고 나는 직감했다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 37,
                     "effects": []
                 }
             ]
@@ -466,28 +504,51 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 36,
+                    "next": 38,
                     "effects": [
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 0
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 1
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_3A",
+                            "position": 2
                         }
+                    
+                    
+                    
                     ]
                 }
             ]
         },
         {
-            "description": "(살려달라고 빌거나, 내가 마녀가 아니라고 해봤자 들은 척도 안 할 거야…)",
+            "description": "(이 사람이 무슨 근거로 내가 마녀라고 확신하고 있는 건지는 모르겠지만….)",
             "buttons": [
                 {
                     "title": "",
-                    "next": 37,
-                    "effects": [
-                        {
-                            "type": "changeTitle",
-                            "title": "주인공"
-                        }
-                    ]
+                    "next": 39,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(살려달라고 빌거나, 내가 마녀가 아니라고 해봤자 들은 척도 안 할 거야.)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 40,
+                    "effects": []
                 }
             ]
         },
@@ -496,13 +557,8 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 38,
-                    "effects": [
-                        {
-                            "type": "changeTitle",
-                            "title": "주인공"
-                        }
-                    ]
+                    "next": 41,
+                    "effects": []
                 }
             ]
         },
@@ -511,12 +567,18 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 39,
+                    "next": 42,
                     "effects": [
                         {
                             "type": "changeTitle",
                             "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 2
                         }
+                    
                     ]
                 }
             ]
@@ -526,12 +588,18 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 40,
+                    "next": 43,
                     "effects": [
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_8A",
+                            "position": 2
                         }
+                    
                     ]
                 }
             ]
@@ -541,58 +609,13 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 41,
-                    "effects": [
-                        {
-                            "type": "changeTitle",
-                            "title": "주인공"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "(…원래 하면 안 되는데. 지금은 비상상황이니까…)",
-            "buttons": [
-                {
-                    "title": "",
-                    "next": 42,
-                    "effects": [
-                        {
-                            "type": "changeTitle",
-                            "title": "주인공"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "(죽는 것보다는 낫잖아?)",
-            "buttons": [
-                {
-                    "title": "",
-                    "next": 43,
-                    "effects": [
-                        {
-                            "type": "changeTitle",
-                            "title": ""
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "나는 눈꺼풀에 묻은 흙을 대충 닦아내고 남자의 얼굴을 똑바로 노려보았다.",
-            "buttons": [
-                {
-                    "title": "",
                     "next": 44,
                     "effects": []
                 }
             ]
         },
         {
-            "description": "정확히는, 흐릿하게 보이는 남자의 머릿속을 노려보았다.",
+            "description": "(…원래 하면 안 되는데. 지금은 비상상황이니까…)",
             "buttons": [
                 {
                     "title": "",
@@ -602,7 +625,54 @@
             ]
         },
         {
-            "description": "그 안으로 내가 빨려들어간다고 생각하고, 조심스럽게 심호흡을 한 뒤에, 눈을 천천히 감았다 뜨면…",
+            "description": "(죽는 것보다는 낫잖아?)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 46,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_2A",
+                            "position": 2
+                        }
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "나는 눈꺼풀에 묻은 흙을 대충 닦아내고 남자의 얼굴을 똑바로 노려보았다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 47,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "정확히는, 흐릿하게 보이는 남자의 머릿속을 노려보았다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 48,
+                    "effects": [
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_7A",
+                            "position": 2
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "그 안으로 내가 빨려들어간다고 생각하고, 조심스럽게 심호흡을 한 뒤에, 눈을 천천히 감았다 뜨면….",
             "buttons": [
                 {
                     "title": "",

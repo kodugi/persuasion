@@ -10,6 +10,7 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
         Inv_PlayerCTRL playerCTRL;
         Inv_Interact interactManager;
         bool amIInteracting = false;
+        bool haveWarned = false;
         
         override protected void Starter()
         {
@@ -45,21 +46,7 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
                 };
                 if (isPossessed)
                 {
-                    state = 7;
-                }
-            }
-            else if (state ==4)
-            {
-                object possessed = saveManager.LoadProgress("possessedWitchsCloth");
-                bool isPossessed = possessed switch
-                {
-                    bool b => b,
-                    JValue j => j.Value<bool>(),
-                    _ => false
-                };
-                if (isPossessed)
-                {
-                    state = 5;
+                    state = 4;
                 }
             }
             saveManager.AddProgress(obj_name + "state", state);
@@ -88,10 +75,11 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
                         state=1;
                         gameObject.transform.GetChild(0).GetComponent<BoxCollider2D>().enabled=true;
                         break;
-                    case "requested":
-                        state=4;
+                    case "Persuade":
+                        state = 5;
                         break;
                     case "Accepted":
+                        // 여자 애니메이션
                         interactManager.Effects(
                             new JObject
                             {
@@ -120,6 +108,24 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
                 }
             }
             base.variation();
+        }
+        void OnTriggerEnter2D(Collider2D col)
+        {
+            if (col.gameObject.CompareTag("Player"))
+            {
+                if(!haveWarned && state == 1)
+                {
+                    interactManager.Effects(
+                        new JObject
+                        {
+                            ["type"]="variation",
+                            ["target"]="Map1/Player",
+                            ["parameters"]=new JArray{5}
+                        }
+                    );
+                    interactionManager.ForceInteraction("Map1/Player");
+                }
+            }
         }
 
     }

@@ -243,5 +243,9 @@ namespace Investigation
                     break;
             }
         }
+        public void JumpDialogue(int destination)
+        {
+            dialogueScript.DisplayDialogue(destination);
+        }
     }
 }

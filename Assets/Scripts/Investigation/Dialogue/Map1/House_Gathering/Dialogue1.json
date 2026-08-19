@@ -2,7 +2,7 @@
     "title": "",
     "path": [
         {
-            "description": "﻿창문 근처에 몸을 숨기고 조심스럽게 귀를 기울이자....",
+            "description": "창문 근처에 몸을 숨기고 조심스럽게 귀를 기울이자....",
             "buttons": [
                 {
                     "title": "",
@@ -27,7 +27,7 @@
             ]
         },
         {
-            "description": ".....아니, 그러니까 뭔가 이상하다니까? (경비원 이름)이 그 여자애는 마녀가 아니라고 했다고!",
+            "description": ".....아니, 그러니까 뭔가 이상하다니까? 그 경비원 놈이 그 여자애는 마녀가 아니라고 했다고!",
             "buttons": [
                 {
                     "title": "",
@@ -167,7 +167,7 @@
             ]
         },
         {
-            "description": "뭐? 갔다가 또 한소리 들을 것 같은데.... 그 할멈, 성격이 보통 괴팍한 게 아닌 거 알잖아.",
+            "description": "뭐? 안돼….. 거기서 또 뭘 요구할 줄 알고.",
             "buttons": [
                 {
                     "title": "",
@@ -192,11 +192,21 @@
             ]
         },
         {
-            "description": "찾아갈 때마다 쌍욕을 퍼붓긴 해도 그 뒤에 정보는 항상 주잖아.",
+            "description": "대가만 제대로 지불하면 정보는 주잖아. 마녀한테 대비하려면 이렇게라도 해야해.",
             "buttons": [
                 {
                     "title": "",
                     "next": 16,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "우리가 이렇게 손가락 빨고 있는 사이에 마녀가 우리 마을을 전멸시킬 수도 있다고.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 17,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -207,11 +217,11 @@
             ]
         },
         {
-            "description": "그럼 네가 가. 난 저번에 찾아갔다가 한 시간 동안 욕 얻어먹고 정신 나갈 뻔했다.",
+            "description": "그럼 네가 가. 난 저번에 찾아갔다가 사람 손톱 열 개를 통째로 뽑아오라고 했다고…. 진절머리 나서 못 가겠어.",
             "buttons": [
                 {
                     "title": "",
-                    "next": 17,
+                    "next": 18,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -222,11 +232,21 @@
             ]
         },
         {
-            "description": "알았어, 알았어.....",
+            "description": "…..",
             "buttons": [
                 {
                     "title": "",
-                    "next": 18,
+                    "next": 19,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "그래, 알았어.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 20,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -241,7 +261,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 19,
+                    "next": 21,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -256,7 +276,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 20,
+                    "next": 22,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -271,7 +291,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 21,
+                    "next": 23,
                     "effects": []
                 }
             ]
@@ -281,7 +301,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 22,
+                    "next": 24,
                     "effects": []
                 }
             ]
@@ -293,15 +313,6 @@
                     "title": "",
                     "next": -1,
                     "effects": [
-                        {
-                            "type": "note",
-                            "topic": "노파",
-                            "content": [
-                                "(노파에 대한 모종의 정보)",
-                                "노파의 동굴을 찾아가면 언니에 대한 정보를 얻을 수 있을지도 모른다.",
-                                "노파의 동굴은 겉보기엔 그냥 땅 같지만, (어쩌구 저쩌구)"
-                            ]
-                        },
                         {
                             "type": "variation",
                             "target": "Map1/Cave",

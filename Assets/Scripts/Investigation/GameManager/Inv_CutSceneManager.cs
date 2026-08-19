@@ -128,7 +128,16 @@ namespace Investigation
                     playerCTRL.gameObject.transform.position = new Vector2(0,0);
                     yield return new WaitForSeconds(1f);
                     yield return FadeScreen(false);
-                    playerCTRL.CanPlayerMove(true);
+                    //playerCTRL.CanPlayerMove(true);
+                    interactManager.Effects(
+                        new JObject
+                        {
+                            ["type"]="variation",
+                            ["target"]="Map1/Player",
+                            ["parameters"]=new JArray{4}
+                        }
+                    );
+                    interactManager.ForceInteraction("Map1/Player");
                     break;
             }
         }

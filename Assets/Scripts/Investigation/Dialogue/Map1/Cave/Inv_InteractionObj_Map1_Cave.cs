@@ -7,6 +7,7 @@ namespace Investigation
 {
     public class Inv_InteractionObj_Map1_Cave: Inv_InteractionObj_Map1_Houses
     {
+        bool canEndQuestioning = false;
         override public void CheckState()
         {
             base.CheckState();
@@ -44,6 +45,13 @@ namespace Investigation
                         break;
                     case "Resolved":
                         state=3;
+                        break;
+                    case "askedAboutSister":
+                        canEndQuestioning = true;
+                        break;
+                    case "endQuestioning":
+                        if(canEndQuestioning) interactionManager.JumpDialogue(61);
+                        else interactionManager.JumpDialogue(59);
                         break;
                 }
             }

@@ -2,7 +2,7 @@
     "title": "",
     "path": [
         {
-            "description": ".....이상한 시선이 몸에 엉겨붙는 것이 느껴졌다.",
+            "description": "﻿.....이상한 시선이 몸에 엉겨붙는 것이 느껴졌다.",
             "buttons": [
                 {
                     "title": "",
@@ -112,12 +112,7 @@
                 {
                     "title": "",
                     "next": 11,
-                    "effects": [
-                        {
-                            "type": "cutScene",
-                            "title": "PeopleStaringAfterReceivingPen"
-                        }
-                    ]
+                    "effects": []
                 }
             ]
         },
@@ -127,12 +122,7 @@
                 {
                     "title": "",
                     "next": 12,
-                    "effects": [
-                        {
-                            "type": "changeTitle",
-                            "title": "주인공"
-                        }
-                    ]
+                    "effects": []
                 }
             ]
         },
@@ -167,12 +157,7 @@
                 {
                     "title": "",
                     "next": 15,
-                    "effects": [
-                        {
-                            "type": "changeTitle",
-                            "title": "주인공"
-                        }
-                    ]
+                    "effects": []
                 }
             ]
         },

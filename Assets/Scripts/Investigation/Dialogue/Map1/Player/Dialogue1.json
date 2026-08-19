@@ -7,12 +7,7 @@
                 {
                     "title": "",
                     "next": 1,
-                    "effects": [
-                        {
-                            "type": "changeTitle",
-                            "title": "주인공"
-                        }
-                    ]
+                    "effects": []
                 }
             ]
         },

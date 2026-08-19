@@ -25,19 +25,16 @@ namespace Investigation
         public void Initialize()
         {
             ChangeTitle(data["title"].ToString());
+            for(int i = 0; i < charactersObj.transform.childCount; i++)
+            {
+                ChangeImage("", i);
+            }
             if (data.ContainsKey("LD_images"))
             {
                 List<string> images = data["LD_images"].ToObject<List<string>>();
                 for(int i = 0; i < images.Count; i++)
                 {
                     ChangeImage(images[i], i);
-                }
-            }
-            else
-            {
-                for(int i = 0; i < charactersObj.transform.childCount; i++)
-                {
-                    ChangeImage("", i);
                 }
             }
             DisplayDialogue(0);
@@ -79,7 +76,7 @@ namespace Investigation
                 }
             }
         }
-        void DisplayDialogue(int index)
+        public void DisplayDialogue(int index)
         {
             JObject dialogue = (JObject)data["path"][index];
             descriptionObj.GetComponent<TMPro.TextMeshProUGUI>().text = dialogue["description"].ToString();

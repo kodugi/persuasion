@@ -62,12 +62,7 @@
                 {
                     "title": "",
                     "next": 5,
-                    "effects": [
-                        {
-                            "type": "changeTitle",
-                            "title": "남자"
-                        }
-                    ]
+                    "effects": []
                 }
             ]
         },
@@ -117,17 +112,162 @@
             ]
         },
         {
-            "description": "흐릿하게 보이는 남자의 머릿속은 검붉은 분노로 가득 차 있었다. (임시: 이 뒤에는 뭐가 오나요)",
+            "description": "흐릿하게 보이는 남자의 머릿속은 검붉은 분노로 가득 차 있었다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 9,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "드릴게요, 드릴게요! 대, 대신, 그 만년필만 한 번 빌려주시면…..",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 10,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "남자"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "뭐…. 만년필? 만년필….?",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 11,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "네, 주머니에 꽂으신 그거요….!",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 12,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "남자"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "만년필, 만년….. 비둘기, 내 비둘기…. 대체 어디….",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 13,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "남자의 눈은 이미 반쯤 맛이 가 있었다. 그는 종결되지 않은 문장들을 횡설수설 늘어놓았다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 14,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "(큰일났다. 대화가 안 통해…..)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 15,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "몇 번 더 남자와 대화를 해보려고 노력했지만, 내가 무슨 말을 하든 남자의 머릿속에 제대로 입력되는 말은 없어 보였다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 16,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "불행 중 다행인 것은, 내가 하는 말을 남자가 듣고 있긴 하다는 사실이었다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 17,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "(이러면 억지로 설득하는 게 가능하긴 하겠네….)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 18,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(....뭐 이미 한 번 한 마당에, 두 번 한다고 뭐가 크게 안 좋아지진 않겠지?)",
             "buttons": [
                 {
                     "title": "",
                     "next": -1,
                     "effects": [
                         {
+                            "type": "persuade",
+                            "title": "Map1_Writer",
+                            "autoReturn": "Map1/Writer"
+                        },
+                        {
                             "type": "variation",
                             "target": "Map1/Writer",
                             "parameters": [
-                                "PigeonRemoved"
+                                "Met"
                             ]
                         }
                     ]

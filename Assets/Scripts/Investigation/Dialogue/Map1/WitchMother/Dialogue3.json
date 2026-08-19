@@ -1,57 +1,105 @@
 {
-    "title": "000(이름)",
+    "title": "주인공",
     "path": [
         {
-            "description": "누구세요..?",
-            "buttons":[
+            "description": "저기요....",
+            "buttons": [
                 {
-                    "title": "(무언가 말)",
+                    "title": "",
                     "next": 1,
-                    "effects": []
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": ""
+                        }
+                    ]
                 }
             ]
         },
         {
-            "description": "(무언가 말)",
-            "buttons":[
+            "description": "내 목소리를 듣자마자 여자는 고개를 번쩍 들고 핏발 선 눈으로 나를 노려보았다.",
+            "buttons": [
                 {
-                    "title": "(무언가 말)",
+                    "title": "",
                     "next": 2,
-                    "effects": []
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "여자"
+                        }
+                    ]
                 }
             ]
         },
         {
-            "description": "(무언가 말)",
-            "buttons":[
+            "description": "넌 또 누구야?",
+            "buttons": [
                 {
-                    "title": "제가 당신의 딸의 옷을 찾아올게요.",
+                    "title": "",
                     "next": 3,
                     "effects": []
                 }
             ]
         },
         {
-            "description": "고맙습니다!",
-            "buttons":[
+            "description": "우리 딸이 잘 죽었다고 조롱하러 왔니? 아니면 내가 정신병자라고 욕하러 왔어?",
+            "buttons": [
                 {
-                    "title": "(노트에 적어두자)",
-                    "next": -1,
+                    "title": "",
+                    "next": 4,
                     "effects": [
                         {
-                            "type":"note",
-                            "topic": "000(이름)",
-                            "content":["딸의 옷을 찾아오자"]
-                        },
-                        {
-                            "type":"variation",
-                            "target":"Map1/WitchMother",
-                            "parameters":["requested"]
+                            "type": "changeTitle",
+                            "title": ""
                         }
                     ]
                 }
             ]
+        },
+        {
+            "description": "여자의 머릿속은 시커먼 감정들로 꽉 차 있었다. 한 눈에 보기에도 영혼을 심을 공간이 전혀 없어 보였다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 5,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "아, 아뇨..... 아무것도 아니에요.....",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 6,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(역시 이 상태로는 설득이 힘들 것 같아.)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 7,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(뭔가 동요시킬 만한 수단이 있으면 좋을 텐데....)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": -1,
+                    "effects": []
+                }
+            ]
         }
     ]
-
 }

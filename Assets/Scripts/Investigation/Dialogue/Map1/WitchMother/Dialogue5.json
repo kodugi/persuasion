@@ -1,37 +1,83 @@
 {
-    "title": "000(이름)",
+    "title": "여자",
     "path": [
         {
-            "description": "감사합니다!!",
-            "buttons":[
+            "description": "......",
+            "buttons": [
                 {
-                    "title": "아니에요.",
+                    "title": "",
                     "next": 1,
                     "effects": [
                         {
-                            "type": "item_remove",
-                            "name": "WitchesCloth"
+                            "type": "changeTitle",
+                            "title": "여자"
                         }
                     ]
                 }
             ]
         },
         {
-            "description": "오늘 밤은 여기서 주무세요.",
-            "buttons":[
+            "description": "그래, 하룻밤 정도는 괜찮겠지.....",
+            "buttons": [
                 {
-                    "title": "감사합니다!",
+                    "title": "",
+                    "next": 2,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "여자는 멍한 얼굴로 비척비척 집 앞으로 걸어가 집 문을 열었다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 3,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "여자"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "들어오렴.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 4,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "가, 감사합니다....",
+            "buttons": [
+                {
+                    "title": "",
                     "next": -1,
                     "effects": [
                         {
-                            "type":"variation",
-                            "target":"Map1/WitchMother",
-                            "parameters":["Accepted"]
+                            "type": "variation",
+                            "target": "Map1/WitchMother",
+                            "parameters": [
+                                "Accepted"
+                            ]
                         }
                     ]
                 }
             ]
         }
     ]
-
 }

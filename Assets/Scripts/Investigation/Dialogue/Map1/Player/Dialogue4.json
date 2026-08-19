@@ -1,0 +1,113 @@
+{
+    "title": "주인공",
+    "path": [
+        {
+            "description": "응? 뭐지?",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 1,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "걷다 보니, 저 멀리에서 이상한 광경이 보였다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 2,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "한 여자가 난동을 부리는 모습을 여럿이서 둘러싸고 구경하고 있는 모습이었다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 3,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "여자가 뭐라고 소리를 지르고 있는 것 같긴 했지만, 거리가 멀어서 정확히 뭐라고 하고 있는 건지는 잘 들리지 않았다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 4,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "다만 목소리에 묻어나는 처절함만큼은 섬뜩할 성도로 선명했다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 5,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "뭐지, 대체….?",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 6,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(왠지 불길한데…. 무슨 일인지 살짝 살피러 가볼까?)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 7,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(너무 가까이 가면 안 될 것 같아. 나에 대한 얘기가 이미 마을에 쫙 퍼진 것 같으니까, 내가 엿보고 있다는 걸 들키면 무슨 짓을 당할지 몰라.)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 8,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(....내가 안 보일 만한 곳에서 상황을 지켜보자.)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": -1,
+                    "effects": [
+                        {
+                            "type": "variation",
+                            "target": "Map1/Player",
+                            "parameters": [
+                                0
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

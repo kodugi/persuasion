@@ -1,5 +1,6 @@
 {
     "title": "남자",
+    "LD_images": ["LD_Map1_Guard_1A", "",""],
     "path": [
         {
             "description": "……",
@@ -11,6 +12,11 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_8A",
+                            "position": 1
                         }
                     ]
                 }
@@ -37,12 +43,7 @@
                 {
                     "title": "",
                     "next": 3,
-                    "effects": [
-                        {
-                            "type": "changeTitle",
-                            "title": "남자"
-                        }
-                    ]
+                    "effects": []
                 }
             ]
         },
@@ -56,7 +57,18 @@
                         {
                             "type": "changeTitle",
                             "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_8A",
+                            "position": 0
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 1
                         }
+                    
                     ]
                 }
             ]
@@ -71,7 +83,13 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_5A",
+                            "position": 2
                         }
+                    
                     ]
                 }
             ]
@@ -84,8 +102,9 @@
                     "next": 6,
                     "effects": [
                         {
-                            "type": "changeTitle",
-                            "title": "주인공"
+                            "type": "changeImage",
+                            "image": "LD_Player_2A",
+                            "position": 2
                         }
                     ]
                 }
@@ -97,12 +116,7 @@
                 {
                     "title": "",
                     "next": 7,
-                    "effects": [
-                        {
-                            "type": "changeTitle",
-                            "title": "주인공"
-                        }
-                    ]
+                    "effects": []
                 }
             ]
         },
@@ -114,25 +128,41 @@
                     "next": 8,
                     "effects": [
                         {
-                            "type": "changeTitle",
-                            "title": "주인공"
+                            "type": "changeImage",
+                            "image": "LD_Player_8A",
+                            "position": 2
                         }
                     ]
                 }
             ]
         },
         {
-            "description": "왠지 불길해. 빨리 언니 찾아서 집으로 돌아가야지….",
+            "description": "저 사람 때문에 또 남 머릿속에 들어가버렸잖아. 이제 진짜 이러면 안 되는데.",
             "buttons": [
                 {
                     "title": "",
                     "next": 9,
-                    "effects": [
-                        {
-                            "type": "changeTitle",
-                            "title": "주인공"
-                        }
-                    ]
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "…모르겠다, 한 번은 괜찮겠지.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 10,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "빨리 언니나 찾아서 집으로 돌아가야겠다….",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 11,
+                    "effects": []
                 }
             ]
         },
@@ -141,28 +171,18 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 10,
-                    "effects": [
-                        {
-                            "type": "changeTitle",
-                            "title": "주인공"
-                        }
-                    ]
+                    "next": 12,
+                    "effects": []
                 }
             ]
         },
         {
-            "description": "마을 사람들한테 한 번 물어볼까.",
+            "description": "마을 사람들한테 한 번 물어볼까?",
             "buttons": [
                 {
                     "title": "",
-                    "next": 11,
-                    "effects": [
-                        {
-                            "type": "changeTitle",
-                            "title": "주인공"
-                        }
-                    ]
+                    "next": 13,
+                    "effects": []
                 }
             ]
         },

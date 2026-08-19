@@ -1,5 +1,6 @@
 {
     "title": "",
+    "LD_images": ["","LD_Map1_Guard_1A",""],
     "path": [
         {
             "description": "호수 근처에는 한 남자가 기계적인 몸짓으로 비둘기에게 빵쪼가리를 던져주고 있었다.",
@@ -31,13 +32,13 @@
                 },
                 {
                     "title": "자리를 뜬다.",
-                    "next": 3,
+                    "next": -1,
                     "effects": []
                 }
             ]
         },
         {
-            "description": "(임시) 뭐하는 사람이지...",
+            "description": "(임시)",
             "buttons": [
                 {
                     "title": "",
@@ -66,6 +67,11 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_2A",
+                            "position": 0
                         }
                     ]
                 }
@@ -77,12 +83,7 @@
                 {
                     "title": "",
                     "next": 7,
-                    "effects": [
-                        {
-                            "type": "changeTitle",
-                            "title": "주인공"
-                        }
-                    ]
+                    "effects": []
                 }
             ]
         },
@@ -92,12 +93,7 @@
                 {
                     "title": "",
                     "next": 8,
-                    "effects": [
-                        {
-                            "type": "changeTitle",
-                            "title": "주인공"
-                        }
-                    ]
+                    "effects": []
                 }
             ]
         },
@@ -105,19 +101,14 @@
             "description": "(빌려달라고 하면 빌려주시려나....?)",
             "buttons": [
                 {
-                    "title": "말을 건다",
+                    "title": "",
                     "next": 9,
-                    "effects": []
-                },
-                {
-                    "title": "훔친다",
-                    "next": 21,
                     "effects": []
                 }
             ]
         },
         {
-            "description": "저기, 실례합니다. 혹시 잠깐 말씀 좀.....",
+            "description": "저기, 실례합니다. 혹시 잠깐 말씀 좀...",
             "buttons": [
                 {
                     "title": "",
@@ -141,7 +132,19 @@
                         {
                             "type": "changeTitle",
                             "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 1
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 0
                         }
+                    
+                    
                     ]
                 }
             ]
@@ -166,7 +169,19 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_8A",
+                            "position": 0
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Guard_1A",
+                            "position": 1
                         }
+                    
+                    
                     ]
                 }
             ]
@@ -196,7 +211,19 @@
                         {
                             "type": "changeTitle",
                             "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 0
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 1
                         }
+                    
+                    
                     ]
                 }
             ]
@@ -211,7 +238,13 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_8A",
+                            "position": 2
                         }
+                    
                     ]
                 }
             ]
@@ -222,12 +255,7 @@
                 {
                     "title": "",
                     "next": 17,
-                    "effects": [
-                        {
-                            "type": "changeTitle",
-                            "title": "주인공"
-                        }
-                    ]
+                    "effects": []
                 }
             ]
         },
@@ -237,12 +265,7 @@
                 {
                     "title": "",
                     "next": 18,
-                    "effects": [
-                        {
-                            "type": "changeTitle",
-                            "title": "주인공"
-                        }
-                    ]
+                    "effects": []
                 }
             ]
         },
@@ -252,12 +275,7 @@
                 {
                     "title": "",
                     "next": 19,
-                    "effects": [
-                        {
-                            "type": "changeTitle",
-                            "title": "주인공"
-                        }
-                    ]
+                    "effects": []
                 }
             ]
         },
@@ -267,27 +285,12 @@
                 {
                     "title": "",
                     "next": 20,
-                    "effects": [
-                        {
-                            "type": "changeTitle",
-                            "title": "주인공"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "(그물로 포획이라도 해야 하나?) (임시: 여기서 끝나는 거 맞나요..?)",
-            "buttons": [
-                {
-                    "title": "",
-                    "next": -1,
                     "effects": []
                 }
             ]
         },
         {
-            "description": "(임시: 훔치기로 했을 때의 대사...)",
+            "description": "(그물로 포획이라도 해야 하나?)",
             "buttons": [
                 {
                     "title": "",

@@ -2,7 +2,7 @@
     "title": "",
     "path": [
         {
-            "description": "﻿날카로운 절규가 귀를 찢을 듯 울려퍼졌다. 도저히 사람의 소리라고는 생각되지 않는 괴성이었다.",
+            "description": "﻿나는 집 뒤에 몸을 숨기고 사태를 지켜보았다.",
             "buttons": [
                 {
                     "title": "",
@@ -12,7 +12,7 @@
             ]
         },
         {
-            "description": "초췌한 행색을 한 그 여자는 오열하며 목적도 없이 허공에 팔을 휘둘러대고 있었다.",
+            "description": "날카로운 절규가 귀를 찢을 듯 울려퍼졌다. 도저히 사람의 소리라고는 생각되지 않는 괴성이었다.",
             "buttons": [
                 {
                     "title": "",
@@ -22,7 +22,7 @@
             ]
         },
         {
-            "description": "여자를 말리는 사람들도 슬슬 버겁다는 생각이 들었는지 하나 둘 손을 떼기 시작했다.",
+            "description": "초췌한 행색을 한 그 여자는 오열하며 목적도 없이 허공에 팔을 휘둘러대고 있었다.",
             "buttons": [
                 {
                     "title": "",
@@ -32,7 +32,7 @@
             ]
         },
         {
-            "description": "여자는 울부짖으며 땅바닥을 쥐어뜯다가, 두 손을 모으고 땅에 머리를 박았다.",
+            "description": "여자를 말리는 사람들도 슬슬 버겁다는 생각이 들었는지 하나 둘 손을 떼기 시작했다.",
             "buttons": [
                 {
                     "title": "",
@@ -42,11 +42,21 @@
             ]
         },
         {
-            "description": "그 모습은 꼭 신을 향해 기도하는 것 같기도 했다.",
+            "description": "여자는 울부짖으며 땅바닥을 쥐어뜯다가, 두 손을 모으고 땅에 머리를 박았다.",
             "buttons": [
                 {
                     "title": "",
                     "next": 5,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "그 모습은 꼭 신을 향해 기도하는 것 같기도 했다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 6,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -61,7 +71,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 6,
+                    "next": 7,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -76,7 +86,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 7,
+                    "next": 8,
                     "effects": []
                 }
             ]
@@ -86,7 +96,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 8,
+                    "next": 9,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -101,7 +111,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 9,
+                    "next": 10,
                     "effects": []
                 }
             ]
@@ -111,7 +121,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 10,
+                    "next": 11,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -126,7 +136,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 11,
+                    "next": 12,
                     "effects": []
                 }
             ]
@@ -136,7 +146,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 12,
+                    "next": 13,
                     "effects": []
                 }
             ]
@@ -146,7 +156,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 13,
+                    "next": 14,
                     "effects": []
                 }
             ]
@@ -156,7 +166,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 14,
+                    "next": 15,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -171,7 +181,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 15,
+                    "next": 16,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -186,7 +196,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 16,
+                    "next": 17,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -201,7 +211,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 17,
+                    "next": 18,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -216,7 +226,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 18,
+                    "next": 19,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -231,7 +241,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 19,
+                    "next": 20,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -246,7 +256,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 20,
+                    "next": 21,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -261,7 +271,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 21,
+                    "next": 22,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -276,7 +286,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 22,
+                    "next": 23,
                     "effects": [
                         {
                             "type":"cutScene",
@@ -291,7 +301,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 23,
+                    "next": 24,
                     "effects": []
                 }
             ]
@@ -301,7 +311,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 24,
+                    "next": 25,
                     "effects": []
                 }
             ]
@@ -311,7 +321,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 25,
+                    "next": 26,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -326,7 +336,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 26,
+                    "next": 27,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -341,7 +351,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 27,
+                    "next": 28,
                     "effects": []
                 }
             ]
@@ -351,7 +361,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 28,
+                    "next": 29,
                     "effects": []
                 }
             ]
@@ -361,7 +371,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 29,
+                    "next": 30,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -376,7 +386,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 30,
+                    "next": 31,
                     "effects": []
                 }
             ]
@@ -386,7 +396,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 31,
+                    "next": 32,
                     "effects": []
                 }
             ]
@@ -396,7 +406,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 32,
+                    "next": 33,
                     "effects": []
                 }
             ]
@@ -406,7 +416,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 33,
+                    "next": 34,
                     "effects": []
                 }
             ]
@@ -416,7 +426,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 34,
+                    "next": 35,
                     "effects": []
                 }
             ]
@@ -426,7 +436,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 35,
+                    "next": 36,
                     "effects": []
                 }
             ]
@@ -436,7 +446,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 36,
+                    "next": 37,
                     "effects": []
                 }
             ]

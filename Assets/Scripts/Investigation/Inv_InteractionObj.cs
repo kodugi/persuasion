@@ -24,6 +24,7 @@ public class Inv_InteractionObj : Utility
             }
         }
         protected SaveManager saveManager;
+        protected Inv_Interact interactionManager;
         public bool manuallyTouchable = true;
         public List<string> images = null;
         public bool singleImage;
@@ -33,6 +34,7 @@ public class Inv_InteractionObj : Utility
         {
             obj_name = gameObject.name;
             saveManager = GameObject.FindFirstObjectByType<SaveManager>();
+            interactionManager = FindFirstObjectByType<Inv_Interact>();
             /*if (saveManager != null)
             {
                 CheckState();
