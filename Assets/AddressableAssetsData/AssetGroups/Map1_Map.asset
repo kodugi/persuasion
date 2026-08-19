@@ -40,6 +40,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5353d8b96f71d42cf88e38f1438688a3
+    m_Address: Map1_Player_Sleeping_2A
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 56d733c7835034bb99d1adb2044444d2
     m_Address: bush1
     m_ReadOnly: 0
@@ -107,6 +112,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dcaeeaa12ddb84364ae7a5b2e970930a
     m_Address: grass3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: de698da0b9b2d4c72aa622a116ec7019
+    m_Address: Map1_Player_Sleeping_1A
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

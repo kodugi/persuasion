@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: LD
   m_GUID: 66411229a265944898c2fa8f626d297b
   m_SerializeEntries:
+  - m_GUID: 02978dc0547254a9d96a34273613f36d
+    m_Address: LD_Map1_CrazyMother_11A
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 04f6f220133c14068bb15701b4399236
     m_Address: LD_Map1_Man2_3A
     m_ReadOnly: 0
@@ -45,6 +50,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 35b96e283ebe240118d041a429ea9b86
+    m_Address: LD_Player_10A
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3ce10a2996a6a47e5820090bf0e16f92
     m_Address: LD_Map1_CrazyMother
     m_ReadOnly: 0
@@ -62,6 +72,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 40e1850fac2b447d181a1c8de4603048
     m_Address: LD_Map1_Guard_5A
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 46fd30f0bd234466ab5f253a3283703d
+    m_Address: LD_Map1_CrazyMother_10A
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -125,6 +140,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 84f45e5526f6140b482398b755621a19
+    m_Address: LD_Player_11A
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 89efff0e26d92436eb16dc87ad38023e
+    m_Address: LD_Map1_Granny_3A
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8c7677bb1156d4665a907e52c0b90b7e
     m_Address: LD_Map1_Guard_6A
     m_ReadOnly: 0
@@ -152,6 +177,16 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a7077a92add754be581b89a1c0f559fa
     m_Address: LD_Player_3A
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a9e4eeb3d91dd406584130b5a31e369e
+    m_Address: LD_Map1_Guard_9A
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aa62d3f26f1fb4770bb27f02bce35572
+    m_Address: LD_Player_9A
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -207,6 +242,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ce456b332b6c848399ba8af37d730dc0
     m_Address: LD_Map1_CrazyMother_2A
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d7acd7b2015794900934139b2da8cbe4
+    m_Address: LD_Map1_CrazyMother_9A
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
