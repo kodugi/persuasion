@@ -2,7 +2,7 @@
     "title": "",
     "path": [
         {
-            "description": "﻿나는 집 뒤에 몸을 숨기고 사태를 지켜보았다.",
+            "description": "나는 집 뒤에 몸을 숨기고 사태를 지켜보았다.",
             "buttons": [
                 {
                     "title": "",
@@ -17,7 +17,13 @@
                 {
                     "title": "",
                     "next": 2,
-                    "effects": []
+                    "effects": [
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_CrazyMother_2A",
+                            "position": 2
+                        }
+                    ]
                 }
             ]
         },
@@ -76,7 +82,13 @@
                         {
                             "type": "changeTitle",
                             "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 2
                         }
+                    
                     ]
                 }
             ]
@@ -101,7 +113,13 @@
                         {
                             "type": "changeTitle",
                             "title": "여자"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_CrazyMother_7A",
+                            "position": 2
                         }
+                    
                     ]
                 }
             ]
@@ -126,7 +144,13 @@
                         {
                             "type": "changeTitle",
                             "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 2
                         }
+                    
                     ]
                 }
             ]
@@ -326,7 +350,13 @@
                         {
                             "type": "changeTitle",
                             "title": "여자"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_CrazyMother_4A",
+                            "position": 2
                         }
+                    
                     ]
                 }
             ]
@@ -341,7 +371,13 @@
                         {
                             "type": "changeTitle",
                             "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 2
                         }
+                    
                     ]
                 }
             ]
@@ -376,7 +412,13 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_2A",
+                            "position": 2
                         }
+                    
                     ]
                 }
             ]
@@ -437,7 +479,13 @@
                 {
                     "title": "",
                     "next": 36,
-                    "effects": []
+                    "effects": [
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_8A",
+                            "position": 2
+                        }
+                    ]
                 }
             ]
         },

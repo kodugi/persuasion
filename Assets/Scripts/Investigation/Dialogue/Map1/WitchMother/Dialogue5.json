@@ -1,5 +1,6 @@
 {
     "title": "여자",
+    "LD_images": ["","","LD_Map1_CrazyMother_1A"],
     "path": [
         {
             "description": "......",
@@ -26,7 +27,13 @@
                         {
                             "type": "changeTitle",
                             "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 2
                         }
+                    
                     ]
                 }
             ]
@@ -41,7 +48,13 @@
                         {
                             "type": "changeTitle",
                             "title": "여자"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_CrazyMother_1A",
+                            "position": 0
                         }
+                    
                     ]
                 }
             ]
@@ -56,7 +69,13 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_5A",
+                            "position": 1
                         }
+                    
                     ]
                 }
             ]

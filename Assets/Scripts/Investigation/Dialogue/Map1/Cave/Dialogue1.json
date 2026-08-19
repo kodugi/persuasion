@@ -1,5 +1,6 @@
 {
     "title": "주인공",
+    "LD_images":["","","LD_Player_1A"],
     "path": [
         {
             "description": "발자국은 여기서 끊겨 있는데....",
@@ -26,7 +27,13 @@
                         {
                             "type": "changeTitle",
                             "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 2
                         }
+                    
                     ]
                 }
             ]
@@ -166,7 +173,13 @@
                         {
                             "type": "changeTitle",
                             "title": "노파"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Granny_1A",
+                            "position": 1
                         }
+                    
                     ]
                 }
             ]
@@ -206,7 +219,13 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_9A",
+                            "position": 0
                         }
+                    
                     ]
                 }
             ]
@@ -236,7 +255,13 @@
                         {
                             "type": "changeTitle",
                             "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_2A",
+                            "position": 0
                         }
+                    
                     ]
                 }
             ]
@@ -312,7 +337,13 @@
                 {
                     "title": "",
                     "next": 24,
-                    "effects": []
+                    "effects": [
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_8A",
+                            "position": 0
+                        }
+                    ]
                 }
             ]
         },
@@ -326,7 +357,13 @@
                         {
                             "type": "changeTitle",
                             "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 0
                         }
+                    
                     ]
                 }
             ]
@@ -351,7 +388,13 @@
                         {
                             "type": "changeTitle",
                             "title": "노파"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Granny_3A",
+                            "position": 2
                         }
+                    
                     ]
                 }
             ]
@@ -376,7 +419,13 @@
                         {
                             "type": "changeTitle",
                             "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 2
                         }
+                    
                     ]
                 }
             ]
@@ -401,7 +450,25 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_9A",
+                            "position": 0
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Granny_3A",
+                            "position": 1
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 2
                         }
+                    
+                    
+                    
                     ]
                 }
             ]
@@ -451,7 +518,13 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_6A",
+                            "position": 0
                         }
+                    
                     ]
                 }
             ]
@@ -481,7 +554,13 @@
                         {
                             "type": "changeTitle",
                             "title": "노파"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Granny_1A",
+                            "position": 1
                         }
+                    
                     ]
                 }
             ]
@@ -496,6 +575,21 @@
                         {
                             "type": "changeTitle",
                             "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 0
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 1
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 2
                         }
                     ]
                 }
@@ -546,7 +640,13 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_6A",
+                            "position": 0
                         }
+                    
                     ]
                 }
             ]
@@ -567,7 +667,13 @@
                 {
                     "title": "",
                     "next": 44,
-                    "effects": []
+                    "effects": [
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_11A",
+                            "position": 0
+                        }
+                    ]
                 }
             ]
         },
@@ -577,7 +683,25 @@
                 {
                     "title": "",
                     "next": 45,
-                    "effects": []
+                    "effects": [
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_8A",
+                            "position": 2
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 0
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 1
+                        }
+                    
+                    
+                    ]
                 }
             ]
         },

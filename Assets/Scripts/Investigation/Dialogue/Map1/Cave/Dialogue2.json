@@ -1,5 +1,6 @@
 {
     "title": "노파",
+    "LD_images": ["","LD_Map1_Granny_1A"],
     "path": [
         {
             "description": "......",
@@ -11,7 +12,13 @@
                         {
                             "type": "changeTitle",
                             "title": "노파"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Granny_2A",
+                            "position": 1
                         }
+                    
                     ]
                 }
             ]
@@ -26,7 +33,13 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_6A",
+                            "position": 0
                         }
+                    
                     ]
                 }
             ]
@@ -51,7 +64,19 @@
                         {
                             "type": "changeTitle",
                             "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 0
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 1
                         }
+                    
+                    
                     ]
                 }
             ]
@@ -86,7 +111,13 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_3A",
+                            "position": 2
                         }
+                    
                     ]
                 }
             ]
@@ -111,7 +142,13 @@
                         {
                             "type": "changeTitle",
                             "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 2
                         }
+                    
                     ]
                 }
             ]
@@ -146,7 +183,13 @@
                         {
                             "type": "changeTitle",
                             "title": "노파"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Granny_3A",
+                            "position": 1
                         }
+                    
                     ]
                 }
             ]
@@ -161,7 +204,13 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_8A",
+                            "position": 0
                         }
+                    
                     ]
                 }
             ]
@@ -241,7 +290,19 @@
                         {
                             "type": "changeTitle",
                             "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 0
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 1
                         }
+                    
+                    
                     ]
                 }
             ]
@@ -266,7 +327,13 @@
                         {
                             "type": "changeTitle",
                             "title": "노파"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 2
                         }
+                    
                     ]
                 }
             ]
@@ -281,7 +348,13 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_2A",
+                            "position": 0
                         }
+                    
                     ]
                 },
                 {
@@ -291,7 +364,13 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_2A",
+                            "position": 0
                         }
+                    
                     ]
                 },
                 {
@@ -301,7 +380,13 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_8A",
+                            "position": 0
                         }
+                    
                     ]
                 }
             ]
@@ -310,13 +395,19 @@
             "description": "또 묻고 싶은 게 있나?",
             "buttons": [
                 {
-                    "title": "마을에 대해 물어본다",
+                    "title": "마을에 대해 물어본다.",
                     "next": 23,
                     "effects": [
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_2A",
+                            "position": 0
                         }
+                    
                     ]
                 },
                 {
@@ -326,7 +417,13 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_2A",
+                            "position": 0
                         }
+                    
                     ]
                 },
                 {
@@ -336,7 +433,13 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_8A",
+                            "position": 0
                         }
+                    
                     ]
                 },
                 {
@@ -351,7 +454,13 @@
                             "type": "variation",
                             "target": "Map1/Cave",
                             "parameters":["endQuestioning"]
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_2A",
+                            "position": 0
                         }
+                    
                     ]
                 }
             ]
@@ -376,7 +485,13 @@
                         {
                             "type": "changeTitle",
                             "title": "노파"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Granny_1A",
+                            "position": 1
                         }
+                    
                     ]
                 }
             ]
@@ -431,7 +546,13 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_6A",
+                            "position": 0
                         }
+                    
                     ]
                 }
             ]
@@ -446,7 +567,13 @@
                         {
                             "type": "changeTitle",
                             "title": "노파"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Granny_3A",
+                            "position": 1
                         }
+                    
                     ]
                 }
             ]
@@ -486,7 +613,13 @@
                         {
                             "type": "changeTitle",
                             "title": "노파"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Granny_1A",
+                            "position": 1
                         }
+                    
                     ]
                 }
             ]
@@ -527,7 +660,13 @@
                 {
                     "title": "",
                     "next": 38,
-                    "effects": []
+                    "effects": [
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Granny_3A",
+                            "position": 1
+                        }
+                    ]
                 }
             ]
         },
@@ -651,7 +790,19 @@
                         {
                             "type": "changeTitle",
                             "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 0
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 1
                         }
+                    
+                    
                     ]
                 }
             ]
@@ -676,7 +827,13 @@
                         {
                             "type": "changeTitle",
                             "title": "노파"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Granny_1A",
+                            "position": 1
                         }
+                    
                     ]
                 }
             ]
@@ -691,7 +848,13 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_9A",
+                            "position": 0
                         }
+                    
                     ]
                 }
             ]
@@ -771,7 +934,13 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_5A",
+                            "position": 0
                         }
+                    
                     ]
                 }
             ]
@@ -831,7 +1000,19 @@
                         {
                             "type": "changeTitle",
                             "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 0
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 1
                         }
+                    
+                    
                     ]
                 }
             ]
@@ -846,7 +1027,13 @@
                         {
                             "type": "changeTitle",
                             "title": "노파"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Granny_1A",
+                            "position": 1
                         }
+                    
                     ]
                 }
             ]
@@ -861,7 +1048,13 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_8A",
+                            "position": 0
                         }
+                    
                     ]
                 }
             ]
@@ -876,7 +1069,13 @@
                         {
                             "type": "changeTitle",
                             "title": "노파"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Granny_2A",
+                            "position": 1
                         }
+                    
                     ]
                 }
             ]
@@ -901,7 +1100,20 @@
                         {
                             "type": "changeTitle",
                             "title": ""
+                        },
+
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 0
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 1
                         }
+                    
+                    
                     ]
                 }
             ]
@@ -936,7 +1148,13 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_8A",
+                            "position": 2
                         }
+                    
                     ]
                 }
             ]

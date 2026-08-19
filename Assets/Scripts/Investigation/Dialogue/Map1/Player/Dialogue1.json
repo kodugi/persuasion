@@ -1,5 +1,6 @@
 {
     "title": "주인공",
+    "LD_images": ["","","LD_Player_3A"],
     "path": [
         {
             "description": "다행이다..... 들키진 않은 것 같아.",
@@ -7,7 +8,13 @@
                 {
                     "title": "",
                     "next": 1,
-                    "effects": []
+                    "effects": [
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_8A",
+                            "position": 2
+                        }
+                    ]
                 }
             ]
         },
@@ -27,7 +34,13 @@
                 {
                     "title": "",
                     "next": 3,
-                    "effects": []
+                    "effects": [
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_2A",
+                            "position": 2
+                        }
+                    ]
                 }
             ]
         },

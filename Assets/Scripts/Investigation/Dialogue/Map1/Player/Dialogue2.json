@@ -2,7 +2,7 @@
     "title": "",
     "path": [
         {
-            "description": "﻿.....이상한 시선이 몸에 엉겨붙는 것이 느껴졌다.",
+            "description": ".....이상한 시선이 몸에 엉겨붙는 것이 느껴졌다.",
             "buttons": [
                 {
                     "title": "",
@@ -61,7 +61,13 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_3A",
+                            "position": 2
                         }
+                    
                     ]
                 }
             ]
@@ -112,7 +118,13 @@
                 {
                     "title": "",
                     "next": 11,
-                    "effects": []
+                    "effects": [
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_6A",
+                            "position": 2
+                        }
+                    ]
                 }
             ]
         },
@@ -146,7 +158,13 @@
                         {
                             "type": "cutScene",
                             "title": "PeopleRunningAfterReceivingPen"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_3A",
+                            "position": 2
                         }
+                    
                     ]
                 }
             ]

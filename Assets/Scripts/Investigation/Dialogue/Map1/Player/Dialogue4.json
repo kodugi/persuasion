@@ -1,5 +1,6 @@
 {
     "title": "주인공",
+    "LD_images":["","","LD_Player_1A"],
     "path": [
         {
             "description": "응? 뭐지?",
@@ -56,7 +57,13 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_3A",
+                            "position": 2
                         }
+                    
                     ]
                 }
             ]

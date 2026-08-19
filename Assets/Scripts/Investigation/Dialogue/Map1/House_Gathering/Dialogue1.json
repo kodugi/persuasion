@@ -281,7 +281,13 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_6A",
+                            "position": 2
                         }
+                    
                     ]
                 }
             ]

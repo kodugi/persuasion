@@ -1,5 +1,6 @@
 {
     "title": "주인공",
+    "LD_images":["LD_Player_2A"],
     "path": [
         {
             "description": "저기요....",
@@ -11,7 +12,13 @@
                         {
                             "type": "changeTitle",
                             "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_CrazyMother_8A",
+                            "position": 1
                         }
+                    
                     ]
                 }
             ]
@@ -22,7 +29,13 @@
                 {
                     "title": "",
                     "next": 2,
-                    "effects": []
+                    "effects": [
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_CrazyMother_6A",
+                            "position": 1
+                        }
+                    ]
                 }
             ]
         },
@@ -61,7 +74,13 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_8A",
+                            "position": 0
                         }
+                    
                     ]
                 }
             ]
@@ -76,7 +95,13 @@
                         {
                             "type": "changeTitle",
                             "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_CrazyMother_10A",
+                            "position": 1
                         }
+                    
                     ]
                 }
             ]
@@ -176,7 +201,19 @@
                         {
                             "type": "changeTitle",
                             "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 0
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 1
                         }
+                    
+                    
                     ]
                 }
             ]
@@ -191,7 +228,13 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_8A",
+                            "position": 0
                         }
+                    
                     ]
                 }
             ]
@@ -206,7 +249,13 @@
                         {
                             "type": "changeTitle",
                             "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_CrazyMother_10A",
+                            "position": 1
                         }
+                    
                     ]
                 }
             ]
@@ -231,7 +280,13 @@
                         {
                             "type": "changeTitle",
                             "title": "여자"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_CrazyMother_11A",
+                            "position": 1
                         }
+                    
                     ]
                 }
             ]
@@ -256,7 +311,13 @@
                         {
                             "type": "changeTitle",
                             "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_CrazyMother_9A",
+                            "position": 1
                         }
+                    
                     ]
                 }
             ]
@@ -281,7 +342,25 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 0
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 1
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_2A",
+                            "position": 2
                         }
+                    
+                    
+                    
                     ]
                 }
             ]

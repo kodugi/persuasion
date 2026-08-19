@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Investigation
 {
@@ -50,8 +52,28 @@ namespace Investigation
                         canEndQuestioning = true;
                         break;
                     case "endQuestioning":
-                        if(canEndQuestioning) interactionManager.JumpDialogue(61);
-                        else interactionManager.JumpDialogue(59);
+                        if(canEndQuestioning) {
+                            interactionManager.Effects(
+                                new JObject
+                                {
+                                    ["type"]="changeImage",
+                                    ["image"]="LD_Player_10A",
+                                    ["position"]=0
+                                }
+                            );
+                            interactionManager.JumpDialogue(61);
+                        }
+                        else {
+                            interactionManager.Effects(
+                                new JObject
+                                {
+                                    ["type"]="changeImage",
+                                    ["image"]="LD_Player_2A",
+                                    ["position"]=0
+                                }
+                            );
+                            interactionManager.JumpDialogue(59);
+                        }
                         break;
                 }
             }

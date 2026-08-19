@@ -1,5 +1,6 @@
 {
     "title": "주인공",
+    "LD_images":["LD_Player_2A","",""],
     "path": [
         {
             "description": "저기요....",
@@ -11,7 +12,13 @@
                         {
                             "type": "changeTitle",
                             "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_CrazyMother_8A",
+                            "position": 1
                         }
+                    
                     ]
                 }
             ]
@@ -66,7 +73,13 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_8A",
+                            "position": 0
                         }
+                    
                     ]
                 }
             ]
@@ -77,7 +90,19 @@
                 {
                     "title": "",
                     "next": 6,
-                    "effects": []
+                    "effects": [
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 1
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_8A",
+                            "position": 2
+                        }
+                    
+                    ]
                 }
             ]
         },

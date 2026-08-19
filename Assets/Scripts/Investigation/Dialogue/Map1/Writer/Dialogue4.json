@@ -21,7 +21,13 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_5A",
+                            "position": 0
                         }
+                    
                     ]
                 }
             ]
@@ -46,7 +52,13 @@
                         {
                             "type": "changeTitle",
                             "title": "남자"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Man2_1A",
+                            "position": 1
                         }
+                    
                     ]
                 }
             ]
@@ -61,7 +73,19 @@
                         {
                             "type": "changeTitle",
                             "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 0
+                        },
+                    
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 1
                         }
+                    
                     ]
                 }
             ]
@@ -76,7 +100,13 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_10A",
+                            "position": 0
                         }
+                    
                     ]
                 }
             ]

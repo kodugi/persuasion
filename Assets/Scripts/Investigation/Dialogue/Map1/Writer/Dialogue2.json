@@ -1,5 +1,6 @@
 {
     "title": "남자",
+    "LD_images": ["","LD_Map1_Man2_1A",""],
     "path": [
         {
             "description": "내, 내 비둘기!",
@@ -37,7 +38,13 @@
                 {
                     "title": "",
                     "next": 3,
-                    "effects": []
+                    "effects": [
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_9A",
+                            "position": 0
+                        }
+                    ]
                 }
             ]
         },
@@ -62,7 +69,13 @@
                 {
                     "title": "",
                     "next": 5,
-                    "effects": []
+                    "effects": [
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Man2_2A",
+                            "position": 1
+                        }
+                    ]
                 }
             ]
         },
@@ -91,7 +104,13 @@
                         {
                             "type": "changeTitle",
                             "title": "남자"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Man2_3A",
+                            "position": 1
                         }
+                    
                     ]
                 }
             ]
@@ -136,7 +155,13 @@
                         {
                             "type": "changeTitle",
                             "title": "남자"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Man2_1A",
+                            "position": 1
                         }
+                    
                     ]
                 }
             ]
@@ -151,7 +176,13 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_2A",
+                            "position": 0
                         }
+                    
                     ]
                 }
             ]
@@ -211,7 +242,19 @@
                         {
                             "type": "changeTitle",
                             "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 0
+                        },
+                    
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 1
                         }
+                    
                     ]
                 }
             ]
@@ -236,7 +279,13 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_8A",
+                            "position": 2
                         }
+                    
                     ]
                 }
             ]
