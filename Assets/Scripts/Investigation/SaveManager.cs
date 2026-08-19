@@ -170,34 +170,6 @@ public partial class SaveManager : MonoBehaviour
 
     public void SaveData(string fileName, object data)
     {
-        /*
-        if (isQuittingAndResetting)
-        {
-            Debug.LogWarning(
-                $"[SaveManager] Blocked SaveData(\"{fileName}\") " +
-                "because save data is being reset on quit."
-            );
-
-            return;
-        }*/
-/*
-        if (
-            string.Equals(
-                fileName,
-                "progress",
-                StringComparison.OrdinalIgnoreCase
-            )
-            && data is Dictionary<string, object> progressData
-            && progressData.Count == 0
-        )
-        {
-            Debug.LogWarning(
-                "[SaveManager] Skipped writing empty progress data."
-            );
-
-            return;
-        }
-*/
         if(!saveWhilePlaying) return;
         
         string path = PathGen(fileName);
