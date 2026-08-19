@@ -1768,7 +1768,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cab3e1de04ebc445b8873fc6eea724e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Investigation.Inv_Interact
-  dialogueBox: {fileID: 6684414210696776756, guid: 58c0cd7e3029444ad8443094e5f1c78d, type: 3}
+  dialogueBox: {fileID: 4313908671361744220, guid: 7cf6aa8d91ea444edb310df986c5dc86, type: 3}
   interactionGuide: {fileID: 5443706658675615566}
   anchorPosition: 0000000055000000
   interactables: {fileID: 190524684}

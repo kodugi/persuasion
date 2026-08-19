@@ -135,7 +135,7 @@ namespace Investigation
             string json = File.ReadAllText(path);
             JObject data = JObject.Parse(json);
             GameObject obj = Instantiate(dialogueBox, GameObject.Find("Canvas").transform);
-            obj.GetComponent<RectTransform>().anchoredPosition = anchorPos;
+            //obj.GetComponent<RectTransform>().anchoredPosition = anchorPos;
             dialogueScript = obj.GetComponent<Inv_DialogueBox>();
             dialogueScript.interactionName = name;
             dialogueScript.interactionScript = this;
@@ -215,6 +215,9 @@ namespace Investigation
                     break;
                 case "changeTitle":
                     dialogueScript.ChangeTitle((string)effect["title"]);
+                    break;
+                case "changeImage":
+                    dialogueScript.ChangeImage((string)effect["image"], int.Parse((string)effect["position"]));
                     break;
                 case "playSound":
                     // play sound

@@ -1,7 +1,10 @@
 using UnityEngine;
+using UnityEngine.UI;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Collections.Generic;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Investigation
 {
@@ -17,11 +20,39 @@ namespace Investigation
         [SerializeField] private GameObject descriptionObj;
         [SerializeField] private GameObject buttonsObj;
         [SerializeField] private GameObject charactersObj;
+        List<AsyncOperationHandle<Sprite>> handles = new List<AsyncOperationHandle<Sprite>>();
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         public void Initialize()
         {
             ChangeTitle(data["title"].ToString());
+            if (data.ContainsKey("LD_images"))
+            {
+                List<string> images = data["LD_images"].ToObject<List<string>>();
+                for(int i = 0; i < images.Count; i++)
+                {
+                    ChangeImage(images[i], i);
+                }
+            }
+            else
+            {
+                for(int i = 0; i < charactersObj.transform.childCount; i++)
+                {
+                    ChangeImage("", i);
+                }
+            }
             DisplayDialogue(0);
+        }
+        public void ChangeImage(string img_name, int position)
+        {
+            Transform placeHolder = charactersObj.transform.GetChild(position);
+            if (img_name == "")
+            {
+                placeHolder.GetComponent<Image>().enabled = false;
+            }
+            else{
+                SetSpriteImage<Image>(placeHolder.gameObject, img_name, handles);
+                placeHolder.GetComponent<Image>().enabled = true;
+            }
         }
         public void ChangeTitle(string title)
         {
