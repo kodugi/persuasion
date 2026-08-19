@@ -88,19 +88,20 @@ namespace Investigation
 
                     
                 case "GuideLeavesHouse":
+                    int hidingTime = 10;
                     interactManager.Effects(
                         new JObject
                         {
                             ["type"] = "thought",
-                            ["thought"] = "3초 안에 숨어야 한다!"
+                            ["thought"] = hidingTime.ToString()+"초 안에 숨어야 한다!"
                         }
                     );
                     float timePassed = 0f;
                     timerObj.SetActive(true);
-                    while (timePassed < 3f)
+                    while (timePassed < hidingTime)
                     {
                         timePassed += Time.deltaTime;
-                        timerObj.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = (3f - timePassed).ToString("F2");
+                        timerObj.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = (hidingTime - timePassed).ToString("F2");
                         yield return null;
                     }
                     timerObj.SetActive(false);
