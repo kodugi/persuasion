@@ -285,17 +285,7 @@
       "description": "그렇게 나는 내 발로 그 마을에 걸어들어가게 되었다.",
       "buttons": [
         {
-          "title": "(다음)",
-          "next": 29,
-          "effects": []
-        }
-      ]
-    },
-    {
-      "description": "언니에 대한 단서가 있을지도 몰라. 우선 주변부터 살펴보자.",
-      "buttons": [
-        {
-          "title": "(조사를 시작한다)",
+          "title": "(시작)",
           "next": -1,
           "effects": [
             {
