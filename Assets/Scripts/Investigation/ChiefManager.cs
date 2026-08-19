@@ -36,7 +36,7 @@ public partial class ChiefManager : MonoBehaviour
         //currScene = "Start";
         //temporary
         currScene = "Investigation";
-        StartInvestigation("Map_House");
+        StartInvestigation("Map1_Intro");
     }
     void FixedUpdate()
     {

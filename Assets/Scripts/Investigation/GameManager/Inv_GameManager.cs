@@ -69,7 +69,10 @@ namespace Investigation
         }
         private void Update()
         {
-            InventoryUpdate();
+            if (!isDialogueOnlyScene)
+            {
+                InventoryUpdate();
+            }
         }
         private void OnApplicationQuit()
         {
@@ -138,6 +141,10 @@ namespace Investigation
 
                 // background의 경우 collider & scripting 필요 없음
                 if(obj.title == "background") {
+                    if (currScene == "Map_House")
+                    {
+                        interactable.GetComponent<SpriteRenderer>().color = Color.black;
+                    }
                     continue;
                 }
 
@@ -190,19 +197,36 @@ namespace Investigation
 
             }
 
+            string automaticDialogue = null;
             if (currScene == "Map_House")
             {
+                automaticDialogue = "Map_House/Cutscene";
+                Camera.main.backgroundColor = Color.black;
+            }
+            else if (currScene == "Map1_Intro")
+            {
+                automaticDialogue = "Map1_Intro/Cutscene";
+                Camera.main.backgroundColor = Color.black;
+            }
+
+            if (automaticDialogue != null)
+            {
+                isDialogueOnlyScene = true;
                 Inv_PlayerCTRL player = FindFirstObjectByType<Inv_PlayerCTRL>();
                 player.CanPlayerMove(false);
                 player.GetComponent<SpriteRenderer>().enabled = false;
-                StartCoroutine(StartHouseDialogue());
+                CloseInventory();
+                noteButton.SetActive(false);
+                notePanel.SetActive(false);
+                StartCoroutine(StartAutomaticDialogue(automaticDialogue));
             }
         }
-        private IEnumerator StartHouseDialogue()
+        private bool isDialogueOnlyScene;
+        private IEnumerator StartAutomaticDialogue(string interactionName)
         {
             // Inv_Interact initializes its dialogue anchor during Start, so wait one frame.
             yield return null;
-            interactManager.ForceInteraction("Map_House/Cutscene");
+            interactManager.ForceInteraction(interactionName);
         }
         string getID()
         {

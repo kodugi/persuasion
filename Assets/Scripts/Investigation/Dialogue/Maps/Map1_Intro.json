@@ -1,0 +1,38 @@
+{
+  "title": "Map1_Intro",
+  "interactables": [
+    {
+      "title": "Map1_Intro/Cutscene",
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "size": {
+        "x": 1,
+        "y": 1
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 0,
+      "image": "",
+      "script": "",
+      "manually_touchable": false
+    }
+  ]
+}
