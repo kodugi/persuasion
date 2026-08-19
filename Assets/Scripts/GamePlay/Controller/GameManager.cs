@@ -304,7 +304,7 @@ namespace GamePlay
 
         private IEnumerator DreamGameOver()
         {
-            yield return new WaitForSeconds(6f);
+            yield return new WaitForSeconds(5f);
             ToInvestigation();
         }
 

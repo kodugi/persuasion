@@ -7,10 +7,11 @@ namespace AnimationUtilsNameSpace
 {
     public class AnimationUtils
     {
-        
-        public static IEnumerator ExecuteAccordingToCountsPreset<T>(List<T> list, Action<T> action, float delayWithinGroup = 0.001f, float delayBetweenGroups = 1.25f)
+        public static IEnumerator ExecuteAccordingToCountsPreset<T>(List<T> list, Action<T> action)
         {
-            List<int> countsPreset = new List<int>() {1, 4, 9};
+            List<int> countsPreset = new List<int>() {1, 4, 50};
+            List<float> delaysWithinGroup = new List<float>() { 0.01f, 0.005f, 0.001f};
+            List<float> delaysBetweenGroups = new List<float>() { 1f, 1f, 0.5f};
             
             int sum = 0;
             foreach (int count in countsPreset)
@@ -28,22 +29,33 @@ namespace AnimationUtilsNameSpace
             counts.Add(list.Count - acc);
 
             int offset = 0;
-            foreach (int count in counts)
+            
+            for(int i = 0; i < countsPreset.Count; i++)
             {
-                for (int i = 0; i < count; i++)
+                for (int j = 0; j < counts[i]; j++)
                 {
-                    if (i + offset >= list.Count)
+                    if (j + offset >= list.Count)
                     {
                         break;
                     }
-                    T item = list[i + offset];
+                    T item = list[j + offset];
                     action(item);
-                    yield return new WaitForSeconds(delayWithinGroup);
+                    if (counts[i] >= 10)
+                    {
+                        if (j % 10 == 0)
+                        {
+                            yield return new WaitForSeconds(delaysWithinGroup[i] * 10);
+                        }
+                    }
+                    else
+                    {
+                        yield return new WaitForSeconds(delaysWithinGroup[i]);
+                    }
                 }
 
-                offset += count;
+                offset += counts[i];
 
-                yield return new WaitForSeconds(delayBetweenGroups - delayWithinGroup * count);
+                yield return new WaitForSeconds(delaysBetweenGroups[i] - delaysWithinGroup[i] * countsPreset[i]);
             }
         }
     }

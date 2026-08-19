@@ -11,8 +11,9 @@ namespace GamePlay
     public class BackgroundSuspicionView: SelfInitializingMonoBehaviourSingleton<BackgroundSuspicionView>
     {
         [SerializeField] private int _suspicionPrefabViewCount;
-        [SerializeField] private GameObject _backgroundSuspicionPrefab;
+        [SerializeField] private GameObject _backgroundSuspicionUIPrefab;
         [SerializeField] private BackgroundBigSuspicionPrefabView _backgroundBigSuspicionPrefabView;
+        [SerializeField] private RectTransform _backgroundSuspicionUIParent;
         
         private List<SuspicionPrefabView> _backgroundSuspicionPrefabViews;
         
@@ -21,6 +22,20 @@ namespace GamePlay
             if (GameStateManager.Instance == null)
             {
                 Debug.LogError("GameStateManager is null");
+                return false;
+            }
+
+            if (_backgroundSuspicionUIParent == null)
+            {
+                Debug.LogError("BackgroundSuspicionUIParent is null");
+                return false;
+            }
+
+            if (_backgroundSuspicionUIPrefab == null ||
+                _backgroundSuspicionUIPrefab.GetComponent<RectTransform>() == null ||
+                _backgroundSuspicionUIPrefab.GetComponent<SuspicionPrefabView>() == null)
+            {
+                Debug.LogError("BackgroundSuspicionUIPrefab is not a valid UI suspicion prefab");
                 return false;
             }
             
@@ -40,6 +55,8 @@ namespace GamePlay
             {
                 suspicionView.StopGameOverAnimation();
             }
+
+            _backgroundBigSuspicionPrefabView.StopGameOverAnimation();
         }
 
         private void SpawnSuspicionPrefabViews()
@@ -47,12 +64,16 @@ namespace GamePlay
             Random random = new Random();
             for (int i = 0; i < _suspicionPrefabViewCount; i++)
             {
-                GameObject go = Instantiate(_backgroundSuspicionPrefab, transform);
-                go.transform.localPosition = new Vector3(random.Next(-85, 85) / 10.0f, random.Next(-50, 50) / 10.0f, 0);
+                GameObject go = Instantiate(_backgroundSuspicionUIPrefab, _backgroundSuspicionUIParent);
+                RectTransform rectTransform = (RectTransform)go.transform;
+                Vector2 randomAnchor = new Vector2((float)random.NextDouble(), (float)random.NextDouble());
+                rectTransform.anchorMin = randomAnchor;
+                rectTransform.anchorMax = randomAnchor;
+                rectTransform.anchoredPosition = Vector2.zero;
+
                 SuspicionPrefabView suspicionPrefabView = go.GetComponent<SuspicionPrefabView>();
                 _backgroundSuspicionPrefabViews.Add(suspicionPrefabView);
                 suspicionPrefabView.Initialize();
-                suspicionPrefabView.SetRendererSorting(0, 1);
             }
         }
 
@@ -60,6 +81,24 @@ namespace GamePlay
         {
             if (e.gameState == GameState.Lost)
             {
+                GameInfo.MapType mapType = GameInfoHolder.GetCurrentGameInfo().GetMapType();
+                bool isDreamMap = mapType == GameInfo.MapType.Dream1 ||
+                                  mapType == GameInfo.MapType.Dream2 ||
+                                  mapType == GameInfo.MapType.Dream3 ||
+                                  mapType == GameInfo.MapType.Dream4;
+                DefeatReason defeatReason = WinConditionManager.Instance.GetLastDefeatReason();
+
+                if (!isDreamMap && defeatReason != DefeatReason.SuspicionOverflow)
+                {
+                    foreach (SuspicionPrefabView suspicionView in _backgroundSuspicionPrefabViews)
+                    {
+                        suspicionView.StopGameOverAnimation();
+                    }
+
+                    _backgroundBigSuspicionPrefabView.StopGameOverAnimation();
+                    return;
+                }
+
                 StartCoroutine(AnimationUtils.ExecuteAccordingToCountsPreset(_backgroundSuspicionPrefabViews, (suspicionView) =>
                 {
                     suspicionView.PlayGameOverAnimation();
@@ -71,6 +110,8 @@ namespace GamePlay
                 {
                     suspicionView.StopGameOverAnimation();
                 }
+
+                _backgroundBigSuspicionPrefabView.StopGameOverAnimation();
             }
         }
 

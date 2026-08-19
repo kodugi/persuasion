@@ -1,6 +1,7 @@
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace GamePlay
@@ -11,17 +12,24 @@ namespace GamePlay
         private static readonly int GlitchTrigger = Animator.StringToHash("glitch");
         private static readonly int GlitchFlashTrigger = Animator.StringToHash("glitch_flash");
         private static readonly int GameOverTrigger = Animator.StringToHash("gameover");
+        private static readonly int DreamGameOverTrigger = Animator.StringToHash("dream_gameover");
 
         [SerializeField] private FigureProfile _fallbackProfile;
+        [SerializeField] private RectTransform _backgroundSuspicionUIRoot;
         [Header("Glitch Effect")]
         [SerializeField, Min(0f)] private float _glitchEffectDuration = 0.92f;
         [SerializeField, Range(0f, 1f)] private float _glitchEffectIntensity = 0.75f;
         [SerializeField, Min(0f)] private float _glitchFlashEffectDuration = 0.68f;
         [SerializeField, Range(0f, 1f)] private float _glitchFlashEffectIntensity = 0.4f;
 
+        [Header("Defeat Presentation Delays")]
+        [FormerlySerializedAs("_defeatStartDelay")]
+        [SerializeField, Min(0f)] private float _suspicionOverflowDefeatStartDelay = 3f;
+        [SerializeField, Min(0f)] private float _turnLimitDefeatStartDelay = 3f;
+
         [Header("Defeat Presentation (Shared)")]
-        [SerializeField, Min(0f)] private float _defeatStartDelay = 3f;
-        [SerializeField, Min(0f)] private float _defeatCloseUpDuration = 3f;
+        [FormerlySerializedAs("_defeatCloseUpDuration")]
+        [SerializeField, Min(0f)] private float _defeatShakeDuration = 3f;
         [SerializeField, Min(1f)] private float _defeatCloseUpScale = 1.5f;
         [SerializeField, Min(0f)] private float _defeatShakeStrength = 35f;
         [SerializeField, Min(1)] private int _defeatShakeVibrato = 35;
@@ -37,12 +45,24 @@ namespace GamePlay
         private Sequence _suspicionOverflowDefeatSequence;
         private Sequence _turnLimitDefeatSequence;
         private FigureProfile _activeProfile;
+        private int _defaultSiblingIndex;
+        private int _backgroundSuspicionDefaultSiblingIndex = -1;
+        private Vector2 _defaultAnchorMin;
+        private Vector2 _defaultAnchorMax;
         private Vector2 _defaultPivot;
 
         private void Awake()
         {
             _image = GetComponent<Image>();
             _rectTransform = GetComponent<RectTransform>();
+            _defaultSiblingIndex = _rectTransform.GetSiblingIndex();
+            if (_backgroundSuspicionUIRoot != null)
+            {
+                _backgroundSuspicionDefaultSiblingIndex = _backgroundSuspicionUIRoot.GetSiblingIndex();
+            }
+
+            _defaultAnchorMin = _rectTransform.anchorMin;
+            _defaultAnchorMax = _rectTransform.anchorMax;
             _defaultPivot = _rectTransform.pivot;
             _animator = GetComponent<Animator>();
             _uiGlitchEffect = GetComponent<UIGlitchEffect>();
@@ -128,6 +148,20 @@ namespace GamePlay
 
             _image.sprite = profile.Sprite;
             _activeProfile = profile;
+            if (_rectTransform.parent != null)
+            {
+                _rectTransform.SetSiblingIndex(_defaultSiblingIndex);
+            }
+
+            if (_backgroundSuspicionUIRoot != null &&
+                _backgroundSuspicionUIRoot.parent == _rectTransform.parent &&
+                _backgroundSuspicionDefaultSiblingIndex >= 0)
+            {
+                _backgroundSuspicionUIRoot.SetSiblingIndex(_backgroundSuspicionDefaultSiblingIndex);
+            }
+
+            _rectTransform.anchorMin = _defaultAnchorMin;
+            _rectTransform.anchorMax = _defaultAnchorMax;
             _rectTransform.pivot = _defaultPivot;
             _rectTransform.anchoredPosition = profile.AnchoredPosition;
             _rectTransform.sizeDelta = profile.SizeDelta;
@@ -202,9 +236,9 @@ namespace GamePlay
 
         private IEnumerator PlaySuspicionOverflowDefeatSequence()
         {
-            if (_defeatStartDelay > 0f)
+            if (_suspicionOverflowDefeatStartDelay > 0f)
             {
-                yield return new WaitForSeconds(_defeatStartDelay);
+                yield return new WaitForSeconds(_suspicionOverflowDefeatStartDelay);
             }
 
             if (_glitchCoroutine != null)
@@ -213,29 +247,37 @@ namespace GamePlay
                 _glitchCoroutine = null;
             }
 
+            _animator.SetTrigger(GameOverTrigger);
+            _animator.Update(0f);
+
             Vector2 suspicionHeadPivot = _activeProfile != null
                 ? _activeProfile.HeadPosition
                 : _defaultPivot;
             suspicionHeadPivot = new Vector2(
                 Mathf.Clamp01(suspicionHeadPivot.x),
                 Mathf.Clamp01(suspicionHeadPivot.y));
-            Vector2 suspicionPivotOffset = suspicionHeadPivot - _rectTransform.pivot;
-            Vector2 suspicionScaledRectSize = Vector2.Scale(
-                _rectTransform.rect.size,
-                new Vector2(_rectTransform.localScale.x, _rectTransform.localScale.y));
-            _rectTransform.anchoredPosition += Vector2.Scale(suspicionPivotOffset, suspicionScaledRectSize);
-            _rectTransform.pivot = suspicionHeadPivot;
 
-            Vector3 closeUpScale = _rectTransform.localScale * _defeatCloseUpScale;
+            Vector3 suspicionJumpScareScale = _activeProfile != null
+                ? _activeProfile.LocalScale * _defeatCloseUpScale
+                : _rectTransform.localScale * _defeatCloseUpScale;
+            _rectTransform.pivot = suspicionHeadPivot;
+            _rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
+            _rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+            _rectTransform.anchoredPosition = Vector2.zero;
+            _rectTransform.localScale = suspicionJumpScareScale;
+
+            if (_backgroundSuspicionUIRoot != null &&
+                _backgroundSuspicionUIRoot.parent == _rectTransform.parent &&
+                _backgroundSuspicionUIRoot.GetSiblingIndex() > _rectTransform.GetSiblingIndex())
+            {
+                _backgroundSuspicionUIRoot.SetSiblingIndex(_rectTransform.GetSiblingIndex());
+            }
+
             _suspicionOverflowDefeatSequence = DOTween.Sequence();
-            _suspicionOverflowDefeatSequence.Join(
-                _rectTransform
-                    .DOScale(closeUpScale, _defeatCloseUpDuration)
-                    .SetEase(Ease.InCubic));
-            _suspicionOverflowDefeatSequence.Join(
+            _suspicionOverflowDefeatSequence.Append(
                 _rectTransform
                     .DOShakeAnchorPos(
-                        _defeatCloseUpDuration,
+                        _defeatShakeDuration,
                         _defeatShakeStrength,
                         _defeatShakeVibrato,
                         _defeatShakeRandomness,
@@ -269,9 +311,9 @@ namespace GamePlay
 
         private IEnumerator PlayTurnLimitDefeatSequence()
         {
-            if (_defeatStartDelay > 0f)
+            if (_turnLimitDefeatStartDelay > 0f)
             {
-                yield return new WaitForSeconds(_defeatStartDelay);
+                yield return new WaitForSeconds(_turnLimitDefeatStartDelay);
             }
 
             if (_glitchCoroutine != null)
@@ -280,29 +322,37 @@ namespace GamePlay
                 _glitchCoroutine = null;
             }
 
+            _animator.SetTrigger(GameOverTrigger);
+            _animator.Update(0f);
+
             Vector2 turnLimitHeadPivot = _activeProfile != null
                 ? _activeProfile.HeadPosition
                 : _defaultPivot;
             turnLimitHeadPivot = new Vector2(
                 Mathf.Clamp01(turnLimitHeadPivot.x),
                 Mathf.Clamp01(turnLimitHeadPivot.y));
-            Vector2 turnLimitPivotOffset = turnLimitHeadPivot - _rectTransform.pivot;
-            Vector2 turnLimitScaledRectSize = Vector2.Scale(
-                _rectTransform.rect.size,
-                new Vector2(_rectTransform.localScale.x, _rectTransform.localScale.y));
-            _rectTransform.anchoredPosition += Vector2.Scale(turnLimitPivotOffset, turnLimitScaledRectSize);
-            _rectTransform.pivot = turnLimitHeadPivot;
 
-            Vector3 closeUpScale = _rectTransform.localScale * _defeatCloseUpScale;
+            Vector3 turnLimitJumpScareScale = _activeProfile != null
+                ? _activeProfile.LocalScale * _defeatCloseUpScale
+                : _rectTransform.localScale * _defeatCloseUpScale;
+            _rectTransform.pivot = turnLimitHeadPivot;
+            _rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
+            _rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+            _rectTransform.anchoredPosition = Vector2.zero;
+            _rectTransform.localScale = turnLimitJumpScareScale;
+
+            if (_backgroundSuspicionUIRoot != null &&
+                _backgroundSuspicionUIRoot.parent == _rectTransform.parent &&
+                _backgroundSuspicionUIRoot.GetSiblingIndex() > _rectTransform.GetSiblingIndex())
+            {
+                _backgroundSuspicionUIRoot.SetSiblingIndex(_rectTransform.GetSiblingIndex());
+            }
+
             _turnLimitDefeatSequence = DOTween.Sequence();
-            _turnLimitDefeatSequence.Join(
-                _rectTransform
-                    .DOScale(closeUpScale, _defeatCloseUpDuration)
-                    .SetEase(Ease.OutQuart));
-            _turnLimitDefeatSequence.Join(
+            _turnLimitDefeatSequence.Append(
                 _rectTransform
                     .DOShakeAnchorPos(
-                        _defeatCloseUpDuration,
+                        _defeatShakeDuration,
                         _defeatShakeStrength,
                         _defeatShakeVibrato,
                         _defeatShakeRandomness,
@@ -350,7 +400,7 @@ namespace GamePlay
         {
             if (e.CurrentState == TutorialState.Dream1)
             {
-                _animator.SetTrigger(GameOverTrigger);
+                _animator.SetTrigger(DreamGameOverTrigger);
             }
         }
     }

@@ -160,6 +160,13 @@ public class BoardView : BoardViewBase
     {
         if (e.gameState == GameState.Lost)
         {
+            if (WinConditionManager.Instance.GetLastDefeatReason() == DefeatReason.TurnLimitExceeded)
+            {
+                StopPreGameOverAnimation();
+                StopGameOverAnimation();
+                return;
+            }
+
             if (_isPlayingGameOverAnimation)
             {
                 return;
