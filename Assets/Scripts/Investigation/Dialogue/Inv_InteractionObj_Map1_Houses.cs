@@ -12,7 +12,11 @@ public class Inv_InteractionObj_Map1_Houses: Inv_InteractionObj_Hidable
         List<AsyncOperationHandle<Sprite>> handles = new List<AsyncOperationHandle<Sprite>>();
         override protected void Starter()
         {
-            isHidingMode = true; // 나중에 대사 생기면 false로하고
+            if(obj_name == "Map1/House1" && state==0) {
+                isHidingMode = false;
+                manuallyTouchable = true;
+            }
+            else isHidingMode = true; // 나중에 대사 생기면 false로하고
             gameManager = FindFirstObjectByType<Inv_GameManager>();
 
             
@@ -43,6 +47,7 @@ public class Inv_InteractionObj_Map1_Houses: Inv_InteractionObj_Hidable
         }
         override public void variation(List<string> parameters = null)
         {
+            if(state != 0) isHidingMode = true;
             foreach(string parameter in parameters)
             {
                 switch (parameter)
