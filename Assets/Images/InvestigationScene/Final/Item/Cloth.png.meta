@@ -142,10 +142,10 @@ TextureImporter:
       name: Cloth_0
       rect:
         serializedVersion: 2
-        x: 209
-        y: 13
-        width: 49
-        height: 42
+        x: 876
+        y: 63
+        width: 195
+        height: 161
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

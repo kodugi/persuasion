@@ -142,10 +142,10 @@ TextureImporter:
       name: Pen_0
       rect:
         serializedVersion: 2
-        x: 230
-        y: 6
-        width: 36
-        height: 37
+        x: 937
+        y: 67
+        width: 140
+        height: 143
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
