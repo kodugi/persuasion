@@ -109,6 +109,7 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
                     case "alone":
                         state=3;
                         gameObject.GetComponent<BoxCollider2D>().size = new Vector2(0.4f, 1f);
+                        gameObject.transform.GetChild(0).GetComponent<BoxCollider2D>().enabled=false;
                         break;
                     case "Dispersed":
                         FadeSwitch(2, 0, 0, 0f);
@@ -178,6 +179,14 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
                     interactManager.Effects(
                         new JObject
                         {
+                            ["type"]="changeCamera",
+                            ["target"]="Map1/WitchMother",
+                            ["duration"]=1
+                        }
+                    );
+                    interactManager.Effects(
+                        new JObject
+                        {
                             ["type"]="variation",
                             ["target"]="Map1/Player",
                             ["parameters"]=new JArray{4}
@@ -204,8 +213,16 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
             {
                 if (playerCTRL.isHiding)
                 {
-                    state =2;
+                    state=2;
                     interactManager.ForceInteraction("Map1/WitchMother");
+                    interactManager.Effects(
+                        new JObject
+                        {
+                            ["type"]="changeCamera",
+                            ["target"]="Map1/WitchMother",
+                            ["duration"]=1
+                        }
+                    );
                 }
             }
         }
