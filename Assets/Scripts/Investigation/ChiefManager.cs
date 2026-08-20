@@ -95,9 +95,9 @@ public partial class ChiefManager : MonoBehaviour
         switch (currScene)
         {
             case "Investigation":
-                yield return inv_GameManager.FadeScreen(true);
                 if (inv_GameManager != null)
                 {
+                    yield return inv_GameManager.FadeScreen(true);
                     inv_GameManager.inputAction?.Player.Disable();
                 }
                 if (inv_PlayerCTRL != null)

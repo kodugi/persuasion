@@ -2,6 +2,39 @@
   "title": "Map1",
   "interactables": [
     {
+      "title": "Map1/BlackCover",
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "size": {
+        "x": 1000,
+        "y": 1000
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 1,
+        "y": 1
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": -100,
+      "image": ["fullblack"],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
       "title": "CaveCollider0",
       "position": {
         "x": 48,
@@ -235,8 +268,8 @@
     {
       "title": "Map1/Player",
       "position": {
-        "x": 100,
-        "y": 100
+        "x": 0,
+        "y": -10
       },
       "size": {
         "x": 1,
@@ -301,6 +334,39 @@
       "manually_touchable": false
     },
     {
+      "title": "Map1/Road",
+      "position": {
+        "x": 1.1,
+        "y": 8.1
+      },
+      "size": {
+        "x": 0.23024,
+        "y": 0.23024
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 0,
+      "image": ["Map1_road"],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
       "title": "Map1/Road_Running_Trigger",
       "position": {
         "x": 0,
@@ -331,6 +397,39 @@
       "sortingOrder": 0,
       "image": [],
       "script": "Inv_InteractionObj_Map1_Road_Running_Trigger",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/Starting_Trigger",
+      "position": {
+        "x": 0,
+        "y": 10
+      },
+      "size": {
+        "x": 3,
+        "y": 100
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 1,
+        "y": 1
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 0,
+      "image": [],
+      "script": "Inv_InteractionObj_Map1_Starting_Trigger",
       "manually_touchable": false
     },
     {
@@ -531,6 +630,41 @@
         "cave"
       ],
       "script": "Inv_InteractionObj_Map1_Cave",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/Cave_Back",
+      "position": {
+        "x": 50.11,
+        "y": 0.64
+      },
+      "size": {
+        "x": 10,
+        "y": 10
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 4,
+      "image": [
+        "cave_back"
+      ],
+      "script": "",
       "manually_touchable": false
     },
     {
@@ -5415,16 +5549,16 @@
       },
       "colliderShape": "box",
       "colliderSize": {
-        "x": 0.4,
-        "y": 0.4
+        "x": 6,
+        "y": 4
       },
       "colliderOffset": {
         "x": 0,
         "y": -0.3
       },
       "triggerSize": {
-        "x": 6.5,
-        "y": 6.5
+        "x": 9.5,
+        "y": 6
       },
       "triggerOffset": {
         "x": 0,

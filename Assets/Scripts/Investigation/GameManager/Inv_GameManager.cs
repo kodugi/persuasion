@@ -105,24 +105,38 @@ namespace Investigation
         }
         IEnumerator SetScene()
         {
-            if(!saveManager.isProgressLoaded) yield return null;
+            yield return new WaitUntil(() =>
+                saveManager != null &&
+                saveManager.isProgressLoaded);
             string currScene = getID();
-
-            footCollider = playerCTRL.gameObject.transform.Find("FootCollider").GetComponent<BoxCollider2D>();
-            if(saveManager.TryLoadCharacterPosition(currScene,"Player", out Vector3 savedPositionP))
-            {
-                playerCTRL.gameObject.transform.position = savedPositionP;
-            }
+            print(currScene);
 
             string path = "Assets/Scripts/Investigation/Dialogue/Maps/" + currScene + ".json";
             string json = System.IO.File.ReadAllText(path);
             JObject data = JObject.Parse(json);
             List<InteractableObj> objects = JsonConvert.DeserializeObject<List<InteractableObj>>(data["interactables"].ToString());
             
+            bool isPlayerPosSaved = false;
+            if(playerCTRL != null)
+            {
+                footCollider = playerCTRL.gameObject.transform.Find("FootCollider").GetComponent<BoxCollider2D>();
+                if(saveManager.TryLoadCharacterPosition(currScene,"Player", out Vector3 savedPositionP))
+                {
+                    playerCTRL.gameObject.transform.position = savedPositionP;
+                    isPlayerPosSaved = true;
+                }
+            }
+
             GameObject interactableParent = GameObject.Find("Interactables");
             
             foreach(InteractableObj obj in objects)
             {
+                if(!isPlayerPosSaved && obj.title == currScene + "/Player")
+                {
+                    print("player");
+                    playerCTRL.gameObject.transform.position = Vector_2D_to_Vector3(obj.position);
+                    isPlayerPosSaved =true;
+                }
                 GameObject interactable;
                 Vector2 position = Vector_2D_to_Vector2(obj.position);
                 if(saveManager.TryLoadCharacterPosition(currScene,obj.title, out Vector3 savedPosition))
@@ -199,7 +213,7 @@ namespace Investigation
                 interactable.GetComponent<Inv_InteractionObj>().hideCriteria = obj.hideCriteria;
                 interactable.GetComponent<Inv_InteractionObj>().manuallyTouchable = obj.manually_touchable;
                 interactable.GetComponent<Inv_InteractionObj>().images = obj.image;
-                if (obj.image.Count > 0 && obj.image[0] == "fullblack")
+                if (obj.image != null &&obj.image.Count > 0 && obj.image[0] == "fullblack")
                 {
                     interactable.GetComponent<SpriteRenderer>().sortingOrder = -200;
                     interactable.GetComponent<SpriteRenderer>().enabled = false;
