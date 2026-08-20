@@ -108,7 +108,7 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
                         gameObject.GetComponent<BoxCollider2D>().size = new Vector2(0.4f, 1f);
                         break;
                     case "Dispersed":
-                        FadeSwitch(2, 0, 0, 1f);
+                        FadeSwitch(2, 0, 0, 0f);
                         break;
                 }
             }
