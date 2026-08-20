@@ -117,118 +117,18 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 11,
-                    "effects": [
-                        {
-                            "type": "changeImage",
-                            "image": "LD_Player_6A",
-                            "position": 2
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "(아냐, 틀림없어! 분명히 쳐다보고 있어.)",
-            "buttons": [
-                {
-                    "title": "",
-                    "next": 12,
-                    "effects": []
-                }
-            ]
-        },
-        {
-            "description": "(하지만 대체 왜지? 난 아무것도 한 게 없는데.)",
-            "buttons": [
-                {
-                    "title": "",
-                    "next": 13,
-                    "effects": []
-                }
-            ]
-        },
-        {
-            "description": "(설마 능력을 쓴 걸 들킨 건....)",
-            "buttons": [
-                {
-                    "title": "",
-                    "next": 14,
-                    "effects": [
-                        {
-                            "type": "cutScene",
-                            "title": "PeopleRunningAfterReceivingPen"
-                        },
-                        {
-                            "type": "changeImage",
-                            "image": "LD_Player_3A",
-                            "position": 2
-                        }
-                    
-                    ]
-                }
-            ]
-        },
-        {
-            "description": ".....!!",
-            "buttons": [
-                {
-                    "title": "",
-                    "next": 15,
-                    "effects": []
-                }
-            ]
-        },
-        {
-            "description": "(뭐지.....? 갑자기 왜 다들 저기로....)",
-            "buttons": [
-                {
-                    "title": "",
-                    "next": 16,
-                    "effects": []
-                }
-            ]
-        },
-        {
-            "description": "(설마 다 가족일 리는 없을 거고.)",
-            "buttons": [
-                {
-                    "title": "",
-                    "next": 17,
-                    "effects": []
-                }
-            ]
-        },
-        {
-            "description": "(무슨 회의라도 하는 건가?)",
-            "buttons": [
-                {
-                    "title": "",
-                    "next": 18,
-                    "effects": []
-                }
-            ]
-        },
-        {
-            "description": "(느낌이 너무 안 좋아.... 직접 확인해봐야겠어.)",
-            "buttons": [
-                {
-                    "title": "",
                     "next": -1,
                     "effects": [
-                        {
-                            "type": "variation",
-                            "target": "Map1/Player",
-                            "parameters": [
-                                0
-                            ]
-                        },
                         {
                             "type": "variation",
                             "target": "Map1/Road_Running_Trigger",
                             "parameters": [
                                 2
                             ]
+                        },
+                        {
+                            "type": "cutScene",
+                            "title": "ObservePeopleOnRoad"
                         }
                     ]
                 }

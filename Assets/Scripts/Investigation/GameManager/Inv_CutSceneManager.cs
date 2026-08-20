@@ -171,6 +171,30 @@ namespace Investigation
                         }
                     );
                     break;
+
+                    
+                case "ObservePeopleOnRoad":
+                    int movingTime = 5;
+                    float timePassed_o = 0f;
+                    while (timePassed_o < movingTime)
+                    {
+                        timePassed_o += Time.deltaTime;
+                        yield return null;
+                    }
+                    interactManager.Effects(
+                        new JObject
+                        {
+                            ["type"] = "variation",
+                            ["target"] = "Map1/Player",
+                            ["parameters"] = new JArray
+                            {
+                                7
+                            }
+                        }
+                    );
+                    interactManager.ForceInteraction("Map1/Player");
+                    break;
+
                 case "Teleport_After_Cave_Interaction":
                     playerCTRL.CanPlayerMove(false);
                     yield return FadeScreen(true);
