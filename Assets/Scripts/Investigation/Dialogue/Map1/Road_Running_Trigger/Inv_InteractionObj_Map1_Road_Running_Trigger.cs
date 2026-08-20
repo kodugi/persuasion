@@ -7,11 +7,6 @@ namespace Investigation
 {
 public class Inv_InteractionObj_Map1_Road_Running_Trigger: Inv_InteractionObj
     {
-        private Inv_Interact interactManager;
-        override protected void Starter()
-        {
-            interactManager = GameObject.FindFirstObjectByType<Inv_Interact>();
-        }
         override public void CheckState()
         {
             base.CheckState();
@@ -26,14 +21,14 @@ public class Inv_InteractionObj_Map1_Road_Running_Trigger: Inv_InteractionObj
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.CompareTag("Player") && state == 1) {
-                interactManager.Effects(
+                interactionManager.Effects(
                     new JObject
                     {
                         ["type"]="cutScene",
                         ["title"]="screenRed"
                     }
                 );
-                interactManager.ForceInteraction("Map1/Player");
+                interactionManager.ForceInteraction("Map1/Player");
             }
         }
     }
