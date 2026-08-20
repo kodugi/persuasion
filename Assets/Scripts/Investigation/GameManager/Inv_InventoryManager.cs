@@ -31,7 +31,7 @@ namespace Investigation
             inventoryContentHolder = inventoryPanel.transform.Find("Scroll").Find("Viewport").Find("Content").gameObject;
             inventoryOperator = inventoryPanel.transform.Find("Scroll").GetComponent<CustomScrollRect>();
             inventoryOperator.inventoryManager = this;
-            PreviewInventory();
+            //PreviewInventory();
         }
         void InventoryOnApplicationQuit()
         {
