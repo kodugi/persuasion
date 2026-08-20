@@ -289,7 +289,7 @@ namespace GamePlay
 
             if (BlackOutPanelView.Instance != null)
             {
-                yield return BlackOutPanelView.Instance.PlaySuspicionOverflowBlackOut();
+                yield return BlackOutPanelView.Instance.PlayBlackOut();
             }
             else
             {
