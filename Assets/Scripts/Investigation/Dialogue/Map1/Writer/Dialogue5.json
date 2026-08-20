@@ -2,7 +2,7 @@
     "title": "남자",
     "path": [
         {
-            "description": "﻿내 어깨를 잡은 남자의 손에 서서히 힘이 빠지더니, 곧 나에게서 완전히 떨어졌다.",
+            "description": "내 어깨를 잡은 남자의 손에 서서히 힘이 빠지더니, 곧 나에게서 완전히 떨어졌다.",
             "buttons": [
                 {
                     "title": "",
@@ -21,7 +21,13 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_5A",
+                            "position": 0
                         }
+                    
                     ]
                 }
             ]
@@ -46,7 +52,13 @@
                         {
                             "type": "changeTitle",
                             "title": "남자"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Man2_1A",
+                            "position": 1
                         }
+                    
                     ]
                 }
             ]
@@ -61,7 +73,19 @@
                         {
                             "type": "changeTitle",
                             "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 0
+                        },
+                    
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 1
                         }
+                    
                     ]
                 }
             ]
@@ -76,7 +100,13 @@
                         {
                             "type": "changeTitle",
                             "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_10A",
+                            "position": 0
                         }
+                    
                     ]
                 }
             ]
@@ -118,27 +148,6 @@
                             "target": "Map1/Writer",
                             "parameters": [
                                 "PenGiven"
-                            ]
-                        },
-                        {
-                            "type": "variation",
-                            "target": "Map1/House_Gathering",
-                            "parameters": [
-                                "Gathered"
-                            ]
-                        },
-                        {
-                            "type": "variation",
-                            "target": "Map1/Player",
-                            "parameters": [
-                                2
-                            ]
-                        },
-                        {
-                            "type": "variation",
-                            "target": "Map1/Road_Running_Trigger",
-                            "parameters": [
-                                1
                             ]
                         },
                         {

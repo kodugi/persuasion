@@ -256,7 +256,7 @@ public partial class SaveManager : MonoBehaviour
         {
             if (token is JValue jValue)
             {
-                return jValue.Value<object>();
+                return jValue.Value;
             }
 
             if (token is JArray jArray)
@@ -347,7 +347,11 @@ public partial class SaveManager : MonoBehaviour
         SaveProgress();
         AddProgressException(key);
     }
-
+    public bool TryLoadProgress(string key, out object result)
+    {
+        result = LoadProgress(key);
+        return result!=null;
+    }
     public object LoadProgress(string key)
     {
         if (progress.TryGetValue(key, out object value))

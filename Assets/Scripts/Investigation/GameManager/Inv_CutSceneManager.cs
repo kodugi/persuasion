@@ -47,18 +47,68 @@ namespace Investigation
 
 
                 case "PeopleStaringAfterReceivingPen":
-                    staringPeopleHandle = Addressables.LoadAssetAsync<GameObject>("PeopleStaring");
-                    yield return staringPeopleHandle;
-                    if (staringPeopleHandle.Status == AsyncOperationStatus.Succeeded)
+                    bool penPossessed = false;
+                    if (saveManager.TryLoadProgress("penPossessed", out object result0))
                     {
-                        GameObject obj = staringPeopleHandle.Result;
-                        staringPeople = Instantiate(obj);
-                        staringPeople.GetComponent<Inv_Obj_Staring_People>().player = playerCTRL.gameObject;
-                        staringPeople.GetComponent<Inv_Obj_Staring_People>().house_gather = interactManager.FindInteractableObj("Map1/House_Gathering").gameObject;
+                        penPossessed = (bool)result0;
+                    }
+                    bool notePossessed = false;
+                    if (saveManager.TryLoadProgress("notePossessed", out object result1))
+                    {
+                        notePossessed = (bool)result1;
+                    }
+                    if(penPossessed && notePossessed)
+                    {
+                        interactManager.Effects(
+                            new JObject
+                            {
+                                ["type"] = "variation",
+                                ["target"] = "Map1/House_Gathering",
+                                ["parameters"] = new JArray
+                                {
+                                    "Gathered"
+                                }
+                            }
+                        );
+                        interactManager.Effects(
+                            new JObject
+                            {
+                                ["type"] = "variation",
+                                ["target"] = "Map1/Player",
+                                ["parameters"] = new JArray
+                                {
+                                    2
+                                }
+                            }
+                        );
+                        interactManager.Effects(
+                            new JObject
+                            {
+                                ["type"] = "variation",
+                                ["target"] = "Map1/Road_Running_Trigger",
+                                ["parameters"] = new JArray
+                                {
+                                    1
+                                }
+                            }
+                        );
+                        staringPeopleHandle = Addressables.LoadAssetAsync<GameObject>("PeopleStaring");
+                        yield return staringPeopleHandle;
+                        if (staringPeopleHandle.Status == AsyncOperationStatus.Succeeded)
+                        {
+                            GameObject obj = staringPeopleHandle.Result;
+                            staringPeople = Instantiate(obj);
+                            staringPeople.GetComponent<Inv_Obj_Staring_People>().player = playerCTRL.gameObject;
+                            staringPeople.GetComponent<Inv_Obj_Staring_People>().house_gather = interactManager.FindInteractableObj("Map1/House_Gathering").gameObject;
+                        }
+                        else
+                        {
+                            Debug.LogError("Couldn't Load PeopleStaringAsset");
+                        }
                     }
                     else
                     {
-                        Debug.LogError("Couldn't Load PeopleStaringAsset");
+                        print("note/pen not yet possessed");
                     }
                     break;
 
