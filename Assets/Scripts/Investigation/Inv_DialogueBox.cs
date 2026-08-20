@@ -21,6 +21,7 @@ namespace Investigation
         [SerializeField] private GameObject buttonsObj;
         [SerializeField] private GameObject charactersObj;
         List<AsyncOperationHandle<Sprite>> handles = new List<AsyncOperationHandle<Sprite>>();
+        bool ignoreNextDialogueMovement=false;
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         public void Initialize()
         {
@@ -76,8 +77,14 @@ namespace Investigation
                 }
             }
         }
-        public void DisplayDialogue(int index)
+        public void DisplayDialogue(int index, bool ignoreNext=false)
         {
+            if (ignoreNextDialogueMovement)
+            {
+                ignoreNextDialogueMovement = false;
+                return;
+            }
+            ignoreNextDialogueMovement = ignoreNext;
             JObject dialogue = (JObject)data["path"][index];
             descriptionObj.GetComponent<TMPro.TextMeshProUGUI>().text = dialogue["description"].ToString();
             if(buttonsObj.transform.childCount > 0)

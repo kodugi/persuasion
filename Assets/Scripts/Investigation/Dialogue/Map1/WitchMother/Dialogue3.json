@@ -98,6 +98,16 @@
                         },
                         {
                             "type": "changeImage",
+                            "image": "",
+                            "position": 0
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 1
+                        },
+                        {
+                            "type": "changeImage",
                             "image": "LD_Player_8A",
                             "position": 2
                         }

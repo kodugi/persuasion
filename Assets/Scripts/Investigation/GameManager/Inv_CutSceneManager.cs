@@ -42,7 +42,7 @@ namespace Investigation
                     staringPeople.GetComponent<Inv_Obj_Staring_People>().StartRunning();
                     yield return new WaitForSeconds(10f);
                     Destroy(staringPeople);
-                    Addressables.Release(staringPeopleHandle);
+                    if(staringPeopleHandle.IsValid()) Addressables.Release(staringPeopleHandle);
                     break;
 
 
@@ -65,25 +65,11 @@ namespace Investigation
 
                 case "IntoDream":
                     print("잠에 들었다.");
-                    yield return new WaitForSeconds(1f);
-                    chiefManager.StartInvestigation("Dream");
-                    break;
-
-
-                case "CrowdAroundWitchMotherDisperse":
-                    interactManager.Effects(
-                        new JObject
-                        {
-                            ["type"] = "variation",
-                            ["target"] = "Map1/WitchMother",
-                            ["parameters"] = new JArray
-                            {
-                                "Dispersed"
-                            }
-                        }
-                    );
-                    print("사람들이 흩어진다.");
-                    yield return null;
+                    playerCTRL.CanPlayerMove(false);
+                    playerCTRL.gameObject.SetActive(false);
+                    playerCTRL.gameObject.transform.position = interactManager.FindInteractableObj("Map1/House_WitchMother").position;
+                    interactManager.FindInteractableObj("Map1/House_WitchMother").gameObject.GetComponent<Inv_InteractionObj>().FadeSwitch(0,1,0,0);
+                    interactManager.ForceInteraction("Map1/Player");
                     break;
 
                     
@@ -135,7 +121,7 @@ namespace Investigation
                         {
                             ["type"]="variation",
                             ["target"]="Map1/Player",
-                            ["parameters"]=new JArray{4}
+                            ["parameters"]=new JArray{5}
                         }
                     );
                     interactManager.ForceInteraction("Map1/Player");

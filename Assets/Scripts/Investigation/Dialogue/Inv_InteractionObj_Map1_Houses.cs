@@ -47,7 +47,7 @@ public class Inv_InteractionObj_Map1_Houses: Inv_InteractionObj_Hidable
         }
         override public void variation(List<string> parameters = null)
         {
-            if(state != 0) isHidingMode = true;
+            if(state != 0 && obj_name!="Map1/Cave") isHidingMode = true;
             foreach(string parameter in parameters)
             {
                 switch (parameter)

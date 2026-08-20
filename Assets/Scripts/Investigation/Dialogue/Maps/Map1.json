@@ -958,7 +958,7 @@
       "manually_touchable": false
     },
     {
-      "title": "Map1/House14",
+      "title": "Map1/House_WitchMother",
       "position": {
         "x": -21.37,
         "y": 28.02
@@ -987,7 +987,8 @@
       "hideCriteria": -1.5,
       "sortingOrder": 2,
       "image": [
-        "house1"
+        "house1",
+        "Map1_Player_Sleeping_2A"
       ],
       "script": "Inv_InteractionObj_Map1_Houses",
       "manually_touchable": false
@@ -5368,7 +5369,7 @@
       "image": [
         "Witch_Crying",
         "Witch_Yelling",
-        "Witch_Crying",
+        "Witch_Yelling",
         "Witch_Crying",
         "Witch_Crying",
         "Witch_Crying",

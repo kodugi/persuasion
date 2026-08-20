@@ -1,7 +1,10 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Investigation
 {
@@ -11,6 +14,7 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
         Inv_Interact interactManager;
         bool amIInteracting = false;
         bool haveWarned = false;
+        float walkingSpeed = 1.5f;
         
         override protected void Starter()
         {
@@ -97,6 +101,7 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
                             }
                         );
                         state=6;
+                        StartCoroutine(WalkingMotion());
                         break;
                     case "alone":
                         state=3;
@@ -113,20 +118,72 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
         {
             if (col.gameObject.CompareTag("Player"))
             {
-                if(!haveWarned && state == 1)
+                if (state == 1)
                 {
-                    interactManager.Effects(
-                        new JObject
-                        {
-                            ["type"]="variation",
-                            ["target"]="Map1/Player",
-                            ["parameters"]=new JArray{5}
-                        }
-                    );
-                    interactionManager.ForceInteraction("Map1/Player");
+                    if(!haveWarned)
+                    {
+                        interactManager.Effects(
+                            new JObject
+                            {
+                                ["type"]="variation",
+                                ["target"]="Map1/Player",
+                                ["parameters"]=new JArray{4}
+                            }
+                        );
+                        interactionManager.ForceInteraction("Map1/Player");
+                        haveWarned = true;
+                    }
                 }
             }
         }
+        private IEnumerator WalkingMotion()
+        {
+            playerCTRL.CanPlayerMove(false);
+
+            var pathHandle =
+                Addressables.LoadAssetAsync<GameObject>("Map1_WitchMotherPathPrefab");
+
+            yield return pathHandle;
+
+            if (pathHandle.Status != AsyncOperationStatus.Succeeded)
+            {
+                Debug.LogError("GuideToCavePathPrefab 로드 실패");
+                yield break;
+            }
+
+            GameObject pathObj = pathHandle.Result;
+
+
+            GameObject colliderChild =
+                transform.GetChild(0).gameObject;
+
+            colliderChild.SetActive(false);
+
+            foreach (Transform child in pathObj.transform)
+            {
+                Vector3 targetP = child.localPosition;
+
+                while (Vector3.Distance(transform.position,targetP) > 0.1f)
+                {
+                    transform.position =
+                        Vector3.MoveTowards(
+                            transform.position,
+                            targetP,
+                            walkingSpeed * Time.deltaTime
+                        );
+
+                    yield return null;
+                }
+                transform.position = targetP;
+            }
+            // Addressables 해제
+            Destroy(pathObj);
+            Addressables.Release(pathHandle);
+            gameObject.SetActive(false);
+
+            playerCTRL.CanPlayerMove(true);
+        }
+    
 
     }
 }

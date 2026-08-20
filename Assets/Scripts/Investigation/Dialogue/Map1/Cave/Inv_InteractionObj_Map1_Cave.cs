@@ -10,6 +10,11 @@ namespace Investigation
     public class Inv_InteractionObj_Map1_Cave: Inv_InteractionObj_Map1_Houses
     {
         bool canEndQuestioning = false;
+        override protected void Starter()
+        {
+            isHidingMode = false;
+            manuallyTouchable = true;
+        }
         override public void CheckState()
         {
             base.CheckState();
