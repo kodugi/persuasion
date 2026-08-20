@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Map1_People
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: Map1_People
+  m_GUID: 544104a55ec544318b852d77a85df651
+  m_SerializeEntries:
+  - m_GUID: 0f60a5409bd374649b1b490f254b0547
+    m_Address: Writer0
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1cff6e3069c4e468abd11b53a85c9487
+    m_Address: GuardRunning0
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 33c984753299d4b16b16c7798a1bdccc
+    m_Address: Granny3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5143e7024969c4a97abcef45a35dc247
+    m_Address: GuardRunning4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 55b4ac8b3a91a4f93b951b13d3d10f97
+    m_Address: Witch_Yelling
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5b4ec1acf398642b4b518f60d0f2ab62
+    m_Address: Guard_Dragging
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 62ffa5d850d04424b8d5e990cedf07ff
+    m_Address: GuardRunning2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 915f160cfb5a34d448fe9839d6f0097c
+    m_Address: Writer1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9cd2d7aa5ccbb4b0594890cdbb13c995
+    m_Address: Granny2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9d8f8761a005c4141b83a7eb2946916e
+    m_Address: Guard_Pulling
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9df3c5a83cbb54a29b1cc78dd25906e5
+    m_Address: Writer2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9f3cf4a46760f46d0a274fc10e0ba54b
+    m_Address: Guard
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b3f3c9b357b4048d193667337472f2e7
+    m_Address: Granny1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c0e9d80372b6e4e55afde14a8a43b6b8
+    m_Address: GuardRunning1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c49316bbc22df47af869e9d0425580c1
+    m_Address: Granny4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ed01af9083c184916ae9175f79a4f80f
+    m_Address: Witch_Crying
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 318b521c047bc464eadf7877914e918f, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 0d6f90f458c674ba7aa73dcc6e45877e, type: 2}
+    - {fileID: 11400000, guid: 7a0efb2b4395a46ccbb5e3cd6baf2761, type: 2}

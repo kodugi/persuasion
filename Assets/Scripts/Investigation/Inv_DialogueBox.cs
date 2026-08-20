@@ -1,6 +1,10 @@
 using UnityEngine;
+using UnityEngine.UI;
 using Newtonsoft.Json.Linq;
 using System.IO;
+using System.Collections.Generic;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Investigation
 {
@@ -10,47 +14,125 @@ namespace Investigation
         public Inv_Interact interactionScript;
         public string interactionName;
         [SerializeField] private GameObject buttonPrefab;
+        int singleOption_nextIndex = -100;
+        List<JObject> effectList = new List<JObject>();
+        [SerializeField] private GameObject titleObj;
+        [SerializeField] private GameObject descriptionObj;
+        [SerializeField] private GameObject buttonsObj;
+        [SerializeField] private GameObject charactersObj;
+        List<AsyncOperationHandle<Sprite>> handles = new List<AsyncOperationHandle<Sprite>>();
+        bool ignoreNextDialogueMovement=false;
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         public void Initialize()
         {
-            transform.Find("Title").GetComponent<TMPro.TextMeshProUGUI>().text = data["title"].ToString();
+            ChangeTitle(data["title"].ToString());
+            for(int i = 0; i < charactersObj.transform.childCount; i++)
+            {
+                ChangeImage("", i);
+            }
+            if (data.ContainsKey("LD_images"))
+            {
+                List<string> images = data["LD_images"].ToObject<List<string>>();
+                for(int i = 0; i < images.Count; i++)
+                {
+                    ChangeImage(images[i], i);
+                }
+            }
             DisplayDialogue(0);
+        }
+        public void ChangeImage(string img_name, int position)
+        {
+            Transform placeHolder = charactersObj.transform.GetChild(position);
+            if (img_name == "")
+            {
+                placeHolder.GetComponent<Image>().enabled = false;
+            }
+            else{
+                placeHolder.GetComponent<Image>().enabled = false;
+                SetSpriteImage<Image>(placeHolder.gameObject, img_name, handles);
+                placeHolder.GetComponent<Image>().enabled = true;
+            }
         }
         public void ChangeTitle(string title)
         {
-            transform.Find("Title").GetComponent<TMPro.TextMeshProUGUI>().text = title;
+            titleObj.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = title;
+            titleObj.SetActive(title!="");
         }
-        void DisplayDialogue(int index)
+        void Update()
         {
-            JObject dialogue = (JObject)data["path"][index];
-            transform.Find("Description").GetComponent<TMPro.TextMeshProUGUI>().text = dialogue["description"].ToString();
-            if(transform.Find("Buttons").childCount > 0)
+            if(singleOption_nextIndex == -100) return;
+            if(Input.GetMouseButtonDown(0))
             {
-                foreach(Transform child in transform.Find("Buttons"))
+                foreach (JObject effect in effectList)
+                {
+                    interactionScript.Effects(effect);
+                }
+                if(singleOption_nextIndex == -1)
+                {
+                    interactionScript.SignalEnding(interactionName);
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    DisplayDialogue(singleOption_nextIndex);
+                }
+            }
+        }
+        public void DisplayDialogue(int index, bool ignoreNext=false)
+        {
+            if (ignoreNextDialogueMovement)
+            {
+                ignoreNextDialogueMovement = false;
+                return;
+            }
+            ignoreNextDialogueMovement = ignoreNext;
+            JObject dialogue = (JObject)data["path"][index];
+            descriptionObj.GetComponent<TMPro.TextMeshProUGUI>().text = dialogue["description"].ToString();
+            if(buttonsObj.transform.childCount > 0)
+            {
+                foreach(Transform child in buttonsObj.transform)
                 {
                     Destroy(child.gameObject);
                 }
             }
-            for(int i = 0; i < ((JArray)dialogue["buttons"]).Count; i++)
+
+            effectList = new List<JObject>();
+
+            if(((JArray)dialogue["buttons"]).Count == 1)
             {
-                GameObject button = Instantiate(buttonPrefab, transform.Find("Buttons"));
-                button.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = dialogue["buttons"][i]["title"].ToString();
-                button.GetComponent<RectTransform>().anchoredPosition = new Vector2(275, 25-50* i);
-                
-                int nextIndex = (int)dialogue["buttons"][i]["next"];
-                for(int j = 0; j < ((JArray)dialogue["buttons"][i]["effects"]).Count; j++)
+                singleOption_nextIndex = (int)dialogue["buttons"][0]["next"];
+                for (int j = 0; j < ((JArray)dialogue["buttons"][0]["effects"]).Count; j++)
                 {
-                    JObject effect = (JObject)dialogue["buttons"][i]["effects"][j];
-                    button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => interactionScript.Effects(effect));
+                    effectList.Add(
+                        (JObject)dialogue["buttons"][0]["effects"][j]
+                    );
                 }
-                if(nextIndex == -1)
+            }
+            else
+            {
+                singleOption_nextIndex = -100;
+                int buttonCnt = ((JArray)dialogue["buttons"]).Count;
+                for(int i = 0; i < buttonCnt; i++)
                 {
-                    button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => Destroy(gameObject));
-                    button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => interactionScript.SignalEnding(interactionName));
-                }
-                else
-                {
-                    button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => DisplayDialogue(nextIndex));
+                    GameObject button = Instantiate(buttonPrefab, buttonsObj.transform);
+                    button.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = dialogue["buttons"][i]["title"].ToString();
+                    button.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 55*(buttonCnt-1-i)+30);
+                    
+                    int nextIndex = (int)dialogue["buttons"][i]["next"];
+                    for(int j = 0; j < ((JArray)dialogue["buttons"][i]["effects"]).Count; j++)
+                    {
+                        JObject effect = (JObject)dialogue["buttons"][i]["effects"][j];
+                        button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => interactionScript.Effects(effect));
+                    }
+                    if(nextIndex == -1)
+                    {
+                        button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => Destroy(gameObject));
+                        button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => interactionScript.SignalEnding(interactionName));
+                    }
+                    else
+                    {
+                        button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => DisplayDialogue(nextIndex));
+                    }
                 }
             }
         }

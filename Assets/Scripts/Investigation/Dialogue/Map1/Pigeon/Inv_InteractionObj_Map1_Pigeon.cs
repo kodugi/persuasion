@@ -14,7 +14,7 @@ public class Inv_InteractionObj_Map1_Pigeon: Inv_InteractionObj
         }
         override public void InventoryItemDraggedOn(string itemName)
         {
-            if (itemName == "잠자리채")
+            if (itemName == "Inventory_ButterflyNet")
             {
                 interactManager.Effects(
                     new JObject
@@ -31,7 +31,7 @@ public class Inv_InteractionObj_Map1_Pigeon: Inv_InteractionObj
                     new JObject
                     {
                         ["type"] = "item_remove",
-                        ["name"] = "잠자리채"
+                        ["name"] = "Inventory_ButterflyNet"
                     }
                 );
                 interactManager.ForceInteraction("Map1/Writer");

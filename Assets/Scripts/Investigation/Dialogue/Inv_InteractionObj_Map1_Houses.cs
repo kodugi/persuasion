@@ -5,16 +5,21 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Investigation
 {
-public class Inv_InteractionObj_Map1_Houses: Inv_InteractionObj
+public class Inv_InteractionObj_Map1_Houses: Inv_InteractionObj_Hidable
     {
         GameObject faceImg;
         private Inv_GameManager gameManager;
         List<AsyncOperationHandle<Sprite>> handles = new List<AsyncOperationHandle<Sprite>>();
         override protected void Starter()
         {
+            if(obj_name == "Map1/House1" && state==0) {
+                isHidingMode = false;
+                manuallyTouchable = true;
+            }
+            else isHidingMode = true; // 나중에 대사 생기면 false로하고
             gameManager = FindFirstObjectByType<Inv_GameManager>();
 
-
+            
             faceImg = new GameObject($"{gameObject.name}_Face");
 
             faceImg.transform.SetParent(transform, false);
@@ -31,27 +36,18 @@ public class Inv_InteractionObj_Map1_Houses: Inv_InteractionObj
             string path = obj_name.Replace("/", "_") + "_Face";
 
             faceImg.SetActive(false);
-            gameManager.SetSpriteImage<SpriteRenderer>(faceImg, path, handles);
             /*
-            faceImg = Instantiate(gameObject, gameObject.transform.position, Quaternion.identity, gameObject.transform);
-            Destroy(faceImg.GetComponent<BoxCollider2D>());
-            Destroy(faceImg.GetComponent(GetType()));
-            Destroy(faceImg.transform.GetChild(0));
-            Vector3 originalScale = faceImg.transform.localScale;
-            faceImg.transform.localScale = originalScale/2;
-            string path = obj_name.Replace("/", "_")+"_Face";
-            faceImg.SetActive(false);
             gameManager.SetSpriteImage<SpriteRenderer>(faceImg, path, handles);
-            faceImg.GetComponent<SpriteRenderer>().sortingOrder = gameObject.GetComponent<SpriteRenderer>().sortingOrder+1;
             */
         }
         void OnDestroy()
         {
             if(gameObject.name.Contains("Clone")) return;
-            gameManager.ClearHandles(handles);
+            if(handles != null) gameManager.ClearHandles(handles);
         }
         override public void variation(List<string> parameters = null)
         {
+            if(state != 0 && obj_name!="Map1/Cave") isHidingMode = true;
             foreach(string parameter in parameters)
             {
                 switch (parameter)

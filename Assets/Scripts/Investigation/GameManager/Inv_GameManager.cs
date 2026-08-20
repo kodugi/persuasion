@@ -15,8 +15,10 @@ namespace Investigation
         private SaveManager saveManager;
         private ChiefManager chiefManager;
         private Inv_Interact interactManager;
+        private Inv_PlayerCTRL playerCTRL;
         [SerializeField] private GameObject interactablePrefab;
         [SerializeField] private GameObject backgroundPrefab;
+        [SerializeField] private GameObject timerObj;
         List<AsyncOperationHandle<Sprite>> mapHandles = new List<AsyncOperationHandle<Sprite>>();
         BoxCollider2D footCollider;
         
@@ -37,7 +39,8 @@ namespace Investigation
             public Vector_2D triggerOffset;
             public float hideCriteria; // y offset (float) from centre
             public int sortingOrder;
-            public string image;
+            public List<string> image;
+            //public bool singleImage;
             public string script;
             public bool manually_touchable;
         }
@@ -54,6 +57,7 @@ namespace Investigation
             saveManager = GameObject.FindFirstObjectByType<SaveManager>();
             chiefManager = GameObject.FindFirstObjectByType<ChiefManager>();
             interactManager = GameObject.FindFirstObjectByType<Inv_Interact>();
+            playerCTRL = GameObject.FindFirstObjectByType<Inv_PlayerCTRL>();
             NoteAwake();
             InventoryAwake();
 
@@ -64,8 +68,7 @@ namespace Investigation
             inputAction.Player.Enable();
             NoteStart();
             InventoryStart();
-            footCollider = FindFirstObjectByType<Inv_PlayerCTRL>().gameObject.transform.Find("FootCollider").GetComponent<BoxCollider2D>();
-            SetScene();
+            StartCoroutine(SetScene());
         }
         private void Update()
         {
@@ -81,7 +84,7 @@ namespace Investigation
             {
                 return;
             }*/
-
+            saveManager.SaveCharacterPosition(getID(),"Player",playerCTRL.gameObject.transform.position);
             NoteOnApplicationQuit();
             InventoryOnApplicationQuit();
         }
@@ -98,20 +101,17 @@ namespace Investigation
         {
             ClearHandles(mapHandles);
         }
-        public void ClearHandles(List<AsyncOperationHandle<Sprite>> handles)
+        IEnumerator SetScene()
         {
-            foreach (var handle in handles)
-            {
-                if(handle.IsValid())
-                {
-                    Addressables.Release(handle);
-                }
-            }
-            handles.Clear();
-        }
-        void SetScene()
-        {
+            if(!saveManager.isProgressLoaded) yield return null;
             string currScene = getID();
+
+            footCollider = playerCTRL.gameObject.transform.Find("FootCollider").GetComponent<BoxCollider2D>();
+            if(saveManager.TryLoadCharacterPosition(currScene,"Player", out Vector3 savedPositionP))
+            {
+                playerCTRL.gameObject.transform.position = savedPositionP;
+            }
+
             string path = "Assets/Scripts/Investigation/Dialogue/Maps/" + currScene + ".json";
             string json = System.IO.File.ReadAllText(path);
             JObject data = JObject.Parse(json);
@@ -123,6 +123,10 @@ namespace Investigation
             {
                 GameObject interactable;
                 Vector2 position = Vector_2D_to_Vector2(obj.position);
+                if(saveManager.TryLoadCharacterPosition(currScene,obj.title, out Vector3 savedPosition))
+                {
+                    position = savedPosition;
+                }
 
                 if(obj.title == "background")
                 {
@@ -134,7 +138,6 @@ namespace Investigation
                 }
 
                 interactable.name = obj.title;
-                if (!string.IsNullOrEmpty(obj.image)) SetSpriteImage<SpriteRenderer>(interactable, obj.image, mapHandles);
                 interactable.GetComponent<SpriteRenderer>().sortingOrder = obj.sortingOrder;
 
                 interactable.transform.localScale = Vector_2D_to_Vector3(obj.size);
@@ -169,7 +172,12 @@ namespace Investigation
                     }
                 }
 
-                if (!string.IsNullOrEmpty(obj.script))
+                if (obj.script == "Hidable")
+                {
+                    interactable.AddComponent<Inv_InteractionObj_Hidable>();
+                    interactable.GetComponent<Inv_InteractionObj_Hidable>().SetName(obj.title);
+                }
+                else if (!string.IsNullOrEmpty(obj.script))
                 {
                     System.Type scriptType = System.Type.GetType("Investigation." + obj.script);
                     if (scriptType != null)
@@ -185,8 +193,11 @@ namespace Investigation
                 {
                     interactable.AddComponent<Inv_InteractionObj>();
                 }
+                interactable.GetComponent<Inv_InteractionObj>().state = -1;
                 interactable.GetComponent<Inv_InteractionObj>().hideCriteria = obj.hideCriteria;
                 interactable.GetComponent<Inv_InteractionObj>().manuallyTouchable = obj.manually_touchable;
+                interactable.GetComponent<Inv_InteractionObj>().images = obj.image;
+                //interactable.GetComponent<Inv_InteractionObj>().singleImage = obj.singleImage;
                 if (Mathf.Abs(obj.colliderSize.x) + Mathf.Abs(obj.colliderSize.y) > 0.00001f)
                 {
                     if(obj.colliderShape =="box"){
@@ -228,8 +239,9 @@ namespace Investigation
             yield return null;
             interactManager.ForceInteraction(interactionName);
         }
-        string getID()
+        public string getID()
         {
+            //print(chiefManager.inv_Scene_ID);
             return chiefManager.inv_Scene_ID;
         }
         public void LoadGameScene(string id, string autoInteractionOnReturn)
@@ -237,7 +249,7 @@ namespace Investigation
             print(id);
             chiefManager.StartPersuasion(id, autoInteractionOnReturn);
         }
-        public void CutScene(string title)
+        public void LoadAnotherInvestigationScene(string id, string autoInteractionOnReturn=null)
         {
             StartCoroutine(CutSceneProgress(title));
         }

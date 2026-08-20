@@ -1,0 +1,34 @@
+{
+    "title": "여자의 집",
+    "path": [
+        {
+            "description": "(들어가자.)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": -1,
+                    "effects": [
+                        {
+                            "type": "variation",
+                            "target": "Map1/Player",
+                            "parameters": [
+                                6
+                            ]
+                        },
+                        {
+                            "type": "variation",
+                            "target": "Map1/Dream_Trigger",
+                            "parameters":[
+                                2
+                            ]
+                        },
+                        {
+                            "type":"cutScene",
+                            "title":"IntoDream"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

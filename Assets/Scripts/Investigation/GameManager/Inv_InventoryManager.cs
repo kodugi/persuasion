@@ -16,10 +16,12 @@ namespace Investigation
         private GameObject inventoryContentHolder;
         private CustomScrollRect inventoryOperator;
         [SerializeField] private GameObject inventoryItemPrefab;
+        [SerializeField] private GameObject inventoryItemFloatingPrefab;
         List<string> inventoryItems = new List<string>();
         List<AsyncOperationHandle<Sprite>> inventoryHandles = new List<AsyncOperationHandle<Sprite>>();
         private Coroutine panelFading;
         string floatingItemName="";
+        bool autoClose = false;
         void InventoryAwake()
         {
             saveManager.LoadData<List<string>>("inventory", out inventoryItems);
@@ -29,7 +31,7 @@ namespace Investigation
             inventoryContentHolder = inventoryPanel.transform.Find("Scroll").Find("Viewport").Find("Content").gameObject;
             inventoryOperator = inventoryPanel.transform.Find("Scroll").GetComponent<CustomScrollRect>();
             inventoryOperator.inventoryManager = this;
-            PreviewInventory();
+            //PreviewInventory();
         }
         void InventoryOnApplicationQuit()
         {
@@ -45,18 +47,22 @@ namespace Investigation
         {
             if(inputAction.Player.Interact.WasPressedThisFrame())
             {
-                if(inventoryPanel.activeSelf) {
-                    if(panelFading!=null) {
-                        StopCoroutine(panelFading);
-                        StopFading(inventoryPanel, 0.5f);
+                autoClose = false;
+                if(inventoryPanel.activeSelf)
+                {
+                    if(panelFading != null)
+                    {
+                        StopFading(inventoryPanel, 1f);
+                        panelFading = null;
+                        OpenInventory(false);
                     }
-                    else CloseInventory();
+                    else
+                    {
+                        CloseInventory();
+                    }
                 }
-                else {
-                    if(panelFading!=null) {
-                        StopCoroutine(panelFading);
-                        StopFading(inventoryPanel, 0.5f);
-                    }
+                else
+                {
                     OpenInventory();
                 }
             }
@@ -66,9 +72,9 @@ namespace Investigation
             Vector2 pos = new Vector2(0,0);
             return pos;
         }
-        void OpenInventory()
+        void OpenInventory(bool doFade = true)
         {
-            CloseInventory();
+            CloseInventory(false);
             for(int i = 0; i < inventoryItems.Count; i++)
             {
                 string item = inventoryItems[i];
@@ -76,13 +82,23 @@ namespace Investigation
                 //RectTransform rt = newItem.GetComponent<RectTransform>();
                 //rt.anchoredPosition = InventoryItemPosCalc(i);
                 newItem.name = item+"_"+i.ToString();
-                SetSpriteImage<Image>(newItem, "Inventory_"+item, inventoryHandles);
+                //newItem.transform.GetChild(0).name = item+"_"+i.ToString();
+                SetSpriteImage<Image>(newItem.gameObject, item, inventoryHandles);
             }
             inventoryPanel.SetActive(true);
+            if(doFade) FadeObject(inventoryPanel, true, 0f, 0f, false);
+            panelFading = null;
         }
-        void CloseInventory()
+        void CloseInventory(bool doFade=true)
         {
-            inventoryPanel.SetActive(false);
+            if (doFade)
+            {
+                panelFading = FadeObject(inventoryPanel, false, 0f, 0f, false);
+            }
+            else
+            {
+                inventoryPanel.SetActive(false);
+            }
             if (inventoryContentHolder.transform.childCount > 0)
             {
                 foreach (Transform child in inventoryContentHolder.transform)
@@ -95,15 +111,18 @@ namespace Investigation
         void PreviewInventory()
         {
             OpenInventory();
-            panelFading = FadeObject(inventoryPanel, false, 2f, 2f, false);
-            StartCoroutine(ResetPanelFading(4f));
+            //panelFading = FadeObject(inventoryPanel, false, 2f, 2f, false);
+            panelFading = StartCoroutine(AutoCloseInventory(4f));
             // delay
             //CloseInventory();
         }
-        IEnumerator ResetPanelFading(float time)
+        IEnumerator AutoCloseInventory(float time)
         {
+            autoClose = true;
             yield return new WaitForSeconds(time);
-            if(panelFading != null) panelFading = null;
+            //if(panelFading != null) panelFading = null;
+            if(!autoClose) yield break;
+            CloseInventory();
         }
         public void AddItem(string itemName, bool doPreview=true)
         {            
@@ -136,7 +155,7 @@ namespace Investigation
         public void ItemClicked(int selectionIdx, GameObject selectionObj)
         {
             string item = inventoryItems[selectionIdx];
-            GameObject floatingItem = Instantiate(inventoryItemPrefab, selectionObj.transform.position, Quaternion.identity, FindFirstObjectByType<Canvas>().gameObject.transform);
+            GameObject floatingItem = Instantiate(inventoryItemFloatingPrefab, selectionObj.transform.position, Quaternion.identity, FindFirstObjectByType<Canvas>().gameObject.transform);
             floatingItem.name = item+"_"+selectionIdx.ToString()+"_Floating";
             SetSpriteImage<Image>(floatingItem, item, inventoryHandles);
             Inv_FloatItemCTRL obj_inv_FloatItemCTRL = floatingItem.AddComponent<Inv_FloatItemCTRL>();
@@ -181,11 +200,15 @@ namespace Investigation
                 {
                     hit.gameObject.GetComponent<Inv_InteractionObj>().InventoryItemDraggedOn(floatingItemName);
                 }
+                else if(hit.gameObject.tag == "Player")
+                {
+                    hit.gameObject.GetComponent<Inv_PlayerCTRL>().InventoryItemDraggedOn(floatingItemName);
+                }
             }
         }
         Dictionary<string, string> combinations = new Dictionary<string, string>
         {
-            { "그물&찢어진잠자리채", "잠자리채" }
+            { "Inventory_FishNet&Inventory_ButterflyNet_torn", "Inventory_ButterflyNet" }
         };
         void CombinationEffect(int id1, int id2)
         {

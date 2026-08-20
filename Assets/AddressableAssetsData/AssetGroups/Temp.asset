@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Temp
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: Temp
+  m_GUID: b0734783d6cb840a99ba3c2f7e39d9a6
+  m_SerializeEntries:
+  - m_GUID: 0c6d02c200c8c4f8fb607f0a67ad0866
+    m_Address: Map1_House3_Face
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1c30159af32eb494aa5e469222c9bbd7
+    m_Address: "\uD638\uC218"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5c817a9aada01453a989f61c376214c5
+    m_Address: House1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6bec7c061b3ed4a67ae3c254c4685299
+    m_Address: Player_Temp
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 710c4904f64574d229a8ca901fe04fa5
+    m_Address: "\uC791\uAC00"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9014b01de72ae483b967aab5cd1c893e
+    m_Address: Map1_House1_Face
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a3b30033c2902448398cbe2c065dc1b1
+    m_Address: Map1_Cave_Face
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a7681fb55911e433294dbe34216362b3
+    m_Address: player
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d39011cfcc3a546aab8cf7e0bec6922d
+    m_Address: Map1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d936dbf56860a412abe17c16f2216b17
+    m_Address: "\uCC22\uC5B4\uC9C4\uC7A0\uC790\uB9AC\uCC44"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e0e00a0f1e1b9483cbca74e17394ac9d
+    m_Address: Temp_Person
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fc5da963765db4498b5a74c381550a9a
+    m_Address: Note_Obtain
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 318b521c047bc464eadf7877914e918f, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: ff8bffc02b2ca489390887941019cc73, type: 2}
+    - {fileID: 11400000, guid: 362c00ff57e0b49ed86295449ade5ae2, type: 2}

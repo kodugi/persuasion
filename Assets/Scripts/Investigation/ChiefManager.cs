@@ -51,7 +51,7 @@ public partial class ChiefManager : MonoBehaviour
     }
     void LoadScene(object id)
     {
-        print(id);
+        print("LoadScene: "+id);
         if (id is string sceneName)
         {
             currScene = sceneName;
@@ -90,7 +90,7 @@ public partial class ChiefManager : MonoBehaviour
                 {
                     inv_PlayerCTRL.inputAction?.Player.Disable();
                     invSceneLastPos = inv_PlayerCTRL.gameObject.transform.position;
-                    print(invSceneLastPos);
+                    saveManager.SaveCharacterPosition(currScene, "Player", (Vector3)invSceneLastPos);
                 }
                 else Debug.LogWarning("PlayerCTRL not detected");
                 
@@ -99,6 +99,7 @@ public partial class ChiefManager : MonoBehaviour
     }
     public void StartInvestigation(string id = "", bool preservePlayerPosition = true)
     {
+        print("LoadingInvestigationScene");
         LoadingMotion();
         StartCoroutine(StartInvestigationScene(id, preservePlayerPosition));
     }
@@ -166,6 +167,16 @@ public partial class ChiefManager : MonoBehaviour
         LoadScene(1);
         //yield return new WaitUntil(() => FindFirstObjectByType<something>() != null);
         //temp
+        yield return null;
+    }
+    public void GameOver()
+    {
+        print("Game Over");
+        LoadingMotion();
+        StartCoroutine(GameOverScene());
+    }
+    IEnumerator GameOverScene()
+    {
         yield return null;
     }
 }

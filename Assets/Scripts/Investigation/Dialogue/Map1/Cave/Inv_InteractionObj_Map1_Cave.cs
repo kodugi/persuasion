@@ -2,11 +2,19 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Investigation
 {
     public class Inv_InteractionObj_Map1_Cave: Inv_InteractionObj_Map1_Houses
     {
+        bool canEndQuestioning = false;
+        override protected void Starter()
+        {
+            isHidingMode = false;
+            manuallyTouchable = true;
+        }
         override public void CheckState()
         {
             base.CheckState();
@@ -44,6 +52,33 @@ namespace Investigation
                         break;
                     case "Resolved":
                         state=3;
+                        break;
+                    case "askedAboutSister":
+                        canEndQuestioning = true;
+                        break;
+                    case "endQuestioning":
+                        if(canEndQuestioning) {
+                            interactionManager.Effects(
+                                new JObject
+                                {
+                                    ["type"]="changeImage",
+                                    ["image"]="LD_Player_10A",
+                                    ["position"]=0
+                                }
+                            );
+                            interactionManager.JumpDialogue(61);
+                        }
+                        else {
+                            interactionManager.Effects(
+                                new JObject
+                                {
+                                    ["type"]="changeImage",
+                                    ["image"]="LD_Player_2A",
+                                    ["position"]=0
+                                }
+                            );
+                            interactionManager.JumpDialogue(59);
+                        }
                         break;
                 }
             }

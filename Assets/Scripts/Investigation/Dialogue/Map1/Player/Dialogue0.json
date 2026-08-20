@@ -1,0 +1,17 @@
+{
+    "title": "",
+    "path": [
+        {
+            "description": "nothing",
+            "buttons":[
+                {
+                    "title": "error",
+                    "next": -1,
+                    "effects": [
+                    ]
+                }
+            ]
+        }
+    ]
+
+}

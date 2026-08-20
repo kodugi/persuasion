@@ -10,6 +10,8 @@ public partial class SaveManager : MonoBehaviour
 {
     [SerializeField]
     public bool resetOnQuit = true;
+    [SerializeField]
+    public bool saveWhilePlaying = true;
 
     private Inv_GameManager gameManager;
 
@@ -17,6 +19,7 @@ public partial class SaveManager : MonoBehaviour
         new Dictionary<string, object>();
 
     public static SaveManager Instance { get; private set; }
+    public bool isProgressLoaded = false;
 
     private void Awake()
     {
@@ -55,6 +58,7 @@ public partial class SaveManager : MonoBehaviour
 
             InitializeEverything();
         }
+        isProgressLoaded = true;
     }
 
     private void InitializeEverything()
@@ -168,34 +172,8 @@ public partial class SaveManager : MonoBehaviour
 
     public void SaveData(string fileName, object data)
     {
-        /*
-        if (isQuittingAndResetting)
-        {
-            Debug.LogWarning(
-                $"[SaveManager] Blocked SaveData(\"{fileName}\") " +
-                "because save data is being reset on quit."
-            );
-
-            return;
-        }*/
-/*
-        if (
-            string.Equals(
-                fileName,
-                "progress",
-                StringComparison.OrdinalIgnoreCase
-            )
-            && data is Dictionary<string, object> progressData
-            && progressData.Count == 0
-        )
-        {
-            Debug.LogWarning(
-                "[SaveManager] Skipped writing empty progress data."
-            );
-
-            return;
-        }
-*/
+        if(!saveWhilePlaying) return;
+        
         string path = PathGen(fileName);
 
         try
@@ -223,11 +201,11 @@ public partial class SaveManager : MonoBehaviour
     public bool LoadData<T>(string fileName, out T result) where T : new()
     {
         string path = PathGen(fileName);
-
+        /*
         Debug.Log(
             $"[SaveManager] Loading {fileName}: " +
             $"{path}, exists={File.Exists(path)}"
-        );
+        );*/
 
         if (!File.Exists(path))
         {
@@ -255,7 +233,7 @@ public partial class SaveManager : MonoBehaviour
                 result = new T();
                 return false;
             }
-            print(JsonConvert.SerializeObject(result, Formatting.Indented));
+            //print(JsonConvert.SerializeObject(result, Formatting.Indented));
             return true;
         }
         catch (Exception exception)
@@ -278,7 +256,7 @@ public partial class SaveManager : MonoBehaviour
         {
             if (token is JValue jValue)
             {
-                return jValue.Value<object>();
+                return jValue.Value;
             }
 
             if (token is JArray jArray)
@@ -369,7 +347,11 @@ public partial class SaveManager : MonoBehaviour
         SaveProgress();
         AddProgressException(key);
     }
-
+    public bool TryLoadProgress(string key, out object result)
+    {
+        result = LoadProgress(key);
+        return result!=null;
+    }
     public object LoadProgress(string key)
     {
         if (progress.TryGetValue(key, out object value))
@@ -460,27 +442,114 @@ public partial class SaveManager : MonoBehaviour
 
     public void SaveProgress()
     {
-        /*
-        if (isQuittingAndResetting)
-        {
-            Debug.LogWarning(
-                "[SaveManager] Blocked SaveProgress because " +
-                "save data is being reset on quit."
-            );
+        SaveData("progress", progress);
+    }
 
-            return;
+    public void SaveCharacterPosition(string mapID, string characterID, Vector3 position)
+    {
+        string key = mapID + "_positions";
+
+        Dictionary<string, object> positions;
+
+        object existing = LoadProgress(key);
+
+        if (existing is Dictionary<string, object> existingPositions)
+        {
+            positions = existingPositions;
+        }
+        else
+        {
+            positions = new Dictionary<string, object>();
         }
 
-        if (progress == null || progress.Count == 0)
+        positions[characterID] = new Dictionary<string, object>
         {
-            Debug.LogWarning(
-                "[SaveManager] No progress data to save."
-            );
+            { "x", position.x },
+            { "y", position.y },
+            { "z", position.z }
+        };
 
-            return;
-        }*/
-        print("Saving progress:");
-        print(JsonConvert.SerializeObject(progress, Formatting.Indented));
-        SaveData("progress", progress);
+        AddProgress(key, positions);
+    }
+    public bool TryLoadCharacterPosition(string mapID, string characterID, out Vector3 position)
+    {
+        position = Vector3.zero;
+
+        string key = mapID + "_positions";
+
+        object data = LoadProgress(key);
+
+        if (!(data is Dictionary<string, object> positions))
+        {
+            return false;
+        }
+
+        if (!positions.TryGetValue(characterID, out object characterData))
+        {
+            return false;
+        }
+
+        if (!(characterData is Dictionary<string, object> pos))
+        {
+            return false;
+        }
+
+        try
+        {
+            float x = Convert.ToSingle(pos["x"]);
+            float y = Convert.ToSingle(pos["y"]);
+            float z = Convert.ToSingle(pos["z"]);
+
+            position = new Vector3(x, y, z);
+
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+    public Dictionary<string, Vector3> LoadAllCharacterPositions(string mapID)
+    {
+        print(mapID);
+        Dictionary<string, Vector3> result =
+            new Dictionary<string, Vector3>();
+
+        string key = mapID + "_positions";
+
+        object data = LoadProgress(key);
+        
+        if (!(data is Dictionary<string, object> positions))
+        {
+            return result;
+        }
+
+        foreach (var pair in positions)
+        {
+            string characterID = pair.Key;
+            print(characterID);
+            if (!(pair.Value is Dictionary<string, object> pos))
+            {
+                continue;
+            }
+
+            try
+            {
+                float x = Convert.ToSingle(pos["x"]);
+                float y = Convert.ToSingle(pos["y"]);
+                float z = Convert.ToSingle(pos["z"]);
+
+                result[characterID] = new Vector3(x, y, z);
+            }
+            catch (Exception exception)
+            {
+                Debug.LogWarning(
+                    $"[SaveManager] Failed to load position of " +
+                    $"{characterID} in {mapID}: {exception.Message}"
+                );
+            }
+        }
+
+        return result;
     }
 }

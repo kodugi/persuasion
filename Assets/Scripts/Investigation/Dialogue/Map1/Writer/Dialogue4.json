@@ -1,18 +1,152 @@
 {
-    "title": "작가 아저씨",
+    "title": "남자",
     "path": [
         {
-            "description": "그래서 그 비둘기는 왜 잡아간 거요? 필요한 곳이 있다 하지 않았소? 말 안 해줄 거요?",
-            "buttons":[
+            "description": "내 어깨를 잡은 남자의 손에 서서히 힘이 빠지더니, 곧 나에게서 완전히 떨어졌다.",
+            "buttons": [
                 {
-                    "title": "그게... 좀 복잡해요! \n (도망친다)",
+                    "title": "",
+                    "next": 1,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "나는 남자를 향해 비둘기를 내밀었다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 2,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_5A",
+                            "position": 0
+                        }
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "여기, 비둘기요. 멋대로 잡아가서 죄송해요….",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 3,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "대신 그 만년필 좀 빌려주실래요?",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 4,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "남자"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Man2_1A",
+                            "position": 1
+                        }
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "어…. 그래. 그래, 알았다….",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 5,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 0
+                        },
+                    
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 1
+                        }
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "남자는 멍한 표정으로 주머니에서 만년필을 꺼내 내 손에 쥐어주었다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 6,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_10A",
+                            "position": 0
+                        }
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "감사합니다!",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 7,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(이제 종이만 있으면 되겠어.)",
+            "buttons": [
+                {
+                    "title": "",
                     "next": -1,
                     "effects": [
-                        
+                        {
+                            "type": "progress",
+                            "key": "penPossessed",
+                            "value": true
+                        },
+                        {
+                            "type": "variation",
+                            "target": "Map1/Writer",
+                            "parameters": [
+                                "PenGiven"
+                            ]
+                        },
+                        {
+                            "type": "cutScene",
+                            "title": "PeopleStaringAfterReceivingPen"
+                        }
                     ]
                 }
             ]
         }
     ]
-
 }
