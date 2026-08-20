@@ -41,7 +41,9 @@ public class Inv_InteractionObj_Map1_GuideToCave: Inv_InteractionObj
             }
         }
         private float walkingSpeed = 3f;
-        private float footprintInterval = 0.3f;
+        private float footprintInterval = 0.6f;
+        private float footprintIntervalMin = 0.3f;
+        private float footprintIntervalMax = 1.5f;
         private float footprintLasting = 20f;
         private float sprintOutOfSight = 5f;
         private float distanceFromPlayerCriteria = 10f;
@@ -176,6 +178,7 @@ public class Inv_InteractionObj_Map1_GuideToCave: Inv_InteractionObj
 
                         footprintTimer = 0f;
                         shortenedTime += footprintInterval * (1-(1/modifier));
+                        footprintInterval = Random.Range(footprintIntervalMin, footprintIntervalMax);
                         FadeObject(
                             footprint,
                             false,
