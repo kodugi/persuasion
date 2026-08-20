@@ -2944,8 +2944,8 @@ MonoBehaviour:
   _widePanelLayout:
     _panelSprite: {fileID: -5485447400464942870, guid: ae942b7960572c44d883f06d31260ac8, type: 3}
     _panelSizeDelta: {x: 1656, y: 375}
-    _overridePanelAnchoredPosition: 0
-    _panelAnchoredPosition: {x: 400, y: 35.7936}
+    _overridePanelAnchoredPosition: 1
+    _panelAnchoredPosition: {x: 120, y: 17}
     _dialogueTextSizeDelta: {x: 1500, y: 174}
 --- !u!114 &1089261306
 MonoBehaviour:
