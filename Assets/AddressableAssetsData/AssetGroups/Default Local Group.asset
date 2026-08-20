@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: 8033f9627fd8b4c5eba242927dcae8e3
   m_SerializeEntries:
+  - m_GUID: 1313c89d81a6a4ecfb73c1f829d95c22
+    m_Address: Map1_WitchMotherPathPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6082956325b82424eb4b95962c058f68
     m_Address: GuideToCavePathPrefab
     m_ReadOnly: 0
