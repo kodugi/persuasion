@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using UnityEngine.SceneManagement;
 public partial class ChiefManager : MonoBehaviour
 {
     public static ChiefManager Instance { get; private set; }
+    [SerializeField] GameObject gameOverPanel;
     Investigation.Inv_GameManager inv_GameManager;
     Investigation.Inv_PlayerCTRL inv_PlayerCTRL;
     SaveManager saveManager;
@@ -188,14 +190,24 @@ public partial class ChiefManager : MonoBehaviour
         //temp
         yield return null;
     }
-    public void GameOver()
+    public void GameOver(string reason)
     {
         print("Game Over");
         LoadingMotion();
-        StartCoroutine(GameOverScene());
+        StartCoroutine(GameOverScene(reason));
     }
-    IEnumerator GameOverScene()
+    IEnumerator GameOverScene(string reason)
     {
+        inv_PlayerCTRL.gameObject.SetActive(false);
+        GameObject _gameOverPanel = Instantiate(gameOverPanel, FindFirstObjectByType<Canvas>().transform);
+        _gameOverPanel.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = reason;
+        _gameOverPanel.SetActive(true);
+        print(_gameOverPanel);
         yield return null;
+    }
+    public void ResetGame()
+    {
+        saveManager.ResetAllSaveData();
+        LoadScene(0);
     }
 }
