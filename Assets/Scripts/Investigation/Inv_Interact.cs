@@ -240,6 +240,7 @@ namespace Investigation
                     break;
                 case "changeMap":
                     ChiefManager.Instance.ChangeInvestigationMap((string)effect["title"]);
+                    break;
                 case "forceInteraction":
                     string target_interaction = (string)effect["target"];
                     ForceInteraction(target_interaction);

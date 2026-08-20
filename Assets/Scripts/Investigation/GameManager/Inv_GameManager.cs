@@ -251,33 +251,8 @@ namespace Investigation
         }
         public void LoadAnotherInvestigationScene(string id, string autoInteractionOnReturn=null)
         {
-            StartCoroutine(CutSceneProgress(title));
-        }
-        private IEnumerator CutSceneProgress(string title)
-        {
-            switch (title)
-            {
-                case "PeopleRunningAfterReceivingPen":
-                    print("사람들이 뛰어다닌대요");
-                    yield return new WaitForSeconds(1);
-                    interactManager.Effects(
-                        new JObject
-                        {
-                            ["type"] = "thought",
-                            ["thought"] = "나를 쳐다보던 사람들이 갑자기 어딘가로 몰려가기 시작했다."
-                        }
-                    );
-                    break;
-                case "IntoDream":
-                    print("잠에 들었다.");
-                    yield return null;
-                    chiefManager.StartInvestigation("Map_House", false);
-                    break;
-                case "CrowdAroundWitchMotherDisperse":
-                    print("사람들이 흩어진다.");
-                    yield return null;
-                    break;
-            }
+            print(id);
+            chiefManager.StartInvestigation(id);
         }
         public void ForceInteract(string title)
         {
