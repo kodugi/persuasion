@@ -59,20 +59,20 @@ namespace GamePlay
             // hardcoding ends here
             
             _turnManager.Initialize();
-            if(GameInfoHolder.GetGameInfoList() == null)
+            if (ChiefManager.Instance != null &&
+                stageDict.TryGetValue(ChiefManager.Instance.per_Scene_ID, out List<GameInfo> gameInfoList))
             {
-                if (ChiefManager.Instance != null && stageDict.TryGetValue(ChiefManager.Instance.per_Scene_ID, out List<GameInfo> gameInfoList))
+                // A scene transition explicitly selects a stage. Always honor it even when
+                // GameInfoHolder still contains data from the previous persuasion scene.
+                GameInfoHolder.SetGameInfoList(gameInfoList);
+            }
+            else if(GameInfoHolder.GetGameInfoList() == null)
+            {
+                Debug.LogWarning("designated scene id does not exist in GameInfoList; scene id: " + ChiefManager.Instance?.per_Scene_ID);
+                if(_gameInfoList != null && _gameInfoList.Count > 0)
                 {
-                    GameInfoHolder.SetGameInfoList(gameInfoList);
-                }
-                else
-                {
-                    Debug.LogWarning("designated scene id does not exist in GameInfoList; scene id: " + ChiefManager.Instance?.per_Scene_ID);
-                    if(_gameInfoList != null && _gameInfoList.Count > 0)
-                    {
-                        Debug.LogWarning("using temporary gameinfo instead");
-                        GameInfoHolder.SetGameInfoList(_gameInfoList);
-                    }
+                    Debug.LogWarning("using temporary gameinfo instead");
+                    GameInfoHolder.SetGameInfoList(_gameInfoList);
                 }
             }
             else if(_gameInfoList != null && _gameInfoList.Count > 0)
