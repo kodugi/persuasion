@@ -2682,9 +2682,9 @@ MonoBehaviour:
   _glitchEffectIntensity: 0.75
   _glitchFlashEffectDuration: 0.68
   _glitchFlashEffectIntensity: 0.4
-  _suspicionOverflowDefeatStartDelay: 4
-  _turnLimitDefeatStartDelay: 4
-  _defeatShakeDuration: 5
+  _suspicionOverflowDefeatStartDelay: 3.5
+  _turnLimitDefeatStartDelay: 1
+  _defeatShakeDuration: 3
   _defeatCloseUpScale: 5
   _defeatShakeStrength: 35
   _defeatShakeVibrato: 35
@@ -3966,7 +3966,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GamePlay.GameManager
   _gameInfoList:
-  - {fileID: 11400000, guid: c72e97b95506a8b4ba130fe6446d62f1, type: 2}
+  - {fileID: 11400000, guid: d30f406ff9cfb8c4182310313102e03f, type: 2}
   - {fileID: 11400000, guid: 17244ccf19c3a3a43b615c6c7e849b41, type: 2}
   _tutorialEntryGroups:
   - State: 1

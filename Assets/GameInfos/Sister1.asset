@@ -24,7 +24,8 @@ MonoBehaviour:
   - Cells: 0000000000000000000000000000000000000000
   - Cells: 0000000001000000000000000100000000000000
   - Cells: 0000000000000000000000000000000000000000
-  _dialogueTriggers: []
+  _dialogueTriggers:
+  - {fileID: 11400000, guid: e8ff5172a6c3f1e44a26cc9f59622e64, type: 2}
   _allowedMarkers: -1
   _mapType: 1
   _figureProfile: {fileID: 11400000, guid: b351eb47a70d4bcba081fd7bb0d9b9d5, type: 2}

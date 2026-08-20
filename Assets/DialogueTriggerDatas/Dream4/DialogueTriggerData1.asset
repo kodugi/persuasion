@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f40073349d7ab8444a9679efaa0c7c3f, type: 3}
+  m_Name: DialogueTriggerData1
+  m_EditorClassIdentifier: Assembly-CSharp::GamePlay.DialogueTriggerData
+  _turn: 0
+  _turnState: 1
+  _pages:
+  - Entries:
+    - SpeakerName: "\uC8FC\uC778\uACF5"
+      DialogueText: (......!)
+      StateToTrigger: 0
+      StateTriggerTiming: 0
+      UseWidePanel: 1
+    - SpeakerName: "\uC8FC\uC778\uACF5"
+      DialogueText: "(\uBB50\uC57C? \uC601\uD63C\uC744 \uC2EC\uC744 \uACF3\uC774\u2026)"
+      StateToTrigger: 19
+      StateTriggerTiming: 0
+      UseWidePanel: 1
+  - Entries:
+    - SpeakerName: "\uC5B8\uB2C8"
+      DialogueText: "\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C\uB2E4\uB124\uD0D3\uC774\uC57C"
+      StateToTrigger: 20
+      StateTriggerTiming: 0
+      UseWidePanel: 0
