@@ -362,7 +362,7 @@
       },
       "hideCriteria": 0,
       "sortingOrder": 0,
-      "image": [""],
+      "image": [],
       "script": "Inv_InteractionObj_Map1_Road_Running_Trigger",
       "manually_touchable": false
     },
