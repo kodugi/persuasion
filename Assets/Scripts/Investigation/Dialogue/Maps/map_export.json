@@ -301,6 +301,39 @@
       "manually_touchable": false
     },
     {
+      "title": "Map1/Road",
+      "position": {
+        "x": 1.1,
+        "y": 8.1
+      },
+      "size": {
+        "x": 51,
+        "y": 51
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 0,
+      "image": [],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
       "title": "Map1/Road_Running_Trigger",
       "position": {
         "x": 0,

@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: Map1_Map
   m_GUID: e38b59f225fd84f28aee02e9b9bd004e
   m_SerializeEntries:
+  - m_GUID: 18e21342fa91a4b2e84c0e86820b2dd0
+    m_Address: Map1_road
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1a892d934f24346efb8c3a25754de1b6
     m_Address: stump
     m_ReadOnly: 0
