@@ -17,6 +17,8 @@ public partial class SaveManager : MonoBehaviour
 
     public Dictionary<string, object> progress =
         new Dictionary<string, object>();
+    public Dictionary<string, object> generalSave =
+        new Dictionary<string, object>();
 
     public static SaveManager Instance { get; private set; }
     public bool isProgressLoaded = false;
@@ -31,6 +33,23 @@ public partial class SaveManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        if (LoadData(
+            "general",
+            out Dictionary<string, object> loadedData
+        ))
+        {
+            generalSave = NormalizeProgressData(
+                loadedData ?? new Dictionary<string, object>()
+            );
+        }
+        else
+        {
+            generalSave = new Dictionary<string, object>();
+            Debug.Log(
+                "[SaveManager] No general save file found. "
+            );
+        }
     }
 
     public void OnInvestigationSceneStart()
@@ -69,28 +88,13 @@ public partial class SaveManager : MonoBehaviour
         progress["noteLock"] = true;
 
         SaveData("progress", progress);
+        SaveData("general", new Dictionary<string, object>());
         SaveData("notes", new Dictionary<string, object>());
         SaveData("inventory", new List<string>());
 
         InitializedBasedOnProgress();
     }
-/*
-    private void EnsureProgressDefaults()
-    {
-        bool changed = false;
-
-        if (!progress.ContainsKey("noteLock"))
-        {
-            progress["noteLock"] = true;
-            changed = true;
-        }
-
-        if (changed)
-        {
-            SaveProgress();
-        }
-    }
-*/
+    
     private void InitializedBasedOnProgress()
     {
         
@@ -282,16 +286,6 @@ public partial class SaveManager : MonoBehaviour
     )
     {
         value = NormalizeProgressValue(value);
-        /*
-        if (isQuittingAndResetting)
-        {
-            Debug.LogWarning(
-                $"[SaveManager] Blocked AddProgress(\"{key}\") " +
-                "because save data is being reset on quit."
-            );
-
-            return;
-        }*/
 
         if (!progress.ContainsKey(key))
         {
@@ -338,6 +332,68 @@ public partial class SaveManager : MonoBehaviour
         }
         return null;
     }
+    public void SaveProgress()
+    {
+        SaveData("progress", progress);
+    }
+
+
+    public void AddGeneralSave(
+        string key,
+        object value,
+        bool overwrite = true
+    )
+    {
+        value = NormalizeProgressValue(value);
+
+        if (!generalSave.ContainsKey(key))
+        {
+            generalSave.Add(key, value);
+        }
+        else if (overwrite)
+        {
+            generalSave[key] = value;
+        }
+        else
+        {
+            if (
+                generalSave[key] is List<object> existingList
+                && value is List<object> newList
+            )
+            {
+                existingList.AddRange(newList);
+            }
+            else
+            {
+                Debug.LogWarning(
+                    "[SaveManager] Cannot add a non-list value " +
+                    "to the existing key: " + key
+                );
+
+                return;
+            }
+        }
+
+        SaveGeneralSave();
+    }
+    public bool TryLoadGeneralSave(string key, out object result)
+    {
+        result = LoadGeneralSave(key);
+        return result!=null;
+    }
+    public object LoadGeneralSave(string key)
+    {
+        if (generalSave.TryGetValue(key, out object value))
+        {
+            //print(JToken.FromObject(value).ToString(Formatting.Indented));
+            return NormalizeProgressValue(value);
+        }
+        return null;
+    }
+    public void SaveGeneralSave()
+    {
+        SaveData("general", generalSave);
+    }
 
     private void AddProgressException(string key)
     {
@@ -374,6 +430,7 @@ public partial class SaveManager : MonoBehaviour
     {
         progress.Clear();
 
+        DeleteSaveFile("general");
         DeleteSaveFile("progress");
         DeleteSaveFile("notes");
         DeleteSaveFile("inventory");
@@ -415,11 +472,6 @@ public partial class SaveManager : MonoBehaviour
                 exception
             );
         }
-    }
-
-    public void SaveProgress()
-    {
-        SaveData("progress", progress);
     }
 
     public void SaveCharacterPosition(string mapID, string characterID, Vector3 position)

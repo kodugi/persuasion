@@ -36,7 +36,14 @@ public partial class ChiefManager : MonoBehaviour
         //currScene = "Start";
         //temporary
         currScene = "Investigation";
-        StartInvestigation("Map1_Intro");
+    }
+    void Start()
+    {
+        if(saveManager.TryLoadGeneralSave("FinalMap", out object result))
+        {
+            StartInvestigation((string)result);
+        }
+        else StartInvestigation("Map1_Intro");
     }
     void FixedUpdate()
     {

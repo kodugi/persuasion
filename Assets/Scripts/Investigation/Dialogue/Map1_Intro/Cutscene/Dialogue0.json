@@ -291,6 +291,10 @@
             {
               "type": "changeMap",
               "title": "Map1"
+            },
+            {
+              "type": "FinalMap",
+              "title": "Map1"
             }
           ]
         }
