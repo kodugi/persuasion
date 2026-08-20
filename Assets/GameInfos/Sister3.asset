@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac4c5291f8b8a3841a23c08fc53a54b4, type: 3}
-  m_Name: TestGameInfo2
+  m_Name: Sister3
   m_EditorClassIdentifier: Assembly-CSharp::GamePlay.GameInfo
   _width: 5
   _height: 5
-  _maxTurns: 1
-  _targetNumber: 5
-  _stageNum: 2
-  _totalStageNum: 3
+  _maxTurns: 3
+  _targetNumber: 15
+  _stageNum: 3
+  _totalStageNum: 4
   _boardRows:
+  - Cells: 0000000001000000010000000100000000000000
   - Cells: 0100000001000000010000000100000001000000
   - Cells: 0100000001000000010000000100000001000000
   - Cells: 0100000001000000010000000100000001000000
-  - Cells: 0100000001000000010000000100000001000000
-  - Cells: 0100000001000000010000000100000001000000
+  - Cells: 0000000001000000010000000100000000000000
   _dialogueTriggers: []
   _allowedMarkers: -1
-  _mapType: 0
+  _mapType: 3
   _figureProfile: {fileID: 11400000, guid: b351eb47a70d4bcba081fd7bb0d9b9d5, type: 2}

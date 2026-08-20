@@ -11,7 +11,7 @@ namespace AnimationUtilsNameSpace
         {
             List<int> countsPreset = new List<int>() {1, 4, 50};
             List<float> delaysWithinGroup = new List<float>() { 0.01f, 0.005f, 0.001f};
-            List<float> delaysBetweenGroups = new List<float>() { 1f, 1f, 0.5f};
+            List<float> delaysBetweenGroups = new List<float>() { 0.8f, 0.8f, 0.5f};
             
             int sum = 0;
             foreach (int count in countsPreset)

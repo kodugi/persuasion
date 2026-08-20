@@ -10,6 +10,7 @@ public class GameStateView : SelfInitializingMonoBehaviourSingleton<GameStateVie
 
     [SerializeField] private TextMeshProUGUI _currentTurnText;
     [SerializeField] private TextMeshProUGUI _targetNumText;
+    [SerializeField] private TextMeshProUGUI _currentStageText;
     [SerializeField] private float _turnSlotOffset = 70f;
     [SerializeField] private float _turnSlotDuration = 0.55f;
     [SerializeField] private Color _criticalTurnColor = new Color(1f, 0.08f, 0.05f, 1f);
@@ -39,6 +40,12 @@ public class GameStateView : SelfInitializingMonoBehaviourSingleton<GameStateVie
             return false;
         }
 
+        if (_currentStageText == null)
+        {
+            Debug.LogError("currentStageText is null");
+            return false;
+        }
+
         if (TurnManager.Instance == null)
         {
             Debug.LogError("TurnManager is null");
@@ -64,6 +71,7 @@ public class GameStateView : SelfInitializingMonoBehaviourSingleton<GameStateVie
         BoardController.Instance.RaiseCellPlacementEvent += HandleCellPlacementEvent;
         SetCurrentTurnText(0, false);
         SetTargetNumText();
+        SetCurrentStageText();
         return true;
     }
 
@@ -103,6 +111,7 @@ public class GameStateView : SelfInitializingMonoBehaviourSingleton<GameStateVie
 
         SetCurrentTurnText(0, false);
         SetTargetNumText();
+        SetCurrentStageText();
     }
 
     private void SetCurrentTurnText(int currentTurn, bool animate)
@@ -274,6 +283,19 @@ public class GameStateView : SelfInitializingMonoBehaviourSingleton<GameStateVie
 
     private void SetTargetNumText()
     {
-        _targetNumText.text = BoardController.Instance.GetConvertedBlackCellCount().ToString() + "/" + GameInfoHolder.GetCurrentGameInfo().GetTargetNumber().ToString();
+        if (GameInfoHolder.GetCurrentGameInfo().GetTargetNumber() == 0)
+        {
+            _targetNumText.text = "0/∞";
+        }
+        else
+        {
+            _targetNumText.text = BoardController.Instance.GetConvertedBlackCellCount() + "/" + GameInfoHolder.GetCurrentGameInfo().GetTargetNumber();
+        }
+    }
+
+    private void SetCurrentStageText()
+    {
+        GameInfo gameInfo = GameInfoHolder.GetCurrentGameInfo();
+        _currentStageText.text = gameInfo.GetStageNum() + "/" + gameInfo.GetTotalStageNum();
     }
 }

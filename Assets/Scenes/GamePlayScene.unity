@@ -439,7 +439,7 @@ GameObject:
   - component: {fileID: 88756286}
   - component: {fileID: 88756285}
   m_Layer: 5
-  m_Name: TitlePanel
+  m_Name: StagePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2405,7 +2405,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7510734776530034834, guid: ca5380cf35ede2b45a99d5bf55c3b805, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7768370494409178791, guid: ca5380cf35ede2b45a99d5bf55c3b805, type: 3}
@@ -2624,7 +2624,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: eaeeb813230c98248800effddb3f03cd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a3a6e862134b4874ab1072eb1440395d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2652,7 +2652,7 @@ Animator:
   m_GameObject: {fileID: 835397561}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d32b4d947728fdc48be6199fbcc2c81b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 0be03801597404f4e9962f2b4498057d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2881,6 +2881,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameStateView
   _currentTurnText: {fileID: 1427285071}
   _targetNumText: {fileID: 598661532}
+  _currentStageText: {fileID: 1343274125}
   _turnSlotOffset: 70
   _turnSlotDuration: 0.55
   _criticalTurnColor: {r: 1, g: 0.08, b: 0.05, a: 1}
@@ -3356,7 +3357,7 @@ MonoBehaviour:
     _panelSizeDelta: {x: 1656, y: 375}
     _overridePanelAnchoredPosition: 0
     _panelAnchoredPosition: {x: 400, y: 35.7936}
-    _dialogueTextSizeDelta: {x: 900, y: 174}
+    _dialogueTextSizeDelta: {x: 1500, y: 174}
 --- !u!114 &1089261306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3490,7 +3491,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1149664667
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3552,8 +3553,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 7482667652216324306, guid: ed0b77f1752c53d44ada37018d628038, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -3794,7 +3795,7 @@ GameObject:
   - component: {fileID: 1343274126}
   - component: {fileID: 1343274125}
   m_Layer: 5
-  m_Name: TargetNumText
+  m_Name: CurrentStageText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3966,7 +3967,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GamePlay.GameManager
   _gameInfoList:
   - {fileID: 11400000, guid: c72e97b95506a8b4ba130fe6446d62f1, type: 2}
-  - {fileID: 11400000, guid: d30f406ff9cfb8c4182310313102e03f, type: 2}
+  - {fileID: 11400000, guid: 17244ccf19c3a3a43b615c6c7e849b41, type: 2}
   _tutorialEntryGroups:
   - State: 1
     Entries:
@@ -4047,12 +4048,22 @@ MonoBehaviour:
   - MapName: Map1_Guard1_1
     GameInfoList:
     - {fileID: 11400000, guid: d26492b389615d843b54a04e41ef13ff, type: 2}
+    - {fileID: 11400000, guid: 17244ccf19c3a3a43b615c6c7e849b41, type: 2}
   - MapName: Map1_Writer
     GameInfoList:
-    - {fileID: 11400000, guid: d26492b389615d843b54a04e41ef13ff, type: 2}
+    - {fileID: 11400000, guid: e9186a195c4d47bf97d2de4921a3c70f, type: 2}
+    - {fileID: 11400000, guid: 7476c16a7a3540c0b65053da714e58c0, type: 2}
+    - {fileID: 11400000, guid: 97a70a86e88b4199bfb343a026440c67, type: 2}
   - MapName: Map1_Granny
     GameInfoList:
-    - {fileID: 11400000, guid: d26492b389615d843b54a04e41ef13ff, type: 2}
+    - {fileID: 11400000, guid: 7c71354fa2704fcdafafa7d6b111ec45, type: 2}
+    - {fileID: 11400000, guid: ba981d23218f4998af4fcdbd02afa4d8, type: 2}
+    - {fileID: 11400000, guid: a598769faab64deab5e061bb5323bcfe, type: 2}
+  - MapName: Map1_WitchMother
+    GameInfoList:
+    - {fileID: 11400000, guid: 57bd1cd5ba5d45338f6edd54edfdcbc5, type: 2}
+    - {fileID: 11400000, guid: b6afbc91fac44d1cb038b82d4bedab85, type: 2}
+    - {fileID: 11400000, guid: ead23b8fd6d54ece8143d5eace5ea803, type: 2}
 --- !u!114 &1353033081
 MonoBehaviour:
   m_ObjectHideFlags: 0

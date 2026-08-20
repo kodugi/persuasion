@@ -10,20 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac4c5291f8b8a3841a23c08fc53a54b4, type: 3}
-  m_Name: ExampleGameInfo3
+  m_Name: Writer1
   m_EditorClassIdentifier: Assembly-CSharp::GamePlay.GameInfo
   _width: 5
   _height: 5
-  _maxTurns: 10
-  _targetNumber: 5
-  _stageNum: 3
+  _maxTurns: 5
+  _targetNumber: 9
+  _stageNum: 1
   _totalStageNum: 3
   _boardRows:
-  - Cells: 0100000000000000000000000000000001000000
-  - Cells: 0000000001000000000000000100000001000000
-  - Cells: 0100000000000000010000000000000000000000
+  - Cells: 0000000001000000000000000100000000000000
+  - Cells: 0100000001000000000000000100000001000000
   - Cells: 0000000000000000010000000000000000000000
-  - Cells: 0100000000000000000000000000000001000000
-  _dialogueTriggers:
-  - {fileID: 11400000, guid: 9ea0bffc02108ca44890e522d1e927f4, type: 2}
-  _allowedMarkers: 5
+  - Cells: 0100000001000000000000000100000001000000
+  - Cells: 0000000001000000000000000100000000000000
+  _dialogueTriggers: []
+  _allowedMarkers: -1
+  _mapType: 0
+  _figureProfile: {fileID: 11400000, guid: 2ed6a19a5e649604a87a2340b1153c86, type: 2}

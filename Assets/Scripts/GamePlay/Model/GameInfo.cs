@@ -12,6 +12,8 @@ namespace GamePlay
         [SerializeField, Min(1)] private int _height = 5;
         [SerializeField, Min(0)] private int _maxTurns = 10;
         [SerializeField, Min(0)] private int _targetNumber = 5;
+        [SerializeField, Min(1)] private int _stageNum = 1;
+        [SerializeField, Min(1)] private int _totalStageNum = 1;
         [SerializeField] private List<BoardRowData> _boardRows = new List<BoardRowData>();
         [SerializeField] private List<DialogueTriggerData> _dialogueTriggers = new List<DialogueTriggerData>();
         [SerializeField] private BoardViewBase.BoardCellMarker _allowedMarkers = new BoardViewBase.BoardCellMarker();
@@ -52,6 +54,16 @@ namespace GamePlay
         public int GetTargetNumber()
         {
             return Math.Max(0, _targetNumber);
+        }
+
+        public int GetStageNum()
+        {
+            return Math.Max(1, _stageNum);
+        }
+
+        public int GetTotalStageNum()
+        {
+            return Math.Max(GetStageNum(), _totalStageNum);
         }
 
         public BoardViewBase.BoardCellMarker GetAllowedMarkers()
@@ -138,6 +150,8 @@ namespace GamePlay
             _height = Math.Max(1, _height);
             _maxTurns = Math.Max(0, _maxTurns);
             _targetNumber = Math.Max(0, _targetNumber);
+            _stageNum = Math.Max(1, _stageNum);
+            _totalStageNum = Math.Max(_stageNum, _totalStageNum);
             ResizeBoardRows();
         }
 

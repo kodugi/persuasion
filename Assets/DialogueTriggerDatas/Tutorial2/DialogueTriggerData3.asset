@@ -26,4 +26,4 @@ MonoBehaviour:
       DialogueText: "(\uD134 \uC885\uB8CC)"
       StateToTrigger: 4
       StateTriggerTiming: 0
-      UseWidePanel: 0
+      UseWidePanel: 1
