@@ -102,35 +102,12 @@ public partial class SaveManager : MonoBehaviour
 
             return;
         }
-/*
-        bool noteLock = true;
-
-        if (progress.TryGetValue("noteLock", out object value))
+        if(TryLoadProgress("noteLock", out object result))
         {
-            try
-            {
-                noteLock = Convert.ToBoolean(value);
-            }
-            catch (Exception exception)
-            {
-                Debug.LogWarning(
-                    "[SaveManager] Could not convert noteLock to bool. " +
-                    $"Using true instead. {exception.Message}"
-                );
-
-                noteLock = true;
-                progress["noteLock"] = true;
-                SaveProgress();
-            }
+            bool result_b = (bool)result;
+            gameManager.NoteLock(result_b);
         }
-        else
-        {
-            progress["noteLock"] = true;
-            SaveProgress();
-        }
-
-        gameManager.NoteLock(noteLock);*/
-        gameManager.NoteLock(progress["noteLock"] is bool b && b);
+        
     }
 
     private void OnApplicationQuit()

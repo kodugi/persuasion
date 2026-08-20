@@ -116,6 +116,7 @@ public partial class ChiefManager : MonoBehaviour
     }
     IEnumerator StartInvestigationScene(string id="", bool preservePlayerPosition = true)
     {
+        //print("1:"+autoInteractOnReturntoInv);
         ExitScene(false);
         if (!preservePlayerPosition) invSceneLastPos = null;
         if(id=="") id= return_Inv_Scene_ID;
@@ -125,10 +126,15 @@ public partial class ChiefManager : MonoBehaviour
         per_Scene_ID = "";
         inv_Scene_ID = id;
 
+        //print("2:"+autoInteractOnReturntoInv);
         LoadScene(2);
-        yield return new WaitUntil(() => FindFirstObjectByType<Inv_GameManager>() != null);
+        //print("3:"+autoInteractOnReturntoInv);
+        yield return null;
+        Inv_GameManager gm = FindFirstObjectByType<Inv_GameManager>();
         //print("Investigation scene loaded");
+        //print("4:"+autoInteractOnReturntoInv);
         saveManager.OnInvestigationSceneStart();
+        //print("5:"+autoInteractOnReturntoInv);
 
         inv_GameManager = GameObject.FindFirstObjectByType<Inv_GameManager>();
         inv_PlayerCTRL = GameObject.FindFirstObjectByType<Inv_PlayerCTRL>();
@@ -141,11 +147,13 @@ public partial class ChiefManager : MonoBehaviour
                 obj.CheckState();
             }
         }
+        //print("6:"+autoInteractOnReturntoInv);
 
         if(invSceneLastPos != null) {
             //print(invSceneLastPos);
             inv_PlayerCTRL.gameObject.transform.position = (Vector3)invSceneLastPos;
         }
+        //print("7:"+autoInteractOnReturntoInv);
         if(autoInteractOnReturntoInv != null) inv_GameManager.ForceInteract(autoInteractOnReturntoInv);
 
         invSceneLastPos = null;
