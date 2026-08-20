@@ -19,7 +19,7 @@ MonoBehaviour:
       StateToTrigger: 0
       StateTriggerTiming: 0
       UseWidePanel: 0
-    - SpeakerName: "\uC8FC\uC778\uACF5"
+    - SpeakerName: "\uB098"
       DialogueText: "\u2026...!"
       StateToTrigger: 0
       StateTriggerTiming: 0
@@ -30,12 +30,12 @@ MonoBehaviour:
       StateToTrigger: 0
       StateTriggerTiming: 0
       UseWidePanel: 0
-    - SpeakerName: "\uC8FC\uC778\uACF5"
+    - SpeakerName: "\uB098"
       DialogueText: "(\u2026\uAE5C\uC9DD\uC774\uC57C, \uB4E4\uD0A8 \uC904 \uC54C\uC558\uB124\u2026)"
       StateToTrigger: 0
       StateTriggerTiming: 0
       UseWidePanel: 0
-    - SpeakerName: "\uC8FC\uC778\uACF5"
+    - SpeakerName: "\uB098"
       DialogueText: "(\uB2E4\uC2DC \uD574\uBCF4\uC790.)"
       StateToTrigger: 0
       StateTriggerTiming: 0

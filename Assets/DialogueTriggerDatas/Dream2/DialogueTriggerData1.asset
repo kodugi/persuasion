@@ -16,12 +16,12 @@ MonoBehaviour:
   _turnState: 1
   _pages:
   - Entries:
-    - SpeakerName: "\uC8FC\uC778\uACF5"
+    - SpeakerName: "\uB098"
       DialogueText: "(\uC5ED\uC2DC \uC5EC\uAE30\uB2E4\uAC00 \uC228\uACA8\uB480\uC5C8\uB124.)"
       StateToTrigger: 0
       StateTriggerTiming: 0
       UseWidePanel: 1
-    - SpeakerName: "\uC8FC\uC778\uACF5"
+    - SpeakerName: "\uB098"
       DialogueText: "(\uC544\uBB34\uB9AC \uB0B4\uAC00 \uAC71\uC815\uB41C\uB2E4\uACE0
         \uD574\uB3C4 \uADF8\uB807\uC9C0, \uAD73\uC774 \uD798\uB4E0 \uAC10\uC815\uC744
         \uC228\uAE38 \uAC74 \uB610 \uBB50\uC57C? \uB0B4\uAC00 \uADF8\uB807\uAC8C
@@ -29,14 +29,14 @@ MonoBehaviour:
       StateToTrigger: 0
       StateTriggerTiming: 0
       UseWidePanel: 1
-    - SpeakerName: "\uC8FC\uC778\uACF5"
+    - SpeakerName: "\uB098"
       DialogueText: "(\uADFC\uB370 \uC774 \uAC10\uC815\uB4E4\u2026. \uC77C\uBC18\uC801\uC778
         \uD53C\uB85C\uB098 \uACE0\uD1B5\uC774\uB791\uC740 \uD615\uD0DC\uAC00 \uC880
         \uB2E4\uB978 \uAC83 \uAC19\uC740\uB370.)"
       StateToTrigger: 0
       StateTriggerTiming: 0
       UseWidePanel: 1
-    - SpeakerName: "\uC8FC\uC778\uACF5"
+    - SpeakerName: "\uB098"
       DialogueText: "(\uAE30\uBD84 \uD0D3\uC778\uAC00?)"
       StateToTrigger: 0
       StateTriggerTiming: 0

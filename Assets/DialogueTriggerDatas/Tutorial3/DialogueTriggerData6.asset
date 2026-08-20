@@ -16,33 +16,33 @@ MonoBehaviour:
   _turnState: 1
   _pages:
   - Entries:
-    - SpeakerName: "\uC8FC\uC778\uACF5"
+    - SpeakerName: "\uB098"
       DialogueText: "\uC774\uBC88\uC5D0\uB294 \uC774 \uC911\uC5D0\uC11C \uB2E4\uC12F
         \uAC1C\uB97C \uBCC0\uD658\uC2DC\uCF1C\uC57C \uD558\uB124."
       StateToTrigger: 0
       StateTriggerTiming: 0
       UseWidePanel: 1
-    - SpeakerName: "\uC8FC\uC778\uACF5"
+    - SpeakerName: "\uB098"
       DialogueText: "\uC7A0\uAE50\uB9CC, \uADF8\uB7F0\uB370 \uC5EC\uAE30 \uC788\uB294
         \uAC10\uC815\uB4E4\uC740 \uC5B4\uB5BB\uAC8C \uD574\uB3C4 \uBCC0\uD658\uC744
         \uC2DC\uD0AC \uC218\uAC00 \uC5C6\uC796\uC544?"
       StateToTrigger: 17
       StateTriggerTiming: 1
       UseWidePanel: 1
-    - SpeakerName: "\uC8FC\uC778\uACF5"
+    - SpeakerName: "\uB098"
       DialogueText: "\uC591\uCABD\uC5D0\uC11C \uAC10\uC815\uC744 \uAC10\uC300 \uC218\uAC00
         \uC5C6\uC5B4."
       StateToTrigger: 17
       StateTriggerTiming: 1
       UseWidePanel: 1
-    - SpeakerName: "\uC8FC\uC778\uACF5"
+    - SpeakerName: "\uB098"
       DialogueText: "\uD5F7\uAC08\uB9AC\uB2C8\uAE4C \uC774\uB807\uAC8C \uBCC0\uD658\uC744
         \uC2DC\uD0AC \uC218 \uC5C6\uB294 \uAC10\uC815\uC740 \uB530\uB85C \uD45C\uC2DC\uB97C
         \uD574\uB194\uC57C\uACA0\uB2E4."
       StateToTrigger: 18
       StateTriggerTiming: 1
       UseWidePanel: 1
-    - SpeakerName: "\uC8FC\uC778\uACF5"
+    - SpeakerName: "\uB098"
       DialogueText: "\uB098\uC911\uC5D0 \uBCC0\uD658\uC2DC\uD0AC \uC218 \uC788\uB294
         \uBC29\uBC95\uC774 \uC0DD\uAE30\uBA74 \uADF8\uB54C \uD45C\uC2DC\uB97C \uC9C0\uC6B0\uB4E0\uAC00
         \uD558\uC790."

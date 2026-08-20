@@ -16,25 +16,25 @@ MonoBehaviour:
   _turnState: 1
   _pages:
   - Entries:
-    - SpeakerName: "\uC8FC\uC778\uACF5"
+    - SpeakerName: "\uB098"
       DialogueText: (......?)
       StateToTrigger: 0
       StateTriggerTiming: 0
       UseWidePanel: 1
-    - SpeakerName: "\uC8FC\uC778\uACF5"
+    - SpeakerName: "\uB098"
       DialogueText: "(...\uBB50\uC9C0 \uC774\uAC70? \uC544\uBB34\uB9AC \uBD10\uB3C4
         \uB2E8\uC21C\uD55C \uC544\uD514\uC774\uB098 \uAD34\uB85C\uC6C0\uC740 \uC544\uB2CC
         \uAC83 \uAC19\uC544.)"
       StateToTrigger: 0
       StateTriggerTiming: 0
       UseWidePanel: 1
-    - SpeakerName: "\uC8FC\uC778\uACF5"
+    - SpeakerName: "\uB098"
       DialogueText: "(\uB0B4 \uC601\uD63C\uC774 \uC798 \uB4E3\uB294 \uAC78 \uBCF4\uBA74
         \uB098\uC5D0 \uB300\uD55C \uBD80\uC815\uC801\uC778 \uAC10\uC815\u2026 \uAC19\uC740\uB370.)"
       StateToTrigger: 0
       StateTriggerTiming: 0
       UseWidePanel: 1
-    - SpeakerName: "\uC8FC\uC778\uACF5"
+    - SpeakerName: "\uB098"
       DialogueText: "(\uD558\uC9C0\uB9CC \uC5B8\uB2C8\uAC00 \uB098\uB97C\u2026\u2026
         \uC65C?)"
       StateToTrigger: 0
