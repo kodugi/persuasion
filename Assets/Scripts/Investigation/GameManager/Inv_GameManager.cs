@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using Unity.Cinemachine;
 
 namespace Investigation
 {
@@ -19,6 +20,7 @@ namespace Investigation
         [SerializeField] private GameObject interactablePrefab;
         [SerializeField] private GameObject backgroundPrefab;
         [SerializeField] private GameObject timerObj;
+        [SerializeField] CinemachineCamera cam;
         List<AsyncOperationHandle<Sprite>> mapHandles = new List<AsyncOperationHandle<Sprite>>();
         BoxCollider2D footCollider;
         
@@ -257,6 +259,39 @@ namespace Investigation
         public void ForceInteract(string title)
         {
             interactManager.ForceInteraction(title);
+        }
+        public void ChangeCamera(Transform target, float duration=1f)
+        {
+            StartCoroutine(MoveCameraTarget(target, duration));
+        }
+        IEnumerator MoveCameraTarget(Transform target, float duration)
+        {
+            GameObject cameraTarget = new GameObject();
+            Vector3 start = cam.Target.TrackingTarget.position;
+            Vector3 end = target.position;
+
+            cameraTarget.transform.position = start;
+            cam.Target.TrackingTarget = cameraTarget.transform;
+
+            float elapsed = 0f;
+
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+
+                float t = Mathf.Clamp01(elapsed / duration);
+
+                // 시작/끝 부분을 부드럽게
+                t = Mathf.SmoothStep(0f, 1f, t);
+                end = target.position;
+                cameraTarget.transform.position =
+                    Vector3.Lerp(start, end, t);
+
+                yield return null;
+            }
+
+            cameraTarget.transform.position = end;
+            cam.Target.TrackingTarget = target;
         }
     }
 }

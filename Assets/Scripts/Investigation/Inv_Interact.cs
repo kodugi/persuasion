@@ -251,6 +251,12 @@ namespace Investigation
                 case "FinalMap":
                     saveManager.AddGeneralSave("FinalMap", (string)effect["title"]);
                     break;
+                case "changeCamera":
+                    string camTarget = (string)effect["target"];
+                    float camMoveDuration = (float)effect["duration"];
+                    if(camTarget == "Player") manager.ChangeCamera(playerCTRL.gameObject.transform,camMoveDuration);
+                    else manager.ChangeCamera(FindInteractableObj(camTarget),camMoveDuration);
+                    break;
             }
         }
         public void JumpDialogue(int destination)
