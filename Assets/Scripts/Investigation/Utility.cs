@@ -99,6 +99,7 @@ namespace Investigation
         private IEnumerator FadeSlowly(GameObject targetObj, GameObject headObj, bool fadeIn, float delay, float fadingTime, bool doDestroy = true, float lowOpacity = 0f, float highOpacity = 1f)
         {
             yield return new WaitForSeconds(delay);
+            if(targetObj==null) yield break;
             SetOpacity(targetObj, (fadeIn?lowOpacity:highOpacity));
             float elapsed = 0f;
             while (elapsed < fadingTime)

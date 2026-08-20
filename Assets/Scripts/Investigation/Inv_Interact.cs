@@ -253,6 +253,9 @@ namespace Investigation
                 case "hide":
                     playerCTRL.Hide((string)effect["name"]);
                     break;
+                case "FinalMap":
+                    saveManager.AddGeneralSave("FinalMap", (string)effect["title"]);
+                    break;
             }
         }
         public void JumpDialogue(int destination)

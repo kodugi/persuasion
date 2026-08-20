@@ -3345,6 +3345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 478eaa62e99dc4976bd641aa6bef4574, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChiefManager
+  gameOverPanel: {fileID: 9088813948073568748, guid: c18e6f14dfc1d4e67becdfa460eb5ccf, type: 3}
   currScene: 
   inv_Scene_ID: 
   per_Scene_ID: 
