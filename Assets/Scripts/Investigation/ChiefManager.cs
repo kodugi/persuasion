@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using UnityEngine.SceneManagement;
 public partial class ChiefManager : MonoBehaviour
 {
     public static ChiefManager Instance { get; private set; }
+    [SerializeField] GameObject gameOverPanel;
     Investigation.Inv_GameManager inv_GameManager;
     Investigation.Inv_PlayerCTRL inv_PlayerCTRL;
     SaveManager saveManager;
@@ -36,7 +38,18 @@ public partial class ChiefManager : MonoBehaviour
         //currScene = "Start";
         //temporary
         currScene = "Investigation";
-        StartInvestigation("Map1_Intro");
+    }
+    void Start()
+    {
+        GameStartFromMainScene();
+    }
+    public void GameStartFromMainScene()
+    {
+        if(saveManager.TryLoadGeneralSave("FinalMap", out object result))
+        {
+            StartInvestigation((string)result);
+        }
+        else StartInvestigation("Map1_Intro");
     }
     void FixedUpdate()
     {
@@ -116,6 +129,7 @@ public partial class ChiefManager : MonoBehaviour
     }
     IEnumerator StartInvestigationScene(string id="", bool preservePlayerPosition = true)
     {
+        //print("1:"+autoInteractOnReturntoInv);
         ExitScene(false);
         if (!preservePlayerPosition) invSceneLastPos = null;
         if(id=="") id= return_Inv_Scene_ID;
@@ -125,10 +139,15 @@ public partial class ChiefManager : MonoBehaviour
         per_Scene_ID = "";
         inv_Scene_ID = id;
 
+        //print("2:"+autoInteractOnReturntoInv);
         LoadScene(2);
-        yield return new WaitUntil(() => FindFirstObjectByType<Inv_GameManager>() != null);
+        //print("3:"+autoInteractOnReturntoInv);
+        yield return null;
+        Inv_GameManager gm = FindFirstObjectByType<Inv_GameManager>();
         //print("Investigation scene loaded");
+        //print("4:"+autoInteractOnReturntoInv);
         saveManager.OnInvestigationSceneStart();
+        //print("5:"+autoInteractOnReturntoInv);
 
         inv_GameManager = GameObject.FindFirstObjectByType<Inv_GameManager>();
         inv_PlayerCTRL = GameObject.FindFirstObjectByType<Inv_PlayerCTRL>();
@@ -141,11 +160,13 @@ public partial class ChiefManager : MonoBehaviour
                 obj.CheckState();
             }
         }
+        //print("6:"+autoInteractOnReturntoInv);
 
         if(invSceneLastPos != null) {
             //print(invSceneLastPos);
             inv_PlayerCTRL.gameObject.transform.position = (Vector3)invSceneLastPos;
         }
+        //print("7:"+autoInteractOnReturntoInv);
         if(autoInteractOnReturntoInv != null) inv_GameManager.ForceInteract(autoInteractOnReturntoInv);
 
         invSceneLastPos = null;
@@ -169,14 +190,24 @@ public partial class ChiefManager : MonoBehaviour
         //temp
         yield return null;
     }
-    public void GameOver()
+    public void GameOver(string reason)
     {
         print("Game Over");
         LoadingMotion();
-        StartCoroutine(GameOverScene());
+        StartCoroutine(GameOverScene(reason));
     }
-    IEnumerator GameOverScene()
+    IEnumerator GameOverScene(string reason)
     {
+        inv_PlayerCTRL.gameObject.SetActive(false);
+        GameObject _gameOverPanel = Instantiate(gameOverPanel, FindFirstObjectByType<Canvas>().transform);
+        _gameOverPanel.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = reason;
+        _gameOverPanel.SetActive(true);
+        print(_gameOverPanel);
         yield return null;
+    }
+    public void ResetGame()
+    {
+        saveManager.ResetAllSaveData();
+        LoadScene(0);
     }
 }
