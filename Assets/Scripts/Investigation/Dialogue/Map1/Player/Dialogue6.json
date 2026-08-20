@@ -97,13 +97,13 @@
                             ]
                         },
                         {
+                            "type": "cutScene",
+                            "title": "LoadDreamScene"
+                        },
+                        {
                             "type": "progress",
                             "key": "dreamt",
                             "value": true
-                        },
-                        {
-                            "type": "anotherMap",
-                            "title": "Map_Dream"
                         }
                     ]
                 }

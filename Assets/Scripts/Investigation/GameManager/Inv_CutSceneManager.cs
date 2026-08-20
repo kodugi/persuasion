@@ -122,6 +122,18 @@ namespace Investigation
                     interactManager.ForceInteraction("Map1/Player");
                     break;
 
+
+                case "LoadDreamScene":
+                    yield return FadeScreen(true);
+                    interactManager.Effects(
+                        new JObject
+                        {
+                            ["type"]="anotherMap",
+                            ["title"]="Map_Dream"
+                        }
+                    );
+                    break;
+
                     
                 case "GuideLeavesHouse":
                     int hidingTime = 10;
