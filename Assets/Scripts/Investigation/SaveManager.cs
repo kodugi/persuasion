@@ -19,6 +19,7 @@ public partial class SaveManager : MonoBehaviour
         new Dictionary<string, object>();
 
     public static SaveManager Instance { get; private set; }
+    public bool isProgressLoaded = false;
 
     private void Awake()
     {
@@ -57,6 +58,7 @@ public partial class SaveManager : MonoBehaviour
 
             InitializeEverything();
         }
+        isProgressLoaded = true;
     }
 
     private void InitializeEverything()
@@ -437,5 +439,113 @@ public partial class SaveManager : MonoBehaviour
     public void SaveProgress()
     {
         SaveData("progress", progress);
+    }
+
+    public void SaveCharacterPosition(string mapID, string characterID, Vector3 position)
+    {
+        string key = mapID + "_positions";
+
+        Dictionary<string, object> positions;
+
+        object existing = LoadProgress(key);
+
+        if (existing is Dictionary<string, object> existingPositions)
+        {
+            positions = existingPositions;
+        }
+        else
+        {
+            positions = new Dictionary<string, object>();
+        }
+
+        positions[characterID] = new Dictionary<string, object>
+        {
+            { "x", position.x },
+            { "y", position.y },
+            { "z", position.z }
+        };
+
+        AddProgress(key, positions);
+    }
+    public bool TryLoadCharacterPosition(string mapID, string characterID, out Vector3 position)
+    {
+        position = Vector3.zero;
+
+        string key = mapID + "_positions";
+
+        object data = LoadProgress(key);
+
+        if (!(data is Dictionary<string, object> positions))
+        {
+            return false;
+        }
+
+        if (!positions.TryGetValue(characterID, out object characterData))
+        {
+            return false;
+        }
+
+        if (!(characterData is Dictionary<string, object> pos))
+        {
+            return false;
+        }
+
+        try
+        {
+            float x = Convert.ToSingle(pos["x"]);
+            float y = Convert.ToSingle(pos["y"]);
+            float z = Convert.ToSingle(pos["z"]);
+
+            position = new Vector3(x, y, z);
+
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+    public Dictionary<string, Vector3> LoadAllCharacterPositions(string mapID)
+    {
+        print(mapID);
+        Dictionary<string, Vector3> result =
+            new Dictionary<string, Vector3>();
+
+        string key = mapID + "_positions";
+
+        object data = LoadProgress(key);
+        
+        if (!(data is Dictionary<string, object> positions))
+        {
+            return result;
+        }
+
+        foreach (var pair in positions)
+        {
+            string characterID = pair.Key;
+            print(characterID);
+            if (!(pair.Value is Dictionary<string, object> pos))
+            {
+                continue;
+            }
+
+            try
+            {
+                float x = Convert.ToSingle(pos["x"]);
+                float y = Convert.ToSingle(pos["y"]);
+                float z = Convert.ToSingle(pos["z"]);
+
+                result[characterID] = new Vector3(x, y, z);
+            }
+            catch (Exception exception)
+            {
+                Debug.LogWarning(
+                    $"[SaveManager] Failed to load position of " +
+                    $"{characterID} in {mapID}: {exception.Message}"
+                );
+            }
+        }
+
+        return result;
     }
 }

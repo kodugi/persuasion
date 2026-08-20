@@ -64,6 +64,7 @@ public class Inv_InteractionObj_Map1_Guard1: Inv_InteractionObj
                         ["parameters"]= new JArray{"Pull"}
                     }
                 );
+                SaveCurrPos();
             }
         }
         override public void variation(List<string> parameters)

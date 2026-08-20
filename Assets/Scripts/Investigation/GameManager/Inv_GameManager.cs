@@ -68,8 +68,7 @@ namespace Investigation
             inputAction.Player.Enable();
             NoteStart();
             InventoryStart();
-            footCollider = playerCTRL.gameObject.transform.Find("FootCollider").GetComponent<BoxCollider2D>();
-            SetScene();
+            StartCoroutine(SetScene());
         }
         private void Update()
         {
@@ -82,7 +81,7 @@ namespace Investigation
             {
                 return;
             }*/
-
+            saveManager.SaveCharacterPosition(getID(),"Player",playerCTRL.gameObject.transform.position);
             NoteOnApplicationQuit();
             InventoryOnApplicationQuit();
         }
@@ -99,9 +98,17 @@ namespace Investigation
         {
             ClearHandles(mapHandles);
         }
-        void SetScene()
+        IEnumerator SetScene()
         {
+            if(!saveManager.isProgressLoaded) yield return null;
             string currScene = getID();
+
+            footCollider = playerCTRL.gameObject.transform.Find("FootCollider").GetComponent<BoxCollider2D>();
+            if(saveManager.TryLoadCharacterPosition(currScene,"Player", out Vector3 savedPositionP))
+            {
+                playerCTRL.gameObject.transform.position = savedPositionP;
+            }
+
             string path = "Assets/Scripts/Investigation/Dialogue/Maps/" + currScene + ".json";
             string json = System.IO.File.ReadAllText(path);
             JObject data = JObject.Parse(json);
@@ -113,6 +120,10 @@ namespace Investigation
             {
                 GameObject interactable;
                 Vector2 position = Vector_2D_to_Vector2(obj.position);
+                if(saveManager.TryLoadCharacterPosition(currScene,obj.title, out Vector3 savedPosition))
+                {
+                    position = savedPosition;
+                }
 
                 if(obj.title == "background")
                 {
@@ -190,7 +201,7 @@ namespace Investigation
 
             }
         }
-        string getID()
+        public string getID()
         {
             //print(chiefManager.inv_Scene_ID);
             return chiefManager.inv_Scene_ID;

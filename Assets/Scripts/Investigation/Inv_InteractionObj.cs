@@ -114,7 +114,7 @@ public class Inv_InteractionObj : Utility
             }
             else
             {
-                print("No Allocated Image");
+                //print("No Allocated Image");
             }
         }
         virtual public void FadeSwitch(int curr_img_id, int change_img_id, float delay, float fadingTime)
@@ -126,6 +126,10 @@ public class Inv_InteractionObj : Utility
             SetImage(change_img_id);
             FadeObject(gameObject, true, delay, fadingTime, false);
             FadeObject(fadingOut, false, delay, fadingTime, true);
+        }
+        virtual protected void SaveCurrPos()
+        {
+            interactionManager.SaveObjPos(obj_name, gameObject.transform.position);
         }
     }
 }

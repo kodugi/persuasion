@@ -172,6 +172,10 @@ namespace Investigation
             }
             return targetT;
         }
+        public void SaveObjPos(string obj_name, Vector3 currPos)
+        {
+            saveManager.SaveCharacterPosition(manager.getID(), obj_name, currPos);
+        }
         public void Effects(JObject effect)
         {
             string type = (string)effect["type"];
