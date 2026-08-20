@@ -116,6 +116,13 @@
                             "parameters": [
                                 0
                             ]
+                        },
+                        {
+                            "type": "variation",
+                            "target": "Map1/WitchMother",
+                            "parameters": [
+                                "haveWarned"
+                            ]
                         }
                     ]
                 }

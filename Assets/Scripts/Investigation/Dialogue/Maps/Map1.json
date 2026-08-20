@@ -5448,8 +5448,8 @@
       },
       "colliderShape": "box",
       "colliderSize": {
-        "x": 0.4,
-        "y": 0.4
+        "x": 6,
+        "y": 4
       },
       "colliderOffset": {
         "x": 0,

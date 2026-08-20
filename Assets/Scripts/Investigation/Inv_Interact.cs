@@ -17,7 +17,22 @@ namespace Investigation
         [SerializeField] private GameObject interactables;
         [SerializeField] private GameObject previewMap;
         Inv_GameManager manager;
-        Inv_DialogueBox dialogueScript;
+        Inv_DialogueBox _dialogueScript;
+        Inv_DialogueBox dialogueScript
+        {
+            get
+            {
+                if (_dialogueScript == null)
+                {
+                    _dialogueScript = FindFirstObjectByType<Inv_DialogueBox>();
+                }
+                return _dialogueScript;
+            }
+            set
+            {
+                _dialogueScript = value;
+            }
+        }
         Inv_PlayerCTRL playerCTRL;
         private Vector2 anchorPos;
         SaveManager saveManager;

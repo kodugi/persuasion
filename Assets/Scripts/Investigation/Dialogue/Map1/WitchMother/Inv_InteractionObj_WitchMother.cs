@@ -15,6 +15,7 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
         bool amIInteracting = false;
         bool haveWarned = false;
         float walkingSpeed = 1.5f;
+        bool isPlayerInside = false;
         
         override protected void Starter()
         {
@@ -23,6 +24,8 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
         }
         override public void CheckState()
         {
+            if(playerCTRL==null) playerCTRL = GameObject.FindFirstObjectByType<Inv_PlayerCTRL>();
+            if(interactManager==null) interactManager = GameObject.FindFirstObjectByType<Inv_Interact>();
             int original_state = state;
             base.CheckState();
             //print(state);
@@ -54,7 +57,7 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
                 }
             }
             saveManager.AddProgress(obj_name + "state", state);
-            if(amIInteracting && original_state != state)
+            if(amIInteracting && original_state != state && !(state==1 && !haveWarned))
             {
                 interactManager.ForceInteraction(obj_name);
             }
@@ -110,31 +113,12 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
                     case "Dispersed":
                         FadeSwitch(2, 0, 0, 0f);
                         break;
+                    case "haveWarned":
+                        haveWarned = true;
+                        break;
                 }
             }
             base.variation();
-        }
-        void OnTriggerEnter2D(Collider2D col)
-        {
-            if (col.gameObject.CompareTag("Player"))
-            {
-                if (state == 1)
-                {
-                    if(!haveWarned)
-                    {
-                        interactManager.Effects(
-                            new JObject
-                            {
-                                ["type"]="variation",
-                                ["target"]="Map1/Player",
-                                ["parameters"]=new JArray{4}
-                            }
-                        );
-                        interactionManager.ForceInteraction("Map1/Player");
-                        haveWarned = true;
-                    }
-                }
-            }
         }
         private IEnumerator WalkingMotion()
         {
@@ -182,6 +166,48 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
             gameObject.SetActive(false);
 
             playerCTRL.CanPlayerMove(true);
+        }
+        void OnTriggerEnter2D(Collider2D col)
+        {
+            if (state==1 && col.CompareTag("Player"))
+            {
+                isPlayerInside = true;
+                playerCTRL = col.gameObject.GetComponent<Inv_PlayerCTRL>();
+                if(!haveWarned)
+                {
+                    interactManager.Effects(
+                        new JObject
+                        {
+                            ["type"]="variation",
+                            ["target"]="Map1/Player",
+                            ["parameters"]=new JArray{4}
+                        }
+                    );
+                    interactionManager.ForceInteraction("Map1/Player");
+                }
+                else
+                {
+                    interactManager.ForceInteraction("Map1/WitchMother");
+                }
+            }
+        }
+        void OnTriggerExit2D(Collider2D col)
+        {
+            if (state==1 && col.CompareTag("Player"))
+            {
+                isPlayerInside = false;
+            }
+        }
+        void FixedUpdate()
+        {
+            if (state==1 && isPlayerInside)
+            {
+                if (playerCTRL.isHiding)
+                {
+                    state =2;
+                    interactManager.ForceInteraction("Map1/WitchMother");
+                }
+            }
         }
     
 
