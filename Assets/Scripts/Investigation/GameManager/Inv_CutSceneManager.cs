@@ -39,7 +39,6 @@ namespace Investigation
             switch (title)
             {
                 case "PeopleRunningAfterReceivingPen":
-                    //running
                     staringPeople.GetComponent<Inv_Obj_Staring_People>().StartRunning();
                     yield return new WaitForSeconds(10f);
                     Destroy(staringPeople);
@@ -100,6 +99,7 @@ namespace Investigation
                             GameObject obj = staringPeopleHandle.Result;
                             staringPeople = Instantiate(obj);
                             staringPeople.GetComponent<Inv_Obj_Staring_People>().player = playerCTRL.gameObject;
+                            staringPeople.GetComponent<Inv_Obj_Staring_People>().manager = this;
                             staringPeople.GetComponent<Inv_Obj_Staring_People>().house_gather = interactManager.FindInteractableObj("Map1/House_Gathering").gameObject;
                         }
                         else
