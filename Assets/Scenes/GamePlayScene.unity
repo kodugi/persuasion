@@ -4045,7 +4045,7 @@ MonoBehaviour:
     Entries:
     - {fileID: 11400000, guid: 134bb605c9168824c9e74ca058e7286c, type: 2}
   _stageList:
-  - MapName: Map1_Guard1_1
+  - MapName: Map1_Guard1
     GameInfoList:
     - {fileID: 11400000, guid: d26492b389615d843b54a04e41ef13ff, type: 2}
     - {fileID: 11400000, guid: 17244ccf19c3a3a43b615c6c7e849b41, type: 2}
