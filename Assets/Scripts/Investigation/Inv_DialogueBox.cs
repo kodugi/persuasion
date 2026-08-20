@@ -42,6 +42,7 @@ namespace Investigation
             DisplayDialogue(0);
         }
         List<string> shortImages = new List<string>{"LD_Player", "LD_Map1_Granny"};
+        List<string> tallImages = new List<string>{"LD_Player", "LD_Map1_Man2"};
         public void ChangeImage(string img_name, int position)
         {
             Transform placeHolder = charactersObj.transform.GetChild(position);
@@ -56,6 +57,10 @@ namespace Investigation
                 if (shortImages.Any(prefix => img_name.StartsWith(prefix)))
                 {
                     placeHolder.GetComponent<RectTransform>().anchoredPosition = new Vector2(originalPos.x, 50);
+                }
+                else if (tallImages.Any(prefix => img_name.StartsWith(prefix)))
+                {
+                    placeHolder.GetComponent<RectTransform>().anchoredPosition = new Vector2(originalPos.x, -30);
                 }
                 else
                 {
