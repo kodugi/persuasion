@@ -228,6 +228,7 @@ namespace Investigation
             else if (currScene == "Map_Dream")
             {
                 automaticDialogue = "Map_Dream/Intro";
+                Camera.main.backgroundColor = new Color32(233, 183, 223, 255);
             }
 
             if (isDialogueOnlyMap)
