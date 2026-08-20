@@ -31,7 +31,7 @@ namespace Investigation
         private IEnumerator StartDialogueWhenAvailable()
         {
             yield return new WaitUntil(() => !interactManager.isInteracting);
-            interactManager.ForceInteraction(obj_name);
+            interactManager.ForceInteraction("Map_Dream/SisterApproach");
         }
     }
 }

@@ -1,0 +1,65 @@
+{
+  "title": "",
+  "path": [
+    {
+      "description": "여기저기 돌아다니며 여기가 어디인지 알아내려 노력하던 그때,",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 1,
+          "effects": []
+        }
+      ]
+    },
+    {
+      "description": "저 멀리에 익숙한 실루엣이 보였다.",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 2,
+          "effects": []
+        }
+      ]
+    },
+    {
+      "description": "7년 만에 보는 모습이었지만, 나는 그 사람이 누구인지 바로 확신할 수 있었다.",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 3,
+          "effects": [
+            {
+              "type": "changeTitle",
+              "title": "주인공"
+            },
+            {
+              "type": "changeImage",
+              "image": "LD_Player_5A",
+              "position": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "어... 언니?",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 4,
+          "effects": []
+        }
+      ]
+    },
+    {
+      "description": "언니가 왜 여기에...?",
+      "buttons": [
+        {
+          "title": "(대사를 마친다)",
+          "next": -1,
+          "effects": []
+        }
+      ]
+    }
+  ]
+}

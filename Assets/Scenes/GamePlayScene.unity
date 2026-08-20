@@ -3560,6 +3560,12 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 57bd1cd5ba5d45338f6edd54edfdcbc5, type: 2}
     - {fileID: 11400000, guid: b6afbc91fac44d1cb038b82d4bedab85, type: 2}
     - {fileID: 11400000, guid: ead23b8fd6d54ece8143d5eace5ea803, type: 2}
+  - MapName: Map_Dream_Sister
+    GameInfoList:
+    - {fileID: 11400000, guid: ccb806b9d38c4a9994bc206cf4859414, type: 2}
+    - {fileID: 11400000, guid: 4102c87216b240b8ae0efe2b43bb35e0, type: 2}
+    - {fileID: 11400000, guid: a2fbb8cbe2bf481eb1605e7de77f7aef, type: 2}
+    - {fileID: 11400000, guid: d30f406ff9cfb8c4182310313102e03f, type: 2}
 --- !u!114 &1353033081
 MonoBehaviour:
   m_ObjectHideFlags: 0

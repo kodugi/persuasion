@@ -197,7 +197,7 @@
       "sortingOrder": 5,
       "image": "",
       "script": "Inv_InteractionObj_Map_Dream_Sister",
-      "manually_touchable": false
+      "manually_touchable": true
     }
   ]
 }
