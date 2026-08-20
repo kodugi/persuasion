@@ -48,6 +48,7 @@ namespace Investigation
                 placeHolder.GetComponent<Image>().enabled = false;
             }
             else{
+                placeHolder.GetComponent<Image>().enabled = false;
                 SetSpriteImage<Image>(placeHolder.gameObject, img_name, handles);
                 placeHolder.GetComponent<Image>().enabled = true;
             }
