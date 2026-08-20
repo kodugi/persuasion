@@ -31,7 +31,7 @@ namespace Investigation
             playerCTRL = GameObject.FindFirstObjectByType<Inv_PlayerCTRL>().GetComponent<Inv_PlayerCTRL>();
             saveManager = GameObject.FindFirstObjectByType<SaveManager>().GetComponent<SaveManager>();
         }
-        string GetLastQueue()
+        public string GetLastQueue()
         {
             for(int i = interactionQueue.Count - 1; i >=0; i--)
             {

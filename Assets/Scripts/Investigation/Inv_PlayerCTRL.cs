@@ -163,6 +163,9 @@ namespace Investigation
         public void Hide(string id)
         {
             if(canHide) {
+                if(id=="") id = interactionScript.GetLastQueue();
+                Vector3 obstacleP = interactionScript.FindInteractableObj(id).position;
+                StartCoroutine(MoveSmoothly(new Vector3(obstacleP.x, gameObject.transform.position.y, gameObject.transform.position.z)));
                 isHiding = true;
                 hidingBehind = id;
                 Think("숨었다.");//hidingBehind+"뒤에 숨었다.");
