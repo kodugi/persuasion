@@ -408,7 +408,7 @@
                     "effects": [
                         {
                             "type": "variation",
-                            "image": "Map1/Guard1",
+                            "target": "Map1/Guard1",
                             "parameters": ["Throw"]
                         }
                     ]

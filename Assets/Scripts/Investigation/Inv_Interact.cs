@@ -110,7 +110,6 @@ namespace Investigation
         }
         public void ForceInteraction(string name)
         {
-            print("ww");
             Interact(name);/*
             if (interactionQueue.Contains(name)) Interact(name);
             else Debug.LogWarning("Attempted to force an interaction that was not in the queue: " + name);*/
