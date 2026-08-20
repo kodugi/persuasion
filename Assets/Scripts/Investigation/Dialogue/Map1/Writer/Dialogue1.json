@@ -1,6 +1,6 @@
 {
     "title": "",
-    "LD_images": ["","LD_Map1_Guard_1A",""],
+    "LD_images": ["","LD_Map1_Man2_1A",""],
     "path": [
         {
             "description": "호수 근처에는 한 남자가 기계적인 몸짓으로 비둘기에게 빵쪼가리를 던져주고 있었다.",
@@ -66,7 +66,7 @@
                     "effects": [
                         {
                             "type": "changeTitle",
-                            "title": "주인공"
+                            "title": "나"
                         },
                         {
                             "type": "changeImage",
@@ -116,7 +116,7 @@
                     "effects": [
                         {
                             "type": "changeTitle",
-                            "title": "남자"
+                            "title": "작가"
                         }
                     ]
                 }
@@ -168,7 +168,7 @@
                     "effects": [
                         {
                             "type": "changeTitle",
-                            "title": "주인공"
+                            "title": "나"
                         },
                         {
                             "type": "changeImage",
@@ -177,7 +177,7 @@
                         },
                         {
                             "type": "changeImage",
-                            "image": "LD_Map1_Guard_1A",
+                            "image": "LD_Map1_Man2_1A",
                             "position": 1
                         }
                     
@@ -195,7 +195,7 @@
                     "effects": [
                         {
                             "type": "changeTitle",
-                            "title": "남자"
+                            "title": "작가"
                         }
                     ]
                 }
@@ -237,7 +237,7 @@
                     "effects": [
                         {
                             "type": "changeTitle",
-                            "title": "주인공"
+                            "title": "나"
                         },
                         {
                             "type": "changeImage",

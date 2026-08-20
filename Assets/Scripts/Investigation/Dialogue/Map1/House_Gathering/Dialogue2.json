@@ -1,11 +1,11 @@
 {
-    "title": "사람들이 모여 있던 집",
+    "title": "",
     "path": [
         {
             "description": "이제 이 집은 다시 비어있는 것 같다.",
             "buttons":[
                 {
-                    "title": "돌아가자.",
+                    "title": "",
                     "next": -1,
                     "effects": []
                 }

@@ -1,5 +1,5 @@
 {
-    "title": "주인공",
+    "title": "나",
     "LD_images":["","","LD_Player_1A"],
     "path": [
         {
@@ -56,7 +56,7 @@
                     "effects": [
                         {
                             "type": "changeTitle",
-                            "title": "주인공"
+                            "title": "나"
                         },
                         {
                             "type": "changeImage",
