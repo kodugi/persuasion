@@ -3366,6 +3366,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SaveManager
   resetOnQuit: 0
   saveWhilePlaying: 0
+  isProgressLoaded: 0
 --- !u!1 &1946612719
 GameObject:
   m_ObjectHideFlags: 0

@@ -41,6 +41,9 @@ public class Inv_InteractionObj_Map1_GuideToCave: Inv_InteractionObj
             }
         }
         private float walkingSpeed = 3f;
+        
+        private float secondFootprintDistance = 0.15f;
+        private float secondFootprintInterval = 0.05f;
         private float footprintInterval = 0.6f;
         private float footprintIntervalMin = 0.3f;
         private float footprintIntervalMax = 1.5f;
@@ -167,18 +170,21 @@ public class Inv_InteractionObj_Map1_GuideToCave: Inv_InteractionObj
                             Mathf.Atan2(
                                 direction.y,
                                 direction.x
-                            ) * Mathf.Rad2Deg;
+                            ) * Mathf.Rad2Deg+ 90f;
+                        Vector3 secondPositionDiff =
+                            new Vector3(direction.y, direction.x * (1-Random.Range(0,2)*2),0) * secondFootprintDistance;
 
                         GameObject footprint =
                             Instantiate(
                                 footprintPrefab,
-                                transform.position + positionDiff,
+                                transform.position + positionDiff+secondPositionDiff,
                                 Quaternion.Euler(0f, 0f, angle)
                             );
 
                         footprintTimer = 0f;
                         shortenedTime += footprintInterval * (1-(1/modifier));
-                        footprintInterval = Random.Range(footprintIntervalMin, footprintIntervalMax);
+                        if(footprintInterval == secondFootprintInterval) footprintInterval = Random.Range(footprintIntervalMin, footprintIntervalMax);
+                        else footprintInterval = secondFootprintInterval;
                         FadeObject(
                             footprint,
                             false,
