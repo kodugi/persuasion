@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Investigation
 {
@@ -24,6 +26,13 @@ public class Inv_InteractionObj_Map1_Road_Running_Trigger: Inv_InteractionObj
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.CompareTag("Player") && state == 1) {
+                interactManager.Effects(
+                    new JObject
+                    {
+                        ["type"]="cutScene",
+                        ["title"]="screenRed"
+                    }
+                );
                 interactManager.ForceInteraction("Map1/Player");
             }
         }

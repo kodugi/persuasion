@@ -13,6 +13,7 @@ namespace Investigation
     public partial class Inv_GameManager : Utility
     {
         [SerializeField] GameObject screenHider;
+        [SerializeField] GameObject screenReddener;
         GameObject _staringPeople = null;
         GameObject staringPeople{
             get{
@@ -214,16 +215,23 @@ namespace Investigation
                     );
                     interactManager.ForceInteraction("Map1/Player");
                     break;
+                
+                case "screenRed":
+                    yield return FadeScreen(true, duration:0.5f, obj:screenReddener, highOpacity:0.3f);
+                    yield return FadeScreen(false, duration:0.5f, obj:screenReddener, highOpacity:0.3f);
+                    break;
             }
         }
-        public Coroutine FadeScreen(bool fadeIn, float delay=0f, float duration=1f)
+        public Coroutine FadeScreen(bool fadeIn, float delay=0f, float duration=1f, GameObject obj=null, float lowOpacity = 0f, float highOpacity = 1f)
         {
-            return StartCoroutine(FadeScreenCoroutine(fadeIn, delay, duration));
+            return StartCoroutine(FadeScreenCoroutine(fadeIn, delay, duration, obj, lowOpacity, highOpacity));
         }
-        IEnumerator FadeScreenCoroutine(bool fadeIn, float delay=0f, float duration=1f){
-            if(fadeIn) screenHider.SetActive(true);
-            yield return FadeObject(screenHider,fadeIn,delay, duration, false);
-            if(!fadeIn) screenHider.SetActive(false);
+        IEnumerator FadeScreenCoroutine(bool fadeIn, float delay, float duration, GameObject obj, float lowOpacity, float highOpacity){
+            if(obj==null) obj = screenHider;
+            
+            if(fadeIn) obj.SetActive(true);
+            yield return FadeObject(obj,fadeIn,delay, duration, false, lowOpacity, highOpacity);
+            if(!fadeIn) obj.SetActive(false);
         }
     }
 }
