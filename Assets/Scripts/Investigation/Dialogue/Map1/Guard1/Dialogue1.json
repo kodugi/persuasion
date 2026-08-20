@@ -1,16 +1,213 @@
 {
-    "title": "경비원",
+    "title": "남자",
+    "LD_images": ["LD_Map1_Guard_1A", "",""],
     "path": [
         {
-            "description": "뭐.",
-            "buttons":[
+            "description": "……",
+            "buttons": [
                 {
-                    "title": "죄송합니다...",
-                    "next": -1,
+                    "title": "",
+                    "next": 1,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_8A",
+                            "position": 1
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "….이제 좀 믿으시겠어요? 전 마녀가 아니에요.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 2,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "남자"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "어어, 그래….. 듣고 보니 그런 것 같네.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 3,
                     "effects": []
+                }
+            ]
+        },
+        {
+            "description": "의심해서 미안하다…..",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 4,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_8A",
+                            "position": 0
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 1
+                        }
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "남자는 머리를 긁적거리면서 떠났다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 5,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 0
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_5A",
+                            "position": 2
+                        }
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "살았다….",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 6,
+                    "effects": [
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_2A",
+                            "position": 2
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "이상한 사람이네. 마녀니 어쩌니 하면서 애먼 사람을 죽이려 들고.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 7,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "요즘 시대에 마녀가 뭐야?",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 8,
+                    "effects": [
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_8A",
+                            "position": 2
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "저 사람 때문에 또 남 머릿속에 들어가버렸잖아. 이제 진짜 이러면 안 되는데.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 9,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "…모르겠다, 한 번은 괜찮겠지.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 10,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "빨리 언니나 찾아서 집으로 돌아가야겠다….",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 11,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "그런데 마을이 이렇게 큰데, 언니가 어디 있는지는 어떻게 알지?",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 12,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "마을 사람들한테 한 번 물어볼까?",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 13,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "이번에는 마녀 소리 안 들었으면 좋겠는데….",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": -1,
+                    "effects": [
+                        {
+                            "type": "variation",
+                            "target": "Map1/Guard1",
+                            "parameters": [
+                                "Met"
+                            ]
+                        }
+                    ]
                 }
             ]
         }
     ]
-
 }

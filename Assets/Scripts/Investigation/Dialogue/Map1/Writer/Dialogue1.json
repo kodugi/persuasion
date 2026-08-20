@@ -1,24 +1,303 @@
 {
-    "title": "작가?",
+    "title": "",
+    "LD_images": ["","LD_Map1_Guard_1A",""],
     "path": [
         {
-            "description": "너 뭐야! 걔를 왜 잡아가는데?",
-            "buttons":[
+            "description": "호수 근처에는 한 남자가 기계적인 몸짓으로 비둘기에게 빵쪼가리를 던져주고 있었다.",
+            "buttons": [
                 {
-                    "title": "사정이 있어서요!! 죄송합니다!!!",
+                    "title": "",
+                    "next": 1,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "남자는 비둘기에 너무 정신이 팔린 나머지 내가 오는 것도 눈치채지 못한 듯 했다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 2,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "간간이 뭐라고 중얼거리는 것 같기도 했지만, 무슨 말을 하는 건지는 잘 들리지 않았다.",
+            "buttons": [
+                {
+                    "title": "자세히 관찰한다.",
+                    "next": 4,
+                    "effects": []
+                },
+                {
+                    "title": "자리를 뜬다.",
                     "next": -1,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(임시)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": -1,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "남자를 자세히 관찰하다 보니, 남자의 정장 주머니에서 무언가 반짝거리는 물체가 눈에 띄었다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 5,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "길쭉하고 고급스러워 보이는 새까만 만년필이었다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 6,
                     "effects": [
                         {
-                            "type": "variation",
-                            "target": "Map1/Writer",
-                            "parameters":[
-                                "PigeonRemoved"
-                            ]
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_2A",
+                            "position": 0
                         }
                     ]
                 }
             ]
+        },
+        {
+            "description": ".....!",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 7,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(이거라면 언니의 초상화를 그릴 수 있겠어!)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 8,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(빌려달라고 하면 빌려주시려나....?)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 9,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "저기, 실례합니다. 혹시 잠깐 말씀 좀...",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 10,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "남자"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": ".....",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 11,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 1
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 0
+                        }
+                    
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "남자의 시선은 여전히 비둘기에 고정되어 있었다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 12,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "나는 조심스럽게 남자에게 다가가 더 큰 목소리로 물었다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 13,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_8A",
+                            "position": 0
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Guard_1A",
+                            "position": 1
+                        }
+                    
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "저기요? 제 말 들리세요?",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 14,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "남자"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": ".....",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 15,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 0
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 1
+                        }
+                    
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "현재로서는 더 말을 걸어도 대답해줄 것 같지 않다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 16,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_8A",
+                            "position": 2
+                        }
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "(저 비둘기가 대체 뭐길래 저렇게까지 열중하시는 거지....)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 17,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(능력으로 억지로 설득하는 것도 일단 대화 중인 상태여야 가능한데.)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 18,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(비둘기를 없애야 그나마 관심을 끌 수 있을 것 같아.)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 19,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(그런데 어떻게....?)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 20,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(그물로 포획이라도 해야 하나?)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": -1,
+                    "effects": []
+                }
+            ]
         }
     ]
-
 }

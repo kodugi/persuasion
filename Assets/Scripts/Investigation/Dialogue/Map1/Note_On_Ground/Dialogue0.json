@@ -14,6 +14,10 @@
                             "value": true
                         },
                         {
+                            "type": "cutScene",
+                            "title": "PeopleStaringAfterReceivingPen"
+                        },
+                        {
                             "type": "delete",
                             "target": "Map1/Note_On_Ground"
                         }

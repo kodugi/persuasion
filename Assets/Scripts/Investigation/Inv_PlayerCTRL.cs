@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
  
 namespace Investigation
 {
@@ -15,10 +17,13 @@ namespace Investigation
         private Vector2 movementInput;
         Rigidbody2D rigidbody_my;
         bool playerCanMove = true;
+        Animator animator_my;
 
         List<GameObject> layer_consideredObjs = new List<GameObject>();
         int layer_maxBehind;
         public bool isHiding = false;
+        public bool canHide = false;
+        string hidingBehind="";
 
         void Awake()
         {
@@ -30,6 +35,7 @@ namespace Investigation
         {
             interactionScript = GameObject.FindFirstObjectByType<Inv_Interact>().GetComponent<Inv_Interact>();
             rigidbody_my = GetComponent<Rigidbody2D>();
+            animator_my = GetComponent<Animator>();
         }
         private void OnDestroy()
         {
@@ -38,11 +44,29 @@ namespace Investigation
                 inputAction.Player.Disable();
                 inputAction.Dispose();
                 inputAction = null;
+                interactionScript.SaveObjPos("Player", gameObject.transform.position);
             }
         }
+        Vector2 prevPosition = new Vector2();
+        float speedThreshold = 0.1f;
         // Update is called once per frame
         void FixedUpdate()
         {
+            Vector2 velocity = (rigidbody_my.position - prevPosition) / Time.fixedDeltaTime;
+            float xSpeed = (Mathf.Abs(velocity.x)>=speedThreshold)?(velocity.x/Mathf.Abs(velocity.x)):0;
+            float ySpeed = (Mathf.Abs(velocity.y)>=speedThreshold)?(velocity.y/Mathf.Abs(velocity.y)):0;
+            animator_my.SetFloat("xSpeed", xSpeed);
+            animator_my.SetFloat("ySpeed", ySpeed);
+            prevPosition = rigidbody_my.position;
+
+            if (inputAction.Player.Move.ReadValue<Vector2>().sqrMagnitude > 0.01f)
+            {
+                if(isHiding) {
+                    isHiding=false;
+                    Think("더이상 숨어 있지 않다.");//hidingBehind+"뒤에서 나왔다.");
+                }
+            }
+
             if(!interactionScript.isInteracting && playerCanMove){
                 movementInput = inputAction.Player.Move.ReadValue<Vector2>();
                 rigidbody_my.MovePosition(rigidbody_my.position +new Vector2(movementInput.x, movementInput.y) * Time.deltaTime * moveSpeed);
@@ -60,17 +84,26 @@ namespace Investigation
                     hidingCnt++;
                 }
             }
-            isHiding = (hidingCnt)>0;
+            canHide = (hidingCnt)>0;
             gameObject.GetComponent<SpriteRenderer>().sortingOrder = layer_maxBehind+1;
+        }
+        public bool AlreadyHiding(GameObject obj)
+        {
+            return (isHiding && obj.GetComponent<Inv_InteractionObj>() is Inv_InteractionObj_Hidable);
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.CompareTag("Inv_Interactable"))
             {
+                layer_consideredObjs.Add(collision.gameObject);
                 if(collision.GetComponent<Inv_InteractionObj>().manuallyTouchable)
                 {
-                    interactionScript.QueueInteraction(collision.GetComponent<Inv_InteractionObj>().obj_name, true);
-                    layer_consideredObjs.Add(collision.gameObject);
+                    if(AlreadyHiding(collision.gameObject))
+                    {
+                        //nothing
+                    }
+                    else interactionScript.QueueInteraction(collision.GetComponent<Inv_InteractionObj>().obj_name, true);
+                    
                 }
             }
         }
@@ -78,22 +111,66 @@ namespace Investigation
         {
             if (collision.gameObject.CompareTag("Inv_Interactable"))
             {
+                layer_consideredObjs.Remove(collision.gameObject);
                 if(collision.GetComponent<Inv_InteractionObj>().manuallyTouchable)
                 {
                     interactionScript.QueueInteraction(collision.GetComponent<Inv_InteractionObj>().obj_name, false);
-                    layer_consideredObjs.Remove(collision.gameObject);
+                    
                 }
             }
         }
         public void Think(string thought)
         {
-            thoughtObj.SetActive(true);
+            StartCoroutine(ThinkC(thought));
+        }
+        IEnumerator ThinkC(string thought)
+        {
             thoughtObj.transform.Find("Text").GetComponent<TMPro.TextMeshProUGUI>().text = thought;
-            FadeObject(thoughtObj, false, 2f, 2f, false);
+            thoughtObj.SetActive(true);
+            //FadeObject(thoughtObj, true, 0f, 0f, false, 0f, 0.5f);
+            //FadeObject(thoughtObj, false, 2f, 0f, false, 0f, 0.5f);
+            yield return new WaitForSeconds(2f);
+            thoughtObj.SetActive(false);
         }
         public void CanPlayerMove(bool canMove)
         {
             playerCanMove = canMove;
+            //print(canMove);
+        }
+        public void InventoryItemDraggedOn(string itemName)
+        {
+            switch (itemName)
+            {
+                case "Inventory_WitchesCloth":
+                    interactionScript.Effects(
+                        new JObject
+                        {
+                            ["type"] = "progress",
+                            ["key"] = "possessedWitchsCloth",
+                            ["value"] = true
+                        }
+                    );
+                    interactionScript.Effects(
+                        new JObject
+                        {
+                            ["type"] = "item_remove",
+                            ["name"] = "Inventory_WitchesCloth"
+                        }
+                    );
+                    break;
+            }
+        }
+        public void Hide(string id)
+        {
+            if(canHide) {
+                isHiding = true;
+                hidingBehind = id;
+                Think("숨었다.");//hidingBehind+"뒤에 숨었다.");
+            }
+            else
+            {
+                Think("좀 더 몸을 가려야 숨길 수 있을 것 같다.");
+            }
         }
     }
 }

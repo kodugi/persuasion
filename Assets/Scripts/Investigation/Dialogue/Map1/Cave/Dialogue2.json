@@ -1,36 +1,1212 @@
 {
     "title": "노파",
+    "LD_images": ["","LD_Map1_Granny_1A"],
     "path": [
         {
-            "description": "저어기 마을 끝에 있는 음침한 집에 한 번 찾아가 보든가.",
-            "buttons":[
+            "description": "......",
+            "buttons": [
                 {
-                    "title": "감사합니다!",
+                    "title": "",
+                    "next": 1,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "노파"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Granny_2A",
+                            "position": 1
+                        }
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "내가 분명히 허튼 짓하지 말라고 했을 텐데?",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 2,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_6A",
+                            "position": 0
+                        }
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": ".....!",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 3,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(어, 어떻게.....)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 4,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 0
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 1
+                        }
+                    
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "어떻게 알아차린 거지? 나는 양손을 꽉 맞잡고 한 걸음 뒤로 물러섰다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 5,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "노파는 정적 속에서 한참 동안 가만히 서 있기만 했다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 6,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "조금 전까지 열심히 영혼을 심은 덕에 노파의 머릿속에 남아 있는 부정적 감정은 거의 없어 보였지만…..",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 7,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_3A",
+                            "position": 2
+                        }
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "(의식 깊은 곳에 의도적으로 부정적인 감정을 숨기고 있는 거 아닐까? 아무리 봐도 일반적인 사람은 아닌 것 같은데….)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 8,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(갑자기 공격해오면 어떡하지?)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 9,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 2
+                        }
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "나는 온갖 경우의 수를 상상하며 정적의 무게에 짓눌리지 않기 위해 필사적으로 노력했다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 10,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "이 자리에서 최선을 다해 도망치는 것과 더 깊은 의식 속으로 파고들어 강제 설득을 한 번 더 시도하는 것, 둘 중에 어떤 게 더 나은 선택지일까?",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 11,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "견디기 힘든 불안감에 그런 생각을 하고 있을 때였다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 12,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "노파"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Granny_3A",
+                            "position": 1
+                        }
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "솜씨가 꽤 괜찮군. 아예 눈치를 못 채고 있었네.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 13,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_8A",
+                            "position": 0
+                        }
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "네, 네?",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 14,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "상상도 못했던 말에 나는 순간 어안이 벙벙해져 되물었다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 15,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "조금 전까지 걱정이 무색하게, 신기하게도 노파는 썩 기분이 나빠 보이지 않았다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 16,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "노파"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "아가씨한테 한 수 배웠으니, 대가는 받은 셈 치지.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 17,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "아가씬 좋은 연구 자료가 될 거야.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 18,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "아, 네, 감사합니다....?",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 19,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 0
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 1
+                        }
+                    
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "영문 모를 칭찬에 나는 엉거주춤 감사 인사를 했다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 20,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "생각했던 방향이랑은 조금 다르긴 하지만…. 어쨌든 이제 공짜로 질문을 할 수 있게 된 것 같다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 21,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "노파"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 2
+                        }
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "그래서, 질문이 뭐지?",
+            "buttons": [
+                {
+                    "title": "마을에 대해 물어본다.",
+                    "next": 23,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_2A",
+                            "position": 0
+                        }
+                    
+                    ]
+                },
+                {
+                    "title": "마녀에 대해 물어본다.",
+                    "next": 33,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_2A",
+                            "position": 0
+                        }
+                    
+                    ]
+                },
+                {
+                    "title": "언니를 본 적 있는지 물어본다.",
+                    "next": 46,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_8A",
+                            "position": 0
+                        }
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "또 묻고 싶은 게 있나?",
+            "buttons": [
+                {
+                    "title": "마을에 대해 물어본다.",
+                    "next": 23,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_2A",
+                            "position": 0
+                        }
+                    
+                    ]
+                },
+                {
+                    "title": "마녀에 대해 물어본다.",
+                    "next": 33,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_2A",
+                            "position": 0
+                        }
+                    
+                    ]
+                },
+                {
+                    "title": "언니를 본 적 있는지 물어본다.",
+                    "next": 46,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_8A",
+                            "position": 0
+                        }
+                    
+                    ]
+                },
+                {
+                    "title": "이 정도면 됐다.",
+                    "next": 58,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        },
+                        {
+                            "type": "variation",
+                            "target": "Map1/Cave",
+                            "parameters":["endQuestioning"]
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_2A",
+                            "position": 0
+                        }
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "대체 이 마을은 뭐죠? 사람들이 이상할 정도로 저한테 적대적인 느낌이에요.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 24,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "아까 마을에 들어올 땐 다짜고짜 누가 절 마녀라고 부르면서 죽이려 들더라고요.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 25,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "노파"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Granny_1A",
+                            "position": 1
+                        }
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "당연한 일이야. 이 마을 사람들은 외부인을 싫어하니까.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 26,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "외부인은 무조건 마녀니 죽여야 한다고 생각하는 사람부터 단순히 경계하는 정도에서 그치는 사람까지, 그 혐오의 범위는 꽤 넓지만….",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 27,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "어쨌든 기본적으로는 불신한다고 볼 수 있지. 워낙 폐쇄적인 마을이라 말이야.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 28,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "마녀는 두말할 것도 없이 끔찍하게 증오하고. 조금이라도 마녀처럼 보이는 사람은 바로 달려들어서 태워버릴 정도니.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 29,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "그것 때문에 억울하게 불타버린 사람이 한둘이 아니라고.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 30,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_6A",
+                            "position": 0
+                        }
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "……",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 31,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "노파"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Granny_3A",
+                            "position": 1
+                        }
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "아가씨는 외부인인데다 마녀이기까지 하니까, 조심하는 게 좋을걸?",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 32,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "그렇게 말하며, 노파는 뭐가 그리 즐거운지 낄낄거렸다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 22,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "마녀라는 건 대체 뭐죠….?",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 34,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "노파"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Granny_1A",
+                            "position": 1
+                        }
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "무슨 질문이야, 그게?",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 35,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "아가씨 같은 사람들이 마녀지. 이상한 능력을 갖고 있는 요술쟁이들 말이야.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 36,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "유명세에 비해 알려진 건 많지 않은 집단이기도 해. 개체 수, 능력의 한계, 능력 발현 계기 등…. 공개적으로 알려져 있는 정보가 하나도 없어.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 37,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "그래서 더더욱 공포의 대상인 게지.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 38,
+                    "effects": [
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Granny_3A",
+                            "position": 1
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "우리 마녀 아가씨한테만 특별히 이야기해 주자면, 난 인간에게 마녀의 능력을 부여하는 연구를 하고 있다네.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 39,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "그래서 난 마녀를 그리 싫어하지 않아. 다만….",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 40,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "이 마을 사람들이 믿는 종교가 마녀를 악마 취급하거든. 그래서 이 마을 사람들은 항상 마녀를 죽이는 데에 혈안이 되어 있어.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 41,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "뭐, 마녀의 능력을 얻고 싶어서 발버둥치는 놈들도 간혹 가다 있는 것 같지만. 이런 놈들도 들키는 순간 처형이지.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 42,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "(종교…..?)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 43,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "노파"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "듣자하니 아가씨가 마녀라는 소문이 이미 파다하다던데.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 44,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "조만간 불에 타도 죽지 않는 요술이라도 배워야겠네, 마녀 아가씨.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 45,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "노파는 나를 조롱하듯 그렇게 이야기했다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 22,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "혹시 이렇게 생긴 사람을 보신 적이 있으신가요?",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 47,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "눈이 보라색이라 아마 쉽게 알아볼 수 있을 텐데….",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 48,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 0
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 1
+                        }
+                    
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "나는 언니의 초상화를 꺼내 노파에게 보여주었다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 49,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "노파는 그림을 유심히 들여다보더니 고개를 끄덕였다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 50,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "노파"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Granny_1A",
+                            "position": 1
+                        }
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "몇 년 전에 나를 찾아온 아가씨로군.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 51,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_9A",
+                            "position": 0
+                        }
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "네?",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 52,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "노파"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "나에 대해 어떻게 알았는지, 어느 날 나에게 물어볼 게 있다고 하면서 동굴에 들이닥쳤다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 53,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "외부인이라 치뤄야 하는 대가가 꽤 비쌌는데, 아가씨가 용케도 내가 요구했던 걸 가져와서 답변을 줬지.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 54,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "어, 언니가…. 무슨 질문을 했나요?",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 55,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "노파"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "그건 대답해줄 수 없다. 모든 손님의 질문 내역은 기밀사항이야.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 56,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "대신 내 답변은 얘기해줄 수 있을 것 같네. 질문을 듣고 나는 그 아가씨에게 윗마을에 있는 성당으로 가보라고 했어. 그러니 일단 그 곳으로 갔을 것 같군.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 57,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_5A",
+                            "position": 0
+                        }
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "그, 그렇군요….! 감사합니다!",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 22,
+                    "effects": [
+                        {
+                            "type": "variation",
+                            "target": "Map1/Cave",
+                            "parameters":["askedAboutSister"]
+                        }]
+                }
+            ]
+        },
+        {
+            "description": "(슬슬 갈까?)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": -1,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(아냐, 아직 언니에 대해서 안 물어봤잖아….!)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 60,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(다른 건 몰라도 이건 물어보고 가야 해.)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 46,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "정말 감사합니다! 도움이 많이 됐어요.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 62,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": ""
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 0
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 1
+                        }
+                    
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "연신 감사 인사를 하고 내가 뒤돌아 가려고 하던 찰나, 노파가 나를 다시 불러세웠다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 63,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "노파"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Granny_1A",
+                            "position": 1
+                        }
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "마녀 아가씨?",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 64,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_8A",
+                            "position": 0
+                        }
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "어…. 네?",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 65,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "노파"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Map1_Granny_2A",
+                            "position": 1
+                        }
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "오늘은 내가 기분이 좋으니 공짜 조언 하나 해주지.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 66,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "웬만하면 밤에는 혼자 다니지 않는 게 좋아. 여기는 마녀 사냥꾼들이 많거든.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 67,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": ""
+                        },
+
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 0
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 1
+                        }
+                    
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "노파는 킬킬대며 동굴 안으로 들어갔다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 68,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "조금 전 마을에서 엿들었던 대화가 머릿속을 스치고 지나갔다. 몸에 오싹 소름이 돋았다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 69,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "이미 해가 기울고 있는 걸 보니 마을에 도착할 때쯤이면 거의 밤이 되어 있을 것 같았다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 70,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_8A",
+                            "position": 2
+                        }
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "어딘가 안전하게 밤을 보낼 만한 곳을 구해야겠네….",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 71,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "일단 마을로 돌아가자.",
+            "buttons": [
+                {
+                    "title": "",
                     "next": -1,
                     "effects": [
                         {
                             "type": "variation",
                             "target": "Map1/Cave",
-                            "parameters":[
+                            "parameters": [
                                 "Resolved"
                             ]
                         },
                         {
                             "type": "variation",
                             "target": "Map1/WitchMotherBlocker",
-                            "parameters":[]
+                            "parameters": []
+                        },
+                        {
+                            "type": "progress",
+                            "key": "Map1/SurroundingWitchMotherstate",
+                            "value": "1"
                         },
                         {
                             "type": "variation",
                             "target": "Map1/WitchMother",
-                            "parameters":[
+                            "parameters": [
                                 "CreateCollider"
                             ]
+                        },
+                        {
+                            "type": "cutScene",
+                            "title": "Teleport_After_Cave_Interaction"
                         }
                     ]
                 }
             ]
         }
     ]
-
 }

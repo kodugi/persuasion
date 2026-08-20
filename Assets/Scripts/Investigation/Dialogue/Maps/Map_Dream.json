@@ -1,0 +1,170 @@
+{
+  "title": "Map_Dream",
+  "interactables": [
+    {
+      "title": "Map_Dream_Wall",
+      "position": {
+        "x": 8,
+        "y": 2
+      },
+      "size": {
+        "x": 20,
+        "y": 1
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 1,
+        "y": 1
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 1,
+        "y": 1
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 1,
+      "image": "",
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map_Dream_Wall2",
+      "position": {
+        "x": 8,
+        "y": -2
+      },
+      "size": {
+        "x": 20,
+        "y": 1
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 1,
+        "y": 1
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 1,
+        "y": 1
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 2,
+      "image": "",
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map_Dream_Wall3",
+      "position": {
+        "x": -2.5,
+        "y": 0
+      },
+      "size": {
+        "x": 1,
+        "y": 5
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 1,
+        "y": 1
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 1,
+        "y": 1
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 3,
+      "image": "",
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map_Dream_Wall4",
+      "position": {
+        "x": 18.5,
+        "y": 0
+      },
+      "size": {
+        "x": 1,
+        "y": 5
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 1,
+        "y": 1
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 1,
+        "y": 1
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 4,
+      "image": "",
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map_Dream_Sister",
+      "position": {
+        "x": 16,
+        "y": 0
+      },
+      "size": {
+        "x": 1,
+        "y": 1
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 1,
+        "y": 1
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 5,
+      "image": "",
+      "script": "",
+      "manually_touchable": false
+    }
+  ]
+}

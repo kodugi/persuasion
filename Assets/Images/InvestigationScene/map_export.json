@@ -103,8 +103,8 @@
     {
       "title": "Map1/Pond",
       "position": {
-        "x": 12.73,
-        "y": 20.45
+        "x": 27.71,
+        "y": 24.43
       },
       "size": {
         "x": 8,
@@ -136,8 +136,8 @@
     {
       "title": "Map1/WitchMotherBlocker",
       "position": {
-        "x": -15,
-        "y": 30
+        "x": -5.5,
+        "y": 26
       },
       "size": {
         "x": 6,
@@ -160,7 +160,7 @@
         "x": 0,
         "y": 0
       },
-      "hideCriteria": 0,
+      "hideCriteria": -100,
       "sortingOrder": 0,
       "image": "",
       "script": "Inv_InteractionObj_Map1_WitchMotherBlocker",
@@ -169,8 +169,8 @@
     {
       "title": "Map1/House1",
       "position": {
-        "x": -5,
-        "y": 15.56
+        "x": -4.16,
+        "y": 14.01
       },
       "size": {
         "x": 3,
@@ -195,15 +195,15 @@
       },
       "hideCriteria": -1.5,
       "sortingOrder": 2,
-      "image": "집1",
+      "image": "house1",
       "script": "Inv_InteractionObj_Map1_Houses",
       "manually_touchable": true
     },
     {
       "title": "Map1/나무",
       "position": {
-        "x": 5.78,
-        "y": 8.76
+        "x": -22.36,
+        "y": 13.18
       },
       "size": {
         "x": 3,
@@ -228,15 +228,15 @@
       },
       "hideCriteria": 0,
       "sortingOrder": 2,
-      "image": "나무1",
+      "image": "tree1",
       "script": "",
       "manually_touchable": false
     },
     {
       "title": "Map1/House_Gathering",
       "position": {
-        "x": 1.4,
-        "y": 20.34
+        "x": -2.65,
+        "y": 22.37
       },
       "size": {
         "x": 3,
@@ -261,19 +261,19 @@
       },
       "hideCriteria": -1.5,
       "sortingOrder": 2,
-      "image": "집1",
+      "image": "house1",
       "script": "Inv_InteractionObj_Map1_House_Gathering",
       "manually_touchable": true
     },
     {
       "title": "Map1/Cave",
       "position": {
-        "x": -5.94,
-        "y": 22.92
+        "x": 48.52,
+        "y": 0.64
       },
       "size": {
-        "x": 1,
-        "y": 1
+        "x": 10,
+        "y": 10
       },
       "colliderShape": "box",
       "colliderSize": {
@@ -294,15 +294,15 @@
       },
       "hideCriteria": 0,
       "sortingOrder": 2,
-      "image": "그루터기",
+      "image": "cave",
       "script": "Inv_InteractionObj_Map1_Cave",
       "manually_touchable": false
     },
     {
       "title": "Map1/House3",
       "position": {
-        "x": -13.46,
-        "y": 30.79
+        "x": -8.16,
+        "y": 23.59
       },
       "size": {
         "x": 3,
@@ -327,15 +327,411 @@
       },
       "hideCriteria": -1.5,
       "sortingOrder": 2,
-      "image": "집3",
+      "image": "house1",
       "script": "Inv_InteractionObj_Map1_Houses",
-      "manually_touchable": true
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/House2",
+      "position": {
+        "x": -8.81,
+        "y": 10.77
+      },
+      "size": {
+        "x": 3,
+        "y": 3
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 1.15,
+        "y": 0.5
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": -0.2
+      },
+      "triggerSize": {
+        "x": 1.3,
+        "y": 1
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": -1.5,
+      "sortingOrder": 2,
+      "image": "house1",
+      "script": "Inv_InteractionObj_Map1_Houses",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/House4",
+      "position": {
+        "x": -10.28,
+        "y": 15.99
+      },
+      "size": {
+        "x": 3,
+        "y": 3
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 1.15,
+        "y": 0.5
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": -0.2
+      },
+      "triggerSize": {
+        "x": 1.3,
+        "y": 1
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": -1.5,
+      "sortingOrder": 2,
+      "image": "house1",
+      "script": "Inv_InteractionObj_Map1_Houses",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/House5",
+      "position": {
+        "x": 6.44,
+        "y": 10.39
+      },
+      "size": {
+        "x": 3,
+        "y": 3
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 1.15,
+        "y": 0.5
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": -0.2
+      },
+      "triggerSize": {
+        "x": 1.3,
+        "y": 1
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": -1.5,
+      "sortingOrder": 2,
+      "image": "house1",
+      "script": "Inv_InteractionObj_Map1_Houses",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/House6",
+      "position": {
+        "x": 12.73,
+        "y": 13.02
+      },
+      "size": {
+        "x": 3,
+        "y": 3
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 1.15,
+        "y": 0.5
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": -0.2
+      },
+      "triggerSize": {
+        "x": 1.3,
+        "y": 1
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": -1.5,
+      "sortingOrder": 2,
+      "image": "house1",
+      "script": "Inv_InteractionObj_Map1_Houses",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/House7",
+      "position": {
+        "x": 5.52,
+        "y": 17.62
+      },
+      "size": {
+        "x": 3,
+        "y": 3
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 1.15,
+        "y": 0.5
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": -0.2
+      },
+      "triggerSize": {
+        "x": 1.3,
+        "y": 1
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": -1.5,
+      "sortingOrder": 2,
+      "image": "house1",
+      "script": "Inv_InteractionObj_Map1_Houses",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/House8",
+      "position": {
+        "x": 10.81,
+        "y": 20.03
+      },
+      "size": {
+        "x": 3,
+        "y": 3
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 1.15,
+        "y": 0.5
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": -0.2
+      },
+      "triggerSize": {
+        "x": 1.3,
+        "y": 1
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": -1.5,
+      "sortingOrder": 2,
+      "image": "house1",
+      "script": "Inv_InteractionObj_Map1_Houses",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/House9",
+      "position": {
+        "x": 4.21,
+        "y": 22.09
+      },
+      "size": {
+        "x": 3,
+        "y": 3
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 1.15,
+        "y": 0.5
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": -0.2
+      },
+      "triggerSize": {
+        "x": 1.3,
+        "y": 1
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": -1.5,
+      "sortingOrder": 2,
+      "image": "house1",
+      "script": "Inv_InteractionObj_Map1_Houses",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/House10",
+      "position": {
+        "x": 8.96,
+        "y": 24.69
+      },
+      "size": {
+        "x": 3,
+        "y": 3
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 1.15,
+        "y": 0.5
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": -0.2
+      },
+      "triggerSize": {
+        "x": 1.3,
+        "y": 1
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": -1.5,
+      "sortingOrder": 2,
+      "image": "house1",
+      "script": "Inv_InteractionObj_Map1_Houses",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/House11",
+      "position": {
+        "x": 14.7,
+        "y": 23.54
+      },
+      "size": {
+        "x": 3,
+        "y": 3
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 1.15,
+        "y": 0.5
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": -0.2
+      },
+      "triggerSize": {
+        "x": 1.3,
+        "y": 1
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": -1.5,
+      "sortingOrder": 2,
+      "image": "house1",
+      "script": "Inv_InteractionObj_Map1_Houses",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/House12",
+      "position": {
+        "x": 18.18,
+        "y": 15.1
+      },
+      "size": {
+        "x": 3,
+        "y": 3
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 1.15,
+        "y": 0.5
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": -0.2
+      },
+      "triggerSize": {
+        "x": 1.3,
+        "y": 1
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": -1.5,
+      "sortingOrder": 2,
+      "image": "house1",
+      "script": "Inv_InteractionObj_Map1_Houses",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/House13",
+      "position": {
+        "x": -15.61,
+        "y": 14.8
+      },
+      "size": {
+        "x": 3,
+        "y": 3
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 1.15,
+        "y": 0.5
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": -0.2
+      },
+      "triggerSize": {
+        "x": 1.3,
+        "y": 1
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": -1.5,
+      "sortingOrder": 2,
+      "image": "house1",
+      "script": "Inv_InteractionObj_Map1_Houses",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/House14",
+      "position": {
+        "x": -8.66,
+        "y": 27.03
+      },
+      "size": {
+        "x": 3,
+        "y": 3
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 1.15,
+        "y": 0.5
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": -0.2
+      },
+      "triggerSize": {
+        "x": 1.3,
+        "y": 1
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": -1.5,
+      "sortingOrder": 2,
+      "image": "house1",
+      "script": "Inv_InteractionObj_Map1_Houses",
+      "manually_touchable": false
     },
     {
       "title": "Map1/Beehive",
       "position": {
-        "x": 6.01,
-        "y": 8.21
+        "x": -22.11,
+        "y": 12.81
       },
       "size": {
         "x": 0.5,
@@ -360,7 +756,40 @@
       },
       "hideCriteria": 0,
       "sortingOrder": 4,
-      "image": "벌집",
+      "image": "beehive",
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/Bush1",
+      "position": {
+        "x": -0.59,
+        "y": 20.84
+      },
+      "size": {
+        "x": 1,
+        "y": 1
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 1,
+        "y": 1
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 4,
+      "image": "bush1",
       "script": "",
       "manually_touchable": false
     },
@@ -393,15 +822,15 @@
       },
       "hideCriteria": -0.5,
       "sortingOrder": 10,
-      "image": "Guard1",
+      "image": "writer",
       "script": "Inv_InteractionObj_Map1_Guard1",
       "manually_touchable": true
     },
     {
       "title": "Map1/Writer",
       "position": {
-        "x": 5.55,
-        "y": 13.72
+        "x": 21.4,
+        "y": 19.53
       },
       "size": {
         "x": 1,
@@ -426,15 +855,15 @@
       },
       "hideCriteria": -0.5,
       "sortingOrder": 10,
-      "image": "작가",
+      "image": "writer",
       "script": "Inv_InteractionObj_Map1_Writer",
       "manually_touchable": true
     },
     {
       "title": "Map1/GuideToCave",
       "position": {
-        "x": 0.23,
-        "y": 19.4
+        "x": -3.22,
+        "y": 21.49
       },
       "size": {
         "x": 1,
@@ -466,8 +895,8 @@
     {
       "title": "Map1/WitchMother",
       "position": {
-        "x": -15,
-        "y": 30
+        "x": -5.5,
+        "y": 26
       },
       "size": {
         "x": 1,
@@ -483,8 +912,8 @@
         "y": -0.3
       },
       "triggerSize": {
-        "x": 3,
-        "y": 3
+        "x": 6.5,
+        "y": 6.5
       },
       "triggerOffset": {
         "x": 0,
@@ -497,10 +926,76 @@
       "manually_touchable": true
     },
     {
+      "title": "Map1/SurroundingWitchMother1",
+      "position": {
+        "x": -5,
+        "y": 26
+      },
+      "size": {
+        "x": 1,
+        "y": 1
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 0.1,
+        "y": 0.1
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": -100,
+      "sortingOrder": 10,
+      "image": "Player",
+      "script": "Inv_InteractionObj_Map1_SurroundingWitchMother",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/SurroundingWitchMother2",
+      "position": {
+        "x": -5.16,
+        "y": 25.19
+      },
+      "size": {
+        "x": 1,
+        "y": 1
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 0.1,
+        "y": 0.1
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": -100,
+      "sortingOrder": 10,
+      "image": "Player",
+      "script": "Inv_InteractionObj_Map1_SurroundingWitchMother",
+      "manually_touchable": false
+    },
+    {
       "title": "Map1/Pigeon",
       "position": {
-        "x": 5.93,
-        "y": 13.33
+        "x": 20.04,
+        "y": 20.09
       },
       "size": {
         "x": 0.5,
@@ -525,19 +1020,19 @@
       },
       "hideCriteria": 0,
       "sortingOrder": 12,
-      "image": "새",
+      "image": "pigeon",
       "script": "Inv_InteractionObj_Map1_Pigeon",
       "manually_touchable": false
     },
     {
       "title": "Map1/Note_On_Ground",
       "position": {
-        "x": 8,
-        "y": 12
+        "x": -0.87,
+        "y": 7.53
       },
       "size": {
-        "x": 0.5,
-        "y": 0.5
+        "x": 1,
+        "y": 1
       },
       "colliderShape": "box",
       "colliderSize": {
@@ -558,15 +1053,15 @@
       },
       "hideCriteria": 0,
       "sortingOrder": 50,
-      "image": "떨어진노트",
+      "image": "note_on_the_ground",
       "script": "Inv_InteractionObj_Map1_Note_On_Ground",
       "manually_touchable": true
     },
     {
       "title": "Map1/ButterflyNet",
       "position": {
-        "x": 5.57,
-        "y": 7.58
+        "x": -22.82,
+        "y": 11.83
       },
       "size": {
         "x": 0.5,
@@ -591,15 +1086,15 @@
       },
       "hideCriteria": 0,
       "sortingOrder": 52,
-      "image": "잠자리채",
+      "image": "butterflynet_torn",
       "script": "Inv_InteractionObj_Map1_ButterflyNet",
       "manually_touchable": true
     },
     {
       "title": "Map1/FishNet",
       "position": {
-        "x": 8.31,
-        "y": 17.31
+        "x": 30.02,
+        "y": 20.92
       },
       "size": {
         "x": 1,
@@ -624,19 +1119,19 @@
       },
       "hideCriteria": 0,
       "sortingOrder": 52,
-      "image": "그물",
+      "image": "fishnet",
       "script": "Inv_InteractionObj_Map1_FishNet",
       "manually_touchable": true
     },
     {
       "title": "Map1/Trashcan",
       "position": {
-        "x": -17.85,
-        "y": 33.13
+        "x": 8.15,
+        "y": 20.79
       },
       "size": {
-        "x": 0.5,
-        "y": 0.5
+        "x": 1,
+        "y": 1
       },
       "colliderShape": "box",
       "colliderSize": {
@@ -657,7 +1152,7 @@
       },
       "hideCriteria": 0,
       "sortingOrder": 52,
-      "image": "그물",
+      "image": "trashcan_w_cloth",
       "script": "Inv_InteractionObj_Map1_Trashcan",
       "manually_touchable": true
     }

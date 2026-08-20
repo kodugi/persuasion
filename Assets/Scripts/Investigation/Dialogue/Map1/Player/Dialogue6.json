@@ -1,0 +1,113 @@
+{
+    "title": "주인공",
+    "path": [
+        {
+            "description": "오늘 너무 많은 일이 있었어.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 1,
+                    "effects": [
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "나도 모르게 능력을 네 번이나 써버렸네. 이렇게 많이 쓰면 안 되는데.....",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 2,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": ".....",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 3,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "아냐, 언니를 찾기 위해서니까, 이 정도는 감수할 수 있어.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 4,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "언니를 찾을 때까지만 영혼을 쓰고…. 그 뒤에는 정말 멈추는 거야.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 5,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "영혼이 바닥나기 전에는 어떻게든 찾을 수 있겠지.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 6,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "뭐든 다 할 수 있어. 다시 예전으로 돌아갈 수만 있다면.....",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 7,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "......",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 8,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "....얼른 자자.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": -1,
+                    "effects": [
+                        {
+                            "type": "variation",
+                            "target": "Map1/Player",
+                            "parameters": [
+                                0
+                            ]
+                        },
+                        {
+                            "type": "cutScene",
+                            "title": "LoadDreamScene"
+                        },
+                        {
+                            "type": "progress",
+                            "key": "dreamt",
+                            "value": true
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

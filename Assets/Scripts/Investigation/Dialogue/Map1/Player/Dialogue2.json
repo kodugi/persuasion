@@ -1,0 +1,138 @@
+{
+    "title": "",
+    "path": [
+        {
+            "description": ".....이상한 시선이 몸에 엉겨붙는 것이 느껴졌다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 1,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "한 사람만의 것이 아니었다. 여러 사람이 집요하게 나를 갉아먹듯 쳐다보고 있었다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 2,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "나는 이 감각이 전혀 낯설지 않았다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 3,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "나와 나의 언니가 괴물이라고 외치던 이들이 던지던 시선과 같은 류의 시선이었다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 4,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "그건 나를 쳐다보는 사람들과 굳이 눈을 마주하지 않고도 알 수 있는 사실이었다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 5,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "피부가 겉에서부터 타들어가는 감각에서, 나는 그들의 눈빛에 담긴 명백한 적대감을 느꼈다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 6,
+                    "effects": [
+                        {
+                            "type": "changeTitle",
+                            "title": "주인공"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_3A",
+                            "position": 2
+                        }
+                    
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "(진정하자, 진정.....)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 7,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(그냥 기분 탓일 수도 있잖아. 내가 아까 죽을 뻔 했던 것 때문에 괜한 망상을 하는 건가....)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 8,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(.....)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 9,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(그런데 이 거리....)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 10,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(원래 이렇게 길에 서 있는 사람들이 많았던가?)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": -1,
+                    "effects": [
+                        {
+                            "type": "variation",
+                            "target": "Map1/Road_Running_Trigger",
+                            "parameters": [
+                                2
+                            ]
+                        },
+                        {
+                            "type": "cutScene",
+                            "title": "ObservePeopleOnRoad"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

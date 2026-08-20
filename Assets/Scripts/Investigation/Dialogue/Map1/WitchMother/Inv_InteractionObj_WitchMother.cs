@@ -1,5 +1,10 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Investigation
 {
@@ -8,6 +13,8 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
         Inv_PlayerCTRL playerCTRL;
         Inv_Interact interactManager;
         bool amIInteracting = false;
+        bool haveWarned = false;
+        float walkingSpeed = 1.5f;
         
         override protected void Starter()
         {
@@ -16,6 +23,7 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
         }
         override public void CheckState()
         {
+            int original_state = state;
             base.CheckState();
             //print(state);
             if (state==0)
@@ -31,21 +39,30 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
                 }
                 else state=1;
             }
-            else if (state == 3 || state ==4)
+            else if (state ==3)
             {
                 object possessed = saveManager.LoadProgress("possessedWitchsCloth");
-                if (possessed is bool b && b == true)
+                bool isPossessed = possessed switch
                 {
-                    state = 5;
+                    bool b => b,
+                    JValue j => j.Value<bool>(),
+                    _ => false
+                };
+                if (isPossessed)
+                {
+                    state = 4;
                 }
             }
             saveManager.AddProgress(obj_name + "state", state);
-            if(amIInteracting) interactManager.ForceInteraction(obj_name);
+            if(amIInteracting && original_state != state)
+            {
+                interactManager.ForceInteraction(obj_name);
+            }
         }
-        override public void StartInteraction()
+        override public string StartInteraction()
         {
             amIInteracting = true;
-            base.StartInteraction();
+            return base.StartInteraction();
         }
         override public void EndInteraction()
         {
@@ -62,19 +79,111 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
                         state=1;
                         gameObject.transform.GetChild(0).GetComponent<BoxCollider2D>().enabled=true;
                         break;
-                    case "requested":
-                        state=4;
+                    case "Persuade":
+                        state = 5;
                         break;
                     case "Accepted":
+                        // 여자 애니메이션
+                        interactManager.Effects(
+                            new JObject
+                            {
+                                ["type"]="variation",
+                                ["target"]="Map1/Dream_Trigger",
+                                ["parameters"]=new JArray{1}
+                            }
+                        );
+                        interactManager.Effects(
+                            new JObject
+                            {
+                                ["type"]="variation",
+                                ["target"]="Map1/Player",
+                                ["parameters"]=new JArray{3}
+                            }
+                        );
                         state=6;
+                        StartCoroutine(WalkingMotion());
                         break;
                     case "alone":
                         state=3;
                         gameObject.GetComponent<BoxCollider2D>().size = new Vector2(0.4f, 1f);
                         break;
+                    case "Dispersed":
+                        FadeSwitch(2, 0, 0, 1f);
+                        break;
                 }
             }
             base.variation();
         }
+        void OnTriggerEnter2D(Collider2D col)
+        {
+            if (col.gameObject.CompareTag("Player"))
+            {
+                if (state == 1)
+                {
+                    if(!haveWarned)
+                    {
+                        interactManager.Effects(
+                            new JObject
+                            {
+                                ["type"]="variation",
+                                ["target"]="Map1/Player",
+                                ["parameters"]=new JArray{4}
+                            }
+                        );
+                        interactionManager.ForceInteraction("Map1/Player");
+                        haveWarned = true;
+                    }
+                }
+            }
+        }
+        private IEnumerator WalkingMotion()
+        {
+            playerCTRL.CanPlayerMove(false);
+
+            var pathHandle =
+                Addressables.LoadAssetAsync<GameObject>("Map1_WitchMotherPathPrefab");
+
+            yield return pathHandle;
+
+            if (pathHandle.Status != AsyncOperationStatus.Succeeded)
+            {
+                Debug.LogError("GuideToCavePathPrefab 로드 실패");
+                yield break;
+            }
+
+            GameObject pathObj = pathHandle.Result;
+
+
+            GameObject colliderChild =
+                transform.GetChild(0).gameObject;
+
+            colliderChild.SetActive(false);
+
+            foreach (Transform child in pathObj.transform)
+            {
+                Vector3 targetP = child.localPosition;
+
+                while (Vector3.Distance(transform.position,targetP) > 0.1f)
+                {
+                    transform.position =
+                        Vector3.MoveTowards(
+                            transform.position,
+                            targetP,
+                            walkingSpeed * Time.deltaTime
+                        );
+
+                    yield return null;
+                }
+                transform.position = targetP;
+            }
+            // Addressables 해제
+            Destroy(pathObj);
+            Addressables.Release(pathHandle);
+            gameObject.SetActive(false);
+
+            playerCTRL.CanPlayerMove(true);
+        }
+    
+
     }
 }

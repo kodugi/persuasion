@@ -11,16 +11,20 @@ public class Inv_InteractionObj_Map1_Writer: Inv_InteractionObj
                 switch (parameter)
                 {
                     case "Met":
-                        state=3;
+                        if(saveManager.progress.ContainsKey("notePossessed") && (bool)saveManager.progress["notePossessed"] == true) state = 5;
+                        else state=4;
                         break;
                     case "PenGiven":
-                        state=4;
+                        state=6;
                         break;
                     case "PigeonDistracted":
-                        state=1;
-                        break;
-                    case "PigeonRemoved":
                         state=2;
+                        break;
+                    //case "PigeonRemoved":
+                        //state=3;
+                        //break;
+                    case "NeedNote":
+                        state=1;
                         break;
                 }
             }
