@@ -199,6 +199,11 @@ namespace Investigation
                 interactable.GetComponent<Inv_InteractionObj>().hideCriteria = obj.hideCriteria;
                 interactable.GetComponent<Inv_InteractionObj>().manuallyTouchable = obj.manually_touchable;
                 interactable.GetComponent<Inv_InteractionObj>().images = obj.image;
+                if (obj.image.Count > 0 && obj.image[0] == "fullblack")
+                {
+                    interactable.GetComponent<SpriteRenderer>().sortingOrder = -200;
+                    interactable.GetComponent<SpriteRenderer>().enabled = false;
+                }
                 //interactable.GetComponent<Inv_InteractionObj>().singleImage = obj.singleImage;
                 if (Mathf.Abs(obj.colliderSize.x) + Mathf.Abs(obj.colliderSize.y) > 0.00001f)
                 {

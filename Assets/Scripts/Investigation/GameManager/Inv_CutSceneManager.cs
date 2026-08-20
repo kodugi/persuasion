@@ -120,8 +120,12 @@ namespace Investigation
                     playerCTRL.gameObject.SetActive(false);
                     playerCTRL.gameObject.transform.position = interactManager.FindInteractableObj("Map1/House_WitchMother").position;
                     yield return FadeScreen(true);
-                    yield return FadeScreen(false);
                     interactManager.FindInteractableObj("Map1/House_WitchMother").gameObject.GetComponent<Inv_InteractionObj>().FadeSwitch(0,1,0,0);
+                    interactManager.FindInteractableObj("Map1/BlackCover").GetComponent<SpriteRenderer>().enabled = true;
+                    interactManager.FindInteractableObj("Map1/BlackCover").GetComponent<SpriteRenderer>().sortingOrder = 200;
+                    interactManager.FindInteractableObj("Map1/House_WitchMother").GetComponent<SpriteRenderer>().sortingOrder = 300;
+                    playerCTRL.gameObject.GetComponent<SpriteRenderer>().sortingOrder = 400;
+                    yield return FadeScreen(false);
                     interactManager.ForceInteraction("Map1/Player");
                     break;
 

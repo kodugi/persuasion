@@ -56,6 +56,11 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
                     state = 4;
                 }
             }
+            if (state >= 3)
+            {
+                gameObject.GetComponent<BoxCollider2D>().size = new Vector2(0.4f, 1f);
+                gameObject.transform.GetChild(0).GetComponent<BoxCollider2D>().enabled=false;
+            }
             saveManager.AddProgress(obj_name + "state", state);
             if(amIInteracting && original_state != state && !(state==1 && !haveWarned))
             {
@@ -133,7 +138,7 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
         {
             yield return StartCoroutine(MoveSmoothly(interactManager.FindInteractableObj("Map1/House_WitchMother").position, duration:2));
             gameObject.GetComponent<SpriteRenderer>().enabled=false;
-            Destroy(gameObject.GetChild(0).gameObject);
+            Destroy(gameObject.transform.GetChild(0).gameObject);
         }
         private IEnumerator WalkingMotion()
         {

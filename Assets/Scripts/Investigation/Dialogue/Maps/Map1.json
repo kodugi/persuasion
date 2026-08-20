@@ -2,6 +2,39 @@
   "title": "Map1",
   "interactables": [
     {
+      "title": "Map1/BlackCover",
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "size": {
+        "x": 1000,
+        "y": 1000
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 1,
+        "y": 1
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": -100,
+      "image": ["fullblack"],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
       "title": "CaveCollider0",
       "position": {
         "x": 48,
