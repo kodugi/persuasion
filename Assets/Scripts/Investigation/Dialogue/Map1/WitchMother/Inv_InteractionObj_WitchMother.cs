@@ -103,8 +103,15 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
                                 ["parameters"]=new JArray{3}
                             }
                         );
+                        interactManager.Effects(
+                            new JObject
+                            {
+                                ["type"]="thought",
+                                ["thought"]="여자가 왼쪽에 있는 집으로 들어갔다."
+                            }
+                        );
                         state=6;
-                        StartCoroutine(WalkingMotion());
+                        StartCoroutine(WalkingMotionTemp());
                         break;
                     case "alone":
                         state=3;
@@ -120,6 +127,13 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
                 }
             }
             base.variation();
+        }
+        
+        private IEnumerator WalkingMotionTemp()
+        {
+            yield return StartCoroutine(MoveSmoothly(interactManager.FindInteractableObj("Map1/House_WitchMother").position, duration:2));
+            gameObject.GetComponent<SpriteRenderer>().enabled=false;
+            Destroy(gameObject.GetChild(0).gameObject);
         }
         private IEnumerator WalkingMotion()
         {
