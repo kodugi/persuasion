@@ -1,11 +1,11 @@
 {
-    "title": "",
+    "title": "여자의 집",
     "path": [
         {
-            "description": "()",
+            "description": "(들어가자.)",
             "buttons": [
                 {
-                    "title": "들어가자.",
+                    "title": "",
                     "next": -1,
                     "effects": [
                         {
