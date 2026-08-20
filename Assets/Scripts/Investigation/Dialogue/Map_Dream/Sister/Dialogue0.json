@@ -1,31 +1,626 @@
 {
-    "title": "언니",
-    "path": [
+  "title": "주인공",
+  "LD_images": ["LD_Player_2A", "", ""],
+  "path": [
+    {
+      "description": "언니!",
+      "buttons": [
         {
-            "description": "(언니 대사)",
-            "buttons":[
-                {
-                    "title": "(진행)",
-                    "next": 1,
-                    "effects": []
-                }
-            ]
-        },
-        {
-            "description": "(설득 돌입)",
-            "buttons":[
-                {
-                    "title": "설득 시작",
-                    "next": -1,
-                    "effects": [
-                        {
-                            "type": "persuade",
-                            "title": "Map_Dream_Sister"
-                        }
-                    ]
-                }
-            ]
+          "title": "(다음)",
+          "next": 1,
+          "effects": []
         }
-    ]
-
+      ]
+    },
+    {
+      "description": "왜 여기 있어? 그동안 어디 있었던 거야...?",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 2,
+          "effects": []
+        }
+      ]
+    },
+    {
+      "description": "난 언니가 죽은 줄 알았어...",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 3,
+          "effects": [
+            {
+              "type": "changeImage",
+              "image": "LD_Player_5A",
+              "position": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "왜 그동안 연락을... 헉.",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 4,
+          "effects": [
+            {
+              "type": "changeTitle",
+              "title": ""
+            },
+            {
+              "type": "changeImage",
+              "image": "",
+              "position": 0
+            },
+            {
+              "type": "changeImage",
+              "image": "",
+              "position": 1
+            },
+            {
+              "type": "changeImage",
+              "image": "",
+              "position": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "언니가 고개를 돌려 나를 바라보자마자 나는 너무 놀라 입을 다물 수밖에 없었다.",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 5,
+          "effects": []
+        }
+      ]
+    },
+    {
+      "description": "언니의 이마에서는 피가 흐르고 있었다. 날카로운 표면에 의해 피부가 찢어진 상처가 뚜렷하게 보였다.",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 6,
+          "effects": []
+        }
+      ]
+    },
+    {
+      "description": "분명 경악한 나의 표정을 보았을 텐데도 언니는 아무렇지 않게 손에 든 눈사람을 나에게 내밀며 미소를 지었다.",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 7,
+          "effects": [
+            {
+              "type": "changeTitle",
+              "title": "언니"
+            },
+            {
+              "type": "changeImage",
+              "image": "LD_Sister_2A",
+              "position": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "오랜만이네.",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 8,
+          "effects": [
+            {
+              "type": "changeImage",
+              "image": "LD_Sister_1A",
+              "position": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "이거 봐봐. 구름으로 만든 눈사람이야.",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 9,
+          "effects": []
+        }
+      ]
+    },
+    {
+      "description": "여기 있는 구름은 손으로 뭉칠 수 있더라. 함박눈처럼. 신기하지?",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 10,
+          "effects": [
+            {
+              "type": "changeTitle",
+              "title": "주인공"
+            },
+            {
+              "type": "changeImage",
+              "image": "LD_Player_5A",
+              "position": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "지금 그게 중요한 게 아니잖아...!",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 11,
+          "effects": []
+        }
+      ]
+    },
+    {
+      "description": "괜찮아? 어쩌다가 다친 거야?",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 12,
+          "effects": [
+            {
+              "type": "changeTitle",
+              "title": "언니"
+            },
+            {
+              "type": "changeImage",
+              "image": "LD_Sister_3A",
+              "position": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "응?",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 13,
+          "effects": []
+        }
+      ]
+    },
+    {
+      "description": "아, 이거... 별 거 아냐.",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 14,
+          "effects": [
+            {
+              "type": "changeTitle",
+              "title": ""
+            },
+            {
+              "type": "changeImage",
+              "image": "",
+              "position": 0
+            },
+            {
+              "type": "changeImage",
+              "image": "",
+              "position": 1
+            },
+            {
+              "type": "changeImage",
+              "image": "",
+              "position": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "언니는 내 질문을 어물쩡 넘겼지만, 나는 이미 무슨 일이 일어났는지 어느 정도 짐작할 수 있었다.",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 15,
+          "effects": []
+        }
+      ]
+    },
+    {
+      "description": "아마 또 누군가가 스스로를 못된 악마를 처단하는 정의의 용사라고 착각한 거겠지.",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 16,
+          "effects": []
+        }
+      ]
+    },
+    {
+      "description": "이미 수백번도 더 있었던 일이라 화낼 힘도 없었다. 나는 말없이 구름을 모아 언니의 얼굴을 타고 흐르는 피를 닦아주었다.",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 17,
+          "effects": []
+        }
+      ]
+    },
+    {
+      "description": "나는 언니를 물끄러미 쳐다보았다. 한눈에 보기에도 작지 않은 상처를 얼굴에 달고도 언니의 머릿속은 깨끗했다.",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 18,
+          "effects": []
+        }
+      ]
+    },
+    {
+      "description": "고통으로 추정되는 아주 작은 검은 덩어리들만이 간간이 흐릿하게 보일 뿐이었다.",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 19,
+          "effects": [
+            {
+              "type": "changeTitle",
+              "title": "주인공"
+            },
+            {
+              "type": "changeImage",
+              "image": "LD_Player_8A",
+              "position": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "(......진짜로 안 아파서 그럴 리는 없을 거고.)",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 20,
+          "effects": []
+        }
+      ]
+    },
+    {
+      "description": "(또 일부러 감정을 내가 볼 수 없는 곳에 묻어둔 거겠지...)",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 21,
+          "effects": [
+            {
+              "type": "changeTitle",
+              "title": ""
+            },
+            {
+              "type": "changeImage",
+              "image": "",
+              "position": 0
+            },
+            {
+              "type": "changeImage",
+              "image": "",
+              "position": 1
+            },
+            {
+              "type": "changeImage",
+              "image": "",
+              "position": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "내가 사람을 쳐다보는 것만으로 들여다볼 수 있는 건 의식의 가장 얕은 층 뿐이다.",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 22,
+          "effects": []
+        }
+      ]
+    },
+    {
+      "description": "그 이상으로 들어가려면 의도적으로 상대의 머릿속에 접속해야 한다. 깊은 층에 있는 감정들일수록 확인하기가 힘들다.",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 23,
+          "effects": []
+        }
+      ]
+    },
+    {
+      "description": "그걸 알고 있던 언니는 항상 부정적인 감정들을 가장 깊은 의식 속에 묻어두고, 내가 언니의 머릿속에 접속하려고 하면 나를 혼냈다.",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 24,
+          "effects": []
+        }
+      ]
+    },
+    {
+      "description": "나에게 괜한 걱정을 끼치기 싫다는 이유에서였다.",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 25,
+          "effects": [
+            {
+              "type": "changeTitle",
+              "title": "주인공"
+            },
+            {
+              "type": "changeImage",
+              "image": "LD_Player_8A",
+              "position": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "언니, 괜찮은 척 하는 거 다 알아... 맨날 이런 일을 겪으면서 괜찮을 사람이 세상에 어디 있겠어.",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 26,
+          "effects": []
+        }
+      ]
+    },
+    {
+      "description": "내가 조금이라도 돕게 해줘. 부탁이야. ",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 27,
+          "effects": []
+        }
+      ]
+    },
+    {
+      "description": "내가 언니 머릿속에 접속해서 언니가 갖고 있는 부정적인 감정들을 좀 없애면-",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 28,
+          "effects": [
+            {
+              "type": "changeTitle",
+              "title": "언니"
+            },
+            {
+              "type": "changeImage",
+              "image": "LD_Sister_3A",
+              "position": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "안돼. 네 영혼을 그런 데다 쓰면 어떡해.",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 29,
+          "effects": [
+            {
+              "type": "changeTitle",
+              "title": "주인공"
+            },
+            {
+              "type": "changeImage",
+              "image": "",
+              "position": 0,
+              "pendingImage": "주인공 추가 스탠딩 ㅇㅇㅇ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "내 영혼 좀 쓰는 게 뭐가 어때서!",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 30,
+          "effects": [
+            {
+              "type": "changeImage",
+              "image": "LD_Player_8A",
+              "position": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "나에 대한 감정은 아니라 엄청난 효과는 없을지도 모르지만... 그래도 안 하는 것보다는 확실히 나을 거야.",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 31,
+          "effects": [
+            {
+              "type": "changeTitle",
+              "title": "언니"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "정말 그럴 필요 없어... 난 진짜 괜찮다니까.",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 32,
+          "effects": []
+        }
+      ]
+    },
+    {
+      "description": "네 마음대로 내 머릿속에 들어가면 혼날 줄 알아.",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 33,
+          "effects": [
+            {
+              "type": "changeImage",
+              "image": "LD_Sister_1A",
+              "position": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "자, 이런 얘기는 그만하고. 나랑 같이 눈사람이나 만들자. 응?",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 34,
+          "effects": []
+        }
+      ]
+    },
+    {
+      "description": "이런 신기한 곳에 맨날 올 수 있는 건 아니잖아.",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 35,
+          "effects": [
+            {
+              "type": "changeTitle",
+              "title": "주인공"
+            },
+            {
+              "type": "changeImage",
+              "image": "",
+              "position": 0
+            },
+            {
+              "type": "changeImage",
+              "image": "",
+              "position": 1
+            },
+            {
+              "type": "changeImage",
+              "image": "",
+              "position": 2,
+              "pendingImage": "주인공 추가 스탠딩 ㅇㅇㅇ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "(......)",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 36,
+          "effects": []
+        }
+      ]
+    },
+    {
+      "description": "(맨날 이런 식이야, 언니는.)",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 37,
+          "effects": []
+        }
+      ]
+    },
+    {
+      "description": "(언니는 진짜로 이러는 게 날 위하는 일인 줄 아는 건가?)",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 38,
+          "effects": []
+        }
+      ]
+    },
+    {
+      "description": "(나는 내 영혼이 덜 깎여나가는 것보다 언니가 조금이나마 더 행복해지는 게 훨씬 중요한데......)",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 39,
+          "effects": [
+            {
+              "type": "changeImage",
+              "image": "LD_Player_8A",
+              "position": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "(...)",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 40,
+          "effects": []
+        }
+      ]
+    },
+    {
+      "description": "(그동안 몰래 접속하려고 할 때마다 항상 들키긴 했지만...)",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 41,
+          "effects": [
+            {
+              "type": "changeImage",
+              "image": "LD_Player_2A",
+              "position": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "(딱 한 번만 더 시도해 볼까?)",
+      "buttons": [
+        {
+          "title": "설득 시작",
+          "next": -1,
+          "effects": [
+            {
+              "type": "persuade",
+              "title": "Map_Dream_Sister",
+              "returnMap": "Map_House",
+              "autoReturn": "Map_House/AfterDream"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

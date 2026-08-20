@@ -1,0 +1,45 @@
+{
+  "title": "주인공",
+  "path": [
+    {
+      "description": "헉…!",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 1,
+          "effects": []
+        }
+      ]
+    },
+    {
+      "description": "뭐, 뭐야…… 꿈이네.",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 2,
+          "effects": []
+        }
+      ]
+    },
+    {
+      "description": "무슨 이런 꿈이 다 있어……",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 3,
+          "effects": []
+        }
+      ]
+    },
+    {
+      "description": "…슬슬 일어나자. 다시 언니를 찾으러 가봐야지.",
+      "buttons": [
+        {
+          "title": "(대사를 마친다)",
+          "next": -1,
+          "effects": []
+        }
+      ]
+    }
+  ]
+}

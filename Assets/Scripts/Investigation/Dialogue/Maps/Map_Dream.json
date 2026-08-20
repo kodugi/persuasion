@@ -2,6 +2,39 @@
   "title": "Map_Dream",
   "interactables": [
     {
+      "title": "Map_Dream/Intro",
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "size": {
+        "x": 1,
+        "y": 1
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 0,
+      "image": [],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
       "title": "Map_Dream_Wall",
       "position": {
         "x": 8,
@@ -153,8 +186,8 @@
         "y": 0
       },
       "triggerSize": {
-        "x": 1,
-        "y": 1
+        "x": 3,
+        "y": 3
       },
       "triggerOffset": {
         "x": 0,
@@ -163,7 +196,7 @@
       "hideCriteria": 0,
       "sortingOrder": 5,
       "image": "",
-      "script": "",
+      "script": "Inv_InteractionObj_Map_Dream_Sister",
       "manually_touchable": false
     }
   ]

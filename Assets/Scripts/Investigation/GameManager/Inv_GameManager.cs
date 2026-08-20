@@ -209,18 +209,28 @@ namespace Investigation
             }
 
             string automaticDialogue = null;
+            bool isDialogueOnlyMap = false;
             if (currScene == "Map_House")
             {
-                automaticDialogue = "Map_House/Cutscene";
+                isDialogueOnlyMap = true;
+                if (!chiefManager.HasPendingAutoInteractionOnReturn)
+                {
+                    automaticDialogue = "Map_House/Cutscene";
+                }
                 Camera.main.backgroundColor = Color.black;
             }
             else if (currScene == "Map1_Intro")
             {
+                isDialogueOnlyMap = true;
                 automaticDialogue = "Map1_Intro/Cutscene";
                 Camera.main.backgroundColor = Color.black;
             }
+            else if (currScene == "Map_Dream")
+            {
+                automaticDialogue = "Map_Dream/Intro";
+            }
 
-            if (automaticDialogue != null)
+            if (isDialogueOnlyMap)
             {
                 isDialogueOnlyScene = true;
                 Inv_PlayerCTRL player = FindFirstObjectByType<Inv_PlayerCTRL>();
@@ -229,6 +239,10 @@ namespace Investigation
                 CloseInventory();
                 noteButton.SetActive(false);
                 notePanel.SetActive(false);
+            }
+
+            if (automaticDialogue != null)
+            {
                 StartCoroutine(StartAutomaticDialogue(automaticDialogue));
             }
         }
@@ -244,10 +258,13 @@ namespace Investigation
             //print(chiefManager.inv_Scene_ID);
             return chiefManager.inv_Scene_ID;
         }
-        public void LoadGameScene(string id, string autoInteractionOnReturn)
+        public void LoadGameScene(
+            string id,
+            string autoInteractionOnReturn,
+            string returnInvestigationScene = null)
         {
             print(id);
-            chiefManager.StartPersuasion(id, autoInteractionOnReturn);
+            chiefManager.StartPersuasion(id, autoInteractionOnReturn, returnInvestigationScene);
         }
         public void LoadAnotherInvestigationScene(string id, string autoInteractionOnReturn=null)
         {

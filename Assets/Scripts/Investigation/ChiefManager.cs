@@ -20,6 +20,7 @@ public partial class ChiefManager : MonoBehaviour
     string return_Inv_Scene_ID="";
     private Vector3? invSceneLastPos=null;
     private string autoInteractOnReturntoInv=null;
+    public bool HasPendingAutoInteractionOnReturn => !string.IsNullOrEmpty(autoInteractOnReturntoInv);
     public List<string> sceneNames = new List<string>{"Start", "GamePlayScene", "Investigation", "GamePlayScene"};
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -151,16 +152,18 @@ public partial class ChiefManager : MonoBehaviour
         invSceneLastPos = null;
         autoInteractOnReturntoInv = null;
     }
-    public void StartPersuasion(string id, string autoInteractionOnReturn)
+    public void StartPersuasion(string id, string autoInteractionOnReturn, string returnInvestigationScene = null)
     {
         autoInteractOnReturntoInv = autoInteractionOnReturn;
         LoadingMotion();
-        StartCoroutine(StartPersuasionScene(id));
+        StartCoroutine(StartPersuasionScene(id, returnInvestigationScene));
     }
-    IEnumerator StartPersuasionScene(string id)
+    IEnumerator StartPersuasionScene(string id, string returnInvestigationScene)
     {
         ExitScene(true);
-        return_Inv_Scene_ID = inv_Scene_ID;
+        return_Inv_Scene_ID = string.IsNullOrEmpty(returnInvestigationScene)
+            ? inv_Scene_ID
+            : returnInvestigationScene;
         inv_Scene_ID = "";
         per_Scene_ID = id;
 
