@@ -139,7 +139,12 @@
                 {
                     "title": "",
                     "next": 10,
-                    "effects": []
+                    "effects": [
+                        {
+                            "type": "cutScene",
+                            "title": "Map1_Cave_Hide"
+                        }
+                    ]
                 }
             ]
         },
@@ -149,7 +154,12 @@
                 {
                     "title": "",
                     "next": 11,
-                    "effects": []
+                    "effects": [
+                        {
+                            "type": "cutScene",
+                            "title": "Map1_Cave_GrannyShowup"
+                        }
+                    ]
                 }
             ]
         },
@@ -224,7 +234,12 @@
                             "type": "changeImage",
                             "image": "LD_Player_9A",
                             "position": 0
+                        },
+                        {
+                            "type": "cutScene",
+                            "title": "Map1_Cave_ShowUp"
                         }
+                    
                     
                     ]
                 }

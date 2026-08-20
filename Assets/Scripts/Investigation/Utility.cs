@@ -206,6 +206,7 @@ namespace Investigation
             if(_start == null) _start = obj.transform.position;
 
             Vector3 start = (Vector3)_start;
+            obj.transform.position = start;
 
             float elapsed = 0f;
             while (elapsed < duration)

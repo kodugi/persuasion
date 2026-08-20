@@ -567,6 +567,41 @@
       "manually_touchable": false
     },
     {
+      "title": "Map1/Cave_Back",
+      "position": {
+        "x": 50.11,
+        "y": 0.64
+      },
+      "size": {
+        "x": 10,
+        "y": 10
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 4,
+      "image": [
+        "cave_back"
+      ],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
       "title": "Map1/House_Gathering",
       "position": {
         "x": -3.87,

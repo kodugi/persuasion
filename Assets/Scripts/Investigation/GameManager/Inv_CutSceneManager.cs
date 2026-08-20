@@ -220,6 +220,36 @@ namespace Investigation
                     yield return FadeScreen(true, duration:0.5f, obj:screenReddener, highOpacity:0.3f);
                     yield return FadeScreen(false, duration:0.5f, obj:screenReddener, highOpacity:0.3f);
                     break;
+                
+                case "Map1_Cave_Hide":
+                    Vector3 caveHidingPos = new Vector3(41.7f, -1.7f, 0);
+                    yield return StartCoroutine(MoveSmoothly(caveHidingPos, obj:playerCTRL.gameObject));
+                    break;
+                case "Map1_Cave_GrannyShowup":
+                    Vector3 caveGrannyFinalPos = new Vector3(44f, -1.6f, 0);
+                    
+                    var caveGrannyPrefabHandle =
+                        Addressables.LoadAssetAsync<GameObject>("CaveGrannyPrefab");
+                    yield return caveGrannyPrefabHandle;
+                    if (caveGrannyPrefabHandle.Status != AsyncOperationStatus.Succeeded)
+                    {
+                        Debug.LogError("caveGrannyPrefab 로드 실패");
+                        Addressables.Release(caveGrannyPrefabHandle);
+                        yield break;
+                    }
+                    GameObject caveGrannyPrefab = caveGrannyPrefabHandle.Result;
+
+                    GameObject grannySD = Instantiate(caveGrannyPrefab,interactManager.FindInteractableObj("Map1/Cave").position, Quaternion.identity);
+                    grannySD.GetComponent<Animator>().SetBool("isWalking", true);
+                    yield return StartCoroutine(MoveSmoothly(caveGrannyFinalPos, obj:grannySD, duration:4));
+                    grannySD.GetComponent<Animator>().SetBool("isWalking", false);
+                    yield return new WaitForSeconds(2);
+
+                    break;
+                case "Map1_Cave_ShowUp":
+                    Vector3 caveShowupPos = new Vector3(43.2f, -3f, 0);
+                    yield return StartCoroutine(MoveSmoothly(caveShowupPos, obj:playerCTRL.gameObject));
+                    break;
             }
         }
         public Coroutine FadeScreen(bool fadeIn, float delay=0f, float duration=1f, GameObject obj=null, float lowOpacity = 0f, float highOpacity = 1f)
