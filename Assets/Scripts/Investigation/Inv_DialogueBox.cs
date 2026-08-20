@@ -111,11 +111,12 @@ namespace Investigation
             else
             {
                 singleOption_nextIndex = -100;
-                for(int i = 0; i < ((JArray)dialogue["buttons"]).Count; i++)
+                int buttonCnt = ((JArray)dialogue["buttons"]).Count;
+                for(int i = 0; i < buttonCnt; i++)
                 {
                     GameObject button = Instantiate(buttonPrefab, buttonsObj.transform);
                     button.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = dialogue["buttons"][i]["title"].ToString();
-                    button.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -100* i);
+                    button.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 55*(buttonCnt-1-i)+30);
                     
                     int nextIndex = (int)dialogue["buttons"][i]["next"];
                     for(int j = 0; j < ((JArray)dialogue["buttons"][i]["effects"]).Count; j++)
