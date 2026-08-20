@@ -405,7 +405,13 @@
                 {
                     "title": "",
                     "next": 30,
-                    "effects": []
+                    "effects": [
+                        {
+                            "type": "variation",
+                            "image": "Map1/Guard1",
+                            "parameters": ["Throw"]
+                        }
+                    ]
                 }
             ]
         },
