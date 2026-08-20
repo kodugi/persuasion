@@ -118,6 +118,8 @@ namespace Investigation
                     playerCTRL.CanPlayerMove(false);
                     playerCTRL.gameObject.SetActive(false);
                     playerCTRL.gameObject.transform.position = interactManager.FindInteractableObj("Map1/House_WitchMother").position;
+                    yield return FadeScreen(true);
+                    yield return FadeScreen(false);
                     interactManager.FindInteractableObj("Map1/House_WitchMother").gameObject.GetComponent<Inv_InteractionObj>().FadeSwitch(0,1,0,0);
                     interactManager.ForceInteraction("Map1/Player");
                     break;
@@ -214,13 +216,13 @@ namespace Investigation
                     break;
             }
         }
-        Coroutine FadeScreen(bool fadeIn)
+        public Coroutine FadeScreen(bool fadeIn, float delay=0f, float duration=1f)
         {
-            return StartCoroutine(FadeScreenCoroutine(fadeIn));
+            return StartCoroutine(FadeScreenCoroutine(fadeIn, delay, duration));
         }
-        IEnumerator FadeScreenCoroutine(bool fadeIn){
+        IEnumerator FadeScreenCoroutine(bool fadeIn, float delay=0f, float duration=1f){
             if(fadeIn) screenHider.SetActive(true);
-            yield return FadeObject(screenHider,fadeIn,0f, 1f, false);
+            yield return FadeObject(screenHider,fadeIn,delay, duration, false);
             if(!fadeIn) screenHider.SetActive(false);
         }
     }
