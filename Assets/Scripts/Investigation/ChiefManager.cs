@@ -39,6 +39,10 @@ public partial class ChiefManager : MonoBehaviour
     }
     void Start()
     {
+        GameStartFromMainScene();
+    }
+    public void GameStartFromMainScene()
+    {
         if(saveManager.TryLoadGeneralSave("FinalMap", out object result))
         {
             StartInvestigation((string)result);
