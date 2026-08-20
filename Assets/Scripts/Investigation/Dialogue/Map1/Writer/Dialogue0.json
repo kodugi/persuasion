@@ -27,16 +27,6 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 3,
-                    "effects": []
-                }
-            ]
-        },
-        {
-            "description": "그냥 가자.",
-            "buttons": [
-                {
-                    "title": "",
                     "next": -1,
                     "effects": []
                 }
