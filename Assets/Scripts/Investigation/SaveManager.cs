@@ -436,27 +436,6 @@ public partial class SaveManager : MonoBehaviour
 
     public void SaveProgress()
     {
-        /*
-        if (isQuittingAndResetting)
-        {
-            Debug.LogWarning(
-                "[SaveManager] Blocked SaveProgress because " +
-                "save data is being reset on quit."
-            );
-
-            return;
-        }
-
-        if (progress == null || progress.Count == 0)
-        {
-            Debug.LogWarning(
-                "[SaveManager] No progress data to save."
-            );
-
-            return;
-        }*/
-        //print("Saving progress:");
-        //print(JsonConvert.SerializeObject(progress, Formatting.Indented));
         SaveData("progress", progress);
     }
 }
