@@ -14,7 +14,10 @@ namespace GamePlay
         private int _currentEntry;
         private TurnState _resumeTurnState;
         private bool _hasResumeTurnState;
-        private HashSet<DialogueTriggerKey> _playedDialogueTriggers;
+        private bool _resumeAfterDialogue;
+        private bool _playAllPagesContinuously;
+        private Action _dialogueCompletedCallback;
+        private HashSet<ScriptableObject> _playedDialogueSources;
         public event EventHandler<SetDialogueEntryEventArgs> RaiseSetDialogueEntryEvent;
         public event EventHandler<DialoguePageEndEventArgs> RaiseDialoguePageEndEvent;
 
@@ -29,7 +32,10 @@ namespace GamePlay
             _currentEntry = 0;
             _resumeTurnState = TurnState.PlayerIdle;
             _hasResumeTurnState = false;
-            _playedDialogueTriggers = new HashSet<DialogueTriggerKey>();
+            _resumeAfterDialogue = true;
+            _playAllPagesContinuously = false;
+            _dialogueCompletedCallback = null;
+            _playedDialogueSources = new HashSet<ScriptableObject>();
 
             _turnManager = TurnManager.Instance;
             _turnManager.RaiseSetTurnStateEvent += HandleSetTurnStateEvent;
@@ -43,9 +49,47 @@ namespace GamePlay
             _currentEntry = 0;
             _resumeTurnState = TurnState.PlayerIdle;
             _hasResumeTurnState = false;
-            _playedDialogueTriggers?.Clear();
+            _resumeAfterDialogue = true;
+            _playAllPagesContinuously = false;
+            _dialogueCompletedCallback = null;
 
             DialogueView.Instance?.Hide();
+        }
+
+        public void ClearPlaybackHistory()
+        {
+            _playedDialogueSources?.Clear();
+        }
+
+        public bool TryPlayDialogue(
+            DialogueData dialogueData,
+            Action onCompleted = null,
+            bool resumeAfterDialogue = true)
+        {
+            if (!HasDialogueEntries(dialogueData) || HasCurrentDialogueData())
+            {
+                return false;
+            }
+
+            _currentDialogueData = dialogueData;
+            _currentPage = 0;
+            _currentEntry = 0;
+            _resumeAfterDialogue = resumeAfterDialogue;
+            _playAllPagesContinuously = true;
+            _dialogueCompletedCallback = onCompleted;
+
+            if (resumeAfterDialogue)
+            {
+                _resumeTurnState = _turnManager.GetTurnState();
+                _hasResumeTurnState = true;
+            }
+            else
+            {
+                _hasResumeTurnState = false;
+            }
+
+            SetDialoguePage(0);
+            return true;
         }
 
         public DialogueEntry GetCurrentDialogueEntry()
@@ -103,7 +147,7 @@ namespace GamePlay
             }
             else if (IsEndOfDialogue())
             {
-                ResumeTurnState();
+                CompleteDialogue(GetCurrentDialogueEntry());
             }
         }
 
@@ -127,8 +171,15 @@ namespace GamePlay
                     return;
                 }
 
-                ResumeTurnState();
-                RaiseDialoguePageEndEvent?.Invoke(this, new DialoguePageEndEventArgs(lastDialogueEntry));
+                if (IsEndOfDialogue())
+                {
+                    CompleteDialogue(lastDialogueEntry);
+                }
+                else
+                {
+                    ResumeTurnState();
+                    RaiseDialoguePageEndEvent?.Invoke(this, new DialoguePageEndEventArgs(lastDialogueEntry));
+                }
             }
         }
 
@@ -188,18 +239,25 @@ namespace GamePlay
             }
 
             int currentTurn = _turnManager.GetCurrentTurn();
-            DialogueTriggerKey triggerKey = new DialogueTriggerKey(currentTurn, e.turnState);
-            if (_playedDialogueTriggers.Contains(triggerKey))
+            GameInfo gameInfo = GameInfoHolder.GetCurrentGameInfo();
+            if (!gameInfo.TryGetDialogueTrigger(
+                    currentTurn,
+                    e.turnState,
+                    out DialogueTriggerData dialogueTrigger) ||
+                _playedDialogueSources.Contains(dialogueTrigger))
             {
                 return;
             }
 
             if (TryGetDialogueData(currentTurn, e.turnState, out DialogueData dialogueData))
             {
-                _playedDialogueTriggers.Add(triggerKey);
+                _playedDialogueSources.Add(dialogueTrigger);
                 _currentDialogueData = dialogueData;
                 _resumeTurnState = e.turnState;
                 _hasResumeTurnState = true;
+                _resumeAfterDialogue = true;
+                _playAllPagesContinuously = false;
+                _dialogueCompletedCallback = null;
                 SetDialoguePage(0);
             }
         }
@@ -248,10 +306,11 @@ namespace GamePlay
 
         private bool ShouldContinueToNextPage(DialogueEntry dialogueEntry)
         {
-            return dialogueEntry != null &&
-                   dialogueEntry.StateToTrigger != TutorialState.None &&
-                   dialogueEntry.StateTriggerTiming == TutorialStateTriggerTiming.WithDialogue &&
-                   _currentPage + 1 < _currentDialogueData.DialogueList.Count;
+            return _currentPage + 1 < _currentDialogueData.DialogueList.Count &&
+                   (_playAllPagesContinuously ||
+                    (dialogueEntry != null &&
+                     dialogueEntry.StateToTrigger != TutorialState.None &&
+                     dialogueEntry.StateTriggerTiming == TutorialStateTriggerTiming.WithDialogue));
         }
 
         private void ResumeTurnState()
@@ -261,35 +320,27 @@ namespace GamePlay
             _turnManager.SetTurnState(nextTurnState);
         }
 
-        private struct DialogueTriggerKey : IEquatable<DialogueTriggerKey>
+        private void CompleteDialogue(DialogueEntry lastDialogueEntry)
         {
-            private readonly int _turn;
-            private readonly TurnState _turnState;
+            Action completedCallback = _dialogueCompletedCallback;
+            _dialogueCompletedCallback = null;
 
-            public DialogueTriggerKey(int turn, TurnState turnState)
+            if (_resumeAfterDialogue)
             {
-                _turn = turn;
-                _turnState = turnState;
+                ResumeTurnState();
+            }
+            else
+            {
+                _hasResumeTurnState = false;
             }
 
-            public bool Equals(DialogueTriggerKey other)
-            {
-                return _turn == other._turn && _turnState == other._turnState;
-            }
-
-            public override bool Equals(object obj)
-            {
-                return obj is DialogueTriggerKey other && Equals(other);
-            }
-
-            public override int GetHashCode()
-            {
-                unchecked
-                {
-                    return (_turn * 397) ^ (int)_turnState;
-                }
-            }
+            _resumeAfterDialogue = true;
+            _playAllPagesContinuously = false;
+            _currentDialogueData = null;
+            RaiseDialoguePageEndEvent?.Invoke(this, new DialoguePageEndEventArgs(lastDialogueEntry));
+            completedCallback?.Invoke();
         }
+
     }
 
     public class SetDialogueEntryEventArgs : EventArgs

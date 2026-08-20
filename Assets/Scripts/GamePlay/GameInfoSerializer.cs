@@ -45,13 +45,14 @@ namespace GamePlay
     [Serializable]
     public class SerializableGameInfo
     {
-        public int Version = 1;
+        public int Version = 2;
         public int Width;
         public int Height;
         public int MaxTurns;
         public int TargetNumber;
         public List<RowData> BoardRows = new List<RowData>();
         public List<SerializableDialogueTriggerData> DialogueTriggers = new List<SerializableDialogueTriggerData>();
+        public SerializableDialogueData GameOverDialogue;
 
         public SerializableGameInfo()
         {
@@ -62,13 +63,14 @@ namespace GamePlay
             Cell[,] board = gameInfo.GetBoard();
             SerializableGameInfo serializableGameInfo = new SerializableGameInfo
             {
-                Version = 1,
+                Version = 2,
                 Width = gameInfo.GetWidth(),
                 Height = gameInfo.GetHeight(),
                 MaxTurns = gameInfo.GetMaxTurns(),
                 TargetNumber = gameInfo.GetTargetNumber(),
                 BoardRows = CreateRows(board),
-                DialogueTriggers = CreateDialogueTriggers(gameInfo.GetDialogueDataDict())
+                DialogueTriggers = CreateDialogueTriggers(gameInfo.GetDialogueDataDict()),
+                GameOverDialogue = CreateGameOverDialogue(gameInfo)
             };
 
             return serializableGameInfo;
@@ -80,10 +82,19 @@ namespace GamePlay
             int height = Math.Max(1, Height);
             Cell[,] board = CreateBoard(width, height);
             Dictionary<int, Dictionary<TurnState, DialogueData>> dialogueData = CreateDialogueDataDict();
+            DialogueData gameOverDialogue = null;
+            GameOverDialogue?.TryCreateDialogueData(out gameOverDialogue);
 
             GameInfo gameInfo = ScriptableObject.CreateInstance<GameInfo>();
-            gameInfo.Initialize(width, height, board, MaxTurns, TargetNumber, dialogueData);
+            gameInfo.Initialize(width, height, board, MaxTurns, TargetNumber, dialogueData, gameOverDialogue);
             return gameInfo;
+        }
+
+        private static SerializableDialogueData CreateGameOverDialogue(GameInfo gameInfo)
+        {
+            return gameInfo.TryGetGameOverDialogue(out DialogueData dialogueData)
+                ? SerializableDialogueData.FromDialogueData(dialogueData)
+                : null;
         }
 
         private static List<RowData> CreateRows(Cell[,] board)
@@ -225,6 +236,59 @@ namespace GamePlay
 
             Cell cell = Activator.CreateInstance(cellType, 0, new Vector2Int(x, y)) as Cell;
             return cell ?? new EmptyCell(0, new Vector2Int(x, y));
+        }
+    }
+
+    [Serializable]
+    public class SerializableDialogueData
+    {
+        public List<DialoguePageData> Pages = new List<DialoguePageData>();
+
+        public bool TryCreateDialogueData(out DialogueData dialogueData)
+        {
+            dialogueData = null;
+            List<List<DialogueEntry>> dialogueList = new List<List<DialogueEntry>>();
+
+            if (Pages != null)
+            {
+                foreach (DialoguePageData page in Pages)
+                {
+                    if (page == null || !page.TryCreateDialogueEntries(out List<DialogueEntry> entries))
+                    {
+                        continue;
+                    }
+
+                    dialogueList.Add(entries);
+                }
+            }
+
+            if (dialogueList.Count == 0)
+            {
+                return false;
+            }
+
+            dialogueData = new DialogueData(dialogueList);
+            return true;
+        }
+
+        public static SerializableDialogueData FromDialogueData(DialogueData dialogueData)
+        {
+            if (dialogueData == null || dialogueData.DialogueList == null)
+            {
+                return null;
+            }
+
+            SerializableDialogueData data = new SerializableDialogueData();
+            foreach (List<DialogueEntry> dialoguePage in dialogueData.DialogueList)
+            {
+                DialoguePageData page = DialoguePageData.FromDialogueEntries(dialoguePage);
+                if (page != null)
+                {
+                    data.Pages.Add(page);
+                }
+            }
+
+            return data.Pages.Count == 0 ? null : data;
         }
     }
 

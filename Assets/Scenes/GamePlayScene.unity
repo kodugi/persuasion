@@ -3462,7 +3462,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GamePlay.GameManager
   _gameInfoList:
-  - {fileID: 11400000, guid: d30f406ff9cfb8c4182310313102e03f, type: 2}
+  - {fileID: 11400000, guid: a2fbb8cbe2bf481eb1605e7de77f7aef, type: 2}
   - {fileID: 11400000, guid: 17244ccf19c3a3a43b615c6c7e849b41, type: 2}
   _tutorialEntryGroups:
   - State: 1
@@ -3646,8 +3646,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 7482667652216324306, guid: 2380028662c2ec74abe42ba06cc56fe1, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

@@ -26,6 +26,7 @@ MonoBehaviour:
   - Cells: 0000000001000000010000000100000000000000
   _dialogueTriggers:
   - {fileID: 11400000, guid: 68cf318b717d5ce48b340e140d4e01b9, type: 2}
+  _gameOverDialogue: {fileID: 11400000, guid: 6b4e2448203a4b3590e4628d55ba7141, type: 2}
   _allowedMarkers: -1
   _mapType: 3
   _figureProfile: {fileID: 11400000, guid: b351eb47a70d4bcba081fd7bb0d9b9d5, type: 2}
