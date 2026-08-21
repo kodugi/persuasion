@@ -141,7 +141,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 8,
+                    "next": 9,
                     "effects": [
                         {
                             "type": "changeImage",

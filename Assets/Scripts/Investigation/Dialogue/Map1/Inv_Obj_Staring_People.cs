@@ -59,10 +59,12 @@ public class Inv_Obj_Staring_People: Utility
         }
         void Update()
         {
+            int cnt = 0;
             foreach(var pair in people)
             {
                 GameObject person = pair.Key;
                 if(person == null) continue;
+                cnt++;
                 GameObject eye = pair.Value.eye;
                 Vector3 originalPos = pair.Value.originalPos;
                 eye.transform.localPosition = (player.transform.position-(originalPos+person.transform.position)).normalized*maxDistance+originalPos;//  +person.transform.position;
@@ -73,11 +75,18 @@ public class Inv_Obj_Staring_People: Utility
                     {
                         if(person == closestPerson)
                         {
-                            manager.ChangeCamera(player.transform, 0.1f);
+                            manager.ChangeCamera(house_gather.transform, 0.1f);
                         }
                         Destroy(person);
                     }
+                    player.GetComponent<Inv_PlayerCTRL>().CanPlayerMove(false);
                 }
+            }
+            if(cnt <= 0)
+            {
+                manager.ChangeCamera(player.transform, 0.1f);
+                player.GetComponent<Inv_PlayerCTRL>().CanPlayerMove(true);
+                Destroy(gameObject);
             }
         }
         public void StartRunning()
