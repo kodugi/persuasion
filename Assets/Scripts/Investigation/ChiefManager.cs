@@ -22,6 +22,7 @@ public partial class ChiefManager : MonoBehaviour
     public const string BigEyeSoundId = "BigEye";
     public const string GlitchSoundId = "Glitch";
 
+    [SerializeField] private string initialMapId;
     public static ChiefManager Instance { get; private set; }
     [SerializeField] GameObject gameOverPanel;
     [SerializeField] AudioClip persuasionEnteringSound;
@@ -94,7 +95,7 @@ public partial class ChiefManager : MonoBehaviour
             StartInvestigation((string)result);
         }
         else {
-            StartInvestigation("Map1_Intro");
+            StartInvestigation(initialMapId);
         }
     }
     void FixedUpdate()
