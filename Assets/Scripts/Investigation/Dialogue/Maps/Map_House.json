@@ -41,7 +41,7 @@
         "y": 0
       },
       "size": {
-        "x": 4,
+        "x": 2,
         "y": 2
       },
       "colliderShape": "box",
@@ -63,40 +63,10 @@
       },
       "hideCriteria": 0,
       "sortingOrder": 10,
-      "image": "",
-      "script": "",
-      "manually_touchable": false
-    },
-    {
-      "title": "Map_House/Player_Lying",
-      "position": {
-        "x": 0,
-        "y": 0
-      },
-      "size": {
-        "x": 2,
-        "y": 1
-      },
-      "colliderShape": "box",
-      "colliderSize": {
-        "x": 0,
-        "y": 0
-      },
-      "colliderOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerSize": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "hideCriteria": 0,
-      "sortingOrder": 11,
-      "image": "",
+      "image": [
+        "Map1_Player_Sleeping_1A",
+        "Map1_Player_Sleeping_2A"
+      ],
       "script": "",
       "manually_touchable": false
     },
@@ -163,7 +133,7 @@
       "hideCriteria": 0,
       "sortingOrder": 0,
       "image": [],
-      "script": "",
+      "script": "Inv_InteractionObj_Map_House_AfterDream",
       "manually_touchable": false
     }
   ]
