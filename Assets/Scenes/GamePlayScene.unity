@@ -3421,6 +3421,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1353033079}
+  - component: {fileID: 1353033082}
   - component: {fileID: 1353033080}
   - component: {fileID: 1353033081}
   m_Layer: 0
@@ -3445,6 +3446,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1353033082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1353033078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42f3c20a46ec4d3ca18ba784ebc94077, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::GamePlay.GamePlaySoundManager
+  _mainBGM: {fileID: 8300000, guid: 0cb4b52ac70088d44b944c42eb08f1c5, type: 3}
+  _dreamBGM: {fileID: 8300000, guid: 250727027cf7ccb41a85c3337255adfc, type: 3}
+  _jumpScareSound: {fileID: 8300000, guid: 5fd5d914e74a874418534b28444e188b, type: 3}
+  _gameOverSound: {fileID: 8300000, guid: 2741cc44a1e0af34cacea2dbcbfae69a, type: 3}
+  _laughterSounds:
+  - {fileID: 8300000, guid: 24b3fd54a27f2754e8a867d2f0225c76, type: 3}
+  - {fileID: 8300000, guid: 94b1885528c63374aad2718a2ed499a4, type: 3}
+  - {fileID: 8300000, guid: 2a00681d334dcb04ead3a0f5be0fb79e, type: 3}
+  _soulPlaceSound: {fileID: 8300000, guid: 8a80b6ecc38dc07428035b98157c4ec6, type: 3}
+  _eyeSound: {fileID: 8300000, guid: 2c1b4ae9a10a9584f8b78f3cd4ab8d75, type: 3}
+  _bigEyeSound: {fileID: 8300000, guid: 1218943d7ba3c2046b7904fb3ae14471, type: 3}
+  _glitchSound: {fileID: 8300000, guid: 894f366ad345f4b488ee6e7443e3b28e, type: 3}
+  _soundEffectVolume: 0.75
+  _jumpScareVolume: 1
+  _jumpScareDuration: 3
 --- !u!114 &1353033080
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -101,7 +101,7 @@ namespace GamePlay
 
                 if (!isDreamMap && defeatReason == DefeatReason.SuspicionOverflow)
                 {
-                    ChiefManager.Instance?.PlayBGM(ChiefManager.GameOverSoundId);
+                    GamePlaySoundManager.Instance?.Play(GamePlaySoundId.GameOver);
                 }
 
                 StartCoroutine(AnimationUtils.ExecuteAccordingToCountsPreset(_backgroundSuspicionPrefabViews, (suspicionView) =>
@@ -126,7 +126,7 @@ namespace GamePlay
             {
                 case GameInfo.MapType.Dream3:
                     _backgroundBigSuspicionPrefabView.PlayBlinkAnimation();
-                    ChiefManager.Instance?.PlayBGM(ChiefManager.BigEyeSoundId);
+                    GamePlaySoundManager.Instance?.Play(GamePlaySoundId.BigEye);
                     break;
             }
         }

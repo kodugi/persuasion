@@ -162,7 +162,7 @@ namespace GamePlay
         private IEnumerator ResetCore()
         {
             yield return new WaitForSeconds(0.5f);
-            ChiefManager.Instance?.ResetAudioAfterGameOver();
+            GamePlaySoundManager.Instance?.ResetAfterGameOver();
             _winConditionManager.BeginReset();
 
             _gameStateManager.ResetGame();
