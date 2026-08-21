@@ -16,30 +16,56 @@ MonoBehaviour:
   _turnState: 1
   _pages:
   - Entries:
-    - SpeakerName: "\ub098"
+    - SpeakerName: "\uB098"
       DialogueText: "\u2026!"
       StateToTrigger: 0
       StateTriggerTiming: 0
       FigurePosition: 3
       FigureSprite: {fileID: 21300000, guid: 9c80d18f42f4cb74294a6793b6068d08, type: 3}
-    - SpeakerName: ""
-      DialogueText: "\ub0a8\uc790\uc758 \uba38\ub9bf\uc18d\uc744 \ucc44\uc6b0\ub294 \uac10\uc815\ub4e4\uc774 \uc120\uba85\ud558\uac8c \ubcf4\uc774\uae30 \uc2dc\uc791\ud588\ub2e4."
+      AdditionalFigurePosition: 0
+      AdditionalFigureSprite: {fileID: 0}
+      TertiaryFigurePosition: 0
+      TertiaryFigureSprite: {fileID: 0}
+      HideFiguresAfterDialogue: 0
+    - SpeakerName: 
+      DialogueText: "\uB0A8\uC790\uC758 \uBA38\uB9BF\uC18D\uC744 \uCC44\uC6B0\uB294
+        \uAC10\uC815\uB4E4\uC774 \uC120\uBA85\uD558\uAC8C \uBCF4\uC774\uAE30 \uC2DC\uC791\uD588\uB2E4."
       StateToTrigger: 0
       StateTriggerTiming: 0
       FigurePosition: 3
       FigureSprite: {fileID: 0}
-    - SpeakerName: "\ub098"
-      DialogueText: "\ub410\ub2e4\u2026! \ub2e4\ud589\uc774\ub2e4. \ubb34\uc0ac\ud788 \uc811\uc18d\ud588\uc5b4."
+      AdditionalFigurePosition: 0
+      AdditionalFigureSprite: {fileID: 0}
+      TertiaryFigurePosition: 0
+      TertiaryFigureSprite: {fileID: 0}
+      HideFiguresAfterDialogue: 0
+    - SpeakerName: "\uB098"
+      DialogueText: "\uB410\uB2E4\u2026! \uB2E4\uD589\uC774\uB2E4. \uBB34\uC0AC\uD788
+        \uC811\uC18D\uD588\uC5B4."
       StateToTrigger: 0
       StateTriggerTiming: 0
       FigurePosition: 3
       FigureSprite: {fileID: 21300000, guid: 9c80d18f42f4cb74294a6793b6068d08, type: 3}
-    - SpeakerName: "\ub098"
-      DialogueText: "\uc624\ub79c\ub9cc\uc774\ub77c \ud560 \uc218 \uc788\uc744\uae4c \uac71\uc815\ud588\ub294\ub370\u2026."
+      AdditionalFigurePosition: 0
+      AdditionalFigureSprite: {fileID: 0}
+      TertiaryFigurePosition: 0
+      TertiaryFigureSprite: {fileID: 0}
+      HideFiguresAfterDialogue: 0
+    - SpeakerName: "\uB098"
+      DialogueText: "\uC624\uB79C\uB9CC\uC774\uB77C \uD560 \uC218 \uC788\uC744\uAE4C
+        \uAC71\uC815\uD588\uB294\uB370\u2026."
       StateToTrigger: 0
       StateTriggerTiming: 0
-    - SpeakerName: ""
-      DialogueText: "\ub77c\uc774\ud130\uc5d0 \ubd88\uc744 \ubd99\uc774\ub824\ub358 \ub0a8\uc790\uac00 \uc7a0\uc2dc \uba48\uce6b\ud558\ub294 \uac83\uc774 \ubcf4\uc600\ub2e4."
+      FigurePosition: 0
+      FigureSprite: {fileID: 0}
+      AdditionalFigurePosition: 0
+      AdditionalFigureSprite: {fileID: 0}
+      TertiaryFigurePosition: 0
+      TertiaryFigureSprite: {fileID: 0}
+      HideFiguresAfterDialogue: 0
+    - SpeakerName: 
+      DialogueText: "\uB77C\uC774\uD130\uC5D0 \uBD88\uC744 \uBD99\uC774\uB824\uB358
+        \uB0A8\uC790\uAC00 \uC7A0\uC2DC \uBA48\uCE6B\uD558\uB294 \uAC83\uC774 \uBCF4\uC600\uB2E4."
       StateToTrigger: 0
       StateTriggerTiming: 0
       FigurePosition: 3
@@ -48,30 +74,68 @@ MonoBehaviour:
       AdditionalFigureSprite: {fileID: 21300000, guid: fed65235d5e64754fa19d658727eaea8, type: 3}
       TertiaryFigurePosition: 1
       TertiaryFigureSprite: {fileID: 0}
-    - SpeakerName: ""
-      DialogueText: "\ub0a8\uc790\ub294 \ud55c \uc190\uc73c\ub85c \uba38\ub9ac\ub97c \ubd80\uc5ec\uc7a1\uc740 \ucc44 \uadf8 \uc790\ub9ac\uc5d0\uc11c \uadf8\ub300\ub85c \uad73\uc5c8\ub2e4."
+      HideFiguresAfterDialogue: 0
+    - SpeakerName: 
+      DialogueText: "\uB0A8\uC790\uB294 \uD55C \uC190\uC73C\uB85C \uBA38\uB9AC\uB97C
+        \uBD80\uC5EC\uC7A1\uC740 \uCC44 \uADF8 \uC790\uB9AC\uC5D0\uC11C \uADF8\uB300\uB85C
+        \uAD73\uC5C8\uB2E4."
       StateToTrigger: 0
       StateTriggerTiming: 0
-    - SpeakerName: "\ub098"
-      DialogueText: "(\ub2f9\uc5f0\ud55c \uc77c\uc774\uc57c.... \ub204\uac00 \uba38\ub9bf\uc18d\uc5d0 \uc811\uc18d\ud558\ub294 \uac74 \ucc98\uc74c \uacbd\ud5d8\ud574\ubcf4\ub294 \uc77c\uc77c \ud14c\ub2c8\uae4c.)"
+      FigurePosition: 0
+      FigureSprite: {fileID: 0}
+      AdditionalFigurePosition: 0
+      AdditionalFigureSprite: {fileID: 0}
+      TertiaryFigurePosition: 0
+      TertiaryFigureSprite: {fileID: 0}
+      HideFiguresAfterDialogue: 0
+    - SpeakerName: "\uB098"
+      DialogueText: "(\uB2F9\uC5F0\uD55C \uC77C\uC774\uC57C.... \uB204\uAC00 \uBA38\uB9BF\uC18D\uC5D0
+        \uC811\uC18D\uD558\uB294 \uAC74 \uCC98\uC74C \uACBD\uD5D8\uD574\uBCF4\uB294
+        \uC77C\uC77C \uD14C\uB2C8\uAE4C.)"
       StateToTrigger: 0
       StateTriggerTiming: 0
       FigurePosition: 2
       FigureSprite: {fileID: 21300000, guid: 9f7722c6ab0348b418d8400e510da437, type: 3}
-      AdditionalFigurePosition: 1
-      AdditionalFigureSprite: {fileID: 21300000, guid: fed65235d5e64754fa19d658727eaea8, type: 3}
-    - SpeakerName: "\ub098"
-      DialogueText: "(\ud63c\ub780\uc2a4\ub7fd\uace0 \uc774\uc0c1\ud55c \ub290\ub08c\uc774 \ub4e4\uaca0\uc9c0.)"
+      AdditionalFigurePosition: 0
+      AdditionalFigureSprite: {fileID: 0}
+      TertiaryFigurePosition: 0
+      TertiaryFigureSprite: {fileID: 0}
+      HideFiguresAfterDialogue: 0
+    - SpeakerName: "\uB098"
+      DialogueText: "(\uD63C\uB780\uC2A4\uB7FD\uACE0 \uC774\uC0C1\uD55C \uB290\uB08C\uC774
+        \uB4E4\uACA0\uC9C0.)"
       StateToTrigger: 0
       StateTriggerTiming: 0
-    - SpeakerName: "\ub098"
-      DialogueText: "(\uc758\ub3c4\ud55c \uac74 \uc544\ub2c8\uc9c0\ub9cc, \ub355\ubd84\uc5d0 \uc2dc\uac04\uc744 \uc880 \ubc8c\uc5c8\ub124.)"
+      FigurePosition: 0
+      FigureSprite: {fileID: 0}
+      AdditionalFigurePosition: 0
+      AdditionalFigureSprite: {fileID: 0}
+      TertiaryFigurePosition: 0
+      TertiaryFigureSprite: {fileID: 0}
+      HideFiguresAfterDialogue: 0
+    - SpeakerName: "\uB098"
+      DialogueText: "(\uC758\uB3C4\uD55C \uAC74 \uC544\uB2C8\uC9C0\uB9CC, \uB355\uBD84\uC5D0
+        \uC2DC\uAC04\uC744 \uC880 \uBC8C\uC5C8\uB124.)"
       StateToTrigger: 0
       StateTriggerTiming: 0
-    - SpeakerName: "\ub098"
-      DialogueText: "(\uc815\uc2e0 \ucc28\ub9ac\uae30 \uc804\uc5d0 \uc5bc\ub978 \ub05d\ub0b4\uc790.)"
+      FigurePosition: 0
+      FigureSprite: {fileID: 0}
+      AdditionalFigurePosition: 0
+      AdditionalFigureSprite: {fileID: 0}
+      TertiaryFigurePosition: 0
+      TertiaryFigureSprite: {fileID: 0}
+      HideFiguresAfterDialogue: 0
+    - SpeakerName: "\uB098"
+      DialogueText: "(\uC815\uC2E0 \uCC28\uB9AC\uAE30 \uC804\uC5D0 \uC5BC\uB978 \uB05D\uB0B4\uC790.)"
       StateToTrigger: 0
       StateTriggerTiming: 0
+      FigurePosition: 0
+      FigureSprite: {fileID: 0}
+      AdditionalFigurePosition: 0
+      AdditionalFigureSprite: {fileID: 0}
+      TertiaryFigurePosition: 0
+      TertiaryFigureSprite: {fileID: 0}
+      HideFiguresAfterDialogue: 0
     - SpeakerName: "\uB098"
       DialogueText: "\uC544, \uC774\uAC70 \uD55C 10\uB144 \uB9CC\uC5D0 \uCC98\uC74C
         \uD574\uBCF4\uB294\uB370\u2026. \uC5B4\uB5BB\uAC8C \uD558\uB354\uB77C?"
@@ -79,8 +143,11 @@ MonoBehaviour:
       StateTriggerTiming: 0
       FigurePosition: 3
       FigureSprite: {fileID: 21300000, guid: ce16addfed2994a47824eebf1086a4f5, type: 3}
-      AdditionalFigurePosition: 2
-      AdditionalFigureSprite: {fileID: 0}
+      AdditionalFigurePosition: 1
+      AdditionalFigureSprite: {fileID: 21300000, guid: fed65235d5e64754fa19d658727eaea8, type: 3}
+      TertiaryFigurePosition: 2
+      TertiaryFigureSprite: {fileID: 0}
+      HideFiguresAfterDialogue: 0
     - SpeakerName: "\uB098"
       DialogueText: "\uC74C, \uC77C\uB2E8\u2026. \uC800 \uAC80\uC815\uC0C9 \uAC10\uC815\uB4E4\uC744
         \uB098\uD55C\uD14C \uD638\uC758\uC801\uC778 \uAC10\uC815\uC73C\uB85C \uBC14\uAFD4\uC57C
@@ -88,12 +155,26 @@ MonoBehaviour:
         \uB420 \uAC70\uC57C."
       StateToTrigger: 0
       StateTriggerTiming: 0
+      FigurePosition: 0
+      FigureSprite: {fileID: 0}
+      AdditionalFigurePosition: 0
+      AdditionalFigureSprite: {fileID: 0}
+      TertiaryFigurePosition: 0
+      TertiaryFigureSprite: {fileID: 0}
+      HideFiguresAfterDialogue: 0
     - SpeakerName: "\uB098"
       DialogueText: "\uADF8\uB7EC\uB824\uBA74 \uC774 \uC0AC\uB78C\uC758 \uBA38\uB9BF\uC18D\uC5D0
         \uB0B4 \uC601\uD63C\uC758 \uC870\uAC01\uC744 \uC2EC\uC5B4 \uB123\uC5B4\uC57C
         \uD574."
       StateToTrigger: 0
       StateTriggerTiming: 0
+      FigurePosition: 0
+      FigureSprite: {fileID: 0}
+      AdditionalFigurePosition: 0
+      AdditionalFigureSprite: {fileID: 0}
+      TertiaryFigurePosition: 0
+      TertiaryFigureSprite: {fileID: 0}
+      HideFiguresAfterDialogue: 0
     - SpeakerName: "\uB098"
       DialogueText: "\uB0B4\uAC00 \uC758\uC2EC\uD560 \uD544\uC694 \uC5C6\uB294 \uC0AC\uB78C\uC774\uB77C\uB294
         \uAC78 \uC8FC\uC7A5\uD558\uBA74\uC11C \uB0B4 \uB9D0\uC5D0 \uC601\uD63C\uC744
@@ -102,10 +183,24 @@ MonoBehaviour:
         \uB4E4\uC5B4\uAC08 \uAC70\uC57C."
       StateToTrigger: 0
       StateTriggerTiming: 0
+      FigurePosition: 0
+      FigureSprite: {fileID: 0}
+      AdditionalFigurePosition: 0
+      AdditionalFigureSprite: {fileID: 0}
+      TertiaryFigurePosition: 0
+      TertiaryFigureSprite: {fileID: 0}
+      HideFiguresAfterDialogue: 0
     - SpeakerName: "\uB098"
       DialogueText: "\u2026.\uC77C\uB2E8 \uD55C \uBC88 \uD574\uBCFC\uAE4C."
       StateToTrigger: 1
       StateTriggerTiming: 0
+      FigurePosition: 0
+      FigureSprite: {fileID: 0}
+      AdditionalFigurePosition: 0
+      AdditionalFigureSprite: {fileID: 0}
+      TertiaryFigurePosition: 0
+      TertiaryFigureSprite: {fileID: 0}
+      HideFiguresAfterDialogue: 0
     - SpeakerName: "\uB098"
       DialogueText: "\uC800\uAE30\uC694\u2026. \uC65C \uADF8\uB807\uAC8C \uC0DD\uAC01\uD558\uC2E0
         \uAC74\uC9C0\uB294 \uBAA8\uB974\uACA0\uB294\uB370, \uC804 \uADF8\uB0E5 \uD3C9\uBC94\uD55C
@@ -113,6 +208,12 @@ MonoBehaviour:
         \uC628 \uAC83 \uBFD0\uC778\uB370\u2026."
       StateToTrigger: 1
       StateTriggerTiming: 0
+      FigurePosition: 0
+      FigureSprite: {fileID: 0}
+      AdditionalFigurePosition: 0
+      AdditionalFigureSprite: {fileID: 0}
+      TertiaryFigurePosition: 0
+      TertiaryFigureSprite: {fileID: 0}
       HideFiguresAfterDialogue: 1
   - Entries:
     - SpeakerName: "\uB098"
@@ -122,18 +223,36 @@ MonoBehaviour:
       StateTriggerTiming: 0
       FigurePosition: 3
       FigureSprite: {fileID: 21300000, guid: 9f7722c6ab0348b418d8400e510da437, type: 3}
+      AdditionalFigurePosition: 0
+      AdditionalFigureSprite: {fileID: 0}
+      TertiaryFigurePosition: 0
+      TertiaryFigureSprite: {fileID: 0}
+      HideFiguresAfterDialogue: 0
     - SpeakerName: "\uB098"
       DialogueText: "\uAC80\uC815\uC0C9 \uAC10\uC815\uC740 \uC601\uD63C\uC73C\uB85C
         \uB458\uB7EC\uC2F8\uC774\uBA74 \uC601\uD63C\uC758 \uC601\uD5A5\uC744 \uBC1B\uC544
         \uD615\uD0DC\uAC00 \uBC14\uB00C\uAC8C \uB3FC. "
       StateToTrigger: 0
       StateTriggerTiming: 0
+      FigurePosition: 0
+      FigureSprite: {fileID: 0}
+      AdditionalFigurePosition: 0
+      AdditionalFigureSprite: {fileID: 0}
+      TertiaryFigurePosition: 0
+      TertiaryFigureSprite: {fileID: 0}
+      HideFiguresAfterDialogue: 0
     - SpeakerName: "\uB098"
       DialogueText: "\uAC00\uB85C \uC138\uB85C \uB300\uAC01\uC120 \uC5B4\uB5A4 \uBC29\uD5A5\uC774\uB4E0
         \uC0C1\uAD00\uC5C6\uC5B4. \uD558\uC9C0\uB9CC \uC77C\uB2E8 \uC9C0\uAE08\uC740
         \uC138\uB85C \uBC29\uD5A5\uC73C\uB85C \uC601\uD63C\uC744 \uC2EC\uC5B4 \uBCF4\uC790."
       StateToTrigger: 2
       StateTriggerTiming: 0
+      FigurePosition: 0
+      FigureSprite: {fileID: 0}
+      AdditionalFigurePosition: 0
+      AdditionalFigureSprite: {fileID: 0}
+      TertiaryFigurePosition: 0
+      TertiaryFigureSprite: {fileID: 0}
       HideFiguresAfterDialogue: 1
   - Entries:
     - SpeakerName: "\uB098"
@@ -142,6 +261,11 @@ MonoBehaviour:
       StateTriggerTiming: 0
       FigurePosition: 3
       FigureSprite: {fileID: 21300000, guid: c2e5561806978e54681092b2776eabc9, type: 3}
+      AdditionalFigurePosition: 0
+      AdditionalFigureSprite: {fileID: 0}
+      TertiaryFigurePosition: 0
+      TertiaryFigureSprite: {fileID: 0}
+      HideFiguresAfterDialogue: 0
     - SpeakerName: "\uB098"
       DialogueText: "\uC774\uB7F0 \uC2DD\uC73C\uB85C \uC6D0\uB798 \uC790\uB9AC \uC7A1\uACE0
         \uC788\uB358 \uAC80\uC740\uC0C9 \uAC10\uC815\uB4E4\uC744 \uC77C\uC815 \uAC1C\uC218
@@ -149,6 +273,13 @@ MonoBehaviour:
         \uC218 \uC788\uC744 \uAC70\uC57C. "
       StateToTrigger: 0
       StateTriggerTiming: 0
+      FigurePosition: 0
+      FigureSprite: {fileID: 0}
+      AdditionalFigurePosition: 0
+      AdditionalFigureSprite: {fileID: 0}
+      TertiaryFigurePosition: 0
+      TertiaryFigureSprite: {fileID: 0}
+      HideFiguresAfterDialogue: 0
     - SpeakerName: "\uACBD\uBE44\uC6D0"
       DialogueText: "\u2026.."
       StateToTrigger: 0
@@ -157,16 +288,31 @@ MonoBehaviour:
       FigureSprite: {fileID: 0}
       AdditionalFigurePosition: 1
       AdditionalFigureSprite: {fileID: 21300000, guid: f8872d8ce4fc5484789f2054c88ae15c, type: 3}
+      TertiaryFigurePosition: 0
+      TertiaryFigureSprite: {fileID: 0}
+      HideFiguresAfterDialogue: 0
     - SpeakerName: "\uACBD\uBE44\uC6D0"
       DialogueText: "\uBB50\uC57C\u2026? \uB0B4 \uBA38\uB9AC\uC5D0 \uBB54\uAC00\u2026."
       StateToTrigger: 0
       StateTriggerTiming: 0
       FigurePosition: 3
       FigureSprite: {fileID: 21300000, guid: 705fd1421212095459b15a83898eaff8, type: 3}
+      AdditionalFigurePosition: 0
+      AdditionalFigureSprite: {fileID: 0}
+      TertiaryFigurePosition: 0
+      TertiaryFigureSprite: {fileID: 0}
+      HideFiguresAfterDialogue: 0
     - SpeakerName: "\uB098"
       DialogueText: "\u2026..!"
       StateToTrigger: 0
       StateTriggerTiming: 0
+      FigurePosition: 0
+      FigureSprite: {fileID: 0}
+      AdditionalFigurePosition: 0
+      AdditionalFigureSprite: {fileID: 0}
+      TertiaryFigurePosition: 0
+      TertiaryFigureSprite: {fileID: 0}
+      HideFiguresAfterDialogue: 0
     - SpeakerName: "\uB098"
       DialogueText: "\uC544\u2026. \uB9DE\uB2E4. \uD55C \uBC88\uC5D0 \uB108\uBB34
         \uB9CE\uC740 \uC601\uD63C\uC744 \uC5B5\uC9C0\uB85C \uC2EC\uC5B4\uB123\uB2E4
@@ -174,6 +320,13 @@ MonoBehaviour:
         \uBC1B\uC744 \uC218\uB3C4 \uC788\uC5B4\u2026."
       StateToTrigger: 0
       StateTriggerTiming: 0
+      FigurePosition: 0
+      FigureSprite: {fileID: 0}
+      AdditionalFigurePosition: 0
+      AdditionalFigureSprite: {fileID: 0}
+      TertiaryFigurePosition: 0
+      TertiaryFigureSprite: {fileID: 0}
+      HideFiguresAfterDialogue: 0
     - SpeakerName: "\uB098"
       DialogueText: "\uC2EC\uC9C0\uC5B4 \uC9C0\uAE08 \uB09C \uB9C8\uB140\uB77C\uB294
         \uC758\uC2EC\uC744 \uBC1B\uACE0 \uC788\uB294 \uC0C1\uD669\uC774\uB2C8\uAE4C,
@@ -182,6 +335,11 @@ MonoBehaviour:
       StateTriggerTiming: 0
       FigurePosition: 3
       FigureSprite: {fileID: 21300000, guid: 9f7722c6ab0348b418d8400e510da437, type: 3}
+      AdditionalFigurePosition: 0
+      AdditionalFigureSprite: {fileID: 0}
+      TertiaryFigurePosition: 0
+      TertiaryFigureSprite: {fileID: 0}
+      HideFiguresAfterDialogue: 0
     - SpeakerName: "\uB098"
       DialogueText: "\uC601\uD63C\uC744 \uD55C \uAC1C \uC2EC\uB294 \uAC74 \uC758\uC2EC\uC744
         \uB9CE\uC774 \uC0AC\uC9C4 \uC54A\uACA0\uC9C0\uB9CC, \uD55C \uBC88\uC5D0 \uB450
@@ -189,9 +347,22 @@ MonoBehaviour:
         \uC624\uB97C \uAC70\uC57C."
       StateToTrigger: 3
       StateTriggerTiming: 1
+      FigurePosition: 0
+      FigureSprite: {fileID: 0}
+      AdditionalFigurePosition: 0
+      AdditionalFigureSprite: {fileID: 0}
+      TertiaryFigurePosition: 0
+      TertiaryFigureSprite: {fileID: 0}
+      HideFiguresAfterDialogue: 0
     - SpeakerName: "\uB098"
       DialogueText: "\uC77C\uB2E8 \uC9C0\uAE08\uC740 \uC601\uD63C \uC2EC\uB294 \uAC78
         \uC7A0\uAE50 \uBA48\uCDB0\uC57C\uACA0\uC5B4."
       StateToTrigger: 4
       StateTriggerTiming: 0
+      FigurePosition: 0
+      FigureSprite: {fileID: 0}
+      AdditionalFigurePosition: 0
+      AdditionalFigureSprite: {fileID: 0}
+      TertiaryFigurePosition: 0
+      TertiaryFigureSprite: {fileID: 0}
       HideFiguresAfterDialogue: 1

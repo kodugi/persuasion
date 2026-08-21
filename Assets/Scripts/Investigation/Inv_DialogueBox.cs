@@ -24,6 +24,9 @@ namespace Investigation
         [SerializeField] private GameObject charactersObj;
         List<AsyncOperationHandle<Sprite>> handles = new List<AsyncOperationHandle<Sprite>>();
         bool ignoreNextDialogueMovement=false;
+        const float TypingInterval = 0.02f;
+        Coroutine typeDialogueEntry;
+        string dialogueContent = "";
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         public void Initialize()
         {
@@ -120,22 +123,31 @@ namespace Investigation
         }
         void Update()
         {
-            if(singleOption_nextIndex == -100) return;
-            if(Input.GetMouseButtonDown(0))
+            if (!Input.GetMouseButtonDown(0) && !Input.GetKeyDown(KeyCode.Space))
             {
-                foreach (JObject effect in effectList)
-                {
-                    interactionScript.Effects(effect);
-                }
-                if(singleOption_nextIndex == -1)
-                {
-                    interactionScript.SignalEnding(interactionName);
-                    Destroy(gameObject);
-                }
-                else
-                {
-                    DisplayDialogue(singleOption_nextIndex);
-                }
+                return;
+            }
+
+            if (typeDialogueEntry != null)
+            {
+                CompleteTyping();
+                return;
+            }
+
+            if(singleOption_nextIndex == -100) return;
+
+            foreach (JObject effect in effectList)
+            {
+                interactionScript.Effects(effect);
+            }
+            if(singleOption_nextIndex == -1)
+            {
+                interactionScript.SignalEnding(interactionName);
+                Destroy(gameObject);
+            }
+            else
+            {
+                DisplayDialogue(singleOption_nextIndex);
             }
         }
         public void DisplayDialogue(int index, bool ignoreNext=false)
@@ -147,7 +159,15 @@ namespace Investigation
             }
             ignoreNextDialogueMovement = ignoreNext;
             JObject dialogue = (JObject)data["path"][index];
-            descriptionObj.GetComponent<TMPro.TextMeshProUGUI>().text = dialogue["description"].ToString();
+            StopTyping();
+            dialogueContent = dialogue["description"].ToString();
+            TMPro.TextMeshProUGUI descriptionText =
+                descriptionObj.GetComponent<TMPro.TextMeshProUGUI>();
+            descriptionText.text = "";
+            if (!string.IsNullOrEmpty(dialogueContent))
+            {
+                typeDialogueEntry = StartCoroutine(TypeDialogueEntry(descriptionText, dialogueContent));
+            }
             if(buttonsObj.transform.childCount > 0)
             {
                 foreach(Transform child in buttonsObj.transform)
@@ -196,8 +216,38 @@ namespace Investigation
                 }
             }
         }
+
+        IEnumerator TypeDialogueEntry(TMPro.TextMeshProUGUI descriptionText, string content)
+        {
+            foreach (char character in content)
+            {
+                descriptionText.text += character;
+                yield return new WaitForSeconds(TypingInterval);
+            }
+
+            typeDialogueEntry = null;
+        }
+
+        void CompleteTyping()
+        {
+            StopTyping();
+            descriptionObj.GetComponent<TMPro.TextMeshProUGUI>().text = dialogueContent;
+        }
+
+        void StopTyping()
+        {
+            if (typeDialogueEntry == null)
+            {
+                return;
+            }
+
+            StopCoroutine(typeDialogueEntry);
+            typeDialogueEntry = null;
+        }
+
         void OnDestroy()
         {
+            StopTyping();
             // 대화 전환 중 이전 대화창이 파괴될 때, 새 대화의 상호작용 상태를
             // 종료하지 않도록 현재 관리 중인 대화창인지 확인한다.
             if (interactionScript != null && interactionScript.dialogueScript == this)

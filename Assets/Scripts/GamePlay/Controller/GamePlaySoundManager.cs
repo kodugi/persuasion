@@ -120,6 +120,11 @@ namespace GamePlay
                          FindObjectsInactive.Include,
                          FindObjectsSortMode.None))
             {
+                if (button.GetComponentInParent<DialogueView>(true) != null)
+                {
+                    continue;
+                }
+
                 button.onClick.AddListener(PlayButtonClickSound);
             }
         }
