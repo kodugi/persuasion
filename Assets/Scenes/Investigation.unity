@@ -3772,9 +3772,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc1e554324f384bf0aa2112e214e442d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SaveManager
-  resetOnQuit: 0
-  saveWhilePlaying: 0
-  isProgressLoaded: 0
+  resetOnQuit: 1
+  saveWhilePlaying: 1
+  isProgressLoaded: 1
 --- !u!82 &1879756582
 AudioSource:
   m_ObjectHideFlags: 0
