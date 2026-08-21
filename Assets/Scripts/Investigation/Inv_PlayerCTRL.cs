@@ -13,6 +13,7 @@ namespace Investigation
         public InputActions inputAction;
         [SerializeField] private float moveSpeed = 5f;
         [SerializeField] private GameObject thoughtObj;
+        [SerializeField] GameObject footCollider;
         private Inv_Interact interactionScript;
         private Vector2 movementInput;
         Rigidbody2D rigidbody_my;
@@ -24,7 +25,8 @@ namespace Investigation
         public bool isHiding = false;
         public bool canHide = false;
         string hidingBehind="";
-        [SerializeField] GameObject footCollider;
+        bool isThinking = false;
+        Queue<string> thoughtQueue = new Queue<string>();
 
         void Awake()
         {
@@ -123,16 +125,23 @@ namespace Investigation
         }
         public void Think(string thought)
         {
-            StartCoroutine(ThinkC(thought));
+            thoughtQueue.Enqueue(thought);
+            StartCoroutine(ThinkC());
         }
-        IEnumerator ThinkC(string thought)
+        IEnumerator ThinkC()
         {
+            while(isThinking) yield return null;
+            if(thoughtQueue.Count <= 0) yield break;
+
+            isThinking = true;
+            string thought = thoughtQueue.Dequeue();
             thoughtObj.transform.Find("Text").GetComponent<TMPro.TextMeshProUGUI>().text = thought;
             thoughtObj.SetActive(true);
             //FadeObject(thoughtObj, true, 0f, 0f, false, 0f, 0.5f);
             //FadeObject(thoughtObj, false, 2f, 0f, false, 0f, 0.5f);
             yield return new WaitForSeconds(2f);
             thoughtObj.SetActive(false);
+            isThinking = false;
         }
         public void CanPlayerMove(bool canMove)
         {
