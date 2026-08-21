@@ -82,11 +82,15 @@ namespace Investigation
         }
         private void OnApplicationQuit()
         {
-            /*
-            if (saveManager != null && saveManager.resetOnQuit)
+            if (
+                saveManager == null ||
+                SaveManager.IsQuittingAndResetting ||
+                playerCTRL == null
+            )
             {
                 return;
-            }*/
+            }
+
             saveManager.SaveCharacterPosition(getID(),"Player",playerCTRL.gameObject.transform.position);
             NoteOnApplicationQuit();
             InventoryOnApplicationQuit();
@@ -108,12 +112,11 @@ namespace Investigation
         {
             yield return new WaitUntil(() =>
                 saveManager != null &&
-                saveManager.isProgressLoaded);
+                saveManager.IsProgressLoaded);
             string currScene = getID();
             print(currScene);
 
-            string path = "Assets/Scripts/Investigation/Dialogue/Maps/" + currScene + ".json";
-            string json = System.IO.File.ReadAllText(path);
+            string json = InvestigationJsonLoader.LoadMap(currScene);
             JObject data = JObject.Parse(json);
             List<InteractableObj> objects = JsonConvert.DeserializeObject<List<InteractableObj>>(data["interactables"].ToString());
             

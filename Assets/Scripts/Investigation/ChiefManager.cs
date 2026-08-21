@@ -188,11 +188,11 @@ public partial class ChiefManager : MonoBehaviour
         inv_Scene_ID = id;
 
         //print("2:"+autoInteractOnReturntoInv);
+        saveManager.PrepareForInvestigationSceneLoad();
         LoadScene(2);
         //print("3:"+autoInteractOnReturntoInv);
         yield return null;
         ResetAudioAfterGameOver(false);
-        Inv_GameManager gm = FindFirstObjectByType<Inv_GameManager>();
         //print("Investigation scene loaded");
         //print("4:"+autoInteractOnReturntoInv);
         saveManager.OnInvestigationSceneStart();
@@ -200,6 +200,14 @@ public partial class ChiefManager : MonoBehaviour
 
         inv_GameManager = GameObject.FindFirstObjectByType<Inv_GameManager>();
         inv_PlayerCTRL = GameObject.FindFirstObjectByType<Inv_PlayerCTRL>();
+
+        if (inv_GameManager == null || inv_PlayerCTRL == null)
+        {
+            Debug.LogError(
+                "[ChiefManager] Investigation scene managers were not ready after loading."
+            );
+            yield break;
+        }
 
         inv_GameManager.FadeScreen(false);
 

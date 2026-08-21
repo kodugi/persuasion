@@ -3,7 +3,6 @@ using UnityEngine.UI;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System;
-using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -146,8 +145,7 @@ namespace Investigation
                 state = interactingObj.state;
                 if(id.Contains("Hidable")) state = 0;
             }
-            string path = "Assets/Scripts/Investigation/Dialogue/" + id + "/Dialogue" + state.ToString() + ".json";
-            string json = File.ReadAllText(path);
+            string json = InvestigationJsonLoader.LoadDialogue(id, state);
             JObject data = JObject.Parse(json);
             GameObject obj = Instantiate(dialogueBox, GameObject.Find("Canvas").transform);
             //obj.GetComponent<RectTransform>().anchoredPosition = anchorPos;

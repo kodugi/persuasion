@@ -21,7 +21,8 @@ public partial class SaveManager : MonoBehaviour
         new Dictionary<string, object>();
 
     public static SaveManager Instance { get; private set; }
-    public bool isProgressLoaded = false;
+    public bool IsProgressLoaded { get; private set; }
+    public static bool IsQuittingAndResetting { get; private set; }
 
     private void Awake()
     {
@@ -33,6 +34,8 @@ public partial class SaveManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        IsProgressLoaded = false;
+        IsQuittingAndResetting = false;
 
         if (LoadData(
             "general",
@@ -77,7 +80,12 @@ public partial class SaveManager : MonoBehaviour
 
             InitializeEverything();
         }
-        isProgressLoaded = true;
+        IsProgressLoaded = true;
+    }
+
+    public void PrepareForInvestigationSceneLoad()
+    {
+        IsProgressLoaded = false;
     }
 
     private void InitializeEverything()
@@ -125,7 +133,7 @@ public partial class SaveManager : MonoBehaviour
         {
             // Set this before deleting anything so later save calls
             // cannot recreate the files.
-            //isQuittingAndResetting = true;
+            IsQuittingAndResetting = true;
 
             Debug.Log(
                 "[SaveManager] Deleting save files on quit."
@@ -153,7 +161,7 @@ public partial class SaveManager : MonoBehaviour
 
     public void SaveData(string fileName, object data)
     {
-        if(!saveWhilePlaying) return;
+        if (!saveWhilePlaying || IsQuittingAndResetting) return;
         
         string path = PathGen(fileName);
 
@@ -432,7 +440,7 @@ public partial class SaveManager : MonoBehaviour
         {
             Instance.progress.Clear();
             Instance.generalSave.Clear();
-            Instance.isProgressLoaded = false;
+            Instance.IsProgressLoaded = false;
         }
 
         DeleteSaveFile("general");
