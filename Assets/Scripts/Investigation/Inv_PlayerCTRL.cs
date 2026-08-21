@@ -53,7 +53,6 @@ namespace Investigation
                 inputAction.Player.Disable();
                 inputAction.Dispose();
                 inputAction = null;
-                interactionScript.SaveObjPos("Player", gameObject.transform.position);
             }
         }
         Vector2 prevPosition = new Vector2();

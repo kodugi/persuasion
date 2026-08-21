@@ -137,6 +137,8 @@ public partial class ChiefManager : MonoBehaviour
     }
     IEnumerator ExitSceneCoroutine(bool saveProgress=true)
     {
+        string sourceInvestigationId = inv_Scene_ID;
+
         if(saveProgress) saveManager.SaveProgress();
         switch (currScene)
         {
@@ -150,7 +152,15 @@ public partial class ChiefManager : MonoBehaviour
                 {
                     inv_PlayerCTRL.inputAction?.Player.Disable();
                     invSceneLastPos = inv_PlayerCTRL.gameObject.transform.position;
-                    saveManager.SaveCharacterPosition(currScene, "Player", (Vector3)invSceneLastPos);
+
+                    if (!string.IsNullOrEmpty(sourceInvestigationId))
+                    {
+                        saveManager.SaveCharacterPosition(
+                            sourceInvestigationId,
+                            "Player",
+                            (Vector3)invSceneLastPos
+                        );
+                    }
                 }
                 else Debug.LogWarning("PlayerCTRL not detected");
                 

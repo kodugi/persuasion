@@ -45,7 +45,7 @@ namespace Investigation
             }
             DisplayDialogue(0);
         }
-        List<string> shortImages = new List<string>{"LD_Player", "LD_Map1_Granny"};
+        List<string> shortImages = new List<string>{"LD_Player", "LD_Map1_Granny", "LD_Sister"};
         List<string> tallImages = new List<string>{"LD_Map1_Man2"};
         public void ChangeImage(string img_name, int position){
             StartCoroutine(ChangeImageC(img_name,position));
