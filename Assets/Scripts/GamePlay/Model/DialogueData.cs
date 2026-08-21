@@ -19,18 +19,32 @@ namespace GamePlay
         public string DialogueText;
         public TutorialState StateToTrigger;
         public TutorialStateTriggerTiming StateTriggerTiming;
+        public DialogueFigurePosition FigurePosition;
+        public Sprite FigureSprite;
 
         public DialogueEntry(
             string speakerName,
             string dialogueText,
             TutorialState stateToTrigger,
-            TutorialStateTriggerTiming stateTriggerTiming = TutorialStateTriggerTiming.AfterDialogue)
+            TutorialStateTriggerTiming stateTriggerTiming = TutorialStateTriggerTiming.AfterDialogue,
+            DialogueFigurePosition figurePosition = DialogueFigurePosition.None,
+            Sprite figureSprite = null)
         {
             SpeakerName = speakerName;
             DialogueText = dialogueText;
             StateToTrigger = stateToTrigger;
             StateTriggerTiming = stateTriggerTiming;
+            FigurePosition = figurePosition;
+            FigureSprite = figureSprite;
         }
+    }
+
+    public enum DialogueFigurePosition
+    {
+        None,
+        Left,
+        Center,
+        Right
     }
 
     public enum TutorialStateTriggerTiming

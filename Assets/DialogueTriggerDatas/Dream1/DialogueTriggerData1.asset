@@ -21,6 +21,8 @@ MonoBehaviour:
         \uAC78 \uBAA8\uB974\uB124?)"
       StateToTrigger: 0
       StateTriggerTiming: 0
+      FigurePosition: 3
+      FigureSprite: {fileID: 21300000, guid: ce16addfed2994a47824eebf1086a4f5, type: 3}
     - SpeakerName: "\uB098"
       DialogueText: "(...\uB204\uAC00 \uBA38\uB9BF\uC18D\uC5D0 \uB4E4\uC5B4\uC628
         \uAC8C \uD558\uB3C4 \uC624\uB79C\uB9CC\uC774\uB77C \uBB34\uC2A8 \uB290\uB08C\uC778\uC9C0
@@ -36,6 +38,8 @@ MonoBehaviour:
         \uC5EC\uAE30\uBCF4\uB2E4 \uB354 \uAE4A\uC740 \uACF3\uC5D0 \uC788\uC744 \uAC70\uC57C.)"
       StateToTrigger: 0
       StateTriggerTiming: 0
+      FigurePosition: 3
+      FigureSprite: {fileID: 21300000, guid: bfa26a5c3074bc64da7a9c3b64f1a7f8, type: 3}
     - SpeakerName: "\uB098"
       DialogueText: "(\uC5EC\uAE30\uB294 \uC5BC\uB978 \uD574\uACB0\uD558\uACE0 \uBE68\uB9AC
         \uB0B4\uB824\uAC00\uC790.)"

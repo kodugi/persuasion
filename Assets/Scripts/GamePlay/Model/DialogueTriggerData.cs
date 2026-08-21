@@ -125,10 +125,20 @@ namespace GamePlay
         [TextArea(2, 6)] public string DialogueText;
         public TutorialState StateToTrigger = TutorialState.None;
         public TutorialStateTriggerTiming StateTriggerTiming = TutorialStateTriggerTiming.AfterDialogue;
+        [Header("Figure Change")]
+        [Tooltip("None keeps the currently displayed figures unchanged. A position with no sprite hides that figure.")]
+        public DialogueFigurePosition FigurePosition = DialogueFigurePosition.None;
+        public Sprite FigureSprite;
 
         public DialogueEntry CreateDialogueEntry()
         {
-            return new DialogueEntry(SpeakerName, DialogueText, StateToTrigger, StateTriggerTiming);
+            return new DialogueEntry(
+                SpeakerName,
+                DialogueText,
+                StateToTrigger,
+                StateTriggerTiming,
+                FigurePosition,
+                FigureSprite);
         }
 
         public static DialogueEntryData FromDialogueEntry(DialogueEntry dialogueEntry)
@@ -143,7 +153,9 @@ namespace GamePlay
                 SpeakerName = dialogueEntry.SpeakerName,
                 DialogueText = dialogueEntry.DialogueText,
                 StateToTrigger = dialogueEntry.StateToTrigger,
-                StateTriggerTiming = dialogueEntry.StateTriggerTiming
+                StateTriggerTiming = dialogueEntry.StateTriggerTiming,
+                FigurePosition = dialogueEntry.FigurePosition,
+                FigureSprite = dialogueEntry.FigureSprite
             };
         }
     }
