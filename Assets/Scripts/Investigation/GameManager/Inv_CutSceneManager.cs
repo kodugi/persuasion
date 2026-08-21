@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using Unity.Cinemachine;
 
 namespace Investigation
 {
@@ -253,6 +254,11 @@ namespace Investigation
                 case "Map1_Cave_ShowUp":
                     Vector3 caveShowupPos = new Vector3(43.2f, -3f, 0);
                     yield return StartCoroutine(MoveSmoothly(caveShowupPos, obj:playerCTRL.gameObject));
+                    break;
+
+
+                case "cameraShake":
+                    GetComponent<CinemachineImpulseSource>().GenerateImpulse(1f);
                     break;
             }
         }

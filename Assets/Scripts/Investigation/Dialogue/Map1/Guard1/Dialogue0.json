@@ -410,6 +410,10 @@
                             "type": "variation",
                             "target": "Map1/Guard1",
                             "parameters": ["Throw"]
+                        },
+                        {
+                            "type": "cutScene",
+                            "title": "cameraShake"
                         }
                     ]
                 }

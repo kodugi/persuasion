@@ -51,7 +51,7 @@
                         {
                             "type":"changeCamera",
                             "target":"Map1/Guard1_Trigger",
-                            "duration":4
+                            "duration":3
                         }
                     
                     ]
@@ -88,7 +88,7 @@
                         {
                             "type":"changeCamera",
                             "target":"Player",
-                            "duration":1
+                            "duration":3
                         }
                     ]
                 }
