@@ -42,7 +42,7 @@ namespace Investigation
             DisplayDialogue(0);
         }
         List<string> shortImages = new List<string>{"LD_Player", "LD_Map1_Granny"};
-        List<string> tallImages = new List<string>{"LD_Player", "LD_Map1_Man2"};
+        List<string> tallImages = new List<string>{"LD_Map1_Man2"};
         public void ChangeImage(string img_name, int position)
         {
             Transform placeHolder = charactersObj.transform.GetChild(position);
