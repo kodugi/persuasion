@@ -100,6 +100,7 @@ public class Inv_InteractionObj_Map1_Guard1: Inv_InteractionObj
                         break;
                     case "Caught":
                         state = 1;
+                        FadeSwitch(3,3, 0, 0f);
                         break;
                     case "Met":
                         state = 2;
