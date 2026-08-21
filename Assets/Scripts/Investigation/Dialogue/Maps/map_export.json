@@ -1373,8 +1373,8 @@
     {
       "title": "Map1/나무",
       "position": {
-        "x": -22.54,
-        "y": 13.13
+        "x": -21.75,
+        "y": 16.22
       },
       "size": {
         "x": 3,
@@ -5678,8 +5678,8 @@
     {
       "title": "Map1/Beehive",
       "position": {
-        "x": -22.11,
-        "y": 12.81
+        "x": -21.42,
+        "y": 16.24
       },
       "size": {
         "x": 0.5,
@@ -5849,7 +5849,7 @@
       "hideCriteria": -0.5,
       "sortingOrder": 10,
       "image": [
-        "Temp_Person"
+        "Guide_To_Cave"
       ],
       "script": "Inv_InteractionObj_Map1_GuideToCave",
       "manually_touchable": false
@@ -5931,6 +5931,7 @@
         "Writer1",
         "Writer2",
         "Writer2",
+        "Writer2",
         "Writer2"
       ],
       "script": "Inv_InteractionObj_Map1_Writer",
@@ -6009,8 +6010,8 @@
     {
       "title": "Map1/ButterflyNet",
       "position": {
-        "x": -22.82,
-        "y": 11.83
+        "x": -22.34,
+        "y": 14.98
       },
       "size": {
         "x": 0.5,
