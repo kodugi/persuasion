@@ -16,6 +16,7 @@ MonoBehaviour:
   _anchoredPosition: {x: -707, y: 200}
   _sizeDelta: {x: 700, y: 2000}
   _localScale: {x: 1, y: 1, z: 1}
+  _investigationVerticalOffset: -30
   _headPosition: {x: 0.5, y: 0.75}
   _animatorController: {fileID: 9100000, guid: 7d241a3538a51ff49ae39493dcb21016, type: 2}
   _initialState: 

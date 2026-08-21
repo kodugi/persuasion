@@ -2271,6 +2271,14 @@ MonoBehaviour:
   _backgroundSuspicionUIRoot: {fileID: 2147480001}
   _centerDialogueFigure: {fileID: 2147479802}
   _rightDialogueFigure: {fileID: 2147479805}
+  _matchInvestigationFigureLayout: 1
+  _investigationReferenceWidth: 800
+  _investigationPortraitAspectRatio: 0.35
+  _investigationHorizontalInset: 150
+  _investigationVerticalOffset: -70
+  _investigationHeightExtension: 400
+  _investigationShortPortraitOffset: 50
+  _investigationTallPortraitOffset: -30
   _glitchEffectDuration: 0.92
   _glitchEffectIntensity: 0.75
   _glitchFlashEffectDuration: 0.68

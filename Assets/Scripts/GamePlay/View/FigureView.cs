@@ -19,6 +19,18 @@ namespace GamePlay
         [Header("Dialogue Figures")]
         [SerializeField] private Image _centerDialogueFigure;
         [SerializeField] private Image _rightDialogueFigure;
+
+        [Header("Figure Layout")]
+        [Tooltip("Matches all three figure slots to the responsive layout used by InvestigationScene dialogues.")]
+        [SerializeField] private bool _matchInvestigationFigureLayout = true;
+        [SerializeField, Min(1f)] private float _investigationReferenceWidth = 800f;
+        [SerializeField, Min(0.01f)] private float _investigationPortraitAspectRatio = 0.35f;
+        [SerializeField] private float _investigationHorizontalInset = 150f;
+        [SerializeField] private float _investigationVerticalOffset = -70f;
+        [SerializeField] private float _investigationHeightExtension = 400f;
+        [SerializeField] private float _investigationShortPortraitOffset = 50f;
+        [SerializeField] private float _investigationTallPortraitOffset = -30f;
+
         [Header("Glitch Effect")]
         [SerializeField, Min(0f)] private float _glitchEffectDuration = 0.92f;
         [SerializeField, Range(0f, 1f)] private float _glitchEffectIntensity = 0.75f;
@@ -53,6 +65,16 @@ namespace GamePlay
         private Vector2 _defaultAnchorMin;
         private Vector2 _defaultAnchorMax;
         private Vector2 _defaultPivot;
+        private float _currentLeftFigureVerticalOffset;
+        private Vector2 _lastLayoutParentSize;
+        private bool _hasLayoutParentSize;
+
+        private enum FigureSlot
+        {
+            Left,
+            Center,
+            Right
+        }
 
         private void Awake()
         {
@@ -70,10 +92,61 @@ namespace GamePlay
             _animator = GetComponent<Animator>();
             _uiGlitchEffect = GetComponent<UIGlitchEffect>();
 
+            ApplyInvestigationFigureLayout(_rectTransform, FigureSlot.Left, 0f);
+            ApplyInvestigationFigureLayout(
+                _centerDialogueFigure != null ? _centerDialogueFigure.rectTransform : null,
+                FigureSlot.Center,
+                0f);
+            ApplyInvestigationFigureLayout(
+                _rightDialogueFigure != null ? _rightDialogueFigure.rectTransform : null,
+                FigureSlot.Right,
+                0f);
+            CacheLayoutParentSize();
+
             if (_uiGlitchEffect == null)
             {
                 _uiGlitchEffect = gameObject.AddComponent<UIGlitchEffect>();
             }
+        }
+
+        private void LateUpdate()
+        {
+            if (!_matchInvestigationFigureLayout || !TryGetLayoutParentSize(out Vector2 parentSize))
+            {
+                return;
+            }
+
+            if (_hasLayoutParentSize &&
+                Mathf.Approximately(parentSize.x, _lastLayoutParentSize.x) &&
+                Mathf.Approximately(parentSize.y, _lastLayoutParentSize.y))
+            {
+                return;
+            }
+
+            _lastLayoutParentSize = parentSize;
+            _hasLayoutParentSize = true;
+
+            // A defeat sequence temporarily owns the main figure's transform.
+            if (!IsDefeatPresentationActive())
+            {
+                ApplyInvestigationFigureLayout(
+                    _rectTransform,
+                    FigureSlot.Left,
+                    _currentLeftFigureVerticalOffset);
+            }
+
+            ApplyInvestigationFigureLayout(
+                _centerDialogueFigure != null ? _centerDialogueFigure.rectTransform : null,
+                FigureSlot.Center,
+                GetDialogueFigureVerticalOffset(_centerDialogueFigure != null
+                    ? _centerDialogueFigure.sprite
+                    : null));
+            ApplyInvestigationFigureLayout(
+                _rightDialogueFigure != null ? _rightDialogueFigure.rectTransform : null,
+                FigureSlot.Right,
+                GetDialogueFigureVerticalOffset(_rightDialogueFigure != null
+                    ? _rightDialogueFigure.sprite
+                    : null));
         }
 
         private void Start()
@@ -180,8 +253,21 @@ namespace GamePlay
             _rectTransform.anchorMin = _defaultAnchorMin;
             _rectTransform.anchorMax = _defaultAnchorMax;
             _rectTransform.pivot = _defaultPivot;
-            _rectTransform.anchoredPosition = profile.AnchoredPosition;
-            _rectTransform.sizeDelta = profile.SizeDelta;
+            _currentLeftFigureVerticalOffset = profile.InvestigationVerticalOffset;
+
+            if (_matchInvestigationFigureLayout)
+            {
+                ApplyInvestigationFigureLayout(
+                    _rectTransform,
+                    FigureSlot.Left,
+                    _currentLeftFigureVerticalOffset);
+            }
+            else
+            {
+                _rectTransform.anchoredPosition = profile.AnchoredPosition;
+                _rectTransform.sizeDelta = profile.SizeDelta;
+            }
+
             _rectTransform.localScale = profile.LocalScale;
 
             if (profile.AnimatorController == null)
@@ -475,10 +561,10 @@ namespace GamePlay
                     SetLeftDialogueFigure(sprite);
                     break;
                 case DialogueFigurePosition.Center:
-                    SetDialogueFigure(_centerDialogueFigure, sprite);
+                    SetDialogueFigure(_centerDialogueFigure, FigureSlot.Center, sprite);
                     break;
                 case DialogueFigurePosition.Right:
-                    SetDialogueFigure(_rightDialogueFigure, sprite);
+                    SetDialogueFigure(_rightDialogueFigure, FigureSlot.Right, sprite);
                     break;
             }
         }
@@ -516,9 +602,14 @@ namespace GamePlay
             _animator.enabled = false;
             _image.sprite = sprite;
             _image.enabled = true;
+            _currentLeftFigureVerticalOffset = GetDialogueFigureVerticalOffset(sprite);
+            ApplyInvestigationFigureLayout(
+                _rectTransform,
+                FigureSlot.Left,
+                _currentLeftFigureVerticalOffset);
         }
 
-        private static void SetDialogueFigure(Image image, Sprite sprite)
+        private void SetDialogueFigure(Image image, FigureSlot slot, Sprite sprite)
         {
             if (image == null)
             {
@@ -528,6 +619,10 @@ namespace GamePlay
 
             image.sprite = sprite;
             image.enabled = sprite != null;
+            ApplyInvestigationFigureLayout(
+                image.rectTransform,
+                slot,
+                GetDialogueFigureVerticalOffset(sprite));
         }
 
         private static void HideDialogueFigure(Image image)
@@ -539,6 +634,100 @@ namespace GamePlay
 
             image.sprite = null;
             image.enabled = false;
+        }
+
+        private void ApplyInvestigationFigureLayout(
+            RectTransform figureTransform,
+            FigureSlot slot,
+            float portraitVerticalOffset)
+        {
+            if (!_matchInvestigationFigureLayout ||
+                figureTransform == null ||
+                !(figureTransform.parent is RectTransform parentTransform) ||
+                _investigationReferenceWidth <= 0f)
+            {
+                return;
+            }
+
+            Vector2 parentSize = parentTransform.rect.size;
+            float referenceScale = parentSize.x / _investigationReferenceWidth;
+            float portraitHeight = parentSize.y + _investigationHeightExtension * referenceScale;
+            float portraitWidth = portraitHeight * _investigationPortraitAspectRatio;
+            float verticalPosition =
+                (_investigationVerticalOffset + portraitVerticalOffset) * referenceScale;
+
+            Vector2 anchor;
+            float horizontalPosition;
+
+            switch (slot)
+            {
+                case FigureSlot.Left:
+                    anchor = new Vector2(0f, 0.5f);
+                    horizontalPosition = _investigationHorizontalInset * referenceScale;
+                    break;
+                case FigureSlot.Right:
+                    anchor = new Vector2(1f, 0.5f);
+                    horizontalPosition = -_investigationHorizontalInset * referenceScale;
+                    break;
+                default:
+                    anchor = new Vector2(0.5f, 0.5f);
+                    horizontalPosition = 0f;
+                    break;
+            }
+
+            figureTransform.anchorMin = anchor;
+            figureTransform.anchorMax = anchor;
+            figureTransform.pivot = new Vector2(0.5f, 0.5f);
+            figureTransform.anchoredPosition = new Vector2(horizontalPosition, verticalPosition);
+            figureTransform.sizeDelta = new Vector2(portraitWidth, portraitHeight);
+        }
+
+        private float GetDialogueFigureVerticalOffset(Sprite sprite)
+        {
+            if (sprite == null)
+            {
+                return 0f;
+            }
+
+            string spriteName = sprite.name;
+            if (spriteName.StartsWith("Player") || spriteName.Contains("Granny"))
+            {
+                return _investigationShortPortraitOffset;
+            }
+
+            return spriteName.Contains("Man2")
+                ? _investigationTallPortraitOffset
+                : 0f;
+        }
+
+        private void CacheLayoutParentSize()
+        {
+            if (!TryGetLayoutParentSize(out _lastLayoutParentSize))
+            {
+                return;
+            }
+
+            _hasLayoutParentSize = true;
+        }
+
+        private bool TryGetLayoutParentSize(out Vector2 parentSize)
+        {
+            if (_rectTransform != null && _rectTransform.parent is RectTransform parentTransform)
+            {
+                parentSize = parentTransform.rect.size;
+                return true;
+            }
+
+            parentSize = default;
+            return false;
+        }
+
+        private bool IsDefeatPresentationActive()
+        {
+            return _suspicionOverflowDefeatCoroutine != null ||
+                   _turnLimitDefeatCoroutine != null ||
+                   _suspicionOverflowDefeatSequence != null ||
+                   _turnLimitDefeatSequence != null;
         }
     }
 }
