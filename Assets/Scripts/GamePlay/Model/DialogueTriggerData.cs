@@ -129,6 +129,14 @@ namespace GamePlay
         [Tooltip("None keeps the currently displayed figures unchanged. A position with no sprite hides that figure.")]
         public DialogueFigurePosition FigurePosition = DialogueFigurePosition.None;
         public Sprite FigureSprite;
+        [Tooltip("Optional second figure change applied with the primary figure change.")]
+        public DialogueFigurePosition AdditionalFigurePosition = DialogueFigurePosition.None;
+        public Sprite AdditionalFigureSprite;
+        [Tooltip("Optional third figure change applied with the primary figure change.")]
+        public DialogueFigurePosition TertiaryFigurePosition = DialogueFigurePosition.None;
+        public Sprite TertiaryFigureSprite;
+        [Tooltip("Hides center and right figures when this dialogue's page ends.")]
+        public bool HideFiguresAfterDialogue;
 
         public DialogueEntry CreateDialogueEntry()
         {
@@ -138,7 +146,12 @@ namespace GamePlay
                 StateToTrigger,
                 StateTriggerTiming,
                 FigurePosition,
-                FigureSprite);
+                FigureSprite,
+                AdditionalFigurePosition,
+                AdditionalFigureSprite,
+                TertiaryFigurePosition,
+                TertiaryFigureSprite,
+                HideFiguresAfterDialogue);
         }
 
         public static DialogueEntryData FromDialogueEntry(DialogueEntry dialogueEntry)
@@ -155,7 +168,12 @@ namespace GamePlay
                 StateToTrigger = dialogueEntry.StateToTrigger,
                 StateTriggerTiming = dialogueEntry.StateTriggerTiming,
                 FigurePosition = dialogueEntry.FigurePosition,
-                FigureSprite = dialogueEntry.FigureSprite
+                FigureSprite = dialogueEntry.FigureSprite,
+                AdditionalFigurePosition = dialogueEntry.AdditionalFigurePosition,
+                AdditionalFigureSprite = dialogueEntry.AdditionalFigureSprite,
+                TertiaryFigurePosition = dialogueEntry.TertiaryFigurePosition,
+                TertiaryFigureSprite = dialogueEntry.TertiaryFigureSprite,
+                HideFiguresAfterDialogue = dialogueEntry.HideFiguresAfterDialogue
             };
         }
     }

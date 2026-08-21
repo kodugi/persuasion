@@ -21,6 +21,11 @@ namespace GamePlay
         public TutorialStateTriggerTiming StateTriggerTiming;
         public DialogueFigurePosition FigurePosition;
         public Sprite FigureSprite;
+        public DialogueFigurePosition AdditionalFigurePosition;
+        public Sprite AdditionalFigureSprite;
+        public DialogueFigurePosition TertiaryFigurePosition;
+        public Sprite TertiaryFigureSprite;
+        public bool HideFiguresAfterDialogue;
 
         public DialogueEntry(
             string speakerName,
@@ -28,7 +33,12 @@ namespace GamePlay
             TutorialState stateToTrigger,
             TutorialStateTriggerTiming stateTriggerTiming = TutorialStateTriggerTiming.AfterDialogue,
             DialogueFigurePosition figurePosition = DialogueFigurePosition.None,
-            Sprite figureSprite = null)
+            Sprite figureSprite = null,
+            DialogueFigurePosition additionalFigurePosition = DialogueFigurePosition.None,
+            Sprite additionalFigureSprite = null,
+            DialogueFigurePosition tertiaryFigurePosition = DialogueFigurePosition.None,
+            Sprite tertiaryFigureSprite = null,
+            bool hideFiguresAfterDialogue = false)
         {
             SpeakerName = speakerName;
             DialogueText = dialogueText;
@@ -36,6 +46,11 @@ namespace GamePlay
             StateTriggerTiming = stateTriggerTiming;
             FigurePosition = figurePosition;
             FigureSprite = figureSprite;
+            AdditionalFigurePosition = additionalFigurePosition;
+            AdditionalFigureSprite = additionalFigureSprite;
+            TertiaryFigurePosition = tertiaryFigurePosition;
+            TertiaryFigureSprite = tertiaryFigureSprite;
+            HideFiguresAfterDialogue = hideFiguresAfterDialogue;
         }
     }
 

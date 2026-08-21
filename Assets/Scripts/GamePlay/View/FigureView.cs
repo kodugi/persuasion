@@ -457,27 +457,41 @@ namespace GamePlay
 
         private void ApplyDialogueFigure(DialogueEntry dialogueEntry)
         {
-            if (dialogueEntry == null || dialogueEntry.FigurePosition == DialogueFigurePosition.None)
+            if (dialogueEntry == null)
             {
                 return;
             }
 
-            switch (dialogueEntry.FigurePosition)
+            ApplyDialogueFigure(dialogueEntry.FigurePosition, dialogueEntry.FigureSprite);
+            ApplyDialogueFigure(dialogueEntry.AdditionalFigurePosition, dialogueEntry.AdditionalFigureSprite);
+            ApplyDialogueFigure(dialogueEntry.TertiaryFigurePosition, dialogueEntry.TertiaryFigureSprite);
+        }
+
+        private void ApplyDialogueFigure(DialogueFigurePosition position, Sprite sprite)
+        {
+            switch (position)
             {
                 case DialogueFigurePosition.Left:
-                    SetLeftDialogueFigure(dialogueEntry.FigureSprite);
+                    SetLeftDialogueFigure(sprite);
                     break;
                 case DialogueFigurePosition.Center:
-                    SetDialogueFigure(_centerDialogueFigure, dialogueEntry.FigureSprite);
+                    SetDialogueFigure(_centerDialogueFigure, sprite);
                     break;
                 case DialogueFigurePosition.Right:
-                    SetDialogueFigure(_rightDialogueFigure, dialogueEntry.FigureSprite);
+                    SetDialogueFigure(_rightDialogueFigure, sprite);
                     break;
             }
         }
 
         private void HandleDialoguePageEndEvent(object sender, DialoguePageEndEventArgs e)
         {
+            if (e.GetLastDialogueEntry()?.HideFiguresAfterDialogue == true)
+            {
+                HideDialogueFigure(_centerDialogueFigure);
+                HideDialogueFigure(_rightDialogueFigure);
+                return;
+            }
+
             // Intermediate page breaks keep their figures. Once the complete dialogue ends,
             // center/right portraits are cleared so they never remain over the puzzle.
             if (DialogueManager.Instance != null && DialogueManager.Instance.HasCurrentDialogueData())

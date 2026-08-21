@@ -21,6 +21,10 @@ MonoBehaviour:
         \uB298\uC5C8\uB124\u2026."
       StateToTrigger: 9
       StateTriggerTiming: 1
+      FigurePosition: 1
+      FigureSprite: {fileID: 21300000, guid: fed65235d5e64754fa19d658727eaea8, type: 3}
+      AdditionalFigurePosition: 3
+      AdditionalFigureSprite: {fileID: 21300000, guid: ce16addfed2994a47824eebf1086a4f5, type: 3}
     - SpeakerName: "\uB098"
       DialogueText: "\uAC80\uC740 \uAC10\uC815\uB3C4 \uC601\uD63C\uC758 \uC601\uD5A5\uC744
         \uBC1B\uC9C0\uB9CC, \uC601\uD63C\uB3C4 \uAC80\uC740 \uAC10\uC815\uC758 \uC601\uD5A5\uC744
@@ -29,6 +33,8 @@ MonoBehaviour:
         \uB3FC."
       StateToTrigger: 9
       StateTriggerTiming: 1
+      FigurePosition: 3
+      FigureSprite: {fileID: 21300000, guid: 9f7722c6ab0348b418d8400e510da437, type: 3}
     - SpeakerName: "\uB098"
       DialogueText: "\uB2E4\uC2DC \uB610 \uC601\uD63C \uB450 \uAC1C \uC0AC\uC774\uC5D0
         \uAC80\uC740 \uAC10\uC815\uC774 \uB07C\uC5B4 \uC788\uB294 \uD615\uD0DC\uAC00
@@ -69,11 +75,14 @@ MonoBehaviour:
       DialogueText: "\uC5EC\uAE30\uC5D0 \uC601\uD63C\uC744 \uC2EC\uC73C\uBA74\u2026."
       StateToTrigger: 6
       StateTriggerTiming: 0
+      HideFiguresAfterDialogue: 1
   - Entries:
     - SpeakerName: "\uB098"
       DialogueText: "\uC88B\uC544, \uB2E4\uC2DC \uBC14\uAF08\uB2E4."
       StateToTrigger: 0
       StateTriggerTiming: 0
+      FigurePosition: 3
+      FigureSprite: {fileID: 21300000, guid: c2e5561806978e54681092b2776eabc9, type: 3}
     - SpeakerName: "\uB098"
       DialogueText: "\uC774\uB7F0 \uC2DD\uC73C\uB85C \uACC4\uC18D \uBCC0\uD658\uC2DC\uCF1C
         \uB098\uAC00\uC790."
@@ -86,6 +95,8 @@ MonoBehaviour:
         \uB0A0 \uC758\uC2EC\uD558\uC9C0 \uC54A\uC744 \uAC70\uC57C."
       StateToTrigger: 0
       StateTriggerTiming: 0
+      FigurePosition: 3
+      FigureSprite: {fileID: 21300000, guid: 9f7722c6ab0348b418d8400e510da437, type: 3}
     - SpeakerName: "\uB098"
       DialogueText: "\uAF2D \uBAA8\uB450 \uBCC0\uD658\uD574\uC57C \uD560 \uD544\uC694\uB294
         \uC5C6\uC5B4. \uC0AC\uB78C\uACFC \uC0C1\uD669\uC5D0 \uB530\uB77C \uBAA9\uD45C\uCE58\uAC00

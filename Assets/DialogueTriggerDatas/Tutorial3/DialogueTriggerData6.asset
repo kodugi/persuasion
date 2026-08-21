@@ -21,12 +21,16 @@ MonoBehaviour:
         \uAC1C\uB97C \uBCC0\uD658\uC2DC\uCF1C\uC57C \uD558\uB124."
       StateToTrigger: 0
       StateTriggerTiming: 0
+      FigurePosition: 3
+      FigureSprite: {fileID: 21300000, guid: 9f7722c6ab0348b418d8400e510da437, type: 3}
     - SpeakerName: "\uB098"
       DialogueText: "\uC7A0\uAE50\uB9CC, \uADF8\uB7F0\uB370 \uC5EC\uAE30 \uC788\uB294
         \uAC10\uC815\uB4E4\uC740 \uC5B4\uB5BB\uAC8C \uD574\uB3C4 \uBCC0\uD658\uC744
         \uC2DC\uD0AC \uC218\uAC00 \uC5C6\uC796\uC544?"
       StateToTrigger: 17
       StateTriggerTiming: 1
+      FigurePosition: 3
+      FigureSprite: {fileID: 21300000, guid: ce16addfed2994a47824eebf1086a4f5, type: 3}
     - SpeakerName: "\uB098"
       DialogueText: "\uC591\uCABD\uC5D0\uC11C \uAC10\uC815\uC744 \uAC10\uC300 \uC218\uAC00
         \uC5C6\uC5B4."
