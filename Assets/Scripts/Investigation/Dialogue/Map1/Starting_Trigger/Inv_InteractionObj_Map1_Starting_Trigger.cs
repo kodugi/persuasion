@@ -21,6 +21,9 @@ public class Inv_InteractionObj_Map1_Starting_Trigger: Inv_InteractionObj
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.CompareTag("Player") && state == 0) {
+                state = 1;
+                base.variation();
+                CheckState();
                 interactionManager.Effects(
                     new JObject
                     {
