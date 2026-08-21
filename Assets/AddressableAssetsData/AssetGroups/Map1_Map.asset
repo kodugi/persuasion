@@ -15,6 +15,8 @@ MonoBehaviour:
   m_GroupName: Map1_Map
   m_GUID: e38b59f225fd84f28aee02e9b9bd004e
   m_SerializeEntries:
+  - m_GUID: 18e21342fa91a4b2e84c0e86820b2dd0
+    m_Address: Map1_road
   - m_GUID: 1ab1fb629887c5648b13d827f4996892
     m_Address: Dream_Cloud_01
     m_ReadOnly: 0

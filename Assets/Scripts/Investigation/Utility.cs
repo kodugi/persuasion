@@ -200,5 +200,30 @@ namespace Investigation
             }
             handles.Clear();
         }
+        protected IEnumerator MoveSmoothly(Vector3 end, float duration=1f, Vector3? _start=null, GameObject obj=null)
+        {
+            if(obj==null) obj=gameObject;
+            if(_start == null) _start = obj.transform.position;
+
+            Vector3 start = (Vector3)_start;
+            obj.transform.position = start;
+
+            float elapsed = 0f;
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+
+                float t = Mathf.Clamp01(elapsed / duration);
+
+                // 시작/끝 부분을 부드럽게
+                t = Mathf.SmoothStep(0f, 1f, t);
+                
+                obj.transform.position =
+                    Vector3.Lerp(start, end, t);
+
+                yield return null;
+            }
+            obj.transform.position = end;
+        }
     }
 }

@@ -15,6 +15,7 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
         bool amIInteracting = false;
         bool haveWarned = false;
         float walkingSpeed = 1.5f;
+        bool isPlayerInside = false;
         
         override protected void Starter()
         {
@@ -23,6 +24,8 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
         }
         override public void CheckState()
         {
+            if(playerCTRL==null) playerCTRL = GameObject.FindFirstObjectByType<Inv_PlayerCTRL>();
+            if(interactManager==null) interactManager = GameObject.FindFirstObjectByType<Inv_Interact>();
             int original_state = state;
             base.CheckState();
             //print(state);
@@ -53,8 +56,13 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
                     state = 4;
                 }
             }
+            if (state >= 3)
+            {
+                gameObject.GetComponent<BoxCollider2D>().size = new Vector2(0.4f, 1f);
+                gameObject.transform.GetChild(0).GetComponent<BoxCollider2D>().enabled=false;
+            }
             saveManager.AddProgress(obj_name + "state", state);
-            if(amIInteracting && original_state != state)
+            if(amIInteracting && original_state != state && !(state==1 && !haveWarned))
             {
                 interactManager.ForceInteraction(obj_name);
             }
@@ -100,41 +108,37 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
                                 ["parameters"]=new JArray{3}
                             }
                         );
+                        interactManager.Effects(
+                            new JObject
+                            {
+                                ["type"]="thought",
+                                ["thought"]="여자가 왼쪽에 있는 집으로 들어갔다."
+                            }
+                        );
                         state=6;
-                        StartCoroutine(WalkingMotion());
+                        StartCoroutine(WalkingMotionTemp());
                         break;
                     case "alone":
                         state=3;
                         gameObject.GetComponent<BoxCollider2D>().size = new Vector2(0.4f, 1f);
+                        gameObject.transform.GetChild(0).GetComponent<BoxCollider2D>().enabled=false;
                         break;
                     case "Dispersed":
-                        FadeSwitch(2, 0, 0, 1f);
+                        FadeSwitch(2, 0, 0, 0f);
+                        break;
+                    case "haveWarned":
+                        haveWarned = true;
                         break;
                 }
             }
             base.variation();
         }
-        void OnTriggerEnter2D(Collider2D col)
+        
+        private IEnumerator WalkingMotionTemp()
         {
-            if (col.gameObject.CompareTag("Player"))
-            {
-                if (state == 1)
-                {
-                    if(!haveWarned)
-                    {
-                        interactManager.Effects(
-                            new JObject
-                            {
-                                ["type"]="variation",
-                                ["target"]="Map1/Player",
-                                ["parameters"]=new JArray{4}
-                            }
-                        );
-                        interactionManager.ForceInteraction("Map1/Player");
-                        haveWarned = true;
-                    }
-                }
-            }
+            yield return StartCoroutine(MoveSmoothly(interactManager.FindInteractableObj("Map1/House_WitchMother").position, duration:2));
+            gameObject.GetComponent<SpriteRenderer>().enabled=false;
+            Destroy(gameObject.transform.GetChild(0).gameObject);
         }
         private IEnumerator WalkingMotion()
         {
@@ -182,6 +186,64 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
             gameObject.SetActive(false);
 
             playerCTRL.CanPlayerMove(true);
+        }
+        void OnTriggerEnter2D(Collider2D col)
+        {
+            if (state==1 && col.CompareTag("Player"))
+            {
+                isPlayerInside = true;
+                playerCTRL = col.gameObject.GetComponent<Inv_PlayerCTRL>();
+                if(!haveWarned)
+                {
+                    interactManager.Effects(
+                        new JObject
+                        {
+                            ["type"]="changeCamera",
+                            ["target"]="Map1/WitchMother",
+                            ["duration"]=1
+                        }
+                    );
+                    interactManager.Effects(
+                        new JObject
+                        {
+                            ["type"]="variation",
+                            ["target"]="Map1/Player",
+                            ["parameters"]=new JArray{4}
+                        }
+                    );
+                    interactionManager.ForceInteraction("Map1/Player");
+                }
+                else
+                {
+                    interactManager.ForceInteraction("Map1/WitchMother");
+                }
+            }
+        }
+        void OnTriggerExit2D(Collider2D col)
+        {
+            if (state==1 && col.CompareTag("Player"))
+            {
+                isPlayerInside = false;
+            }
+        }
+        void FixedUpdate()
+        {
+            if (state==1 && isPlayerInside)
+            {
+                if (playerCTRL.isHiding)
+                {
+                    state=2;
+                    interactManager.ForceInteraction("Map1/WitchMother");
+                    interactManager.Effects(
+                        new JObject
+                        {
+                            ["type"]="changeCamera",
+                            ["target"]="Map1/WitchMother",
+                            ["duration"]=1
+                        }
+                    );
+                }
+            }
         }
     
 
