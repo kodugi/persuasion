@@ -194,7 +194,7 @@ public partial class ChiefManager : MonoBehaviour
                 break;
             case "Map_Dream":
             case "Dream":
-                PlayBGM(dream_MainBGM);
+                PlayBGM("Dream_Main");
                 break;
         }
     }
