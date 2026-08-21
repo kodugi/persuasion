@@ -86,6 +86,22 @@ namespace GamePlay
             return _currentState == TutorialState.None;
         }
 
+        public bool IsWaitingForInteractionOutsideDialogue()
+        {
+            if (_currentState == TutorialState.None || _currentStateWasTriggeredWithDialogue)
+            {
+                return false;
+            }
+
+            if (_currentCellCoords != null && _currentCellCoords.Count > 0)
+            {
+                return true;
+            }
+
+            return _currentState == TutorialState.ExplainEndTurn ||
+                   GetOverlayClickHandler(_currentState) != null;
+        }
+
         public void NotifyEndTurnClicked()
         {
             if (_currentState == TutorialState.ExplainEndTurn)

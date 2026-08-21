@@ -16,7 +16,9 @@ public class BoardCellClickView : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (_boardView == null)
+        if (_boardView == null ||
+            (DialogueManager.Instance != null &&
+             DialogueManager.Instance.ShouldBlockInteractionOutsideDialogue()))
         {
             return;
         }

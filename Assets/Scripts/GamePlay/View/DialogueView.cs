@@ -16,6 +16,7 @@ namespace GamePlay
 
         private Coroutine _typeDialogueEntry;
         private string _dialogueContent;
+        private Image _outsideInputBlocker;
         
         protected override bool InitializeCore()
         {
@@ -52,6 +53,7 @@ namespace GamePlay
             DialogueManager.Instance.RaiseSetDialogueEntryEvent += HandleSetDialogueEntryEvent;
             DialogueManager.Instance.RaiseDialoguePageEndEvent += HandleDialogueEndEvent;
 
+            EnsureOutsideInputBlocker();
             Hide();
 
             if (!DialogueManager.Instance.HasDialogueData())
@@ -68,6 +70,8 @@ namespace GamePlay
 
         private void Update()
         {
+            RefreshOutsideInputBlocker();
+
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 OnNextButtonClick();
@@ -102,6 +106,7 @@ namespace GamePlay
             }
             StopTypeDialogueEntry();
             _dialoguePanel.SetActive(true);
+            RefreshOutsideInputBlocker();
             _dialogueContent = dialogueEntry.DialogueText;
             _speakerNameText.text = dialogueEntry.SpeakerName;
             _speakerNameText.transform.parent.gameObject.SetActive(
@@ -170,7 +175,65 @@ namespace GamePlay
             }
 
             StopTypeDialogueEntry();
+            if (_outsideInputBlocker != null)
+            {
+                _outsideInputBlocker.gameObject.SetActive(false);
+            }
             _dialoguePanel.SetActive(false);
+        }
+
+        private void EnsureOutsideInputBlocker()
+        {
+            if (_outsideInputBlocker != null || _dialoguePanel == null)
+            {
+                return;
+            }
+
+            Transform dialogueParent = _dialoguePanel.transform.parent;
+            if (dialogueParent == null)
+            {
+                Debug.LogWarning("Dialogue panel needs a parent for its outside input blocker.", this);
+                return;
+            }
+
+            GameObject blockerObject = new GameObject(
+                "Dialogue Outside Input Blocker",
+                typeof(RectTransform),
+                typeof(CanvasRenderer),
+                typeof(Image));
+            blockerObject.layer = _dialoguePanel.layer;
+            blockerObject.transform.SetParent(dialogueParent, false);
+
+            _outsideInputBlocker = blockerObject.GetComponent<Image>();
+            _outsideInputBlocker.color = Color.clear;
+            _outsideInputBlocker.raycastTarget = true;
+
+            RectTransform blockerRect = _outsideInputBlocker.rectTransform;
+            blockerRect.anchorMin = Vector2.zero;
+            blockerRect.anchorMax = Vector2.one;
+            blockerRect.offsetMin = Vector2.zero;
+            blockerRect.offsetMax = Vector2.zero;
+
+            _dialoguePanel.transform.SetAsLastSibling();
+        }
+
+        private void RefreshOutsideInputBlocker()
+        {
+            EnsureOutsideInputBlocker();
+            if (_outsideInputBlocker == null)
+            {
+                return;
+            }
+
+            bool shouldBlock = _dialoguePanel.activeSelf &&
+                               DialogueManager.Instance != null &&
+                               DialogueManager.Instance.ShouldBlockInteractionOutsideDialogue();
+            _outsideInputBlocker.gameObject.SetActive(shouldBlock);
+            if (shouldBlock)
+            {
+                _outsideInputBlocker.transform.SetSiblingIndex(_dialoguePanel.transform.GetSiblingIndex());
+                _dialoguePanel.transform.SetAsLastSibling();
+            }
         }
     }
 }
