@@ -63,7 +63,7 @@ public class Inv_InteractionObj : Utility
             }*/
             string check_name = obj_name;
             int original_state = state;
-            if (saveManager.progress != null && saveManager.progress.ContainsKey(check_name + "state"))
+            if (saveManager != null && saveManager.progress != null && saveManager.progress.ContainsKey(check_name + "state"))
             {
                 state = Convert.ToInt32(saveManager.progress[check_name + "state"]);
                 //dbg+="yes, "+state;
