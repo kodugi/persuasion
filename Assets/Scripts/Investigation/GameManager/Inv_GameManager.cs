@@ -119,18 +119,6 @@ namespace Investigation
             string currScene = getID();
             PlayRelevantMapBgm(currScene);
 
-            footCollider = playerCTRL.gameObject.transform.Find("FootCollider").GetComponent<BoxCollider2D>();
-            if(saveManager.TryLoadCharacterPosition(currScene,"Player", out Vector3 savedPositionP))
-            {
-                playerCTRL.gameObject.transform.position = savedPositionP;
-            }
-            else if (currScene == "Map_Dream")
-            {
-                // Dream_reference marker: left-hand character position.
-                playerCTRL.gameObject.transform.position = new Vector3(3.27f, 0.29f, 0f);
-            }
-            print(currScene);
-
             string path = "Assets/Scripts/Investigation/Dialogue/Maps/" + currScene + ".json";
             string json = System.IO.File.ReadAllText(path);
             JObject data = JObject.Parse(json);
