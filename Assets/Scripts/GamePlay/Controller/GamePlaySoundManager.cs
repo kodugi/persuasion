@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace GamePlay
 {
@@ -13,7 +14,8 @@ namespace GamePlay
         SoulPlace,
         Eye,
         BigEye,
-        Glitch
+        Glitch,
+        ButtonClick
     }
 
     public sealed class GamePlaySoundManager : MonoBehaviour
@@ -32,8 +34,10 @@ namespace GamePlay
         [SerializeField] private AudioClip _eyeSound;
         [SerializeField] private AudioClip _bigEyeSound;
         [SerializeField] private AudioClip _glitchSound;
+        [SerializeField] private AudioClip _buttonClickSound;
         [SerializeField, Range(0f, 1f)] private float _soundEffectVolume = 0.75f;
-        [SerializeField, Range(0f, 1f)] private float _jumpScareVolume = 1f;
+        [SerializeField, Range(0f, 1f)] private float _eyeVolume = 0.9f;
+        [SerializeField, Range(0f, 1.2f)] private float _jumpScareVolume = 1.1f;
         [SerializeField, Min(0f)] private float _jumpScareDuration = 3f;
 
         private AudioSource _bgmAudioSource;
@@ -61,6 +65,7 @@ namespace GamePlay
         {
             StopExternalBGM();
             PlayStageBGM();
+            RegisterButtonClickSounds();
         }
 
         private void OnDestroy()
@@ -93,7 +98,7 @@ namespace GamePlay
                     PlayOneShot(_soulPlaceSound);
                     break;
                 case GamePlaySoundId.Eye:
-                    PlayOneShot(_eyeSound);
+                    PlayOneShot(_eyeSound, _eyeVolume);
                     break;
                 case GamePlaySoundId.BigEye:
                     PlayOneShot(_bigEyeSound);
@@ -101,9 +106,27 @@ namespace GamePlay
                 case GamePlaySoundId.Glitch:
                     PlayOneShot(_glitchSound);
                     break;
+                case GamePlaySoundId.ButtonClick:
+                    PlayOneShot(_buttonClickSound);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(id), id, null);
             }
+        }
+
+        private void RegisterButtonClickSounds()
+        {
+            foreach (Button button in FindObjectsByType<Button>(
+                         FindObjectsInactive.Include,
+                         FindObjectsSortMode.None))
+            {
+                button.onClick.AddListener(PlayButtonClickSound);
+            }
+        }
+
+        private void PlayButtonClickSound()
+        {
+            Play(GamePlaySoundId.ButtonClick);
         }
 
         public void ResetAfterGameOver()
@@ -174,7 +197,7 @@ namespace GamePlay
                    mapType == GameInfo.MapType.Dream4;
         }
 
-        private void PlayOneShot(AudioClip clip)
+        private void PlayOneShot(AudioClip clip, float volume = -1f)
         {
             if (clip == null)
             {
@@ -182,7 +205,7 @@ namespace GamePlay
                 return;
             }
 
-            _effectAudioSource.PlayOneShot(clip, _soundEffectVolume);
+            _effectAudioSource.PlayOneShot(clip, volume >= 0f ? volume : _soundEffectVolume);
         }
 
         private void PlayLoopingEffect(AudioClip clip)

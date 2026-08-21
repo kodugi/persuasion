@@ -496,6 +496,8 @@ MonoBehaviour:
   _startButton: {fileID: 1690380953}
   _continueButton: {fileID: 1813452060}
   _exitButton: {fileID: 632483037}
+  _buttonClickSound: {fileID: 8300000, guid: cccac901051f80c4dbfa1fd5d4475508, type: 3}
+  _buttonClickVolume: 0.75
 --- !u!114 &708781668
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -3618,8 +3618,10 @@ MonoBehaviour:
   _eyeSound: {fileID: 8300000, guid: 2c1b4ae9a10a9584f8b78f3cd4ab8d75, type: 3}
   _bigEyeSound: {fileID: 8300000, guid: 1218943d7ba3c2046b7904fb3ae14471, type: 3}
   _glitchSound: {fileID: 8300000, guid: 894f366ad345f4b488ee6e7443e3b28e, type: 3}
+  _buttonClickSound: {fileID: 8300000, guid: cccac901051f80c4dbfa1fd5d4475508, type: 3}
   _soundEffectVolume: 0.75
-  _jumpScareVolume: 1
+  _eyeVolume: 0.9
+  _jumpScareVolume: 1.1
   _jumpScareDuration: 3
 --- !u!1 &1369784447
 GameObject:
