@@ -17,6 +17,11 @@ MonoBehaviour:
   m_SerializeEntries:
   - m_GUID: 18e21342fa91a4b2e84c0e86820b2dd0
     m_Address: Map1_road
+  - m_GUID: 08cef545ca5c0c546a907de428b5baea
+    m_Address: Dream_reference
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1ab1fb629887c5648b13d827f4996892
     m_Address: Dream_Cloud_01
     m_ReadOnly: 0
