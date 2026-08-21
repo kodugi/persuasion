@@ -8,7 +8,7 @@
         "y": 0
       },
       "size": {
-        "x": 1000,
+        "x": 1,
         "y": 1000
       },
       "colliderShape": "box",
@@ -30,7 +30,9 @@
       },
       "hideCriteria": 0,
       "sortingOrder": -100,
-      "image": ["fullblack"],
+      "image": [
+        "fullblack"
+      ],
       "script": "",
       "manually_touchable": false
     },
@@ -362,7 +364,9 @@
       },
       "hideCriteria": 0,
       "sortingOrder": 0,
-      "image": ["Map1_road"],
+      "image": [
+        "Map1_road"
+      ],
       "script": "",
       "manually_touchable": false
     },
@@ -468,11 +472,11 @@
     {
       "title": "Wall0",
       "position": {
-        "x": 0,
+        "x": -29,
         "y": -5
       },
       "size": {
-        "x": 110,
+        "x": 55,
         "y": 3
       },
       "colliderShape": "box",
@@ -598,6 +602,39 @@
       "manually_touchable": false
     },
     {
+      "title": "Wall4",
+      "position": {
+        "x": 29,
+        "y": -5
+      },
+      "size": {
+        "x": 55,
+        "y": 3
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 1,
+        "y": 1
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 0,
+      "image": [],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
       "title": "Map1/Cave",
       "position": {
         "x": 48.52,
@@ -630,41 +667,6 @@
         "cave"
       ],
       "script": "Inv_InteractionObj_Map1_Cave",
-      "manually_touchable": false
-    },
-    {
-      "title": "Map1/Cave_Back",
-      "position": {
-        "x": 50.11,
-        "y": 0.64
-      },
-      "size": {
-        "x": 10,
-        "y": 10
-      },
-      "colliderShape": "box",
-      "colliderSize": {
-        "x": 0,
-        "y": 0
-      },
-      "colliderOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerSize": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "hideCriteria": 0,
-      "sortingOrder": 4,
-      "image": [
-        "cave_back"
-      ],
-      "script": "",
       "manually_touchable": false
     },
     {
@@ -1371,8 +1373,8 @@
     {
       "title": "Map1/나무",
       "position": {
-        "x": -22.54,
-        "y": 13.13
+        "x": -21.75,
+        "y": 16.22
       },
       "size": {
         "x": 3,
@@ -2283,41 +2285,6 @@
       "position": {
         "x": -10.61,
         "y": -2.13
-      },
-      "size": {
-        "x": 3,
-        "y": 3
-      },
-      "colliderShape": "box",
-      "colliderSize": {
-        "x": 0.12,
-        "y": 0.3
-      },
-      "colliderOffset": {
-        "x": -0.02,
-        "y": -0.32
-      },
-      "triggerSize": {
-        "x": 0.5,
-        "y": 0.9
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": -0.02
-      },
-      "hideCriteria": 0,
-      "sortingOrder": 2,
-      "image": [
-        "tree1"
-      ],
-      "script": "",
-      "manually_touchable": false
-    },
-    {
-      "title": "Map1/나무27",
-      "position": {
-        "x": -5.55,
-        "y": -2.19
       },
       "size": {
         "x": 3,
@@ -5394,10 +5361,80 @@
       "manually_touchable": false
     },
     {
+      "title": "Map1/나무115",
+      "position": {
+        "x": -2.64,
+        "y": 4.48
+      },
+      "size": {
+        "x": 3,
+        "y": 3
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0.12,
+        "y": 0.3
+      },
+      "colliderOffset": {
+        "x": -0.02,
+        "y": -0.32
+      },
+      "triggerSize": {
+        "x": 0.5,
+        "y": 0.9
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": -0.02
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 2,
+      "image": [
+        "tree1"
+      ],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/Granny_Sprite",
+      "position": {
+        "x": 44,
+        "y": -1.6
+      },
+      "size": {
+        "x": 1,
+        "y": 1
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 3,
+      "image": [
+        "Granny1"
+      ],
+      "script": "Inv_InteractionObj_Map1_Granny_Sprite",
+      "manually_touchable": false
+    },
+    {
       "title": "Map1/Beehive",
       "position": {
-        "x": -22.11,
-        "y": 12.81
+        "x": -21.42,
+        "y": 15.64
       },
       "size": {
         "x": 0.5,
@@ -5462,6 +5499,146 @@
       ],
       "script": "Hidable",
       "manually_touchable": true
+    },
+    {
+      "title": "Map1/Cave_Back",
+      "position": {
+        "x": 50.11,
+        "y": 0.64
+      },
+      "size": {
+        "x": 10,
+        "y": 10
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 4,
+      "image": [
+        "cave_back"
+      ],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/나무118",
+      "position": {
+        "x": -3.91,
+        "y": 4.04
+      },
+      "size": {
+        "x": 3,
+        "y": 3
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0.12,
+        "y": 0.3
+      },
+      "colliderOffset": {
+        "x": -0.02,
+        "y": -0.32
+      },
+      "triggerSize": {
+        "x": 0.5,
+        "y": 0.9
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": -0.02
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 4,
+      "image": [
+        "tree1"
+      ],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/나무116",
+      "position": {
+        "x": -2.13,
+        "y": 3.91
+      },
+      "size": {
+        "x": 3,
+        "y": 3
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0.12,
+        "y": 0.3
+      },
+      "colliderOffset": {
+        "x": -0.02,
+        "y": -0.32
+      },
+      "triggerSize": {
+        "x": 0.5,
+        "y": 0.9
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": -0.02
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 6,
+      "image": [
+        "tree1"
+      ],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/나무117",
+      "position": {
+        "x": -4.41,
+        "y": 2.64
+      },
+      "size": {
+        "x": 3,
+        "y": 3
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0.12,
+        "y": 0.3
+      },
+      "colliderOffset": {
+        "x": -0.02,
+        "y": -0.32
+      },
+      "triggerSize": {
+        "x": 0.5,
+        "y": 0.9
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": -0.02
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 8,
+      "image": [
+        "tree1"
+      ],
+      "script": "",
+      "manually_touchable": false
     },
     {
       "title": "Map1/Guard1",
@@ -5532,7 +5709,7 @@
       "hideCriteria": -0.5,
       "sortingOrder": 10,
       "image": [
-        "Temp_Person"
+        "Guide_To_Cave"
       ],
       "script": "Inv_InteractionObj_Map1_GuideToCave",
       "manually_touchable": false
@@ -5614,10 +5791,46 @@
         "Writer1",
         "Writer2",
         "Writer2",
+        "Writer2",
         "Writer2"
       ],
       "script": "Inv_InteractionObj_Map1_Writer",
       "manually_touchable": true
+    },
+    {
+      "title": "Map1/나무119",
+      "position": {
+        "x": -5.16,
+        "y": 1.57
+      },
+      "size": {
+        "x": 3,
+        "y": 3
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0.12,
+        "y": 0.3
+      },
+      "colliderOffset": {
+        "x": -0.02,
+        "y": -0.32
+      },
+      "triggerSize": {
+        "x": 0.5,
+        "y": 0.9
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": -0.02
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 10,
+      "image": [
+        "tree1"
+      ],
+      "script": "",
+      "manually_touchable": false
     },
     {
       "title": "Map1/Pigeon",
@@ -5652,6 +5865,146 @@
         "pigeon"
       ],
       "script": "Inv_InteractionObj_Map1_Pigeon",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/나무120",
+      "position": {
+        "x": -4.34,
+        "y": 0.18
+      },
+      "size": {
+        "x": 3,
+        "y": 3
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0.12,
+        "y": 0.3
+      },
+      "colliderOffset": {
+        "x": -0.02,
+        "y": -0.32
+      },
+      "triggerSize": {
+        "x": 0.5,
+        "y": 0.9
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": -0.02
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 12,
+      "image": [
+        "tree1"
+      ],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/나무121",
+      "position": {
+        "x": -4.72,
+        "y": -0.96
+      },
+      "size": {
+        "x": 3,
+        "y": 3
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0.12,
+        "y": 0.3
+      },
+      "colliderOffset": {
+        "x": -0.02,
+        "y": -0.32
+      },
+      "triggerSize": {
+        "x": 0.5,
+        "y": 0.9
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": -0.02
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 14,
+      "image": [
+        "tree1"
+      ],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/나무27",
+      "position": {
+        "x": -5.55,
+        "y": -2.19
+      },
+      "size": {
+        "x": 3,
+        "y": 3
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0.12,
+        "y": 0.3
+      },
+      "colliderOffset": {
+        "x": -0.02,
+        "y": -0.32
+      },
+      "triggerSize": {
+        "x": 0.5,
+        "y": 0.9
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": -0.02
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 16,
+      "image": [
+        "tree1"
+      ],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/나무122",
+      "position": {
+        "x": -4.4,
+        "y": -2.35
+      },
+      "size": {
+        "x": 3,
+        "y": 3
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0.12,
+        "y": 0.3
+      },
+      "colliderOffset": {
+        "x": -0.02,
+        "y": -0.32
+      },
+      "triggerSize": {
+        "x": 0.5,
+        "y": 0.9
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": -0.02
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 18,
+      "image": [
+        "tree1"
+      ],
+      "script": "",
       "manually_touchable": false
     },
     {
@@ -5692,8 +6045,8 @@
     {
       "title": "Map1/ButterflyNet",
       "position": {
-        "x": -22.82,
-        "y": 11.83
+        "x": -22.34,
+        "y": 14.98
       },
       "size": {
         "x": 0.5,

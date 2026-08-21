@@ -44,7 +44,10 @@ namespace Investigation
         }
         List<string> shortImages = new List<string>{"LD_Player", "LD_Map1_Granny"};
         List<string> tallImages = new List<string>{"LD_Map1_Man2"};
-        public void ChangeImage(string img_name, int position)
+        public void ChangeImage(string img_name, int position){
+            StartCoroutine(ChangeImageC(img_name,position));
+        }
+        IEnumerator ChangeImageC(string img_name, int position)
         {
             Transform placeHolder = charactersObj.transform.GetChild(position);
             if (img_name == "")
@@ -52,8 +55,10 @@ namespace Investigation
                 placeHolder.GetComponent<Image>().enabled = false;
             }
             else{
+                placeHolder.GetComponent<Image>().sprite = null;
                 placeHolder.GetComponent<Image>().enabled = false;
                 SetSpriteImage<Image>(placeHolder.gameObject, img_name, handles);
+                while( placeHolder.GetComponent<Image>().sprite == null) yield return null;
                 Vector2 originalPos = placeHolder.GetComponent<RectTransform>().anchoredPosition;
                 if (shortImages.Any(prefix => img_name.StartsWith(prefix)))
                 {
@@ -69,6 +74,7 @@ namespace Investigation
                 }
                 placeHolder.GetComponent<Image>().enabled = true;
             }
+            yield break;
         }
         public void ChangeTitle(string title)
         {

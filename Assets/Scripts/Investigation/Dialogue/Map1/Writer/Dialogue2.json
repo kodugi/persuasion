@@ -1,9 +1,9 @@
 {
-    "title": "작가",
-    "LD_images": ["","LD_Map1_Man2_1A",""],
+    "title": "",
+    "LD_images": ["","",""],
     "path": [
         {
-            "description": "내, 내 비둘기!",
+            "description": "내가 잠자리채로 비둘기를 낚아채자, 땅에만 고정되어 있던 남자의 눈이 흔들리는 것이 보였다.",
             "buttons": [
                 {
                     "title": "",
@@ -12,7 +12,23 @@
                         {
                             "type": "changeTitle",
                             "title": "작가"
+                        },
+                        {
+                            "type": "changeImage",
+                            "image":"LD_Map1_Man2_1A",
+                            "position":1
                         }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "내, 내 비둘기!",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 2,
+                    "effects": [
                     ]
                 }
             ]
@@ -22,7 +38,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 2,
+                    "next": 3,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -37,7 +53,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 3,
+                    "next": 4,
                     "effects": [
                         {
                             "type": "changeImage",
@@ -53,7 +69,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 4,
+                    "next": 5,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -68,7 +84,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 5,
+                    "next": 6,
                     "effects": [
                         {
                             "type": "changeImage",
@@ -84,7 +100,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 6,
+                    "next": 7,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -99,7 +115,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 7,
+                    "next": 8,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -126,7 +142,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 8,
+                    "next": 9,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -141,7 +157,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 9,
+                    "next": 10,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -156,7 +172,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 10,
+                    "next": 11,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -177,7 +193,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 11,
+                    "next": 12,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -198,7 +214,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 12,
+                    "next": 13,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -213,7 +229,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 13,
+                    "next": 14,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -228,7 +244,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 14,
+                    "next": 15,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -243,7 +259,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 15,
+                    "next": 16,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -270,7 +286,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 16,
+                    "next": 17,
                     "effects": []
                 }
             ]
@@ -280,7 +296,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 17,
+                    "next": 18,
                     "effects": [
                         {
                             "type": "changeTitle",
@@ -301,7 +317,7 @@
             "buttons": [
                 {
                     "title": "",
-                    "next": 18,
+                    "next": 19,
                     "effects": []
                 }
             ]

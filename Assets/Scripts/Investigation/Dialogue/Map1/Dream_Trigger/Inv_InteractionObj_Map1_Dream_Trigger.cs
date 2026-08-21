@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Investigation
 {
@@ -26,6 +28,29 @@ public class Inv_InteractionObj_Map1_Dream_Trigger: Inv_InteractionObj
             if (collision.gameObject.CompareTag("Player") && state == 1) {
                 interactManager.ForceInteraction("Map1/Player");
             }
+            interactManager.Effects(
+                new JObject
+                {
+                    ["type"]="variation",
+                    ["target"]="Map1/Player",
+                    ["parameters"]=new JArray{6}
+                }
+            );
+            interactManager.Effects(
+                new JObject
+                {
+                    ["type"]="variation",
+                    ["target"]="Map1/Dream_Trigger",
+                    ["parameters"]=new JArray{2}
+                }
+            );
+            interactManager.Effects(
+                new JObject
+                {
+                    ["type"]="cutScene",
+                    ["title"]="IntoDream"
+                }
+            );
         }
     }
 }

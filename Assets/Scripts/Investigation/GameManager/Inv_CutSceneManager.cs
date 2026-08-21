@@ -132,7 +132,7 @@ namespace Investigation
 
 
                 case "LoadDreamScene":
-                    yield return FadeScreen(true);
+                    //yield return FadeScreen(true);
                     interactManager.Effects(
                         new JObject
                         {
@@ -140,6 +140,7 @@ namespace Investigation
                             ["title"]="Map_Dream"
                         }
                     );
+                    yield return null;
                     break;
 
                     
@@ -269,7 +270,8 @@ namespace Investigation
         IEnumerator FadeScreenCoroutine(bool fadeIn, float delay, float duration, GameObject obj, float lowOpacity, float highOpacity){
             if(obj==null) obj = screenHider;
             
-            if(fadeIn) obj.SetActive(true);
+            obj.SetActive(true);
+            //if(fadeIn) obj.SetActive(true);
             yield return FadeObject(obj,fadeIn,delay, duration, false, lowOpacity, highOpacity);
             if(!fadeIn) obj.SetActive(false);
         }

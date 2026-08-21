@@ -20,6 +20,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1455d1ab058f3419ca3ce16d1b6aa5c5
+    m_Address: GuideToCaveAnimatorPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 360e60cb524f73144a659085f0177a91
     m_Address: audio_map1_guard_footstep
     m_ReadOnly: 0
@@ -35,6 +40,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 83826e26018274dbd815537fdc606cc5
+    m_Address: Guide_To_Cave
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9c0612c2c2bcb4203bb966c5941c563c
     m_Address: CaveGrannyPrefab
     m_ReadOnly: 0
@@ -45,13 +55,18 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c1275653f9d944e35a2a5787e7a08ee8
-    m_Address: PeopleStaring
+  - m_GUID: cfdc22aa25e914a1b8e7df075efa4bcd
+    m_Address: Trees
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d3b1d2f915c6e4206aa9ca25090cd6bb
     m_Address: Map1_Guard_Animator
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e0655f89d4be2414d93d6f3f7afc4064
+    m_Address: PeopleStaring
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
