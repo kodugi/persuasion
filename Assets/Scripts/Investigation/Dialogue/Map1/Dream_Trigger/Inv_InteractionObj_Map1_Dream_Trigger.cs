@@ -26,31 +26,30 @@ public class Inv_InteractionObj_Map1_Dream_Trigger: Inv_InteractionObj
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.CompareTag("Player") && state == 1) {
-                interactManager.ForceInteraction("Map1/Player");
+                interactManager.Effects(
+                    new JObject
+                    {
+                        ["type"]="variation",
+                        ["target"]="Map1/Player",
+                        ["parameters"]=new JArray{6}
+                    }
+                );
+                interactManager.Effects(
+                    new JObject
+                    {
+                        ["type"]="variation",
+                        ["target"]="Map1/Dream_Trigger",
+                        ["parameters"]=new JArray{2}
+                    }
+                );
+                interactManager.Effects(
+                    new JObject
+                    {
+                        ["type"]="cutScene",
+                        ["title"]="IntoDream"
+                    }
+                );
             }
-            interactManager.Effects(
-                new JObject
-                {
-                    ["type"]="variation",
-                    ["target"]="Map1/Player",
-                    ["parameters"]=new JArray{6}
-                }
-            );
-            interactManager.Effects(
-                new JObject
-                {
-                    ["type"]="variation",
-                    ["target"]="Map1/Dream_Trigger",
-                    ["parameters"]=new JArray{2}
-                }
-            );
-            interactManager.Effects(
-                new JObject
-                {
-                    ["type"]="cutScene",
-                    ["title"]="IntoDream"
-                }
-            );
         }
     }
 }
