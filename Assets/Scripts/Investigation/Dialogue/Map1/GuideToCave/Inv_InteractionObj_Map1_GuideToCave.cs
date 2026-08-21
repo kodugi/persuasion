@@ -123,7 +123,7 @@ public class Inv_InteractionObj_Map1_GuideToCave: Inv_InteractionObj
             {
                 Debug.LogError("FootprintPrefab 로드 실패");
 
-                Addressables.Release(pathHandle);
+                Addressables.Release(footprintHandle);
 
                 yield break;
             }

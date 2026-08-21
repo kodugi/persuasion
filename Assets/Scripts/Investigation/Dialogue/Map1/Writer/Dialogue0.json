@@ -1,6 +1,6 @@
 {
     "title": "",
-    "LD_images": ["","LD_Map1_Guard_1A",""],
+    "LD_images": ["","LD_Map1_Man2_1A",""],
     "path": [
         {
             "description": "호수 근처에는 한 남자가 기계적인 몸짓으로 비둘기에게 빵쪼가리를 던져주고 있었다.",
@@ -24,16 +24,6 @@
         },
         {
             "description": "간간이 뭐라고 중얼거리는 것 같기도 했지만, 무슨 말을 하는 건지는 잘 들리지 않았다.",
-            "buttons": [
-                {
-                    "title": "",
-                    "next": 3,
-                    "effects": []
-                }
-            ]
-        },
-        {
-            "description": "그냥 가자.",
             "buttons": [
                 {
                     "title": "",

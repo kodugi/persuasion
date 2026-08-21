@@ -1,5 +1,5 @@
 {
-    "title": "남자",
+    "title": "작가",
     "LD_images": ["","LD_Map1_Man2_1A",""],
     "path": [
         {
@@ -11,7 +11,7 @@
                     "effects": [
                         {
                             "type": "changeTitle",
-                            "title": "남자"
+                            "title": "작가"
                         }
                     ]
                 }
@@ -57,7 +57,7 @@
                     "effects": [
                         {
                             "type": "changeTitle",
-                            "title": "남자"
+                            "title": "작가"
                         }
                     ]
                 }
@@ -88,7 +88,7 @@
                     "effects": [
                         {
                             "type": "changeTitle",
-                            "title": "주인공"
+                            "title": "나"
                         }
                     ]
                 }
@@ -103,7 +103,7 @@
                     "effects": [
                         {
                             "type": "changeTitle",
-                            "title": "남자"
+                            "title": "작가"
                         },
                         {
                             "type": "changeImage",
@@ -139,7 +139,7 @@
                     "effects": [
                         {
                             "type": "changeTitle",
-                            "title": "주인공"
+                            "title": "나"
                         }
                     ]
                 }
@@ -154,7 +154,7 @@
                     "effects": [
                         {
                             "type": "changeTitle",
-                            "title": "남자"
+                            "title": "작가"
                         },
                         {
                             "type": "changeImage",
@@ -175,7 +175,7 @@
                     "effects": [
                         {
                             "type": "changeTitle",
-                            "title": "주인공"
+                            "title": "나"
                         },
                         {
                             "type": "changeImage",
@@ -196,7 +196,7 @@
                     "effects": [
                         {
                             "type": "changeTitle",
-                            "title": "남자"
+                            "title": "작가"
                         }
                     ]
                 }
@@ -226,7 +226,7 @@
                     "effects": [
                         {
                             "type": "changeTitle",
-                            "title": "주인공"
+                            "title": "나"
                         }
                     ]
                 }
@@ -278,7 +278,7 @@
                     "effects": [
                         {
                             "type": "changeTitle",
-                            "title": "주인공"
+                            "title": "나"
                         },
                         {
                             "type": "changeImage",

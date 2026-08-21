@@ -1,5 +1,5 @@
 {
-    "title": "주인공",
+    "title": "나",
     "LD_images":["","","LD_Player_1A"],
     "path": [
         {
@@ -12,6 +12,11 @@
                         {
                             "type": "changeTitle",
                             "title": ""
+                        },
+                        {
+                            "type":"changeImage",
+                            "image":"",
+                            "position":2
                         }
                     ]
                 }
@@ -56,7 +61,7 @@
                     "effects": [
                         {
                             "type": "changeTitle",
-                            "title": "주인공"
+                            "title": "나"
                         },
                         {
                             "type": "changeImage",
@@ -106,10 +111,22 @@
                     "next": -1,
                     "effects": [
                         {
+                            "type": "changeCamera",
+                            "target": "Player",
+                            "duration": 0.5
+                        },
+                        {
                             "type": "variation",
                             "target": "Map1/Player",
                             "parameters": [
                                 0
+                            ]
+                        },
+                        {
+                            "type": "variation",
+                            "target": "Map1/WitchMother",
+                            "parameters": [
+                                "haveWarned"
                             ]
                         }
                     ]
