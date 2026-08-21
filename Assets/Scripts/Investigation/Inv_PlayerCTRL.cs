@@ -177,6 +177,7 @@ namespace Investigation
                             ["name"] = "Inventory_WitchesCloth"
                         }
                     );
+                    Think("어린 여자아이의 옷을 입었다.");
                     break;
             }
         }
