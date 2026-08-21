@@ -69,8 +69,9 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
         }
         override public string StartInteraction()
         {
+            string interactionName = base.StartInteraction();
             amIInteracting = true;
-            return base.StartInteraction();
+            return interactionName;
         }
         override public void EndInteraction()
         {
