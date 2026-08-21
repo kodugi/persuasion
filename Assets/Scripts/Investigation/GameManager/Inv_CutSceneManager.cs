@@ -132,7 +132,7 @@ namespace Investigation
 
 
                 case "LoadDreamScene":
-                    yield return FadeScreen(true);
+                    //yield return FadeScreen(true);
                     interactManager.Effects(
                         new JObject
                         {
@@ -140,6 +140,7 @@ namespace Investigation
                             ["title"]="Map_Dream"
                         }
                     );
+                    yield return null;
                     break;
 
                     
