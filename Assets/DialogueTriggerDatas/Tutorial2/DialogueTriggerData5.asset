@@ -16,13 +16,13 @@ MonoBehaviour:
   _turnState: 1
   _pages:
   - Entries:
-    - SpeakerName: "\uC8FC\uC778\uACF5"
+    - SpeakerName: "\uB098"
       DialogueText: "(4, 5, 6\uC5D0 \uB193\uB3C4\uB85D \uC720\uB3C4)"
       StateToTrigger: 14
       StateTriggerTiming: 0
       UseWidePanel: 0
   - Entries:
-    - SpeakerName: "\uC8FC\uC778\uACF5"
+    - SpeakerName: "\uB098"
       DialogueText: "(\uD134 \uC885\uB8CC \uC124\uBA85)"
       StateToTrigger: 15
       StateTriggerTiming: 0
