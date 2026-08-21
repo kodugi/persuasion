@@ -5,6 +5,7 @@ using System.IO;
 using System.Collections.Generic;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using System.Linq;
 
 namespace Investigation
 {
@@ -40,6 +41,8 @@ namespace Investigation
             }
             DisplayDialogue(0);
         }
+        List<string> shortImages = new List<string>{"LD_Player", "LD_Map1_Granny"};
+        List<string> tallImages = new List<string>{"LD_Map1_Man2"};
         public void ChangeImage(string img_name, int position)
         {
             Transform placeHolder = charactersObj.transform.GetChild(position);
@@ -50,6 +53,19 @@ namespace Investigation
             else{
                 placeHolder.GetComponent<Image>().enabled = false;
                 SetSpriteImage<Image>(placeHolder.gameObject, img_name, handles);
+                Vector2 originalPos = placeHolder.GetComponent<RectTransform>().anchoredPosition;
+                if (shortImages.Any(prefix => img_name.StartsWith(prefix)))
+                {
+                    placeHolder.GetComponent<RectTransform>().anchoredPosition = new Vector2(originalPos.x, 50);
+                }
+                else if (tallImages.Any(prefix => img_name.StartsWith(prefix)))
+                {
+                    placeHolder.GetComponent<RectTransform>().anchoredPosition = new Vector2(originalPos.x, -30);
+                }
+                else
+                {
+                    placeHolder.GetComponent<RectTransform>().anchoredPosition = new Vector2(originalPos.x, 0);
+                }
                 placeHolder.GetComponent<Image>().enabled = true;
             }
         }

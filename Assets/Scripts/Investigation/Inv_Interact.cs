@@ -17,7 +17,22 @@ namespace Investigation
         [SerializeField] private GameObject interactables;
         [SerializeField] private GameObject previewMap;
         Inv_GameManager manager;
-        Inv_DialogueBox dialogueScript;
+        Inv_DialogueBox _dialogueScript;
+        Inv_DialogueBox dialogueScript
+        {
+            get
+            {
+                if (_dialogueScript == null)
+                {
+                    _dialogueScript = FindFirstObjectByType<Inv_DialogueBox>();
+                }
+                return _dialogueScript;
+            }
+            set
+            {
+                _dialogueScript = value;
+            }
+        }
         Inv_PlayerCTRL playerCTRL;
         private Vector2 anchorPos;
         SaveManager saveManager;
@@ -31,7 +46,7 @@ namespace Investigation
             playerCTRL = GameObject.FindFirstObjectByType<Inv_PlayerCTRL>().GetComponent<Inv_PlayerCTRL>();
             saveManager = GameObject.FindFirstObjectByType<SaveManager>().GetComponent<SaveManager>();
         }
-        string GetLastQueue()
+        public string GetLastQueue()
         {
             for(int i = interactionQueue.Count - 1; i >=0; i--)
             {
@@ -255,6 +270,12 @@ namespace Investigation
                     break;
                 case "FinalMap":
                     saveManager.AddGeneralSave("FinalMap", (string)effect["title"]);
+                    break;
+                case "changeCamera":
+                    string camTarget = (string)effect["target"];
+                    float camMoveDuration = (float)effect["duration"];
+                    if(camTarget == "Player") manager.ChangeCamera(playerCTRL.gameObject.transform,camMoveDuration);
+                    else manager.ChangeCamera(FindInteractableObj(camTarget),camMoveDuration);
                     break;
             }
         }

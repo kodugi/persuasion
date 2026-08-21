@@ -1,5 +1,5 @@
 {
-    "title": "남자",
+    "title": "경비원",
     "LD_images": ["LD_Map1_Guard_1A", "",""],
     "path": [
         {
@@ -11,7 +11,7 @@
                     "effects": [
                         {
                             "type": "changeTitle",
-                            "title": "주인공"
+                            "title": "나"
                         },
                         {
                             "type": "changeImage",
@@ -31,7 +31,7 @@
                     "effects": [
                         {
                             "type": "changeTitle",
-                            "title": "남자"
+                            "title": "경비원"
                         }
                     ]
                 }
@@ -82,7 +82,7 @@
                     "effects": [
                         {
                             "type": "changeTitle",
-                            "title": "주인공"
+                            "title": "나"
                         },
                         {
                             "type": "changeImage",

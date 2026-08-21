@@ -90,7 +90,7 @@ public partial class ChiefManager : MonoBehaviour
     {
         
     }
-    void ExitScene(bool saveProgress=true)
+    IEnumerator ExitSceneCoroutine(bool saveProgress=true)
     {
         if(saveProgress) saveManager.SaveProgress();
         switch (currScene)
@@ -98,6 +98,7 @@ public partial class ChiefManager : MonoBehaviour
             case "Investigation":
                 if (inv_GameManager != null)
                 {
+                    yield return inv_GameManager.FadeScreen(true);
                     inv_GameManager.inputAction?.Player.Disable();
                 }
                 if (inv_PlayerCTRL != null)
@@ -110,6 +111,7 @@ public partial class ChiefManager : MonoBehaviour
                 
                 break;
         }
+        yield break;
     }
     public void StartInvestigation(string id = "", bool preservePlayerPosition = true)
     {
@@ -131,7 +133,7 @@ public partial class ChiefManager : MonoBehaviour
     IEnumerator StartInvestigationScene(string id="", bool preservePlayerPosition = true)
     {
         //print("1:"+autoInteractOnReturntoInv);
-        ExitScene(false);
+        yield return StartCoroutine(ExitSceneCoroutine(false));
         if (!preservePlayerPosition) invSceneLastPos = null;
         if(id=="") id= return_Inv_Scene_ID;
         //temp
@@ -181,7 +183,7 @@ public partial class ChiefManager : MonoBehaviour
     }
     IEnumerator StartPersuasionScene(string id, string returnInvestigationScene)
     {
-        ExitScene(true);
+        yield return StartCoroutine(ExitSceneCoroutine(true));
         return_Inv_Scene_ID = string.IsNullOrEmpty(returnInvestigationScene)
             ? inv_Scene_ID
             : returnInvestigationScene;
