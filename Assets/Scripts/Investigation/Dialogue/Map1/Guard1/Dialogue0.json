@@ -718,11 +718,9 @@
                             "autoReturn": "Map1/Guard1"
                         },
                         {
-                            "type": "variation",
-                            "target": "Map1/Guard1",
-                            "parameters": [
-                                "Caught"
-                            ]
+                            "type": "progress",
+                            "key": "Map1/Guard1state",
+                            "value": 1
                         },
                         {
                             "type": "variation",
