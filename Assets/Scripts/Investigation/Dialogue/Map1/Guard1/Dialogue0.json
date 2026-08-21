@@ -165,7 +165,13 @@
                             "type": "changeImage",
                             "image": "LD_Map1_Guard_5A",
                             "position": 0
+                        },
+                        {
+                            "type": "shakeCharacter",
+                            "position": 0,
+                            "strength": 30
                         }
+                    
                     ]
                 }
             ]
@@ -256,7 +262,13 @@
                             "type": "changeImage",
                             "image": "LD_Map1_Guard_5A",
                             "position": 0
+                        },
+                        {
+                            "type": "shakeCharacter",
+                            "position": 0,
+                            "strength": 40
                         }
+                    
                     
                     ]
                 }
@@ -273,6 +285,7 @@
                             "type": "changeTitle",
                             "title": ""
                         }
+                    
                     ]
                 }
             ]
@@ -359,7 +372,13 @@
                             "type": "changeImage",
                             "image": "LD_Player_6A",
                             "position": 1
+                        },
+                        {
+                            "type": "shakeCharacter",
+                            "position": 1,
+                            "strength": 40
                         }
+                    
                     ]
                 }
             ]
