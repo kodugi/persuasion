@@ -5711,6 +5711,41 @@
       "manually_touchable": false
     },
     {
+      "title": "Map1/Granny_Sprite",
+      "position": {
+        "x": 44,
+        "y": -1.6
+      },
+      "size": {
+        "x": 1,
+        "y": 1
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 3,
+      "image": [
+        "Granny1"
+      ],
+      "script": "Inv_InteractionObj_Map1_Granny_Sprite",
+      "manually_touchable": false
+    },
+    {
       "title": "Map1/Bush1",
       "position": {
         "x": -1.37,
