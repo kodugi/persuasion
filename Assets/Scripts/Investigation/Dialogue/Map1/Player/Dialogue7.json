@@ -1,5 +1,5 @@
 {
-    "title": "",
+    "title": "나",
     "LD_images":["","","LD_Player_6A"],
     "path": [    
         {
@@ -49,7 +49,12 @@
                 {
                     "title": "",
                     "next": 4,
-                    "effects": []
+                    "effects": [
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_3A",
+                            "position": 2
+                        }]
                 }
             ]
         },
