@@ -25,6 +25,10 @@
                         {
                             "type": "item",
                             "name": "Inventory_FishNet"
+                        },
+                        {
+                            "type": "thought",
+                            "thought": "이걸 어디다 쓰지?"
                         }
                     ]
                 },

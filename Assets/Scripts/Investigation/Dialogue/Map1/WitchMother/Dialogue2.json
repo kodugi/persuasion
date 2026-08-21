@@ -130,7 +130,13 @@
                 {
                     "title": "",
                     "next": 10,
-                    "effects": []
+                    "effects": [
+                        {
+                            "type": "shakeCharacter",
+                            "position": 2,
+                            "strength": 30
+                        }
+                    ]
                 }
             ]
         },
@@ -523,6 +529,11 @@
                             "type": "progress",
                             "key": "Map1/SurroundingWitchMotherstate",
                             "value": "2"
+                        },
+                        {
+                            "type": "progress",
+                            "key": "MetWitchMother",
+                            "value": true
                         }
                     ]
                 }

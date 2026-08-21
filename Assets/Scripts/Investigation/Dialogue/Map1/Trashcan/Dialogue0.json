@@ -11,6 +11,16 @@
                         {
                             "type": "item",
                             "name": "Inventory_WitchesCloth"
+                        },
+                        {
+                            "type": "variation",
+                            "target": "Map1/Trashcan",
+                            "parameters": ["ClothObtained"]
+                        },
+                        {
+                            "type": "progress",
+                            "key": "TrashCanClothObtained",
+                            "value": true
                         }
                     ]
                 },
