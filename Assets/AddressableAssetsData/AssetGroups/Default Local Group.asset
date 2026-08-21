@@ -55,6 +55,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cfdc22aa25e914a1b8e7df075efa4bcd
+    m_Address: Trees
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d3b1d2f915c6e4206aa9ca25090cd6bb
     m_Address: Map1_Guard_Animator
     m_ReadOnly: 0

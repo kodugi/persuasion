@@ -8,7 +8,7 @@
         "y": 0
       },
       "size": {
-        "x": 1000,
+        "x": 1,
         "y": 1000
       },
       "colliderShape": "box",
@@ -1373,8 +1373,8 @@
     {
       "title": "Map1/나무",
       "position": {
-        "x": -22.54,
-        "y": 13.13
+        "x": -21.75,
+        "y": 16.22
       },
       "size": {
         "x": 3,
@@ -2285,41 +2285,6 @@
       "position": {
         "x": -10.61,
         "y": -2.13
-      },
-      "size": {
-        "x": 3,
-        "y": 3
-      },
-      "colliderShape": "box",
-      "colliderSize": {
-        "x": 0.12,
-        "y": 0.3
-      },
-      "colliderOffset": {
-        "x": -0.02,
-        "y": -0.32
-      },
-      "triggerSize": {
-        "x": 0.5,
-        "y": 0.9
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": -0.02
-      },
-      "hideCriteria": 0,
-      "sortingOrder": 2,
-      "image": [
-        "tree1"
-      ],
-      "script": "",
-      "manually_touchable": false
-    },
-    {
-      "title": "Map1/나무27",
-      "position": {
-        "x": -5.55,
-        "y": -2.19
       },
       "size": {
         "x": 3,
@@ -5431,255 +5396,45 @@
       "manually_touchable": false
     },
     {
-      "title": "Map1/나무116",
+      "title": "Map1/Granny_Sprite",
       "position": {
-        "x": -2.13,
-        "y": 3.91
+        "x": 44,
+        "y": -1.6
       },
       "size": {
-        "x": 3,
-        "y": 3
+        "x": 1,
+        "y": 1
       },
       "colliderShape": "box",
       "colliderSize": {
-        "x": 0.12,
-        "y": 0.3
+        "x": 0,
+        "y": 0
       },
       "colliderOffset": {
-        "x": -0.02,
-        "y": -0.32
+        "x": 0,
+        "y": 0
       },
       "triggerSize": {
-        "x": 0.5,
-        "y": 0.9
+        "x": 0,
+        "y": 0
       },
       "triggerOffset": {
         "x": 0,
-        "y": -0.02
+        "y": 0
       },
       "hideCriteria": 0,
-      "sortingOrder": 2,
+      "sortingOrder": 3,
       "image": [
-        "tree1"
+        "Granny1"
       ],
-      "script": "",
-      "manually_touchable": false
-    },
-    {
-      "title": "Map1/나무117",
-      "position": {
-        "x": -4.41,
-        "y": 2.64
-      },
-      "size": {
-        "x": 3,
-        "y": 3
-      },
-      "colliderShape": "box",
-      "colliderSize": {
-        "x": 0.12,
-        "y": 0.3
-      },
-      "colliderOffset": {
-        "x": -0.02,
-        "y": -0.32
-      },
-      "triggerSize": {
-        "x": 0.5,
-        "y": 0.9
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": -0.02
-      },
-      "hideCriteria": 0,
-      "sortingOrder": 2,
-      "image": [
-        "tree1"
-      ],
-      "script": "",
-      "manually_touchable": false
-    },
-    {
-      "title": "Map1/나무118",
-      "position": {
-        "x": -3.9,
-        "y": 4.04
-      },
-      "size": {
-        "x": 3,
-        "y": 3
-      },
-      "colliderShape": "box",
-      "colliderSize": {
-        "x": 0.12,
-        "y": 0.3
-      },
-      "colliderOffset": {
-        "x": -0.02,
-        "y": -0.32
-      },
-      "triggerSize": {
-        "x": 0.5,
-        "y": 0.9
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": -0.02
-      },
-      "hideCriteria": 0,
-      "sortingOrder": 2,
-      "image": [
-        "tree1"
-      ],
-      "script": "",
-      "manually_touchable": false
-    },
-    {
-      "title": "Map1/나무119",
-      "position": {
-        "x": -5.16,
-        "y": 1.57
-      },
-      "size": {
-        "x": 3,
-        "y": 3
-      },
-      "colliderShape": "box",
-      "colliderSize": {
-        "x": 0.12,
-        "y": 0.3
-      },
-      "colliderOffset": {
-        "x": -0.02,
-        "y": -0.32
-      },
-      "triggerSize": {
-        "x": 0.5,
-        "y": 0.9
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": -0.02
-      },
-      "hideCriteria": 0,
-      "sortingOrder": 2,
-      "image": [
-        "tree1"
-      ],
-      "script": "",
-      "manually_touchable": false
-    },
-    {
-      "title": "Map1/나무120",
-      "position": {
-        "x": -4.34,
-        "y": 0.18
-      },
-      "size": {
-        "x": 3,
-        "y": 3
-      },
-      "colliderShape": "box",
-      "colliderSize": {
-        "x": 0.12,
-        "y": 0.3
-      },
-      "colliderOffset": {
-        "x": -0.02,
-        "y": -0.32
-      },
-      "triggerSize": {
-        "x": 0.5,
-        "y": 0.9
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": -0.02
-      },
-      "hideCriteria": 0,
-      "sortingOrder": 2,
-      "image": [
-        "tree1"
-      ],
-      "script": "",
-      "manually_touchable": false
-    },
-    {
-      "title": "Map1/나무121",
-      "position": {
-        "x": -4.72,
-        "y": -0.96
-      },
-      "size": {
-        "x": 3,
-        "y": 3
-      },
-      "colliderShape": "box",
-      "colliderSize": {
-        "x": 0.12,
-        "y": 0.3
-      },
-      "colliderOffset": {
-        "x": -0.02,
-        "y": -0.32
-      },
-      "triggerSize": {
-        "x": 0.5,
-        "y": 0.9
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": -0.02
-      },
-      "hideCriteria": 0,
-      "sortingOrder": 2,
-      "image": [
-        "tree1"
-      ],
-      "script": "",
-      "manually_touchable": false
-    },
-    {
-      "title": "Map1/나무122",
-      "position": {
-        "x": -4.4,
-        "y": -2.35
-      },
-      "size": {
-        "x": 3,
-        "y": 3
-      },
-      "colliderShape": "box",
-      "colliderSize": {
-        "x": 0.12,
-        "y": 0.3
-      },
-      "colliderOffset": {
-        "x": -0.02,
-        "y": -0.32
-      },
-      "triggerSize": {
-        "x": 0.5,
-        "y": 0.9
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": -0.02
-      },
-      "hideCriteria": 0,
-      "sortingOrder": 2,
-      "image": [
-        "tree1"
-      ],
-      "script": "",
+      "script": "Inv_InteractionObj_Map1_Granny_Sprite",
       "manually_touchable": false
     },
     {
       "title": "Map1/Beehive",
       "position": {
-        "x": -22.11,
-        "y": 12.81
+        "x": -21.42,
+        "y": 15.64
       },
       "size": {
         "x": 0.5,
@@ -5776,6 +5531,111 @@
       "sortingOrder": 4,
       "image": [
         "cave_back"
+      ],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/나무118",
+      "position": {
+        "x": -3.91,
+        "y": 4.04
+      },
+      "size": {
+        "x": 3,
+        "y": 3
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0.12,
+        "y": 0.3
+      },
+      "colliderOffset": {
+        "x": -0.02,
+        "y": -0.32
+      },
+      "triggerSize": {
+        "x": 0.5,
+        "y": 0.9
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": -0.02
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 4,
+      "image": [
+        "tree1"
+      ],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/나무116",
+      "position": {
+        "x": -2.13,
+        "y": 3.91
+      },
+      "size": {
+        "x": 3,
+        "y": 3
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0.12,
+        "y": 0.3
+      },
+      "colliderOffset": {
+        "x": -0.02,
+        "y": -0.32
+      },
+      "triggerSize": {
+        "x": 0.5,
+        "y": 0.9
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": -0.02
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 6,
+      "image": [
+        "tree1"
+      ],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/나무117",
+      "position": {
+        "x": -4.41,
+        "y": 2.64
+      },
+      "size": {
+        "x": 3,
+        "y": 3
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0.12,
+        "y": 0.3
+      },
+      "colliderOffset": {
+        "x": -0.02,
+        "y": -0.32
+      },
+      "triggerSize": {
+        "x": 0.5,
+        "y": 0.9
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": -0.02
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 8,
+      "image": [
+        "tree1"
       ],
       "script": "",
       "manually_touchable": false
@@ -5938,6 +5798,41 @@
       "manually_touchable": true
     },
     {
+      "title": "Map1/나무119",
+      "position": {
+        "x": -5.16,
+        "y": 1.57
+      },
+      "size": {
+        "x": 3,
+        "y": 3
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0.12,
+        "y": 0.3
+      },
+      "colliderOffset": {
+        "x": -0.02,
+        "y": -0.32
+      },
+      "triggerSize": {
+        "x": 0.5,
+        "y": 0.9
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": -0.02
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 10,
+      "image": [
+        "tree1"
+      ],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
       "title": "Map1/Pigeon",
       "position": {
         "x": 27.16,
@@ -5970,6 +5865,146 @@
         "pigeon"
       ],
       "script": "Inv_InteractionObj_Map1_Pigeon",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/나무120",
+      "position": {
+        "x": -4.34,
+        "y": 0.18
+      },
+      "size": {
+        "x": 3,
+        "y": 3
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0.12,
+        "y": 0.3
+      },
+      "colliderOffset": {
+        "x": -0.02,
+        "y": -0.32
+      },
+      "triggerSize": {
+        "x": 0.5,
+        "y": 0.9
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": -0.02
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 12,
+      "image": [
+        "tree1"
+      ],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/나무121",
+      "position": {
+        "x": -4.72,
+        "y": -0.96
+      },
+      "size": {
+        "x": 3,
+        "y": 3
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0.12,
+        "y": 0.3
+      },
+      "colliderOffset": {
+        "x": -0.02,
+        "y": -0.32
+      },
+      "triggerSize": {
+        "x": 0.5,
+        "y": 0.9
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": -0.02
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 14,
+      "image": [
+        "tree1"
+      ],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/나무27",
+      "position": {
+        "x": -5.55,
+        "y": -2.19
+      },
+      "size": {
+        "x": 3,
+        "y": 3
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0.12,
+        "y": 0.3
+      },
+      "colliderOffset": {
+        "x": -0.02,
+        "y": -0.32
+      },
+      "triggerSize": {
+        "x": 0.5,
+        "y": 0.9
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": -0.02
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 16,
+      "image": [
+        "tree1"
+      ],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/나무122",
+      "position": {
+        "x": -4.4,
+        "y": -2.35
+      },
+      "size": {
+        "x": 3,
+        "y": 3
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0.12,
+        "y": 0.3
+      },
+      "colliderOffset": {
+        "x": -0.02,
+        "y": -0.32
+      },
+      "triggerSize": {
+        "x": 0.5,
+        "y": 0.9
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": -0.02
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 18,
+      "image": [
+        "tree1"
+      ],
+      "script": "",
       "manually_touchable": false
     },
     {
@@ -6010,8 +6045,8 @@
     {
       "title": "Map1/ButterflyNet",
       "position": {
-        "x": -22.82,
-        "y": 11.83
+        "x": -22.34,
+        "y": 14.98
       },
       "size": {
         "x": 0.5,
