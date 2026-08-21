@@ -18,6 +18,7 @@ public class Inv_InteractionObj_Map1_Trashcan: Inv_InteractionObj
         {
             if (parameters[0] == "ClothObtained")
             {
+                state = 1;
                 bool haveMetWitch = false;
                 if(saveManager.TryLoadProgress("MetWitchMother", out object result))
                 {

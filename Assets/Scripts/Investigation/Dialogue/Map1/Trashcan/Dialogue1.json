@@ -1,0 +1,34 @@
+{
+    "title": "",
+    "path": [
+        {
+            "description": "도움이 될만한 물건이 또 있을까?",
+            "buttons":[
+                {
+                    "title": "뒤져본다.",
+                    "next": 1,
+                    "effects": [
+                    ]
+                },
+                {
+                    "title": "그냥 간다.",
+                    "next": -1,
+                    "effects": [
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "없는 것 같다.",
+            "buttons":[
+                {
+                    "title": "",
+                    "next": -1,
+                    "effects": [
+                    ]
+                }
+            ]
+        }
+    ]
+
+}

@@ -18,7 +18,7 @@ namespace Investigation
         [SerializeField] private GameObject previewMap;
         Inv_GameManager manager;
         Inv_DialogueBox _dialogueScript;
-        Inv_DialogueBox dialogueScript
+        public Inv_DialogueBox dialogueScript
         {
             get
             {

@@ -198,7 +198,9 @@ namespace Investigation
         }
         void OnDestroy()
         {
-            if (interactionScript != null)
+            // 대화 전환 중 이전 대화창이 파괴될 때, 새 대화의 상호작용 상태를
+            // 종료하지 않도록 현재 관리 중인 대화창인지 확인한다.
+            if (interactionScript != null && interactionScript.dialogueScript == this)
             {
                 interactionScript.InteractionEnd();
             }
