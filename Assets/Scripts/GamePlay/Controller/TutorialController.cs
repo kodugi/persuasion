@@ -369,6 +369,7 @@ namespace GamePlay
         ExplainLock = 18,
         Dream1 = 19,
         Dream2 = 20,
+        ExplainStage = 21,
         None = 0
     }
 

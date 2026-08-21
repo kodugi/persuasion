@@ -29,8 +29,8 @@ MonoBehaviour:
       DialogueText: "\uD558\uC9C0\uB9CC \uD55C \uBC88 \uC131\uACF5\uD588\uB2E4\uACE0
         \uD574\uC11C \uC88B\uC544\uD558\uBA74 \uC548\uB3FC. \uC0AC\uB78C\uC758 \uC758\uC2DD\uC5D0\uB294
         \uCE35\uC704\uAC00 \uC788\uC73C\uB2C8\uAE4C."
-      StateToTrigger: 0
-      StateTriggerTiming: 0
+      StateToTrigger: 21
+      StateTriggerTiming: 1
     - SpeakerName: "\uB098"
       DialogueText: "\uC774\uC804 \uCE35\uC758 \uAC80\uC740 \uAC10\uC815\uB4E4\uC744
         \uBAA9\uD45C\uCE58\uB9CC\uD07C \uBCC0\uD658\uC2DC\uD0A4\uBA74 \uB354 \uAE4A\uC740

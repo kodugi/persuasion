@@ -3564,6 +3564,9 @@ MonoBehaviour:
   - State: 19
     Entries:
     - {fileID: 11400000, guid: 134bb605c9168824c9e74ca058e7286c, type: 2}
+  - State: 21
+    Entries:
+    - {fileID: 11400000, guid: 2584dafc2e7043eb8c5ecf42df902c43, type: 2}
   _stageList:
   - MapName: Map1_Guard1
     GameInfoList:
