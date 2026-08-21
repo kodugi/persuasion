@@ -234,7 +234,7 @@ namespace Investigation
             switch (newItem)
             {
                 case "Inventory_ButterflyNet":
-                    playerCTRL.Think("새도 잡을 수 있을 거 같은 커다란 잠자리채를 만들었다!");
+                    playerCTRL.Think("새도 잡을 수 있을 것 같은 커다란 잠자리채를 만들었다!");
                     break;
             }
         }
