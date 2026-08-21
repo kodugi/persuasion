@@ -14,6 +14,10 @@ namespace Investigation
         [SerializeField] private float moveSpeed = 5f;
         [SerializeField] private GameObject thoughtObj;
         [SerializeField] GameObject footCollider;
+        [SerializeField] AudioClip footstepSound1;
+        [SerializeField] AudioClip footstepSound2;
+        AudioSource audioSource;
+        bool isFootStepLeft;
         private Inv_Interact interactionScript;
         private Vector2 movementInput;
         Rigidbody2D rigidbody_my;
@@ -39,6 +43,7 @@ namespace Investigation
             interactionScript = GameObject.FindFirstObjectByType<Inv_Interact>().GetComponent<Inv_Interact>();
             rigidbody_my = GetComponent<Rigidbody2D>();
             animator_my = GetComponent<Animator>();
+            audioSource = GetComponent<AudioSource>();
         }
         private void OnDestroy()
         {
@@ -186,6 +191,12 @@ namespace Investigation
             {
                 Think("좀 더 몸을 가려야 숨길 수 있을 것 같다.");
             }
+        }
+        public void PlayWalkingSound()
+        {
+            if(isFootStepLeft) audioSource.PlayOneShot(footstepSound1);
+            else audioSource.PlayOneShot(footstepSound2);
+            isFootStepLeft = !isFootStepLeft;
         }
     }
 }
