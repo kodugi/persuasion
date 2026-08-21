@@ -16,6 +16,7 @@ namespace GamePlay
         [SerializeField, Min(1)] private int _totalStageNum = 1;
         [SerializeField] private List<BoardRowData> _boardRows = new List<BoardRowData>();
         [SerializeField] private List<DialogueTriggerData> _dialogueTriggers = new List<DialogueTriggerData>();
+        [SerializeField] private GameOverDialogueData _gameOverDialogue;
         [SerializeField] private BoardViewBase.BoardCellMarker _allowedMarkers = new BoardViewBase.BoardCellMarker();
         [SerializeField] private MapType _mapType = MapType.Normal;
         [SerializeField] private FigureProfile _figureProfile;
@@ -100,9 +101,39 @@ namespace GamePlay
             return dialogueDataDict;
         }
 
+        public bool TryGetDialogueTrigger(
+            int turn,
+            TurnState turnState,
+            out DialogueTriggerData dialogueTrigger)
+        {
+            dialogueTrigger = null;
+            if (_dialogueTriggers == null)
+            {
+                return false;
+            }
+
+            foreach (DialogueTriggerData trigger in _dialogueTriggers)
+            {
+                if (trigger != null && trigger.Turn == turn && trigger.TurnState == turnState)
+                {
+                    // GetDialogueDataDict uses the last trigger when duplicate keys exist.
+                    dialogueTrigger = trigger;
+                }
+            }
+
+            return dialogueTrigger != null;
+        }
+
         public MapType GetMapType()
         {
             return _mapType;
+        }
+
+        public bool TryGetGameOverDialogue(out DialogueData dialogueData)
+        {
+            dialogueData = null;
+            return _gameOverDialogue != null &&
+                   _gameOverDialogue.TryCreateDialogueData(out dialogueData);
         }
 
         public FigureProfile GetFigureProfile()
@@ -116,7 +147,8 @@ namespace GamePlay
             Cell[,] board,
             int maxTurns,
             int targetNumber,
-            Dictionary<int, Dictionary<TurnState, DialogueData>> dialogueData = null)
+            Dictionary<int, Dictionary<TurnState, DialogueData>> dialogueData = null,
+            DialogueData gameOverDialogue = null)
         {
             _width = Math.Max(1, width);
             _height = Math.Max(1, height);
@@ -128,6 +160,7 @@ namespace GamePlay
             ResizeBoardRows();
             SetBoardData(board);
             SetDialogueData(dialogueData);
+            _gameOverDialogue = GameOverDialogueData.FromDialogueData(gameOverDialogue);
         }
 
         public void Initialize(

@@ -32,6 +32,12 @@ namespace GamePlay
             Initialize();
         }
 
+        protected override void OnDestroy()
+        {
+            _dialogueManager?.ClearPlaybackHistory();
+            base.OnDestroy();
+        }
+
         private void Update()
         {
             _tutorialController?.Tick(Time.deltaTime);
@@ -96,6 +102,7 @@ namespace GamePlay
             _gameStateManager.SetGameState(GameState.Playing);
 
             _gameStateManager.RaiseSetGameStateEvent += HandleSetGameStateEvent;
+            _winConditionManager.RaiseDefeatEvent += HandleDefeatEvent;
         }
 
         public void ResetGame()
@@ -189,6 +196,14 @@ namespace GamePlay
             }
 
             _queuedResetCoroutine = StartCoroutine(ResetGameAfterCurrentEvent());
+        }
+
+        public bool TryPlayGameOverDialogue(Action onCompleted)
+        {
+            GameInfo gameInfo = GameInfoHolder.GetCurrentGameInfo();
+            return gameInfo != null &&
+                   gameInfo.TryGetGameOverDialogue(out DialogueData dialogueData) &&
+                   _dialogueManager.TryPlayDialogue(dialogueData, onCompleted, false);
         }
 
         private IEnumerator ResetGameAfterCurrentEvent()
@@ -299,6 +314,19 @@ namespace GamePlay
                     // TODO: what happens after game over?
                     //ResetGameAfterDelay(2f);
                 }
+            }
+        }
+
+        private void HandleDefeatEvent(object sender, DefeatEventArgs e)
+        {
+            if (e.Reason != DefeatReason.DreamRetry)
+            {
+                return;
+            }
+
+            if (!TryPlayGameOverDialogue(QueueResetGame))
+            {
+                QueueResetGame();
             }
         }
 

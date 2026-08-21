@@ -203,8 +203,13 @@ namespace Investigation
                     break;
                 case "persuade":
                     string autoInteractionOnReturn = null;
+                    string returnInvestigationScene = null;
                     if(effect.ContainsKey("autoReturn")) autoInteractionOnReturn = (string)effect["autoReturn"];
-                    manager.LoadGameScene((string)effect["title"], autoInteractionOnReturn);
+                    if(effect.ContainsKey("returnMap")) returnInvestigationScene = (string)effect["returnMap"];
+                    manager.LoadGameScene(
+                        (string)effect["title"],
+                        autoInteractionOnReturn,
+                        returnInvestigationScene);
                     break;
                 case "anotherMap":
                     //string autoInteractionOnReturn = null;

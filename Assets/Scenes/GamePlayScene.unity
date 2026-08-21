@@ -603,9 +603,9 @@ RectTransform:
   - {fileID: 2021765353}
   - {fileID: 652763769}
   - {fileID: 835397562}
+  - {fileID: 2147480001}
   - {fileID: 1369784448}
   - {fileID: 1149664667}
-  - {fileID: 2147480001}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2271,9 +2271,9 @@ MonoBehaviour:
   _glitchEffectIntensity: 0.75
   _glitchFlashEffectDuration: 0.68
   _glitchFlashEffectIntensity: 0.4
-  _suspicionOverflowDefeatStartDelay: 4
-  _turnLimitDefeatStartDelay: 4
-  _defeatShakeDuration: 5
+  _suspicionOverflowDefeatStartDelay: 3.5
+  _turnLimitDefeatStartDelay: 1
+  _defeatShakeDuration: 3
   _defeatCloseUpScale: 5
   _defeatShakeStrength: 35
   _defeatShakeVibrato: 35
@@ -2944,8 +2944,8 @@ MonoBehaviour:
   _widePanelLayout:
     _panelSprite: {fileID: -5485447400464942870, guid: ae942b7960572c44d883f06d31260ac8, type: 3}
     _panelSizeDelta: {x: 1656, y: 375}
-    _overridePanelAnchoredPosition: 0
-    _panelAnchoredPosition: {x: 400, y: 35.7936}
+    _overridePanelAnchoredPosition: 1
+    _panelAnchoredPosition: {x: 120, y: 17}
     _dialogueTextSizeDelta: {x: 1500, y: 174}
 --- !u!114 &1089261306
 MonoBehaviour:
@@ -3462,7 +3462,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GamePlay.GameManager
   _gameInfoList:
-  - {fileID: 11400000, guid: c72e97b95506a8b4ba130fe6446d62f1, type: 2}
+  - {fileID: 11400000, guid: a2fbb8cbe2bf481eb1605e7de77f7aef, type: 2}
   - {fileID: 11400000, guid: 17244ccf19c3a3a43b615c6c7e849b41, type: 2}
   _tutorialEntryGroups:
   - State: 1
@@ -3560,6 +3560,12 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 57bd1cd5ba5d45338f6edd54edfdcbc5, type: 2}
     - {fileID: 11400000, guid: b6afbc91fac44d1cb038b82d4bedab85, type: 2}
     - {fileID: 11400000, guid: ead23b8fd6d54ece8143d5eace5ea803, type: 2}
+  - MapName: Map_Dream_Sister
+    GameInfoList:
+    - {fileID: 11400000, guid: ccb806b9d38c4a9994bc206cf4859414, type: 2}
+    - {fileID: 11400000, guid: 4102c87216b240b8ae0efe2b43bb35e0, type: 2}
+    - {fileID: 11400000, guid: a2fbb8cbe2bf481eb1605e7de77f7aef, type: 2}
+    - {fileID: 11400000, guid: d30f406ff9cfb8c4182310313102e03f, type: 2}
 --- !u!114 &1353033081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3646,8 +3652,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 7482667652216324306, guid: 2380028662c2ec74abe42ba06cc56fe1, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

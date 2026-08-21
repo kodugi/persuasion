@@ -1,0 +1,68 @@
+{
+  "title": "나",
+  "LD_images": ["LD_Player_7A"],
+  "path": [
+    {
+      "description": "뭐야, 웬 빛이...",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 1,
+          "effects": [
+            {
+              "type": "changeImage",
+              "image": "LD_Player_5A",
+              "position": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "...어?",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 2,
+          "effects": []
+        }
+      ]
+    },
+    {
+      "description": "여기가 어디지? 난 분명 집 안에서 잠들었는데...",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 3,
+          "effects": [
+            {
+              "type": "changeImage",
+              "image": "LD_Player_8A",
+              "position": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "...이거 설마 구름인가? 나 어떻게 서 있는 거지?",
+      "buttons": [
+        {
+          "title": "(다음)",
+          "next": 4,
+          "effects": []
+        }
+      ]
+    },
+    {
+      "description": "뭐야, 대체...",
+      "buttons": [
+        {
+          "title": "(대사를 마친다)",
+          "next": -1,
+          "effects": []
+        }
+      ]
+    }
+  ]
+}

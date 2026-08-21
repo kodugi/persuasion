@@ -143,7 +143,7 @@ public partial class SaveManager : MonoBehaviour
         }
     }
 
-    private string PathGen(string fileName)
+    private static string PathGen(string fileName)
     {
         return Path.Combine(
             Application.persistentDataPath,
@@ -426,9 +426,14 @@ public partial class SaveManager : MonoBehaviour
     /// <summary>
     /// Deletes every save file without recreating default files.
     /// </summary>
-    public void ResetAllSaveData()
+    public static void ResetAllSaveData()
     {
-        progress.Clear();
+        if (Instance != null)
+        {
+            Instance.progress.Clear();
+            Instance.generalSave.Clear();
+            Instance.isProgressLoaded = false;
+        }
 
         DeleteSaveFile("general");
         DeleteSaveFile("progress");
@@ -443,7 +448,7 @@ public partial class SaveManager : MonoBehaviour
         );
     }
 
-    private void DeleteSaveFile(string fileName)
+    private static void DeleteSaveFile(string fileName)
     {
         string path = PathGen(fileName);
 

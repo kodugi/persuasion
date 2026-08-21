@@ -214,17 +214,42 @@ namespace GamePlay
             _dialoguePanel.SetActive(true);
             _dialogueContent = dialogueEntry.DialogueText;
             _speakerNameText.text = dialogueEntry.SpeakerName;
-            _typeDialogueEntry = StartCoroutine(TypeDialogueEntry(_dialogueContent));
+            if (dialogueEntry.StateToTrigger == TutorialState.Dream2)
+            {
+                _typeDialogueEntry = StartCoroutine(TypeDialogueEntry(_dialogueContent, 0.005f));
+            }
+            else
+            {
+                _typeDialogueEntry = StartCoroutine(TypeDialogueEntry(_dialogueContent));
+            }
         }
 
-        private IEnumerator TypeDialogueEntry(string dialogueContent)
+        private IEnumerator TypeDialogueEntry(string dialogueContent, float interval = 0.02f)
         {
             _dialogueText.text = "";
-            foreach (char c in dialogueContent)
+            if (interval <= 0.01f)
             {
-                _dialogueText.text += c;
-                yield return new WaitForSeconds(0.02f);
+                int i;
+                for (i = 0; i < dialogueContent.Length; i += 10)
+                {
+                    _dialogueText.text += dialogueContent.Substring(i, 10);
+                    yield return new WaitForSeconds(interval * 10);
+                }
+
+                if (i < dialogueContent.Length)
+                {
+                    _dialogueText.text += dialogueContent.Substring(i);
+                }
             }
+            else
+            {
+                foreach (char c in dialogueContent)
+                {
+                    _dialogueText.text += c;
+                    yield return new WaitForSeconds(0.02f);
+                }
+            }
+            
 
             _typeDialogueEntry = null;
         }
