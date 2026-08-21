@@ -17,6 +17,33 @@ MonoBehaviour:
   m_SerializeEntries:
   - m_GUID: 18e21342fa91a4b2e84c0e86820b2dd0
     m_Address: Map1_road
+  - m_GUID: 1ab1fb629887c5648b13d827f4996892
+    m_Address: Dream_Cloud_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 231a8d921dcc1b849bdd6e326bea2b36
+    m_Address: Dream_Cloud_03
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3c9fb9a9d1c204f409311a96198f2ba0
+    m_Address: Dream_Cloud_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6d4a69a5e12792849b25ea3fcb29e509
+    m_Address: Dream_Cloud_Foreground
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bde026eb2a001c24a85cd49f467e1fa2
+    m_Address: Dream_Cloud_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ca1ff5dd11cabd646bfceb9156939a25
+    m_Address: Dream_Cloud_05
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
