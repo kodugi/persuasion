@@ -192,6 +192,10 @@ public partial class ChiefManager : MonoBehaviour
             case "Map1":
                 if(invSceneLastPos != null) PlayBGM("Map1_Main");
                 break;
+            case "Map_Dream":
+            case "Dream":
+                PlayBGM(dream_MainBGM);
+                break;
         }
     }
     public void StartPersuasion(string id, string autoInteractionOnReturn, string returnInvestigationScene = null)
