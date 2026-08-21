@@ -55,7 +55,7 @@ namespace GamePlay
             _image.raycastTarget = false;
         }
 
-        public IEnumerator PlaySuspicionOverflowBlackOut()
+        public IEnumerator PlayBlackOut()
         {
             if (!EnsureInitialized())
             {
@@ -97,8 +97,7 @@ namespace GamePlay
         private IEnumerator PlayScriptedDreamBlackOut()
         {
             yield return new WaitForSeconds(_scriptedDreamDelay);
-            _image.color = Color.black;
-            _image.raycastTarget = true;
+            yield return PlayBlackOut();
             _scriptedDreamBlackOutCoroutine = null;
         }
     }

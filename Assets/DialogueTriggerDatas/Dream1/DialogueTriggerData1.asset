@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f40073349d7ab8444a9679efaa0c7c3f, type: 3}
+  m_Name: DialogueTriggerData1
+  m_EditorClassIdentifier: Assembly-CSharp::GamePlay.DialogueTriggerData
+  _turn: 0
+  _turnState: 1
+  _pages:
+  - Entries:
+    - SpeakerName: "\uB098"
+      DialogueText: "(\uBB50\uC9C0? \uC6EC\uC77C\uB85C \uB0B4\uAC00 \uC811\uC18D\uD55C
+        \uAC78 \uBAA8\uB974\uB124?)"
+      StateToTrigger: 0
+      StateTriggerTiming: 0
+      UseWidePanel: 1
+    - SpeakerName: "\uB098"
+      DialogueText: "(...\uB204\uAC00 \uBA38\uB9BF\uC18D\uC5D0 \uB4E4\uC5B4\uC628
+        \uAC8C \uD558\uB3C4 \uC624\uB79C\uB9CC\uC774\uB77C \uBB34\uC2A8 \uB290\uB08C\uC778\uC9C0
+        \uAE4C\uBA39\uC5C8\uB098?)"
+      StateToTrigger: 0
+      StateTriggerTiming: 0
+      UseWidePanel: 1
+    - SpeakerName: "\uB098"
+      DialogueText: "(\uBB50 \uB098\uC57C \uB2E4\uD589\uC778 \uC77C\uC774\uC9C0.)"
+      StateToTrigger: 0
+      StateTriggerTiming: 0
+      UseWidePanel: 1
+    - SpeakerName: "\uB098"
+      DialogueText: "(\uC544\uB9C8 \uD06C\uAE30\uAC00 \uD070 \uAC80\uC740 \uAC10\uC815\uB4E4\uC740
+        \uC5EC\uAE30\uBCF4\uB2E4 \uB354 \uAE4A\uC740 \uACF3\uC5D0 \uC788\uC744 \uAC70\uC57C.)"
+      StateToTrigger: 0
+      StateTriggerTiming: 0
+      UseWidePanel: 1
+    - SpeakerName: "\uB098"
+      DialogueText: "(\uC5EC\uAE30\uB294 \uC5BC\uB978 \uD574\uACB0\uD558\uACE0 \uBE68\uB9AC
+        \uB0B4\uB824\uAC00\uC790.)"
+      StateToTrigger: 0
+      StateTriggerTiming: 0
+      UseWidePanel: 1

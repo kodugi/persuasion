@@ -289,12 +289,14 @@ namespace GamePlay
 
             if (BlackOutPanelView.Instance != null)
             {
-                yield return BlackOutPanelView.Instance.PlaySuspicionOverflowBlackOut();
+                yield return BlackOutPanelView.Instance.PlayBlackOut();
             }
             else
             {
                 Debug.LogWarning("Suspicion-overflow defeat could not play its blackout because BlackOutPanelView is missing.", this);
             }
+
+            yield return PlayGameOverDialogueIfConfigured();
 
             if (GameOverPopupView.Instance != null)
             {
@@ -362,6 +364,8 @@ namespace GamePlay
 
             yield return _turnLimitDefeatSequence.WaitForCompletion();
 
+            yield return PlayGameOverDialogueIfConfigured();
+
             if (GameOverPopupView.Instance != null)
             {
                 GameOverPopupView.Instance.ShowTurnLimitGameOver();
@@ -373,6 +377,19 @@ namespace GamePlay
 
             _turnLimitDefeatSequence = null;
             _turnLimitDefeatCoroutine = null;
+        }
+
+        private IEnumerator PlayGameOverDialogueIfConfigured()
+        {
+            bool dialogueCompleted = false;
+            bool dialogueStarted = GameManager.Instance != null &&
+                                   GameManager.Instance.TryPlayGameOverDialogue(
+                                       () => dialogueCompleted = true);
+
+            if (dialogueStarted)
+            {
+                yield return new WaitUntil(() => dialogueCompleted);
+            }
         }
 
         private IEnumerator PlayRepetitiveGlitchAnimation()

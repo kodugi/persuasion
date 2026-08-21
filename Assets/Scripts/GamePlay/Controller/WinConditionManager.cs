@@ -74,7 +74,15 @@ namespace GamePlay
 
             if (_turnManager.GetCurrentTurn() >= GameInfoHolder.GetCurrentGameInfo().GetMaxTurns())
             {
-                Lose(DefeatReason.TurnLimitExceeded);
+                if (IsDreamRetryMap(GameInfoHolder.GetCurrentGameInfo().GetMapType()))
+                {
+                    LoseDream();
+                }
+                else
+                {
+                    Lose(DefeatReason.TurnLimitExceeded);
+                }
+
                 return;
             }
 
@@ -130,8 +138,24 @@ namespace GamePlay
         private void LoseDream()
         {
             _isGameEnded = true;
+            GameInfo.MapType mapType = GameInfoHolder.GetCurrentGameInfo().GetMapType();
+
+            if (IsDreamRetryMap(mapType))
+            {
+                _lastDefeatReason = DefeatReason.DreamRetry;
+                RaiseDefeatEvent?.Invoke(this, new DefeatEventArgs(DefeatReason.DreamRetry));
+                return;
+            }
+
             _lastDefeatReason = DefeatReason.None;
             GameManager.Instance.QueueResetGame();
+        }
+
+        private static bool IsDreamRetryMap(GameInfo.MapType mapType)
+        {
+            return mapType == GameInfo.MapType.Dream1 ||
+                   mapType == GameInfo.MapType.Dream2 ||
+                   mapType == GameInfo.MapType.Dream3;
         }
     }
 
@@ -150,6 +174,7 @@ namespace GamePlay
         None,
         SuspicionOverflow,
         TurnLimitExceeded,
-        Scripted
+        Scripted,
+        DreamRetry
     }
 }

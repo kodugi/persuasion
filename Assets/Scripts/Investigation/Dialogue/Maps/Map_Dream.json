@@ -2,6 +2,459 @@
   "title": "Map_Dream",
   "interactables": [
     {
+      "title": "Map_Dream/Intro",
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "size": {
+        "x": 1,
+        "y": 1
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": 0,
+      "image": [],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map_Dream/Cloud_Rear_Left",
+      "position": {
+        "x": -0.5,
+        "y": -1.1
+      },
+      "size": {
+        "x": 0.55,
+        "y": 0.55
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": -20,
+      "image": [
+        "Dream_Cloud_01"
+      ],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map_Dream/Cloud_Rear_LeftCenter",
+      "position": {
+        "x": 4.3,
+        "y": -0.55
+      },
+      "size": {
+        "x": -0.62,
+        "y": 0.62
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": -19,
+      "image": [
+        "Dream_Cloud_02"
+      ],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map_Dream/Cloud_Rear_Center",
+      "position": {
+        "x": 8.3,
+        "y": -1.1
+      },
+      "size": {
+        "x": 0.55,
+        "y": 0.55
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": -18,
+      "image": [
+        "Dream_Cloud_03"
+      ],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map_Dream/Cloud_Rear_RightCenter",
+      "position": {
+        "x": 12.6,
+        "y": -0.55
+      },
+      "size": {
+        "x": -0.58,
+        "y": 0.58
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": -17,
+      "image": [
+        "Dream_Cloud_05"
+      ],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map_Dream/Cloud_Rear_Right",
+      "position": {
+        "x": 17,
+        "y": -1.15
+      },
+      "size": {
+        "x": -0.52,
+        "y": 0.52
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": -16,
+      "image": [
+        "Dream_Cloud_01"
+      ],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map_Dream/Cloud_Mid_Left",
+      "position": {
+        "x": -2,
+        "y": -1
+      },
+      "size": {
+        "x": 0.65,
+        "y": 0.65
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": -15,
+      "image": [
+        "Dream_Cloud_04"
+      ],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map_Dream/Cloud_Mid_Center",
+      "position": {
+        "x": 7,
+        "y": -0.7
+      },
+      "size": {
+        "x": 0.55,
+        "y": 0.55
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": -14,
+      "image": [
+        "Dream_Cloud_05"
+      ],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map_Dream/Cloud_Mid_Right",
+      "position": {
+        "x": 18,
+        "y": -0.8
+      },
+      "size": {
+        "x": -0.7,
+        "y": 0.7
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": -13,
+      "image": [
+        "Dream_Cloud_04"
+      ],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map_Dream/Cloud_Foreground_Base",
+      "position": {
+        "x": 8,
+        "y": -12
+      },
+      "size": {
+        "x": 1,
+        "y": 1
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": -10,
+      "image": [
+        "Dream_Cloud_Foreground"
+      ],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map_Dream/Cloud_Front_Left",
+      "position": {
+        "x": -1.7,
+        "y": -1.4
+      },
+      "size": {
+        "x": 0.65,
+        "y": 0.65
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": -5,
+      "image": [
+        "Dream_Cloud_02"
+      ],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map_Dream/Cloud_Front_Center",
+      "position": {
+        "x": 10,
+        "y": -1.4
+      },
+      "size": {
+        "x": -0.7,
+        "y": 0.7
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": -4,
+      "image": [
+        "Dream_Cloud_04"
+      ],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map_Dream/Cloud_Front_Right",
+      "position": {
+        "x": 18,
+        "y": -1.5
+      },
+      "size": {
+        "x": -0.65,
+        "y": 0.65
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 0,
+        "y": 0
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerSize": {
+        "x": 0,
+        "y": 0
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": 0,
+      "sortingOrder": -3,
+      "image": [
+        "Dream_Cloud_02"
+      ],
+      "script": "",
+      "manually_touchable": false
+    },
+    {
       "title": "Map_Dream_Wall",
       "position": {
         "x": 8,
@@ -153,8 +606,8 @@
         "y": 0
       },
       "triggerSize": {
-        "x": 1,
-        "y": 1
+        "x": 3,
+        "y": 3
       },
       "triggerOffset": {
         "x": 0,
@@ -163,8 +616,8 @@
       "hideCriteria": 0,
       "sortingOrder": 5,
       "image": "",
-      "script": "",
-      "manually_touchable": false
+      "script": "Inv_InteractionObj_Map_Dream_Sister",
+      "manually_touchable": true
     }
   ]
 }
