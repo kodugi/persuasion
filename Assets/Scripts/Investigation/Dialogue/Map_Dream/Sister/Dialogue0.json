@@ -525,9 +525,8 @@
             },
             {
               "type": "changeImage",
-              "image": "",
-              "position": 2,
-              "pendingImage": "나 추가 스탠딩 ㅇㅇㅇ"
+              "image": "LD_Player_11A",
+              "position": 2
             }
           ]
         }
