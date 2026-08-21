@@ -523,6 +523,11 @@
                             "type": "progress",
                             "key": "Map1/SurroundingWitchMotherstate",
                             "value": "2"
+                        },
+                        {
+                            "type": "progress",
+                            "key": "MetWitchMother",
+                            "value": true
                         }
                     ]
                 }
