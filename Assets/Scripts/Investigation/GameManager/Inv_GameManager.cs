@@ -23,6 +23,7 @@ namespace Investigation
         [SerializeField] CinemachineCamera cam;
         List<AsyncOperationHandle<Sprite>> mapHandles = new List<AsyncOperationHandle<Sprite>>();
         BoxCollider2D footCollider;
+        GameObject lastCameraMovementTarget=null;
         
         private class Vector_2D
         {
@@ -303,6 +304,7 @@ namespace Investigation
         }
         IEnumerator MoveCameraTarget(Transform target, float duration)
         {
+            lastCameraMovementTarget = target.gameObject;
             GameObject cameraTarget = new GameObject();
             Vector3 start = cam.Target.TrackingTarget.position;
             Vector3 end = target.position;
@@ -328,7 +330,10 @@ namespace Investigation
             }
 
             cameraTarget.transform.position = end;
-            cam.Target.TrackingTarget = target;
+            if(lastCameraMovementTarget == target.gameObject) {
+                cam.Target.TrackingTarget = target;
+                lastCameraMovementTarget = null;
+            }
         }
     }
 }
