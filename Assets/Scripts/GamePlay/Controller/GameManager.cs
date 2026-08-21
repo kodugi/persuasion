@@ -14,6 +14,23 @@ namespace GamePlay
         [SerializeField] private List<GameInfo> _gameInfoList;
         [SerializeField] private List<TutorialEntryGroup> _tutorialEntryGroups = new List<TutorialEntryGroup>();
         [SerializeField] private List<StageEntry> _stageList = new List<StageEntry>();
+
+        [Header("GamePlay Audio Clips")]
+        [SerializeField] private AudioClip _jumpScareClip;
+        [SerializeField] private AudioClip _gameOverClip;
+        [SerializeField] private List<AudioClip> _laughClips = new List<AudioClip>();
+        [SerializeField] private AudioClip _placeSoulClip;
+        [SerializeField] private AudioClip _eyeClip;
+        [SerializeField] private AudioClip _bigEyeClip;
+        [SerializeField] private AudioClip _glitchClip;
+
+        [Header("GamePlay Audio Timing")]
+        [SerializeField, Range(0f, 1f)] private float _effectVolume = 0.85f;
+        [SerializeField, Range(0f, 1f)] private float _gameOverVolume = 0.85f;
+        [SerializeField, Range(0f, 1f)] private float _laughVolume = 0.9f;
+        [SerializeField, Range(0f, 1f)] private float _jumpScareVolume = 1f;
+        [SerializeField, Min(0f)] private float _scriptedDreamJumpScareDelay = 2.2f;
+        [SerializeField, Min(0f)] private float _scriptedDreamJumpScareDuration = 0.8f;
         
         private TurnManager _turnManager;
         private BlockSelectionManager _blockSelectionManager;
@@ -25,15 +42,27 @@ namespace GamePlay
         private TutorialController _tutorialController;
         private Coroutine _queuedResetCoroutine;
         private Coroutine _delayedResetCoroutine;
+        private AudioSource _effectAudioSource;
+        private AudioSource _gameOverAudioSource;
+        private AudioSource _laughAudioSource;
+        private AudioSource _jumpScareAudioSource;
+        private Coroutine _laughCoroutine;
+        private Coroutine _jumpScareStopCoroutine;
+        private Coroutine _scriptedDreamJumpScareCoroutine;
+        private bool _audioLockedForJumpScare;
+        private bool _didPauseAudioListener;
+        private bool _audioListenerWasPaused;
 
         protected override void Awake()
         {
             base.Awake();
             Initialize();
+            InitializeAudio();
         }
 
         protected override void OnDestroy()
         {
+            DisposeAudio();
             _dialogueManager?.ClearPlaybackHistory();
             base.OnDestroy();
         }
@@ -107,6 +136,8 @@ namespace GamePlay
 
         public void ResetGame()
         {
+            ResetAudioPlayback();
+
             if (_delayedResetCoroutine != null)
             {
                 StopCoroutine(_delayedResetCoroutine);
@@ -186,6 +217,287 @@ namespace GamePlay
             FindAnyObjectByType<FigureView>()?.ResetGame();
             BlackOutPanelView.Instance?.ResetGame();
             GameOverPopupView.Instance?.ResetGame();
+        }
+
+        public void PlayEyeSound()
+        {
+            PlayEffect(_eyeClip);
+        }
+
+        public void PlayBigEyeSound()
+        {
+            PlayEffect(_bigEyeClip);
+        }
+
+        public void PlayGlitchSound()
+        {
+            PlayEffect(_glitchClip);
+        }
+
+        public void PlayJumpScareSound(float duration)
+        {
+            if (_audioLockedForJumpScare || _jumpScareClip == null)
+            {
+                return;
+            }
+
+            _audioLockedForJumpScare = true;
+            StopLoopingAudio();
+
+            AudioSource[] activeAudioSources = FindObjectsByType<AudioSource>(
+                FindObjectsInactive.Include,
+                FindObjectsSortMode.None);
+            foreach (AudioSource audioSource in activeAudioSources)
+            {
+                audioSource.Stop();
+            }
+
+            _audioListenerWasPaused = AudioListener.pause;
+            _didPauseAudioListener = true;
+            AudioListener.pause = true;
+
+            _jumpScareAudioSource.clip = _jumpScareClip;
+            _jumpScareAudioSource.volume = _jumpScareVolume;
+            _jumpScareAudioSource.Play();
+
+            if (_jumpScareStopCoroutine != null)
+            {
+                StopCoroutine(_jumpScareStopCoroutine);
+            }
+
+            _jumpScareStopCoroutine = StartCoroutine(StopJumpScareAfterDuration(duration));
+        }
+
+        private void InitializeAudio()
+        {
+            _effectAudioSource = CreateAudioSource();
+            _gameOverAudioSource = CreateAudioSource();
+            _laughAudioSource = CreateAudioSource();
+            _jumpScareAudioSource = CreateAudioSource();
+            _jumpScareAudioSource.ignoreListenerPause = true;
+
+            _boardController.RaiseCellPlacementEvent += HandleAudioCellPlacementEvent;
+            _dialogueManager.RaiseSetDialogueEntryEvent += HandleAudioDialogueEntryEvent;
+            _gameStateManager.RaiseSetGameStateEvent += HandleAudioGameStateEvent;
+            ResetAudioPlayback();
+
+            GameInfo gameInfo = GameInfoHolder.GetCurrentGameInfo();
+            if (_dialogueManager.HasCurrentDialogueData() &&
+                gameInfo != null &&
+                gameInfo.GetMapType() == GameInfo.MapType.Dream4)
+            {
+                StartLaughter();
+            }
+        }
+
+        private AudioSource CreateAudioSource()
+        {
+            AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.playOnAwake = false;
+            audioSource.loop = false;
+            audioSource.spatialBlend = 0f;
+            return audioSource;
+        }
+
+        private void DisposeAudio()
+        {
+            if (_boardController != null)
+            {
+                _boardController.RaiseCellPlacementEvent -= HandleAudioCellPlacementEvent;
+            }
+
+            if (_dialogueManager != null)
+            {
+                _dialogueManager.RaiseSetDialogueEntryEvent -= HandleAudioDialogueEntryEvent;
+            }
+
+            if (_gameStateManager != null)
+            {
+                _gameStateManager.RaiseSetGameStateEvent -= HandleAudioGameStateEvent;
+            }
+
+            ResetAudioPlayback();
+        }
+
+        private void HandleAudioCellPlacementEvent(object sender, CellPlacementEventArgs e)
+        {
+            PlayEffect(_placeSoulClip);
+        }
+
+        private void HandleAudioDialogueEntryEvent(object sender, SetDialogueEntryEventArgs e)
+        {
+            GameInfo gameInfo = GameInfoHolder.GetCurrentGameInfo();
+            if (gameInfo != null && gameInfo.GetMapType() == GameInfo.MapType.Dream4)
+            {
+                StartLaughter();
+            }
+        }
+
+        private void HandleAudioGameStateEvent(object sender, SetGameStateEventArgs e)
+        {
+            if (e.gameState == GameState.Playing)
+            {
+                ResetAudioPlayback();
+                return;
+            }
+
+            if (e.gameState != GameState.Lost)
+            {
+                return;
+            }
+
+            GameInfo gameInfo = GameInfoHolder.GetCurrentGameInfo();
+            if (gameInfo == null)
+            {
+                return;
+            }
+
+            DefeatReason defeatReason = _winConditionManager.GetLastDefeatReason();
+            if (gameInfo.GetMapType() == GameInfo.MapType.Normal &&
+                defeatReason == DefeatReason.SuspicionOverflow)
+            {
+                StartGameOverLoop();
+            }
+            else if (gameInfo.GetMapType() == GameInfo.MapType.Dream4 &&
+                     defeatReason == DefeatReason.Scripted)
+            {
+                if (_scriptedDreamJumpScareCoroutine != null)
+                {
+                    StopCoroutine(_scriptedDreamJumpScareCoroutine);
+                }
+
+                _scriptedDreamJumpScareCoroutine = StartCoroutine(PlayScriptedDreamJumpScare());
+            }
+        }
+
+        private void PlayEffect(AudioClip clip)
+        {
+            if (_audioLockedForJumpScare || clip == null || _effectAudioSource == null)
+            {
+                return;
+            }
+
+            _effectAudioSource.PlayOneShot(clip, _effectVolume);
+        }
+
+        private void StartGameOverLoop()
+        {
+            if (_audioLockedForJumpScare || _gameOverClip == null || _gameOverAudioSource.isPlaying)
+            {
+                return;
+            }
+
+            _gameOverAudioSource.clip = _gameOverClip;
+            _gameOverAudioSource.volume = _gameOverVolume;
+            _gameOverAudioSource.loop = true;
+            _gameOverAudioSource.Play();
+        }
+
+        private void StartLaughter()
+        {
+            if (_audioLockedForJumpScare || _laughCoroutine != null ||
+                _laughClips == null || !_laughClips.Any(clip => clip != null))
+            {
+                return;
+            }
+
+            _laughCoroutine = StartCoroutine(PlayLaughterAlternately());
+        }
+
+        private IEnumerator PlayLaughterAlternately()
+        {
+            int clipIndex = 0;
+            while (!_audioLockedForJumpScare)
+            {
+                AudioClip clip = GetNextLaughClip(ref clipIndex);
+                if (clip == null)
+                {
+                    break;
+                }
+
+                _laughAudioSource.clip = clip;
+                _laughAudioSource.volume = _laughVolume;
+                _laughAudioSource.Play();
+                yield return new WaitWhile(() => _laughAudioSource.isPlaying);
+            }
+
+            _laughAudioSource.Stop();
+            _laughCoroutine = null;
+        }
+
+        private AudioClip GetNextLaughClip(ref int clipIndex)
+        {
+            for (int i = 0; i < _laughClips.Count; i++)
+            {
+                AudioClip clip = _laughClips[clipIndex % _laughClips.Count];
+                clipIndex++;
+                if (clip != null)
+                {
+                    return clip;
+                }
+            }
+
+            return null;
+        }
+
+        private IEnumerator PlayScriptedDreamJumpScare()
+        {
+            if (_scriptedDreamJumpScareDelay > 0f)
+            {
+                yield return new WaitForSeconds(_scriptedDreamJumpScareDelay);
+            }
+
+            _scriptedDreamJumpScareCoroutine = null;
+            PlayJumpScareSound(_scriptedDreamJumpScareDuration);
+        }
+
+        private IEnumerator StopJumpScareAfterDuration(float duration)
+        {
+            if (duration > 0f)
+            {
+                yield return new WaitForSeconds(duration);
+            }
+
+            _jumpScareAudioSource.Stop();
+            _jumpScareStopCoroutine = null;
+        }
+
+        private void StopLoopingAudio()
+        {
+            if (_laughCoroutine != null)
+            {
+                StopCoroutine(_laughCoroutine);
+                _laughCoroutine = null;
+            }
+
+            _laughAudioSource?.Stop();
+            _gameOverAudioSource?.Stop();
+        }
+
+        private void ResetAudioPlayback()
+        {
+            if (_scriptedDreamJumpScareCoroutine != null)
+            {
+                StopCoroutine(_scriptedDreamJumpScareCoroutine);
+                _scriptedDreamJumpScareCoroutine = null;
+            }
+
+            if (_jumpScareStopCoroutine != null)
+            {
+                StopCoroutine(_jumpScareStopCoroutine);
+                _jumpScareStopCoroutine = null;
+            }
+
+            StopLoopingAudio();
+            _effectAudioSource?.Stop();
+            _jumpScareAudioSource?.Stop();
+            _audioLockedForJumpScare = false;
+
+            if (_didPauseAudioListener)
+            {
+                AudioListener.pause = _audioListenerWasPaused;
+                _didPauseAudioListener = false;
+            }
         }
 
         public void QueueResetGame()

@@ -120,6 +120,7 @@ namespace GamePlay
             switch (GameInfoHolder.GetCurrentGameInfo().GetMapType())
             {
                 case GameInfo.MapType.Dream3:
+                    GameManager.Instance?.PlayBigEyeSound();
                     _backgroundBigSuspicionPrefabView.PlayBlinkAnimation();
                     break;
             }

@@ -274,6 +274,7 @@ namespace GamePlay
             }
 
             _suspicionOverflowDefeatSequence = DOTween.Sequence();
+            GameManager.Instance?.PlayJumpScareSound(_defeatShakeDuration);
             _suspicionOverflowDefeatSequence.Append(
                 _rectTransform
                     .DOShakeAnchorPos(
@@ -351,6 +352,7 @@ namespace GamePlay
             }
 
             _turnLimitDefeatSequence = DOTween.Sequence();
+            GameManager.Instance?.PlayJumpScareSound(_defeatShakeDuration);
             _turnLimitDefeatSequence.Append(
                 _rectTransform
                     .DOShakeAnchorPos(
@@ -405,12 +407,14 @@ namespace GamePlay
         {
             _animator.SetTrigger(GlitchTrigger);
             _uiGlitchEffect.Play(_glitchEffectDuration, _glitchEffectIntensity);
+            GameManager.Instance?.PlayGlitchSound();
         }
 
         private void TriggerGlitchFlash()
         {
             _animator.SetTrigger(GlitchFlashTrigger);
             _uiGlitchEffect.Play(_glitchFlashEffectDuration, _glitchFlashEffectIntensity);
+            GameManager.Instance?.PlayGlitchSound();
         }
 
         private void HandleSetTutorialStateEvent(object sender, SetTutorialStateEventArgs e)

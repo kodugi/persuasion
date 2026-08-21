@@ -183,6 +183,7 @@ public class BoardView : BoardViewBase
     private void PlayPreGameOverAnimation()
     {
         _isPlayingPreGameOverAnimation = true;
+        GameManager.Instance?.PlayEyeSound();
         _spawnedPreGameOverAnimationCoroutineCoords = new List<Vector2Int>();
         List<Vector2Int> coords = BoardController.Instance.GetRandomBlackCellCoords(2);
         ResetSpawnedPreGameOverAnimationCoroutineCoords();
@@ -207,6 +208,7 @@ public class BoardView : BoardViewBase
         if (_isPlayingPreGameOverAnimation)
         {
             _isPlayingPreGameOverAnimation = false;
+            GameManager.Instance?.PlayEyeSound();
             foreach (Vector2Int coord in _spawnedPreGameOverAnimationCoroutineCoords)
             {
                 _spawnedBoardCellSuspicionViewsByCoord[coord.X, coord.Y].StopPreGameOverAnimation();
