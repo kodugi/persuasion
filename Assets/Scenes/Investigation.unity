@@ -625,9 +625,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Inv_PlayerCTRL
   moveSpeed: 10
   thoughtObj: {fileID: 1873757237}
+  footCollider: {fileID: 261632902}
   isHiding: 0
   canHide: 0
-  footCollider: {fileID: 261632902}
 --- !u!61 &148256071
 BoxCollider2D:
   m_ObjectHideFlags: 0

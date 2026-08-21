@@ -20,6 +20,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 360e60cb524f73144a659085f0177a91
+    m_Address: audio_map1_guard_footstep
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5626e6426482d482894e235d3d17f732
     m_Address: fullblack
     m_ReadOnly: 0

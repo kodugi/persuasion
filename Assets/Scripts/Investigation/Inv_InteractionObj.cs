@@ -28,6 +28,7 @@ public class Inv_InteractionObj : Utility
         public bool manuallyTouchable = true;
         public List<string> images = null;
         public bool singleImage;
+        protected AudioSource audioSource=null;
         List<AsyncOperationHandle<Sprite>> handles = new List<AsyncOperationHandle<Sprite>>();
 
         void Start()
@@ -35,6 +36,9 @@ public class Inv_InteractionObj : Utility
             obj_name = gameObject.name;
             saveManager = GameObject.FindFirstObjectByType<SaveManager>();
             interactionManager = FindFirstObjectByType<Inv_Interact>();
+            if(gameObject.TryGetComponent<AudioSource>(out var audio_s)){
+                audioSource = audio_s;
+            }
             /*if (saveManager != null)
             {
                 CheckState();
