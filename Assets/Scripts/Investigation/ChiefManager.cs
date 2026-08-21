@@ -13,6 +13,8 @@ public partial class ChiefManager : MonoBehaviour
 {
     public static ChiefManager Instance { get; private set; }
     [SerializeField] GameObject gameOverPanel;
+    [SerializeField] AudioClip persuasionEnteringSound;
+    AudioSource audioSource;
     Investigation.Inv_GameManager inv_GameManager;
     Investigation.Inv_PlayerCTRL inv_PlayerCTRL;
     SaveManager saveManager;
@@ -35,6 +37,7 @@ public partial class ChiefManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
+        audioSource = GetComponent<AudioSource>();
         saveManager = GetComponent<SaveManager>();
         //currScene = "Start";
         //temporary
@@ -188,6 +191,7 @@ public partial class ChiefManager : MonoBehaviour
             : returnInvestigationScene;
         inv_Scene_ID = "";
         per_Scene_ID = id;
+        audioSource.PlayOneShot(persuasionEnteringSound);
 
         LoadScene(1);
         //yield return new WaitUntil(() => FindFirstObjectByType<something>() != null);
