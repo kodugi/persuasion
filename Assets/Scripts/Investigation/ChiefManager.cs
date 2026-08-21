@@ -14,7 +14,12 @@ public partial class ChiefManager : MonoBehaviour
     public static ChiefManager Instance { get; private set; }
     [SerializeField] GameObject gameOverPanel;
     [SerializeField] AudioClip persuasionEnteringSound;
+    [SerializeField] AudioClip introBGM;
+    [SerializeField] AudioClip map1_MainBGM;
+    [SerializeField] AudioClip dream_MainBGM;
+    [SerializeField] AudioClip guardBGM;
     AudioSource audioSource;
+    AudioSource bgmAudioSource;
     Investigation.Inv_GameManager inv_GameManager;
     Investigation.Inv_PlayerCTRL inv_PlayerCTRL;
     SaveManager saveManager;
@@ -38,6 +43,7 @@ public partial class ChiefManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         audioSource = GetComponent<AudioSource>();
+        bgmAudioSource = transform.GetChild(0).GetComponent<AudioSource>();
         saveManager = GetComponent<SaveManager>();
         //currScene = "Start";
         //temporary
@@ -53,7 +59,9 @@ public partial class ChiefManager : MonoBehaviour
         {
             StartInvestigation((string)result);
         }
-        else StartInvestigation("Map1_Intro");
+        else {
+            StartInvestigation("Map1_Intro");
+        }
     }
     void FixedUpdate()
     {
@@ -176,6 +184,15 @@ public partial class ChiefManager : MonoBehaviour
 
         invSceneLastPos = null;
         autoInteractOnReturntoInv = null;
+
+        switch(id){
+            case "Map1_Intro":
+                PlayBGM("Intro");
+                break;
+            case "Map1":
+                if(invSceneLastPos != null) PlayBGM("Map1_Main");
+                break;
+        }
     }
     public void StartPersuasion(string id, string autoInteractionOnReturn, string returnInvestigationScene = null)
     {
@@ -217,5 +234,30 @@ public partial class ChiefManager : MonoBehaviour
     {
         SaveManager.ResetAllSaveData();
         LoadScene(0);
+    }
+    public void PlayBGM(string id){
+        AudioClip clip=null;
+        print(id);
+        switch(id){
+            case "Intro":
+                clip = introBGM;
+                break;
+            case "Map1_Main":
+                clip = map1_MainBGM;
+                break;
+            case "Dream_Main":
+                clip = dream_MainBGM;
+                break;
+            case "Guard":
+                clip = guardBGM;
+                break;
+        }
+        if(clip==null){
+            Debug.LogError("no clip");
+            return;
+        }
+        if(clip == bgmAudioSource.resource) return;
+        bgmAudioSource.resource = clip;
+        bgmAudioSource.Play();
     }
 }

@@ -12,6 +12,11 @@
                         {
                             "type": "changeTitle",
                             "title": ""
+                        },
+                        {
+                            "type":"playSound",
+                            "source":"BGM",
+                            "clip":"Guard"
                         }
                     ]
                 }
