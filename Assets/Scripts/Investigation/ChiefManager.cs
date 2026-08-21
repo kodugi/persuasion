@@ -183,7 +183,7 @@ public partial class ChiefManager : MonoBehaviour
     }
     IEnumerator StartPersuasionScene(string id, string returnInvestigationScene)
     {
-        ExitScene(true);
+        yield return StartCoroutine(ExitSceneCoroutine(true));
         return_Inv_Scene_ID = string.IsNullOrEmpty(returnInvestigationScene)
             ? inv_Scene_ID
             : returnInvestigationScene;
