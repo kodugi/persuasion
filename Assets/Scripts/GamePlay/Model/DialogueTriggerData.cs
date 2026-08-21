@@ -125,11 +125,10 @@ namespace GamePlay
         [TextArea(2, 6)] public string DialogueText;
         public TutorialState StateToTrigger = TutorialState.None;
         public TutorialStateTriggerTiming StateTriggerTiming = TutorialStateTriggerTiming.AfterDialogue;
-        public bool UseWidePanel = false;
 
         public DialogueEntry CreateDialogueEntry()
         {
-            return new DialogueEntry(SpeakerName, DialogueText, StateToTrigger, StateTriggerTiming, UseWidePanel);
+            return new DialogueEntry(SpeakerName, DialogueText, StateToTrigger, StateTriggerTiming);
         }
 
         public static DialogueEntryData FromDialogueEntry(DialogueEntry dialogueEntry)
@@ -144,8 +143,7 @@ namespace GamePlay
                 SpeakerName = dialogueEntry.SpeakerName,
                 DialogueText = dialogueEntry.DialogueText,
                 StateToTrigger = dialogueEntry.StateToTrigger,
-                StateTriggerTiming = dialogueEntry.StateTriggerTiming,
-                UseWidePanel = dialogueEntry.UseWidePanel
+                StateTriggerTiming = dialogueEntry.StateTriggerTiming
             };
         }
     }

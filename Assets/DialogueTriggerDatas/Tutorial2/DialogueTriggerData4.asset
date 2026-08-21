@@ -20,10 +20,8 @@ MonoBehaviour:
       DialogueText: "(2, 3\uC5D0 \uB193\uB3C4\uB85D \uC720\uB3C4)"
       StateToTrigger: 13
       StateTriggerTiming: 0
-      UseWidePanel: 0
   - Entries:
     - SpeakerName: "\uB098"
       DialogueText: "(\uD134 \uC885\uB8CC)"
       StateToTrigger: 4
       StateTriggerTiming: 0
-      UseWidePanel: 0

@@ -19,20 +19,17 @@ namespace GamePlay
         public string DialogueText;
         public TutorialState StateToTrigger;
         public TutorialStateTriggerTiming StateTriggerTiming;
-        public bool UseWidePanel;
 
         public DialogueEntry(
             string speakerName,
             string dialogueText,
             TutorialState stateToTrigger,
-            TutorialStateTriggerTiming stateTriggerTiming = TutorialStateTriggerTiming.AfterDialogue,
-            bool useWidePanel = false)
+            TutorialStateTriggerTiming stateTriggerTiming = TutorialStateTriggerTiming.AfterDialogue)
         {
             SpeakerName = speakerName;
             DialogueText = dialogueText;
             StateToTrigger = stateToTrigger;
             StateTriggerTiming = stateTriggerTiming;
-            UseWidePanel = useWidePanel;
         }
     }
 
