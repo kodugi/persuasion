@@ -166,6 +166,8 @@ public partial class ChiefManager : MonoBehaviour
         inv_GameManager = GameObject.FindFirstObjectByType<Inv_GameManager>();
         inv_PlayerCTRL = GameObject.FindFirstObjectByType<Inv_PlayerCTRL>();
 
+        inv_GameManager.FadeScreen(false);
+
         yield return new WaitUntil(() => FindFirstObjectByType<Inv_InteractionObj>() != null);
 
         yield return new WaitUntil(() => FindFirstObjectByType<Inv_Interact>() != null);
