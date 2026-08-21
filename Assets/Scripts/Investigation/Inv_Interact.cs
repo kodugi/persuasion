@@ -277,6 +277,11 @@ namespace Investigation
                     if(camTarget == "Player") manager.ChangeCamera(playerCTRL.gameObject.transform,camMoveDuration);
                     else manager.ChangeCamera(FindInteractableObj(camTarget),camMoveDuration);
                     break;
+                case "shakeCharacter":
+                    if(dialogueScript!=null){
+                        dialogueScript.ShakeCharacter(int.Parse((string)effect["position"]),float.Parse((string)effect["strength"]));
+                    }
+                    break;
             }
         }
         public void JumpDialogue(int destination)
