@@ -191,6 +191,7 @@ public class BoardView : BoardViewBase
             _spawnedBoardCellSuspicionViewsByCoord[coord.X, coord.Y].PlayPreGameOverAnimation();
             _spawnedPreGameOverAnimationCoroutineCoords.Add(coord);
         }
+        GamePlaySoundManager.Instance?.Play(GamePlaySoundId.Eye);
     }
 
     private void ResetSpawnedPreGameOverAnimationCoroutineCoords()

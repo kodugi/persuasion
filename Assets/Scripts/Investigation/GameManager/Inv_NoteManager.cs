@@ -22,7 +22,19 @@ namespace Investigation
         }
         void NoteStart()
         {
-            GameObject.FindFirstObjectByType<Canvas>().transform.Find("NoteButton").GetComponent<Button>().onClick.AddListener(ViewNotes);
+            if (noteButton == null)
+            {
+                Debug.LogError("Inv_GameManager noteButton reference is missing.", this);
+                return;
+            }
+
+            if (!noteButton.TryGetComponent(out Button button))
+            {
+                Debug.LogError("Inv_GameManager noteButton does not have a Button component.", noteButton);
+                return;
+            }
+
+            button.onClick.AddListener(ViewNotes);
         }
         void NoteOnApplicationQuit()
         {

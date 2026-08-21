@@ -205,6 +205,17 @@ namespace GamePlay
             return HasDialogueEntries(_currentDialogueData);
         }
 
+        public bool ShouldBlockInteractionOutsideDialogue()
+        {
+            if (!HasCurrentDialogueData())
+            {
+                return false;
+            }
+
+            return TutorialController.Instance == null ||
+                   !TutorialController.Instance.IsWaitingForInteractionOutsideDialogue();
+        }
+
         public bool HasDialogueData()
         {
             if (_dialogueDataDict == null)

@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: Map1_People
   m_GUID: 544104a55ec544318b852d77a85df651
   m_SerializeEntries:
+  - m_GUID: 0ddb4cf97739e48568913d9b09994406
+    m_Address: Sister
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0f60a5409bd374649b1b490f254b0547
     m_Address: Writer0
     m_ReadOnly: 0

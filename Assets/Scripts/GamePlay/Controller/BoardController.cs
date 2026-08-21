@@ -53,6 +53,7 @@ namespace GamePlay
                         CellChange cellChange = new CellChange(coord, cellType, coord, coord);
                         PlayerPlaceCell(cellChange, selectedBlock is IMultipleBlock ? TurnState.PlayerPlacingContinue : TurnState.PlayerIdle);
                         _blockSelectionManager.PlaceSelectedBlock(coord);
+                        GamePlaySoundManager.Instance?.Play(GamePlaySoundId.SoulPlace);
                         RaiseCellPlacementEvent?.Invoke(this, new CellPlacementEventArgs(cellChange));
                     }
                 }
@@ -68,6 +69,7 @@ namespace GamePlay
                     CellChange cellChange = new CellChange(coord, cellType, coord, coord);
                     PlayerPlaceCell(cellChange, (multipleBlock.InputState == MultipleBlockInputState.AwaitingContinuedPlacement) ? TurnState.PlayerPlacingContinue : TurnState.PlayerIdle);
                     _blockSelectionManager.PlaceContinuedBlock(coord);
+                    GamePlaySoundManager.Instance?.Play(GamePlaySoundId.SoulPlace);
                     RaiseCellPlacementEvent?.Invoke(this, new CellPlacementEventArgs(cellChange));
                 }
                 return;

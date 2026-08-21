@@ -1,8 +1,8 @@
 using UnityEngine;
-using UnityEngine.UI;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Investigation;
@@ -11,6 +11,17 @@ using UnityEngine.SceneManagement;
 
 public partial class ChiefManager : MonoBehaviour
 {
+    public const string IntroBGMId = "Intro";
+    public const string MainBGMId = "Map1_Main";
+    public const string DreamBGMId = "Dream_Main";
+    public const string JumpScareSoundId = "JumpScare";
+    public const string GameOverSoundId = "GameOver";
+    public const string LaughterSoundId = "Laughter";
+    public const string SoulPlaceSoundId = "SoulPlace";
+    public const string EyeSoundId = "Eye";
+    public const string BigEyeSoundId = "BigEye";
+    public const string GlitchSoundId = "Glitch";
+
     public static ChiefManager Instance { get; private set; }
     [SerializeField] GameObject gameOverPanel;
     [SerializeField] AudioClip persuasionEnteringSound;
@@ -18,8 +29,24 @@ public partial class ChiefManager : MonoBehaviour
     [SerializeField] AudioClip map1_MainBGM;
     [SerializeField] AudioClip dream_MainBGM;
     [SerializeField] AudioClip guardBGM;
+    [Header("Persuasion Sound Effects")]
+    [SerializeField] AudioClip jumpScareSound;
+    [SerializeField] AudioClip gameOverSound;
+    [SerializeField] AudioClip[] laughterSounds = new AudioClip[3];
+    [SerializeField] AudioClip soulPlaceSound;
+    [SerializeField] AudioClip eyeSound;
+    [SerializeField] AudioClip bigEyeSound;
+    [SerializeField] AudioClip glitchSound;
+    [SerializeField, Range(0f, 1f)] float soundEffectVolume = 0.75f;
+    [SerializeField, Range(0f, 1f)] float jumpScareVolume = 1f;
+    [SerializeField, Min(0f)] float jumpScareDuration = 3f;
     AudioSource audioSource;
     AudioSource bgmAudioSource;
+    AudioSource loopingEffectAudioSource;
+    Coroutine laughterCoroutine;
+    Coroutine jumpScareStopCoroutine;
+    bool audioLockedForJumpScare;
+    string lastBGMId;
     Investigation.Inv_GameManager inv_GameManager;
     Investigation.Inv_PlayerCTRL inv_PlayerCTRL;
     SaveManager saveManager;
@@ -44,6 +71,13 @@ public partial class ChiefManager : MonoBehaviour
 
         audioSource = GetComponent<AudioSource>();
         bgmAudioSource = transform.GetChild(0).GetComponent<AudioSource>();
+        ConfigureAudioSource(audioSource, false);
+        ConfigureAudioSource(bgmAudioSource, true);
+
+        loopingEffectAudioSource = gameObject.AddComponent<AudioSource>();
+        ConfigureAudioSource(loopingEffectAudioSource, true);
+        loopingEffectAudioSource.playOnAwake = false;
+
         saveManager = GetComponent<SaveManager>();
         //currScene = "Start";
         //temporary
@@ -157,6 +191,7 @@ public partial class ChiefManager : MonoBehaviour
         LoadScene(2);
         //print("3:"+autoInteractOnReturntoInv);
         yield return null;
+        ResetAudioAfterGameOver(false);
         Inv_GameManager gm = FindFirstObjectByType<Inv_GameManager>();
         //print("Investigation scene loaded");
         //print("4:"+autoInteractOnReturntoInv);
@@ -214,6 +249,7 @@ public partial class ChiefManager : MonoBehaviour
             : returnInvestigationScene;
         inv_Scene_ID = "";
         per_Scene_ID = id;
+        PlayBGM(IsDreamPersuasion(id) ? DreamBGMId : MainBGMId);
         audioSource.PlayOneShot(persuasionEnteringSound);
 
         LoadScene(1);
@@ -238,20 +274,53 @@ public partial class ChiefManager : MonoBehaviour
     }
     public void ResetGame()
     {
+        ResetAudioAfterGameOver(false);
         SaveManager.ResetAllSaveData();
         LoadScene(0);
     }
-    public void PlayBGM(string id){
+
+    public void PlayBGM(string id, float maximumDuration = -1f)
+    {
+        if (audioLockedForJumpScare && id != JumpScareSoundId)
+        {
+            return;
+        }
+
+        switch (id)
+        {
+            case JumpScareSoundId:
+                PlayJumpScare(maximumDuration);
+                return;
+            case GameOverSoundId:
+                PlayLoopingEffect(gameOverSound);
+                return;
+            case LaughterSoundId:
+                PlayLaughterLoop();
+                return;
+            case SoulPlaceSoundId:
+                PlayOneShot(soulPlaceSound);
+                return;
+            case EyeSoundId:
+                PlayOneShot(eyeSound);
+                return;
+            case BigEyeSoundId:
+                PlayOneShot(bigEyeSound);
+                return;
+            case GlitchSoundId:
+                PlayOneShot(glitchSound);
+                return;
+        }
+
         AudioClip clip=null;
         print(id);
         switch(id){
-            case "Intro":
+            case IntroBGMId:
                 clip = introBGM;
                 break;
-            case "Map1_Main":
+            case MainBGMId:
                 clip = map1_MainBGM;
                 break;
-            case "Dream_Main":
+            case DreamBGMId:
                 clip = dream_MainBGM;
                 break;
             case "Guard":
@@ -259,11 +328,209 @@ public partial class ChiefManager : MonoBehaviour
                 break;
         }
         if(clip==null){
-            Debug.LogError("no clip");
+            Debug.LogError("no clip for sound id: " + id);
             return;
         }
-        if(clip == bgmAudioSource.resource) return;
+
+        StopOngoingEffects();
+        lastBGMId = id;
+        bgmAudioSource.loop = true;
+        bgmAudioSource.volume = 1f;
+        if(clip == bgmAudioSource.resource && bgmAudioSource.isPlaying) return;
         bgmAudioSource.resource = clip;
         bgmAudioSource.Play();
     }
+
+    private void PlayInvestigationBGM(string investigationId)
+    {
+        switch (investigationId)
+        {
+            case "Map1_Intro":
+                PlayBGM(IntroBGMId);
+                break;
+            case "Map_Dream":
+            case "Dream":
+                PlayBGM(DreamBGMId);
+                break;
+            default:
+                // Map1, the part between the intro and village, the village maps,
+                // Map_House, and the post-dream return all use the main track.
+                PlayBGM(MainBGMId);
+                break;
+        }
+    }
+
+    private static bool IsDreamPersuasion(string persuasionId)
+    {
+        return !string.IsNullOrEmpty(persuasionId) &&
+               (persuasionId.StartsWith("Map_Dream", StringComparison.Ordinal) ||
+                persuasionId.StartsWith("Dream", StringComparison.Ordinal));
+    }
+
+    public void ResetAudioAfterGameOver(bool resumeBGM = true)
+    {
+        audioLockedForJumpScare = false;
+
+        if (jumpScareStopCoroutine != null)
+        {
+            StopCoroutine(jumpScareStopCoroutine);
+            jumpScareStopCoroutine = null;
+        }
+
+        StopOngoingEffects();
+        audioSource.Stop();
+        audioSource.resource = null;
+        audioSource.volume = soundEffectVolume;
+
+        if (resumeBGM && !string.IsNullOrEmpty(lastBGMId))
+        {
+            string bgmId = lastBGMId;
+            lastBGMId = null;
+            PlayBGM(bgmId);
+        }
+    }
+
+    private void PlayOneShot(AudioClip clip)
+    {
+        if (clip == null)
+        {
+            Debug.LogWarning("ChiefManager sound effect clip is missing.", this);
+            return;
+        }
+
+        audioSource.PlayOneShot(clip, soundEffectVolume);
+    }
+
+    private void PlayLoopingEffect(AudioClip clip)
+    {
+        if (clip == null)
+        {
+            Debug.LogWarning("ChiefManager looping sound effect clip is missing.", this);
+            return;
+        }
+
+        StopLaughterLoop();
+        if (loopingEffectAudioSource.resource == clip && loopingEffectAudioSource.isPlaying)
+        {
+            return;
+        }
+
+        loopingEffectAudioSource.Stop();
+        loopingEffectAudioSource.resource = clip;
+        loopingEffectAudioSource.loop = true;
+        loopingEffectAudioSource.volume = soundEffectVolume;
+        loopingEffectAudioSource.Play();
+    }
+
+    private void PlayLaughterLoop()
+    {
+        if (laughterCoroutine != null)
+        {
+            return;
+        }
+
+        AudioClip[] availableLaughterSounds = laughterSounds == null
+            ? Array.Empty<AudioClip>()
+            : laughterSounds.Where(clip => clip != null).ToArray();
+        if (availableLaughterSounds.Length == 0)
+        {
+            Debug.LogWarning("ChiefManager laughter clips are missing.", this);
+            return;
+        }
+
+        loopingEffectAudioSource.Stop();
+        loopingEffectAudioSource.loop = false;
+        laughterCoroutine = StartCoroutine(PlayLaughterLoopCore(availableLaughterSounds));
+    }
+
+    private IEnumerator PlayLaughterLoopCore(AudioClip[] clips)
+    {
+        int clipIndex = 0;
+        while (!audioLockedForJumpScare)
+        {
+            AudioClip clip = clips[clipIndex];
+            loopingEffectAudioSource.resource = clip;
+            loopingEffectAudioSource.volume = soundEffectVolume;
+            loopingEffectAudioSource.Play();
+            yield return new WaitForSeconds(clip.length);
+            clipIndex = (clipIndex + 1) % clips.Length;
+        }
+
+        laughterCoroutine = null;
+    }
+
+    private void StopLaughterLoop()
+    {
+        if (laughterCoroutine != null)
+        {
+            StopCoroutine(laughterCoroutine);
+            laughterCoroutine = null;
+        }
+    }
+
+    private void StopOngoingEffects()
+    {
+        StopLaughterLoop();
+        if (loopingEffectAudioSource != null)
+        {
+            loopingEffectAudioSource.Stop();
+            loopingEffectAudioSource.resource = null;
+        }
+    }
+
+    private void PlayJumpScare(float maximumDuration)
+    {
+        if (jumpScareSound == null)
+        {
+            Debug.LogWarning("ChiefManager jump-scare clip is missing.", this);
+            return;
+        }
+
+        StopLaughterLoop();
+        AudioSource[] allAudioSources = FindObjectsByType<AudioSource>(
+            FindObjectsInactive.Include,
+            FindObjectsSortMode.None);
+        foreach (AudioSource source in allAudioSources)
+        {
+            source.Stop();
+        }
+
+        audioLockedForJumpScare = true;
+        audioSource.resource = jumpScareSound;
+        audioSource.loop = false;
+        audioSource.volume = jumpScareVolume;
+        audioSource.Play();
+
+        float requestedDuration = maximumDuration > 0f ? maximumDuration : jumpScareDuration;
+        float playbackDuration = requestedDuration > 0f
+            ? Mathf.Min(requestedDuration, jumpScareSound.length)
+            : jumpScareSound.length;
+        jumpScareStopCoroutine = StartCoroutine(StopJumpScareAfter(playbackDuration));
+    }
+
+    private IEnumerator StopJumpScareAfter(float delay)
+    {
+        if (delay > 0f)
+        {
+            yield return new WaitForSeconds(delay);
+        }
+
+        audioSource.Stop();
+        audioSource.resource = null;
+        audioSource.volume = soundEffectVolume;
+        jumpScareStopCoroutine = null;
+    }
+
+    private static void ConfigureAudioSource(AudioSource source, bool loop)
+    {
+        if (source == null)
+        {
+            return;
+        }
+
+        source.playOnAwake = false;
+        source.loop = loop;
+        source.spatialBlend = 0f;
+    }
+
 }

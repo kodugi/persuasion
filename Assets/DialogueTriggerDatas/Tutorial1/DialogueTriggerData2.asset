@@ -21,7 +21,10 @@ MonoBehaviour:
         \uB298\uC5C8\uB124\u2026."
       StateToTrigger: 9
       StateTriggerTiming: 1
-      UseWidePanel: 1
+      FigurePosition: 1
+      FigureSprite: {fileID: 21300000, guid: fed65235d5e64754fa19d658727eaea8, type: 3}
+      AdditionalFigurePosition: 3
+      AdditionalFigureSprite: {fileID: 21300000, guid: ce16addfed2994a47824eebf1086a4f5, type: 3}
     - SpeakerName: "\uB098"
       DialogueText: "\uAC80\uC740 \uAC10\uC815\uB3C4 \uC601\uD63C\uC758 \uC601\uD5A5\uC744
         \uBC1B\uC9C0\uB9CC, \uC601\uD63C\uB3C4 \uAC80\uC740 \uAC10\uC815\uC758 \uC601\uD5A5\uC744
@@ -30,14 +33,14 @@ MonoBehaviour:
         \uB3FC."
       StateToTrigger: 9
       StateTriggerTiming: 1
-      UseWidePanel: 1
+      FigurePosition: 3
+      FigureSprite: {fileID: 21300000, guid: 9f7722c6ab0348b418d8400e510da437, type: 3}
     - SpeakerName: "\uB098"
       DialogueText: "\uB2E4\uC2DC \uB610 \uC601\uD63C \uB450 \uAC1C \uC0AC\uC774\uC5D0
         \uAC80\uC740 \uAC10\uC815\uC774 \uB07C\uC5B4 \uC788\uB294 \uD615\uD0DC\uAC00
         \uB418\uAE34 \uD588\uB294\uB370\u2026."
       StateToTrigger: 10
       StateTriggerTiming: 1
-      UseWidePanel: 1
     - SpeakerName: "\uB098"
       DialogueText: "\uAC80\uC740 \uAC10\uC815\uC744 \uBCC0\uD658\uC2DC\uD0A4\uAE30
         \uC704\uD574\uC11C\uB294, \uAC80\uC740 \uAC10\uC815\uC744 \uB458\uB7EC\uC2FC
@@ -47,7 +50,6 @@ MonoBehaviour:
         \uD798\uC744 \uC783\uAC70\uB4E0."
       StateToTrigger: 0
       StateTriggerTiming: 0
-      UseWidePanel: 1
     - SpeakerName: "\uB098"
       DialogueText: "\uC9C0\uAE08\uC740 \uB450 \uAC1C \uB2E4 \uB0A1\uC740 \uC601\uD63C
         \uC870\uAC01\uC774\uB77C \uAC80\uC740 \uAC10\uC815\uC774 \uBCC0\uD658\uC774
@@ -55,7 +57,6 @@ MonoBehaviour:
         \uD574."
       StateToTrigger: 0
       StateTriggerTiming: 0
-      UseWidePanel: 1
     - SpeakerName: "\uB098"
       DialogueText: "\uB300\uC2E0 \uC88B\uC740 \uC18C\uC2DD\uC740, \uD55C\uB54C \uB0B4
         \uC601\uD63C\uC774\uC5C8\uB358 \uAC80\uC740 \uAC10\uC815\uC740 \uC77C\uBC18\uC801\uC778
@@ -64,31 +65,29 @@ MonoBehaviour:
         \uC989, \u2018\uC57D\uD55C \uAC10\uC815\u2019\uC778 \uAC70\uC9C0."
       StateToTrigger: 0
       StateTriggerTiming: 0
-      UseWidePanel: 1
     - SpeakerName: "\uB098"
       DialogueText: "\uADF8\uB7EC\uB2C8 \uC774 \uAC10\uC815\uACFC \uC778\uC811\uD55C
         \uACF3\uC5D0 \uC601\uD63C\uC744 \uD558\uB098\uB9CC \uC2EC\uC5B4\uB3C4 \uBC14\uB85C
         \uB2E4\uC2DC \uBCC0\uD658\uC774 \uB420 \uAC70\uC57C."
       StateToTrigger: 5
       StateTriggerTiming: 1
-      UseWidePanel: 1
     - SpeakerName: "\uB098"
       DialogueText: "\uC5EC\uAE30\uC5D0 \uC601\uD63C\uC744 \uC2EC\uC73C\uBA74\u2026."
       StateToTrigger: 6
       StateTriggerTiming: 0
-      UseWidePanel: 1
+      HideFiguresAfterDialogue: 1
   - Entries:
     - SpeakerName: "\uB098"
       DialogueText: "\uC88B\uC544, \uB2E4\uC2DC \uBC14\uAF08\uB2E4."
       StateToTrigger: 0
       StateTriggerTiming: 0
-      UseWidePanel: 1
+      FigurePosition: 3
+      FigureSprite: {fileID: 21300000, guid: c2e5561806978e54681092b2776eabc9, type: 3}
     - SpeakerName: "\uB098"
       DialogueText: "\uC774\uB7F0 \uC2DD\uC73C\uB85C \uACC4\uC18D \uBCC0\uD658\uC2DC\uCF1C
         \uB098\uAC00\uC790."
       StateToTrigger: 0
       StateTriggerTiming: 0
-      UseWidePanel: 1
     - SpeakerName: "\uB098"
       DialogueText: "\uCC98\uC74C\uC5D0 \uC774 \uC0AC\uB78C\uC774 \uAC16\uACE0 \uC788\uB358
         \uAC80\uC740 \uAC10\uC815\uC744 \uC77C\uC815 \uAC1C\uC218 \uC774\uC0C1\uB9CC
@@ -96,7 +95,8 @@ MonoBehaviour:
         \uB0A0 \uC758\uC2EC\uD558\uC9C0 \uC54A\uC744 \uAC70\uC57C."
       StateToTrigger: 0
       StateTriggerTiming: 0
-      UseWidePanel: 1
+      FigurePosition: 3
+      FigureSprite: {fileID: 21300000, guid: 9f7722c6ab0348b418d8400e510da437, type: 3}
     - SpeakerName: "\uB098"
       DialogueText: "\uAF2D \uBAA8\uB450 \uBCC0\uD658\uD574\uC57C \uD560 \uD544\uC694\uB294
         \uC5C6\uC5B4. \uC0AC\uB78C\uACFC \uC0C1\uD669\uC5D0 \uB530\uB77C \uBAA9\uD45C\uCE58\uAC00
@@ -104,7 +104,6 @@ MonoBehaviour:
         \uC2EC\uC5B4\uC57C\uACA0\uC5B4."
       StateToTrigger: 7
       StateTriggerTiming: 1
-      UseWidePanel: 1
   - Entries:
     - SpeakerName: "\uB098"
       DialogueText: "\uC6D0\uB798 \uC774 \uC0AC\uB78C\uC774 \uAC16\uACE0 \uC788\uB358
@@ -113,16 +112,13 @@ MonoBehaviour:
         \uAC83\uB3C4 \uBA85\uC2EC\uD574\uC57C\uACA0\uB2E4."
       StateToTrigger: 0
       StateTriggerTiming: 0
-      UseWidePanel: 1
     - SpeakerName: "\uB098"
       DialogueText: "\uC6D0\uB798 \uC774 \uC0AC\uB78C\uC774 \uAC16\uACE0 \uC788\uB358
         \uAC80\uC740 \uAC10\uC815\uC740 \uD14C\uB450\uB9AC\uB85C \uAD6C\uBD84\uD560
         \uC218 \uC788\uC73C\uB2C8, \uC798 \uD655\uC778\uD558\uACE0 \uCC38\uACE0\uD574\uC57C\uACA0\uC5B4."
       StateToTrigger: 8
       StateTriggerTiming: 1
-      UseWidePanel: 1
     - SpeakerName: "\uB098"
       DialogueText: "\uADF8\uB7FC \uACC4\uC18D \uD55C \uBC88 \uD574\uBCF4\uC790."
       StateToTrigger: 0
       StateTriggerTiming: 0
-      UseWidePanel: 1

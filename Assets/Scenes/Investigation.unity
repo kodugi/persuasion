@@ -3740,6 +3740,19 @@ MonoBehaviour:
   map1_MainBGM: {fileID: 8300000, guid: 0cb4b52ac70088d44b944c42eb08f1c5, type: 3}
   dream_MainBGM: {fileID: 8300000, guid: 250727027cf7ccb41a85c3337255adfc, type: 3}
   guardBGM: {fileID: 8300000, guid: 3433f218e1750854594794a6a327d1b3, type: 3}
+  jumpScareSound: {fileID: 8300000, guid: 5fd5d914e74a874418534b28444e188b, type: 3}
+  gameOverSound: {fileID: 8300000, guid: 2741cc44a1e0af34cacea2dbcbfae69a, type: 3}
+  laughterSounds:
+  - {fileID: 8300000, guid: 24b3fd54a27f2754e8a867d2f0225c76, type: 3}
+  - {fileID: 8300000, guid: 94b1885528c63374aad2718a2ed499a4, type: 3}
+  - {fileID: 8300000, guid: 2a00681d334dcb04ead3a0f5be0fb79e, type: 3}
+  soulPlaceSound: {fileID: 8300000, guid: 8a80b6ecc38dc07428035b98157c4ec6, type: 3}
+  eyeSound: {fileID: 8300000, guid: 2c1b4ae9a10a9584f8b78f3cd4ab8d75, type: 3}
+  bigEyeSound: {fileID: 8300000, guid: 1218943d7ba3c2046b7904fb3ae14471, type: 3}
+  glitchSound: {fileID: 8300000, guid: 894f366ad345f4b488ee6e7443e3b28e, type: 3}
+  soundEffectVolume: 0.75
+  jumpScareVolume: 1
+  jumpScareDuration: 3
   currScene: 
   inv_Scene_ID: 
   per_Scene_ID: 

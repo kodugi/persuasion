@@ -97,6 +97,9 @@ namespace GamePlay
         private IEnumerator PlayScriptedDreamBlackOut()
         {
             yield return new WaitForSeconds(_scriptedDreamDelay);
+            GamePlaySoundManager.Instance?.Play(
+                GamePlaySoundId.JumpScare,
+                _suspicionOverflowFadeDuration + _suspicionOverflowHoldDuration);
             yield return PlayBlackOut();
             _scriptedDreamBlackOutCoroutine = null;
         }

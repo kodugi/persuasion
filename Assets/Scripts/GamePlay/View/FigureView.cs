@@ -16,6 +16,9 @@ namespace GamePlay
 
         [SerializeField] private FigureProfile _fallbackProfile;
         [SerializeField] private RectTransform _backgroundSuspicionUIRoot;
+        [Header("Dialogue Figures")]
+        [SerializeField] private Image _centerDialogueFigure;
+        [SerializeField] private Image _rightDialogueFigure;
         [Header("Glitch Effect")]
         [SerializeField, Min(0f)] private float _glitchEffectDuration = 0.92f;
         [SerializeField, Range(0f, 1f)] private float _glitchEffectIntensity = 0.75f;
@@ -79,6 +82,8 @@ namespace GamePlay
             SuspicionManager.Instance.RaiseSetSuspicionEvent += HandleSetSuspicionEvent;
             TutorialController.Instance.RaiseSetTutorialStateEvent += HandleSetTutorialStateEvent;
             WinConditionManager.Instance.RaiseDefeatEvent += HandleDefeatEvent;
+            DialogueManager.Instance.RaiseSetDialogueEntryEvent += HandleSetDialogueEntryEvent;
+            DialogueManager.Instance.RaiseDialoguePageEndEvent += HandleDialoguePageEndEvent;
             ResetGame();
         }
 
@@ -98,6 +103,12 @@ namespace GamePlay
             if (WinConditionManager.Instance != null)
             {
                 WinConditionManager.Instance.RaiseDefeatEvent -= HandleDefeatEvent;
+            }
+
+            if (DialogueManager.Instance != null)
+            {
+                DialogueManager.Instance.RaiseSetDialogueEntryEvent -= HandleSetDialogueEntryEvent;
+                DialogueManager.Instance.RaiseDialoguePageEndEvent -= HandleDialoguePageEndEvent;
             }
         }
 
@@ -127,6 +138,10 @@ namespace GamePlay
             _turnLimitDefeatSequence = null;
 
             _uiGlitchEffect.Stop();
+            HideDialogueFigure(_centerDialogueFigure);
+            HideDialogueFigure(_rightDialogueFigure);
+            _image.enabled = true;
+            _animator.enabled = true;
             
             GameInfo gameInfo = GetCurrentGameInfo();
             FigureProfile profile = gameInfo != null ? gameInfo.GetFigureProfile() : null;
@@ -136,6 +151,8 @@ namespace GamePlay
             {
                 _glitchCoroutine = StartCoroutine(PlayRepetitiveGlitchAnimation());
             }
+
+            ApplyDialogueFigure(DialogueManager.Instance?.GetCurrentDialogueEntry());
         }
 
         public void Apply(FigureProfile profile)
@@ -274,6 +291,7 @@ namespace GamePlay
             }
 
             _suspicionOverflowDefeatSequence = DOTween.Sequence();
+            GamePlaySoundManager.Instance?.Play(GamePlaySoundId.JumpScare, _defeatShakeDuration);
             _suspicionOverflowDefeatSequence.Append(
                 _rectTransform
                     .DOShakeAnchorPos(
@@ -351,6 +369,7 @@ namespace GamePlay
             }
 
             _turnLimitDefeatSequence = DOTween.Sequence();
+            GamePlaySoundManager.Instance?.Play(GamePlaySoundId.JumpScare, _defeatShakeDuration);
             _turnLimitDefeatSequence.Append(
                 _rectTransform
                     .DOShakeAnchorPos(
@@ -405,12 +424,14 @@ namespace GamePlay
         {
             _animator.SetTrigger(GlitchTrigger);
             _uiGlitchEffect.Play(_glitchEffectDuration, _glitchEffectIntensity);
+            GamePlaySoundManager.Instance?.Play(GamePlaySoundId.Glitch);
         }
 
         private void TriggerGlitchFlash()
         {
             _animator.SetTrigger(GlitchFlashTrigger);
             _uiGlitchEffect.Play(_glitchFlashEffectDuration, _glitchFlashEffectIntensity);
+            GamePlaySoundManager.Instance?.Play(GamePlaySoundId.Glitch);
         }
 
         private void HandleSetTutorialStateEvent(object sender, SetTutorialStateEventArgs e)
@@ -419,6 +440,105 @@ namespace GamePlay
             {
                 _animator.SetTrigger(DreamGameOverTrigger);
             }
+        }
+
+        private void HandleSetDialogueEntryEvent(object sender, SetDialogueEntryEventArgs e)
+        {
+            DialogueEntry dialogueEntry = e.GetDialogueEntry();
+            ApplyDialogueFigure(dialogueEntry);
+
+            if (GetCurrentGameInfo()?.GetMapType() == GameInfo.MapType.Dream4 &&
+                dialogueEntry != null &&
+                dialogueEntry.StateToTrigger == TutorialState.Dream2)
+            {
+                GamePlaySoundManager.Instance?.Play(GamePlaySoundId.Laughter);
+            }
+        }
+
+        private void ApplyDialogueFigure(DialogueEntry dialogueEntry)
+        {
+            if (dialogueEntry == null)
+            {
+                return;
+            }
+
+            ApplyDialogueFigure(dialogueEntry.FigurePosition, dialogueEntry.FigureSprite);
+            ApplyDialogueFigure(dialogueEntry.AdditionalFigurePosition, dialogueEntry.AdditionalFigureSprite);
+            ApplyDialogueFigure(dialogueEntry.TertiaryFigurePosition, dialogueEntry.TertiaryFigureSprite);
+        }
+
+        private void ApplyDialogueFigure(DialogueFigurePosition position, Sprite sprite)
+        {
+            switch (position)
+            {
+                case DialogueFigurePosition.Left:
+                    SetLeftDialogueFigure(sprite);
+                    break;
+                case DialogueFigurePosition.Center:
+                    SetDialogueFigure(_centerDialogueFigure, sprite);
+                    break;
+                case DialogueFigurePosition.Right:
+                    SetDialogueFigure(_rightDialogueFigure, sprite);
+                    break;
+            }
+        }
+
+        private void HandleDialoguePageEndEvent(object sender, DialoguePageEndEventArgs e)
+        {
+            if (e.GetLastDialogueEntry()?.HideFiguresAfterDialogue == true)
+            {
+                HideDialogueFigure(_centerDialogueFigure);
+                HideDialogueFigure(_rightDialogueFigure);
+                return;
+            }
+
+            // Intermediate page breaks keep their figures. Once the complete dialogue ends,
+            // center/right portraits are cleared so they never remain over the puzzle.
+            if (DialogueManager.Instance != null && DialogueManager.Instance.HasCurrentDialogueData())
+            {
+                return;
+            }
+
+            HideDialogueFigure(_centerDialogueFigure);
+            HideDialogueFigure(_rightDialogueFigure);
+        }
+
+        private void SetLeftDialogueFigure(Sprite sprite)
+        {
+            if (sprite == null)
+            {
+                _image.enabled = false;
+                return;
+            }
+
+            // The regular left figure is animator-driven. Disable it while a dialogue
+            // explicitly owns the sprite so the animation cannot overwrite the requested pose.
+            _animator.enabled = false;
+            _image.sprite = sprite;
+            _image.enabled = true;
+        }
+
+        private static void SetDialogueFigure(Image image, Sprite sprite)
+        {
+            if (image == null)
+            {
+                Debug.LogWarning("A dialogue figure image is not assigned in FigureView.");
+                return;
+            }
+
+            image.sprite = sprite;
+            image.enabled = sprite != null;
+        }
+
+        private static void HideDialogueFigure(Image image)
+        {
+            if (image == null)
+            {
+                return;
+            }
+
+            image.sprite = null;
+            image.enabled = false;
         }
     }
 }
