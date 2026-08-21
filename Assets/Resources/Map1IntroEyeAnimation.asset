@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 657c6fe179fa4cad879f674f6a36c1c1, type: 3}
+  m_Name: Map1IntroEyeAnimation
+  m_EditorClassIdentifier: Assembly-CSharp::Investigation.DialogueLineSpriteAnimation
+  sceneName: Investigation
+  triggerLine: 그리고 그런 진실이 존재하는 마을에 태어난 나와 언니의 눈은 악마의 색이었다.
+  frames:
+  - {fileID: 8180727412899320550, guid: 1c31dcf2cac1ec046a15e61300e7c2cc, type: 3}
+  - {fileID: 5977295989336587262, guid: 7e38b4e75eaaf9545a1bfacf1e1e315e, type: 3}
+  - {fileID: -1758496821875279839, guid: 48f625f591f8b324998d80466b4effb4, type: 3}
+  - {fileID: 5845109451316379202, guid: d04e8b12674cb0441819361dcd2e6476, type: 3}
+  - {fileID: -6927214602602855839, guid: abf24cd1a87283d428d53cc620e08fae, type: 3}
+  secondsPerFrame: 0.12
+  referenceResolution: {x: 800, y: 600}
+  displayedCanvasSize: 540
+  sortingOrder: -1
