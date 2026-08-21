@@ -1792,6 +1792,9 @@ MonoBehaviour:
   interactablePrefab: {fileID: 3928896895775994901, guid: d7c96213b76894930a2512f0e2685c64, type: 3}
   backgroundPrefab: {fileID: 3928896895775994901, guid: 549f809be467848758824142f6978ca5, type: 3}
   timerObj: {fileID: 2498806758464416416}
+  introBgmClip: {fileID: 8300000, guid: 25d2eaf225883bc41aa985d4c4701a36, type: 3}
+  dreamBgmClip: {fileID: 8300000, guid: 250727027cf7ccb41a85c3337255adfc, type: 3}
+  bgmVolume: 0.65
   inventoryPanel: {fileID: 139109048}
   inventoryItemPrefab: {fileID: 5124437373693812359, guid: d095e0c82abe548aaa53a7e9b0bddd2a, type: 3}
   inventoryItemFloatingPrefab: {fileID: 5124437373693812359, guid: 2f60167f390524083b678a5dc6d2e87a, type: 3}

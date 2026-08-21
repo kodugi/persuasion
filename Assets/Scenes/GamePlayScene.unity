@@ -3576,6 +3576,9 @@ MonoBehaviour:
   _eyeClip: {fileID: 8300000, guid: 2c1b4ae9a10a9584f8b78f3cd4ab8d75, type: 3}
   _bigEyeClip: {fileID: 8300000, guid: 1218943d7ba3c2046b7904fb3ae14471, type: 3}
   _glitchClip: {fileID: 8300000, guid: 894f366ad345f4b488ee6e7443e3b28e, type: 3}
+  _dreamBgmClip: {fileID: 8300000, guid: 250727027cf7ccb41a85c3337255adfc, type: 3}
+  _mainBgmClip: {fileID: 8300000, guid: 0cb4b52ac70088d44b944c42eb08f1c5, type: 3}
+  _bgmVolume: 0.65
   _effectVolume: 0.85
   _gameOverVolume: 0.85
   _laughVolume: 0.9

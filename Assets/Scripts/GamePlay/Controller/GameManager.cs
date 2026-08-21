@@ -24,7 +24,12 @@ namespace GamePlay
         [SerializeField] private AudioClip _bigEyeClip;
         [SerializeField] private AudioClip _glitchClip;
 
+        [Header("GamePlay BGM Clips")]
+        [SerializeField] private AudioClip _dreamBgmClip;
+        [SerializeField] private AudioClip _mainBgmClip;
+
         [Header("GamePlay Audio Timing")]
+        [SerializeField, Range(0f, 1f)] private float _bgmVolume = 0.65f;
         [SerializeField, Range(0f, 1f)] private float _effectVolume = 0.85f;
         [SerializeField, Range(0f, 1f)] private float _gameOverVolume = 0.85f;
         [SerializeField, Range(0f, 1f)] private float _laughVolume = 0.9f;
@@ -43,6 +48,7 @@ namespace GamePlay
         private Coroutine _queuedResetCoroutine;
         private Coroutine _delayedResetCoroutine;
         private AudioSource _effectAudioSource;
+        private AudioSource _bgmAudioSource;
         private AudioSource _gameOverAudioSource;
         private AudioSource _laughAudioSource;
         private AudioSource _jumpScareAudioSource;
@@ -137,6 +143,7 @@ namespace GamePlay
         public void ResetGame()
         {
             ResetAudioPlayback();
+            StartStageBgm();
 
             if (_delayedResetCoroutine != null)
             {
@@ -271,6 +278,7 @@ namespace GamePlay
         private void InitializeAudio()
         {
             _effectAudioSource = CreateAudioSource();
+            _bgmAudioSource = CreateAudioSource();
             _gameOverAudioSource = CreateAudioSource();
             _laughAudioSource = CreateAudioSource();
             _jumpScareAudioSource = CreateAudioSource();
@@ -280,6 +288,7 @@ namespace GamePlay
             _dialogueManager.RaiseSetDialogueEntryEvent += HandleAudioDialogueEntryEvent;
             _gameStateManager.RaiseSetGameStateEvent += HandleAudioGameStateEvent;
             ResetAudioPlayback();
+            StartStageBgm();
 
             GameInfo gameInfo = GameInfoHolder.GetCurrentGameInfo();
             if (_dialogueManager.HasCurrentDialogueData() &&
@@ -317,6 +326,7 @@ namespace GamePlay
             }
 
             ResetAudioPlayback();
+            _bgmAudioSource?.Stop();
         }
 
         private void HandleAudioCellPlacementEvent(object sender, CellPlacementEventArgs e)
@@ -338,6 +348,7 @@ namespace GamePlay
             if (e.gameState == GameState.Playing)
             {
                 ResetAudioPlayback();
+                StartStageBgm();
                 return;
             }
 
@@ -378,6 +389,53 @@ namespace GamePlay
             }
 
             _effectAudioSource.PlayOneShot(clip, _effectVolume);
+        }
+
+        private void StartStageBgm()
+        {
+            if (_audioLockedForJumpScare || _bgmAudioSource == null)
+            {
+                return;
+            }
+
+            AudioClip targetClip = GetCurrentStageBgm();
+            if (targetClip == null)
+            {
+                _bgmAudioSource.Stop();
+                _bgmAudioSource.clip = null;
+                return;
+            }
+
+            if (_bgmAudioSource.isPlaying && _bgmAudioSource.clip == targetClip)
+            {
+                return;
+            }
+
+            _bgmAudioSource.Stop();
+            _bgmAudioSource.clip = targetClip;
+            _bgmAudioSource.volume = _bgmVolume;
+            _bgmAudioSource.loop = true;
+            _bgmAudioSource.Play();
+        }
+
+        private AudioClip GetCurrentStageBgm()
+        {
+            GameInfo gameInfo = GameInfoHolder.GetCurrentGameInfo();
+            if (gameInfo == null)
+            {
+                return null;
+            }
+
+            switch (gameInfo.GetMapType())
+            {
+                case GameInfo.MapType.Dream1:
+                case GameInfo.MapType.Dream2:
+                case GameInfo.MapType.Dream3:
+                case GameInfo.MapType.Dream4:
+                    return _dreamBgmClip;
+                default:
+                    return _mainBgmClip;
+            }
         }
 
         private void StartGameOverLoop()

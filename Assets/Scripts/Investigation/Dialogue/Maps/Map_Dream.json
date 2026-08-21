@@ -3,31 +3,13 @@
   "interactables": [
     {
       "title": "Map_Dream/Intro",
-      "position": {
-        "x": 0,
-        "y": 0
-      },
-      "size": {
-        "x": 1,
-        "y": 1
-      },
+      "position": { "x": 0, "y": 0 },
+      "size": { "x": 1, "y": 1 },
       "colliderShape": "box",
-      "colliderSize": {
-        "x": 0,
-        "y": 0
-      },
-      "colliderOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerSize": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": 0
-      },
+      "colliderSize": { "x": 0, "y": 0 },
+      "colliderOffset": { "x": 0, "y": 0 },
+      "triggerSize": { "x": 0, "y": 0 },
+      "triggerOffset": { "x": 0, "y": 0 },
       "hideCriteria": 0,
       "sortingOrder": 0,
       "image": [],
@@ -35,587 +17,224 @@
       "manually_touchable": false
     },
     {
-      "title": "Map_Dream/Cloud_Rear_Left",
-      "position": {
-        "x": -0.5,
-        "y": -1.1
-      },
-      "size": {
-        "x": 0.55,
-        "y": 0.55
-      },
+      "title": "Map_Dream/Background",
+      "position": { "x": 8, "y": 0 },
+      "size": { "x": 0.4, "y": 0.4 },
       "colliderShape": "box",
-      "colliderSize": {
-        "x": 0,
-        "y": 0
-      },
-      "colliderOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerSize": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": 0
-      },
+      "colliderSize": { "x": 0, "y": 0 },
+      "colliderOffset": { "x": 0, "y": 0 },
+      "triggerSize": { "x": 0, "y": 0 },
+      "triggerOffset": { "x": 0, "y": 0 },
       "hideCriteria": 0,
-      "sortingOrder": -20,
-      "image": [
-        "Dream_Cloud_01"
-      ],
+      "sortingOrder": -100,
+      "image": ["Dream_reference"],
       "script": "",
       "manually_touchable": false
     },
     {
-      "title": "Map_Dream/Cloud_Rear_LeftCenter",
-      "position": {
-        "x": 4.3,
-        "y": -0.55
-      },
-      "size": {
-        "x": -0.62,
-        "y": 0.62
-      },
+      "title": "Map_Dream/Boundary_01",
+      "position": { "x": 0.25, "y": 2.85 },
+      "size": { "x": 4.878, "y": 0.45 },
+      "rotation": 30.53,
       "colliderShape": "box",
-      "colliderSize": {
-        "x": 0,
-        "y": 0
-      },
-      "colliderOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerSize": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": 0
-      },
+      "colliderSize": { "x": 1, "y": 1 },
+      "colliderOffset": { "x": 0, "y": 0 },
+      "triggerSize": { "x": 0, "y": 0 },
+      "triggerOffset": { "x": 0, "y": 0 },
       "hideCriteria": 0,
-      "sortingOrder": -19,
-      "image": [
-        "Dream_Cloud_02"
-      ],
+      "sortingOrder": 0,
+      "image": [],
       "script": "",
       "manually_touchable": false
     },
     {
-      "title": "Map_Dream/Cloud_Rear_Center",
-      "position": {
-        "x": 8.3,
-        "y": -1.1
-      },
-      "size": {
-        "x": 0.55,
-        "y": 0.55
-      },
+      "title": "Map_Dream/Boundary_02",
+      "position": { "x": 6.1, "y": 3.7 },
+      "size": { "x": 8.173, "y": 0.45 },
+      "rotation": -4.399,
       "colliderShape": "box",
-      "colliderSize": {
-        "x": 0,
-        "y": 0
-      },
-      "colliderOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerSize": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": 0
-      },
+      "colliderSize": { "x": 1, "y": 1 },
+      "colliderOffset": { "x": 0, "y": 0 },
+      "triggerSize": { "x": 0, "y": 0 },
+      "triggerOffset": { "x": 0, "y": 0 },
       "hideCriteria": 0,
-      "sortingOrder": -18,
-      "image": [
-        "Dream_Cloud_03"
-      ],
+      "sortingOrder": 0,
+      "image": [],
       "script": "",
       "manually_touchable": false
     },
     {
-      "title": "Map_Dream/Cloud_Rear_RightCenter",
-      "position": {
-        "x": 12.6,
-        "y": -0.55
-      },
-      "size": {
-        "x": -0.58,
-        "y": 0.58
-      },
+      "title": "Map_Dream/Boundary_03",
+      "position": { "x": 10.65, "y": 2.3 },
+      "size": { "x": 2.905, "y": 0.45 },
+      "rotation": -59.421,
       "colliderShape": "box",
-      "colliderSize": {
-        "x": 0,
-        "y": 0
-      },
-      "colliderOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerSize": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": 0
-      },
+      "colliderSize": { "x": 1, "y": 1 },
+      "colliderOffset": { "x": 0, "y": 0 },
+      "triggerSize": { "x": 0, "y": 0 },
+      "triggerOffset": { "x": 0, "y": 0 },
       "hideCriteria": 0,
-      "sortingOrder": -17,
-      "image": [
-        "Dream_Cloud_05"
-      ],
+      "sortingOrder": 0,
+      "image": [],
       "script": "",
       "manually_touchable": false
     },
     {
-      "title": "Map_Dream/Cloud_Rear_Right",
-      "position": {
-        "x": 17,
-        "y": -1.15
-      },
-      "size": {
-        "x": -0.52,
-        "y": 0.52
-      },
+      "title": "Map_Dream/Boundary_04",
+      "position": { "x": 14.25, "y": 0.25 },
+      "size": { "x": 6.548, "y": 0.45 },
+      "rotation": -17.85,
       "colliderShape": "box",
-      "colliderSize": {
-        "x": 0,
-        "y": 0
-      },
-      "colliderOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerSize": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": 0
-      },
+      "colliderSize": { "x": 1, "y": 1 },
+      "colliderOffset": { "x": 0, "y": 0 },
+      "triggerSize": { "x": 0, "y": 0 },
+      "triggerOffset": { "x": 0, "y": 0 },
       "hideCriteria": 0,
-      "sortingOrder": -16,
-      "image": [
-        "Dream_Cloud_01"
-      ],
+      "sortingOrder": 0,
+      "image": [],
       "script": "",
       "manually_touchable": false
     },
     {
-      "title": "Map_Dream/Cloud_Mid_Left",
-      "position": {
-        "x": -2,
-        "y": -1
-      },
-      "size": {
-        "x": 0.65,
-        "y": 0.65
-      },
+      "title": "Map_Dream/Boundary_05",
+      "position": { "x": 17.25, "y": -2.3 },
+      "size": { "x": 3.552, "y": 0.45 },
+      "rotation": -88.21,
       "colliderShape": "box",
-      "colliderSize": {
-        "x": 0,
-        "y": 0
-      },
-      "colliderOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerSize": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": 0
-      },
+      "colliderSize": { "x": 1, "y": 1 },
+      "colliderOffset": { "x": 0, "y": 0 },
+      "triggerSize": { "x": 0, "y": 0 },
+      "triggerOffset": { "x": 0, "y": 0 },
       "hideCriteria": 0,
-      "sortingOrder": -15,
-      "image": [
-        "Dream_Cloud_04"
-      ],
+      "sortingOrder": 0,
+      "image": [],
       "script": "",
       "manually_touchable": false
     },
     {
-      "title": "Map_Dream/Cloud_Mid_Center",
-      "position": {
-        "x": 7,
-        "y": -0.7
-      },
-      "size": {
-        "x": 0.55,
-        "y": 0.55
-      },
+      "title": "Map_Dream/Boundary_06",
+      "position": { "x": 16.45, "y": -5.2 },
+      "size": { "x": 3.456, "y": 0.45 },
+      "rotation": -123.179,
       "colliderShape": "box",
-      "colliderSize": {
-        "x": 0,
-        "y": 0
-      },
-      "colliderOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerSize": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": 0
-      },
+      "colliderSize": { "x": 1, "y": 1 },
+      "colliderOffset": { "x": 0, "y": 0 },
+      "triggerSize": { "x": 0, "y": 0 },
+      "triggerOffset": { "x": 0, "y": 0 },
       "hideCriteria": 0,
-      "sortingOrder": -14,
-      "image": [
-        "Dream_Cloud_05"
-      ],
+      "sortingOrder": 0,
+      "image": [],
       "script": "",
       "manually_touchable": false
     },
     {
-      "title": "Map_Dream/Cloud_Mid_Right",
-      "position": {
-        "x": 18,
-        "y": -0.8
-      },
-      "size": {
-        "x": -0.7,
-        "y": 0.7
-      },
+      "title": "Map_Dream/Boundary_07",
+      "position": { "x": 13.95, "y": -6.8 },
+      "size": { "x": 3.704, "y": 0.45 },
+      "rotation": -169.695,
       "colliderShape": "box",
-      "colliderSize": {
-        "x": 0,
-        "y": 0
-      },
-      "colliderOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerSize": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": 0
-      },
+      "colliderSize": { "x": 1, "y": 1 },
+      "colliderOffset": { "x": 0, "y": 0 },
+      "triggerSize": { "x": 0, "y": 0 },
+      "triggerOffset": { "x": 0, "y": 0 },
       "hideCriteria": 0,
-      "sortingOrder": -13,
-      "image": [
-        "Dream_Cloud_04"
-      ],
+      "sortingOrder": 0,
+      "image": [],
       "script": "",
       "manually_touchable": false
     },
     {
-      "title": "Map_Dream/Cloud_Foreground_Base",
-      "position": {
-        "x": 8,
-        "y": -12
-      },
-      "size": {
-        "x": 1,
-        "y": 1
-      },
+      "title": "Map_Dream/Boundary_08",
+      "position": { "x": 10.1, "y": -7.45 },
+      "size": { "x": 4.805, "y": 0.45 },
+      "rotation": -170.961,
       "colliderShape": "box",
-      "colliderSize": {
-        "x": 0,
-        "y": 0
-      },
-      "colliderOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerSize": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": 0
-      },
+      "colliderSize": { "x": 1, "y": 1 },
+      "colliderOffset": { "x": 0, "y": 0 },
+      "triggerSize": { "x": 0, "y": 0 },
+      "triggerOffset": { "x": 0, "y": 0 },
       "hideCriteria": 0,
-      "sortingOrder": -10,
-      "image": [
-        "Dream_Cloud_Foreground"
-      ],
+      "sortingOrder": 0,
+      "image": [],
       "script": "",
       "manually_touchable": false
     },
     {
-      "title": "Map_Dream/Cloud_Front_Left",
-      "position": {
-        "x": -1.7,
-        "y": -1.4
-      },
-      "size": {
-        "x": 0.65,
-        "y": 0.65
-      },
+      "title": "Map_Dream/Boundary_09",
+      "position": { "x": 5.45, "y": -7.15 },
+      "size": { "x": 5.42, "y": 0.45 },
+      "rotation": 165.141,
       "colliderShape": "box",
-      "colliderSize": {
-        "x": 0,
-        "y": 0
-      },
-      "colliderOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerSize": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": 0
-      },
+      "colliderSize": { "x": 1, "y": 1 },
+      "colliderOffset": { "x": 0, "y": 0 },
+      "triggerSize": { "x": 0, "y": 0 },
+      "triggerOffset": { "x": 0, "y": 0 },
       "hideCriteria": 0,
-      "sortingOrder": -5,
-      "image": [
-        "Dream_Cloud_02"
-      ],
+      "sortingOrder": 0,
+      "image": [],
       "script": "",
       "manually_touchable": false
     },
     {
-      "title": "Map_Dream/Cloud_Front_Center",
-      "position": {
-        "x": 10,
-        "y": -1.4
-      },
-      "size": {
-        "x": -0.7,
-        "y": 0.7
-      },
+      "title": "Map_Dream/Boundary_10",
+      "position": { "x": 1.05, "y": -5.1 },
+      "size": { "x": 5.151, "y": 0.45 },
+      "rotation": 144.324,
       "colliderShape": "box",
-      "colliderSize": {
-        "x": 0,
-        "y": 0
-      },
-      "colliderOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerSize": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": 0
-      },
+      "colliderSize": { "x": 1, "y": 1 },
+      "colliderOffset": { "x": 0, "y": 0 },
+      "triggerSize": { "x": 0, "y": 0 },
+      "triggerOffset": { "x": 0, "y": 0 },
       "hideCriteria": 0,
-      "sortingOrder": -4,
-      "image": [
-        "Dream_Cloud_04"
-      ],
+      "sortingOrder": 0,
+      "image": [],
       "script": "",
       "manually_touchable": false
     },
     {
-      "title": "Map_Dream/Cloud_Front_Right",
-      "position": {
-        "x": 18,
-        "y": -1.5
-      },
-      "size": {
-        "x": -0.65,
-        "y": 0.65
-      },
+      "title": "Map_Dream/Boundary_11",
+      "position": { "x": -1.35, "y": -2.25 },
+      "size": { "x": 3.386, "y": 0.45 },
+      "rotation": 107.241,
       "colliderShape": "box",
-      "colliderSize": {
-        "x": 0,
-        "y": 0
-      },
-      "colliderOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerSize": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": 0
-      },
+      "colliderSize": { "x": 1, "y": 1 },
+      "colliderOffset": { "x": 0, "y": 0 },
+      "triggerSize": { "x": 0, "y": 0 },
+      "triggerOffset": { "x": 0, "y": 0 },
       "hideCriteria": 0,
-      "sortingOrder": -3,
-      "image": [
-        "Dream_Cloud_02"
-      ],
+      "sortingOrder": 0,
+      "image": [],
       "script": "",
       "manually_touchable": false
     },
     {
-      "title": "Map_Dream_Wall",
-      "position": {
-        "x": 8,
-        "y": 2
-      },
-      "size": {
-        "x": 20,
-        "y": 1
-      },
+      "title": "Map_Dream/Boundary_12",
+      "position": { "x": -1.75, "y": 0.45 },
+      "size": { "x": 2.852, "y": 0.45 },
+      "rotation": 87.709,
       "colliderShape": "box",
-      "colliderSize": {
-        "x": 1,
-        "y": 1
-      },
-      "colliderOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerSize": {
-        "x": 1,
-        "y": 1
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": 0
-      },
+      "colliderSize": { "x": 1, "y": 1 },
+      "colliderOffset": { "x": 0, "y": 0 },
+      "triggerSize": { "x": 0, "y": 0 },
+      "triggerOffset": { "x": 0, "y": 0 },
       "hideCriteria": 0,
-      "sortingOrder": 1,
-      "image": "",
-      "script": "",
-      "manually_touchable": false
-    },
-    {
-      "title": "Map_Dream_Wall2",
-      "position": {
-        "x": 8,
-        "y": -2
-      },
-      "size": {
-        "x": 20,
-        "y": 1
-      },
-      "colliderShape": "box",
-      "colliderSize": {
-        "x": 1,
-        "y": 1
-      },
-      "colliderOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerSize": {
-        "x": 1,
-        "y": 1
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "hideCriteria": 0,
-      "sortingOrder": 2,
-      "image": "",
-      "script": "",
-      "manually_touchable": false
-    },
-    {
-      "title": "Map_Dream_Wall3",
-      "position": {
-        "x": -2.5,
-        "y": 0
-      },
-      "size": {
-        "x": 1,
-        "y": 5
-      },
-      "colliderShape": "box",
-      "colliderSize": {
-        "x": 1,
-        "y": 1
-      },
-      "colliderOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerSize": {
-        "x": 1,
-        "y": 1
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "hideCriteria": 0,
-      "sortingOrder": 3,
-      "image": "",
-      "script": "",
-      "manually_touchable": false
-    },
-    {
-      "title": "Map_Dream_Wall4",
-      "position": {
-        "x": 18.5,
-        "y": 0
-      },
-      "size": {
-        "x": 1,
-        "y": 5
-      },
-      "colliderShape": "box",
-      "colliderSize": {
-        "x": 1,
-        "y": 1
-      },
-      "colliderOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerSize": {
-        "x": 1,
-        "y": 1
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "hideCriteria": 0,
-      "sortingOrder": 4,
-      "image": "",
+      "sortingOrder": 0,
+      "image": [],
       "script": "",
       "manually_touchable": false
     },
     {
       "title": "Map_Dream_Sister",
-      "position": {
-        "x": 16,
-        "y": 0
-      },
-      "size": {
-        "x": 1,
-        "y": 1
-      },
+      "position": { "x": 12.63, "y": -1.67 },
+      "size": { "x": 1, "y": 1 },
       "colliderShape": "box",
-      "colliderSize": {
-        "x": 0,
-        "y": 0
-      },
-      "colliderOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerSize": {
-        "x": 3,
-        "y": 3
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": 0
-      },
+      "colliderSize": { "x": 0, "y": 0 },
+      "colliderOffset": { "x": 0, "y": 0 },
+      "triggerSize": { "x": 3, "y": 3 },
+      "triggerOffset": { "x": 0, "y": 0 },
       "hideCriteria": 0,
       "sortingOrder": 5,
-      "image": "",
+      "image": [],
       "script": "Inv_InteractionObj_Map_Dream_Sister",
       "manually_touchable": true
     }

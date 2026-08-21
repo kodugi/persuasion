@@ -19,8 +19,13 @@ namespace Investigation
         [SerializeField] private GameObject interactablePrefab;
         [SerializeField] private GameObject backgroundPrefab;
         [SerializeField] private GameObject timerObj;
+        [Header("Relevant Map BGM")]
+        [SerializeField] private AudioClip introBgmClip;
+        [SerializeField] private AudioClip dreamBgmClip;
+        [SerializeField, Range(0f, 1f)] private float bgmVolume = 0.65f;
         List<AsyncOperationHandle<Sprite>> mapHandles = new List<AsyncOperationHandle<Sprite>>();
         BoxCollider2D footCollider;
+        AudioSource bgmAudioSource;
         
         private class Vector_2D
         {
@@ -32,6 +37,7 @@ namespace Investigation
             public string title;
             public Vector_2D position;
             public Vector_2D size;
+            public float rotation;
             public string colliderShape; // circle / box
             public Vector_2D colliderSize;
             public Vector_2D colliderOffset;
@@ -96,6 +102,8 @@ namespace Investigation
                 inputAction.Dispose();
                 inputAction = null;
             }
+
+            bgmAudioSource?.Stop();
         }
         void OnSceneChange()
         {
@@ -105,11 +113,17 @@ namespace Investigation
         {
             if(!saveManager.isProgressLoaded) yield return null;
             string currScene = getID();
+            PlayRelevantMapBgm(currScene);
 
             footCollider = playerCTRL.gameObject.transform.Find("FootCollider").GetComponent<BoxCollider2D>();
             if(saveManager.TryLoadCharacterPosition(currScene,"Player", out Vector3 savedPositionP))
             {
                 playerCTRL.gameObject.transform.position = savedPositionP;
+            }
+            else if (currScene == "Map_Dream")
+            {
+                // Dream_reference marker: left-hand character position.
+                playerCTRL.gameObject.transform.position = new Vector3(3.27f, 0.29f, 0f);
             }
 
             string path = "Assets/Scripts/Investigation/Dialogue/Maps/" + currScene + ".json";
@@ -130,11 +144,11 @@ namespace Investigation
 
                 if(obj.title == "background")
                 {
-                    interactable = Instantiate(backgroundPrefab,position, Quaternion.identity, interactableParent.transform);
+                    interactable = Instantiate(backgroundPrefab,position, Quaternion.Euler(0f, 0f, obj.rotation), interactableParent.transform);
                 }
                 else
                 {
-                    interactable = Instantiate(interactablePrefab,position, Quaternion.identity, interactableParent.transform);
+                    interactable = Instantiate(interactablePrefab,position, Quaternion.Euler(0f, 0f, obj.rotation), interactableParent.transform);
                 }
 
                 interactable.name = obj.title;
@@ -248,6 +262,39 @@ namespace Investigation
             }
         }
         private bool isDialogueOnlyScene;
+
+        private void PlayRelevantMapBgm(string mapId)
+        {
+            AudioClip targetClip = null;
+            switch (mapId)
+            {
+                case "Map1_Intro":
+                    targetClip = introBgmClip;
+                    break;
+                case "Map_Dream":
+                    targetClip = dreamBgmClip;
+                    break;
+                case "Map_House":
+                    bgmAudioSource?.Stop();
+                    return;
+                default:
+                    return;
+            }
+
+            if (targetClip == null)
+            {
+                return;
+            }
+
+            bgmAudioSource = gameObject.AddComponent<AudioSource>();
+            bgmAudioSource.playOnAwake = false;
+            bgmAudioSource.loop = true;
+            bgmAudioSource.spatialBlend = 0f;
+            bgmAudioSource.clip = targetClip;
+            bgmAudioSource.volume = bgmVolume;
+            bgmAudioSource.Play();
+        }
+
         private IEnumerator StartAutomaticDialogue(string interactionName)
         {
             // Inv_Interact initializes its dialogue anchor during Start, so wait one frame.
@@ -270,7 +317,9 @@ namespace Investigation
         public void LoadAnotherInvestigationScene(string id, string autoInteractionOnReturn=null)
         {
             print(id);
-            chiefManager.StartInvestigation(id);
+            // A different map has its own spawn point; do not carry over the
+            // previous map's world-space player position.
+            chiefManager.StartInvestigation(id, false);
         }
         public void ForceInteract(string title)
         {
