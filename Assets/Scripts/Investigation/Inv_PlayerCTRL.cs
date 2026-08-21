@@ -144,6 +144,7 @@ namespace Investigation
                 isThinking = true;
                 string thought = thoughtQueue.Dequeue();
                 thoughtObj.transform.Find("Text").GetComponent<TMPro.TextMeshProUGUI>().text = thought;
+                thoughtObj.transform.SetAsLastSibling();
                 thoughtObj.SetActive(true);
                 yield return new WaitForSeconds(2f);
                 thoughtObj.SetActive(false);
