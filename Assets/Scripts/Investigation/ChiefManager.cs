@@ -210,7 +210,7 @@ public partial class ChiefManager : MonoBehaviour
     }
     public void ResetGame()
     {
-        saveManager.ResetAllSaveData();
+        SaveManager.ResetAllSaveData();
         LoadScene(0);
     }
 }
