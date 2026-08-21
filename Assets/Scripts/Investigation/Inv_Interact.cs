@@ -132,7 +132,7 @@ namespace Investigation
         private void Interact(string name)
         {
             string id = name;
-            EndInteraction(true);
+            EndInteraction();
             isInteracting = true;
             playerCTRL.CanPlayerMove(false);
             FinishBlinking();
