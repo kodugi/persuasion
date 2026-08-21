@@ -31,6 +31,7 @@ namespace Investigation
         string hidingBehind="";
         bool isThinking = false;
         Queue<string> thoughtQueue = new Queue<string>();
+        Coroutine thoughtCoroutine;
 
         void Awake()
         {
@@ -131,22 +132,25 @@ namespace Investigation
         public void Think(string thought)
         {
             thoughtQueue.Enqueue(thought);
-            StartCoroutine(ThinkC());
+            if (thoughtCoroutine == null)
+            {
+                thoughtCoroutine = StartCoroutine(ThinkC());
+            }
         }
         IEnumerator ThinkC()
         {
-            while(isThinking) yield return null;
-            if(thoughtQueue.Count <= 0) yield break;
+            while (thoughtQueue.Count > 0)
+            {
+                isThinking = true;
+                string thought = thoughtQueue.Dequeue();
+                thoughtObj.transform.Find("Text").GetComponent<TMPro.TextMeshProUGUI>().text = thought;
+                thoughtObj.SetActive(true);
+                yield return new WaitForSeconds(2f);
+                thoughtObj.SetActive(false);
+            }
 
-            isThinking = true;
-            string thought = thoughtQueue.Dequeue();
-            thoughtObj.transform.Find("Text").GetComponent<TMPro.TextMeshProUGUI>().text = thought;
-            thoughtObj.SetActive(true);
-            //FadeObject(thoughtObj, true, 0f, 0f, false, 0f, 0.5f);
-            //FadeObject(thoughtObj, false, 2f, 0f, false, 0f, 0.5f);
-            yield return new WaitForSeconds(2f);
-            thoughtObj.SetActive(false);
             isThinking = false;
+            thoughtCoroutine = null;
         }
         public void CanPlayerMove(bool canMove)
         {
@@ -173,6 +177,7 @@ namespace Investigation
                             ["name"] = "Inventory_WitchesCloth"
                         }
                     );
+                    Think("어린 여자아이의 옷을 입었다.");
                     break;
             }
         }

@@ -1,5 +1,5 @@
 {
-    "title": "",
+    "title": "나",
     "LD_images":["","","LD_Player_6A"],
     "path": [    
         {
@@ -30,13 +30,13 @@
                     "next": 3,
                     "effects": [
                         {
-                            "type": "cutScene",
-                            "title": "PeopleRunningAfterReceivingPen"
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 2
                         },
                         {
-                            "type": "changeImage",
-                            "image": "LD_Player_3A",
-                            "position": 2
+                            "type": "cutScene",
+                            "title": "PeopleRunningAfterReceivingPen"
                         }
                     
                     ]
@@ -49,7 +49,12 @@
                 {
                     "title": "",
                     "next": 4,
-                    "effects": []
+                    "effects": [
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_3A",
+                            "position": 2
+                        }]
                 }
             ]
         },

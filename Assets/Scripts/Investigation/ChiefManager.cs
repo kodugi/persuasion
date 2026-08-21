@@ -201,6 +201,8 @@ public partial class ChiefManager : MonoBehaviour
         inv_GameManager = GameObject.FindFirstObjectByType<Inv_GameManager>();
         inv_PlayerCTRL = GameObject.FindFirstObjectByType<Inv_PlayerCTRL>();
 
+        inv_GameManager.FadeScreen(false);
+
         yield return new WaitUntil(() => FindFirstObjectByType<Inv_InteractionObj>() != null);
 
         yield return new WaitUntil(() => FindFirstObjectByType<Inv_Interact>() != null);
@@ -217,10 +219,21 @@ public partial class ChiefManager : MonoBehaviour
             inv_GameManager.ForceInteract(autoInteractOnReturntoInv);
         }
 
+
+        switch(id){
+            case "Map1_Intro":
+                PlayBGM("Intro");
+                break;
+            case "Map1":
+                if(invSceneLastPos != null) PlayBGM("Map1_Main");
+                break;
+            case "Map_Dream":
+            case "Dream":
+                PlayBGM("Dream_Main");
+                break;
+        }
         invSceneLastPos = null;
         autoInteractOnReturntoInv = null;
-
-        PlayInvestigationBGM(id);
     }
     public void StartPersuasion(string id, string autoInteractionOnReturn, string returnInvestigationScene = null)
     {

@@ -127,12 +127,32 @@
                 {
                     "title": "",
                     "next": 8,
-                    "effects": []
+                    "effects": [
+                        {
+                            "type": "changeImage",
+                            "image": "",
+                            "position": 0
+                        }]
                 }
             ]
         },
         {
-            "description": "(다 그린 뒤에 다른 집들도 돌아볼까?)",
+            "description": "나는 얻은 노트와 만년필로 간단하게 언니의 초상화를 그렸다.",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 9,
+                    "effects": [
+                        {
+                            "type": "changeImage",
+                            "image": "LD_Player_10A",
+                            "position": 0
+                        }]
+                }
+            ]
+        },
+        {
+            "description": "됐다! 이제 이 그림을 보여줄 만한 사람을 찾아보자.",
             "buttons": [
                 {
                     "title": "",
