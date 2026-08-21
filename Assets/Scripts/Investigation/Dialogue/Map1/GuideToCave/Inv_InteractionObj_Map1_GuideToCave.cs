@@ -34,7 +34,7 @@ public class Inv_InteractionObj_Map1_GuideToCave: Inv_InteractionObj
                 switch (parameter)
                 {
                     case "walk":
-                        print("walking");
+                        //print("walking");
                         StartCoroutine(WalkingMotion());
                         break;
                 }
@@ -130,15 +130,26 @@ public class Inv_InteractionObj_Map1_GuideToCave: Inv_InteractionObj
 
             GameObject footprintPrefab = footprintHandle.Result;
 
+            Animator animator = gameObject.AddComponent<Animator>();
+            var animatorCTRLHandle = Addressables.LoadAssetAsync<RuntimeAnimatorController>("GuideToCaveAnimatorPrefab");
+            yield return animatorCTRLHandle;
+
+            if (animatorCTRLHandle.Status != AsyncOperationStatus.Succeeded)
+            {
+                Debug.LogError("GuideToCaveAnimatorPrefab 로드 실패");
+                yield break;
+            }
+            RuntimeAnimatorController animatorCTRL = animatorCTRLHandle.Result;
+            animator.runtimeAnimatorController = animatorCTRL;
+            animator.SetBool("isWalking", true);
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
 
             float footprintTimer = 0f;
 
             Vector3 positionDiff =
                 new Vector3(0, -0.5f, 0);
 
-            
-
-
+        
             float shortenedTime = 0f;
             foreach (Transform child in pathObj.transform)
             {

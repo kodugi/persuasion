@@ -20,6 +20,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1455d1ab058f3419ca3ce16d1b6aa5c5
+    m_Address: GuideToCaveAnimatorPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 360e60cb524f73144a659085f0177a91
     m_Address: audio_map1_guard_footstep
     m_ReadOnly: 0

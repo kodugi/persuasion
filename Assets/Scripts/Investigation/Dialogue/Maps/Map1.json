@@ -5849,7 +5849,7 @@
       "hideCriteria": -0.5,
       "sortingOrder": 10,
       "image": [
-        "Temp_Person"
+        "Guide_To_Cave"
       ],
       "script": "Inv_InteractionObj_Map1_GuideToCave",
       "manually_touchable": false
