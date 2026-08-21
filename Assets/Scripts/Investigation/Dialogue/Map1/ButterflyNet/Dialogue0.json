@@ -25,6 +25,10 @@
                         {
                             "type": "item",
                             "name": "Inventory_ButterflyNet_torn"
+                        },
+                        {
+                            "type": "thought",
+                            "thought": "이 잠자리채를 고칠 만한 게 뭐가 있으려나..."
                         }
                     ]
                 },
