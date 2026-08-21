@@ -247,6 +247,7 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
         {
             if (state==1 && isPlayerInside)
             {
+                if(playerCTRL==null) playerCTRL = FindFirstObjectByType<Inv_PlayerCTRL>();
                 if (playerCTRL.isHiding)
                 {
                     state=2;
