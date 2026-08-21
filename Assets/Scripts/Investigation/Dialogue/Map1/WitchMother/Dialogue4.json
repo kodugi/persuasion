@@ -1,5 +1,5 @@
 {
-    "title": "나",
+    "title": "주인공",
     "LD_images":["LD_Player_2A"],
     "path": [
         {
@@ -73,7 +73,7 @@
                     "effects": [
                         {
                             "type": "changeTitle",
-                            "title": "나"
+                            "title": "주인공"
                         },
                         {
                             "type": "changeImage",
@@ -135,7 +135,7 @@
                     "effects": [
                         {
                             "type": "changeTitle",
-                            "title": "나"
+                            "title": "주인공"
                         }
                     ]
                 }
@@ -165,7 +165,7 @@
                     "effects": [
                         {
                             "type": "changeTitle",
-                            "title": "나"
+                            "title": "주인공"
                         }
                     ]
                 }
@@ -227,7 +227,7 @@
                     "effects": [
                         {
                             "type": "changeTitle",
-                            "title": "나"
+                            "title": "주인공"
                         },
                         {
                             "type": "changeImage",
@@ -341,7 +341,7 @@
                     "effects": [
                         {
                             "type": "changeTitle",
-                            "title": "나"
+                            "title": "주인공"
                         },
                         {
                             "type": "changeImage",

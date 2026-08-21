@@ -53,14 +53,6 @@ public class Inv_InteractionObj_Map1_Guard1: Inv_InteractionObj
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.CompareTag("Player") && chasing) {
-                /*interactManager.Effects(
-                    new JObject
-                    {
-                        ["type"]="changeCamera",
-                        ["target"]="Player",
-                        ["duration"]=0
-                    }
-                );*/
                 chasing = false;
                 animator.SetBool("Running", false);
                 interactManager.ForceInteraction(obj_name);
@@ -84,15 +76,7 @@ public class Inv_InteractionObj_Map1_Guard1: Inv_InteractionObj
                     case "Chase":
                         if(state ==0) {
                             chasing = true;
-                            animator.SetBool("Running", true);/*
-                            interactManager.Effects(
-                                new JObject
-                                {
-                                    ["type"]="changeCamera",
-                                    ["target"]="Map1/Guard1",
-                                    ["duration"]=0.5f
-                                }
-                            );*/
+                            animator.SetBool("Running", true);
                         }
                         break;
                     case "Caught":

@@ -1,5 +1,5 @@
 {
-    "title": "작가",
+    "title": "남자",
     "path": [
         {
             "description": "내 어깨를 잡은 남자의 손에 서서히 힘이 빠지더니, 곧 나에게서 완전히 떨어졌다.",
@@ -20,7 +20,7 @@
                     "effects": [
                         {
                             "type": "changeTitle",
-                            "title": "나"
+                            "title": "주인공"
                         },
                         {
                             "type": "changeImage",
@@ -51,7 +51,7 @@
                     "effects": [
                         {
                             "type": "changeTitle",
-                            "title": "작가"
+                            "title": "남자"
                         },
                         {
                             "type": "changeImage",
@@ -99,7 +99,7 @@
                     "effects": [
                         {
                             "type": "changeTitle",
-                            "title": "나"
+                            "title": "주인공"
                         },
                         {
                             "type": "changeImage",

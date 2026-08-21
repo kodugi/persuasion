@@ -412,7 +412,7 @@
                     "effects": [
                         {
                             "type": "changeTitle",
-                            "title": "나"
+                            "title": "주인공"
                         },
                         {
                             "type": "changeImage",
@@ -507,11 +507,6 @@
                     "title": "",
                     "next": -1,
                     "effects": [
-                        {
-                            "type": "changeCamera",
-                            "target": "Player",
-                            "duration": 0.5
-                        },
                         {
                             "type": "variation",
                             "target": "Map1/WitchMother",

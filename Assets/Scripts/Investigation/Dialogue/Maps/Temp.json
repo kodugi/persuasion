@@ -2,39 +2,6 @@
   "title": "Map1",
   "interactables": [
     {
-      "title": "Map1/BlackCover",
-      "position": {
-        "x": 0,
-        "y": 0
-      },
-      "size": {
-        "x": 1000,
-        "y": 1000
-      },
-      "colliderShape": "box",
-      "colliderSize": {
-        "x": 0,
-        "y": 0
-      },
-      "colliderOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerSize": {
-        "x": 1,
-        "y": 1
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "hideCriteria": 0,
-      "sortingOrder": -100,
-      "image": ["fullblack"],
-      "script": "",
-      "manually_touchable": false
-    },
-    {
       "title": "CaveCollider0",
       "position": {
         "x": 48,
@@ -134,105 +101,6 @@
       "manually_touchable": false
     },
     {
-      "title": "CaveCollider3",
-      "position": {
-        "x": 48,
-        "y": 0.64
-      },
-      "size": {
-        "x": 1,
-        "y": 1
-      },
-      "colliderShape": "box",
-      "colliderSize": {
-        "x": 1,
-        "y": 2.5
-      },
-      "colliderOffset": {
-        "x": -5.5,
-        "y": -1.9
-      },
-      "triggerSize": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "hideCriteria": 0,
-      "sortingOrder": 0,
-      "image": [],
-      "script": "",
-      "manually_touchable": false
-    },
-    {
-      "title": "CaveCollider4",
-      "position": {
-        "x": 48,
-        "y": 0.64
-      },
-      "size": {
-        "x": 1,
-        "y": 1
-      },
-      "colliderShape": "box",
-      "colliderSize": {
-        "x": 1.5,
-        "y": 2
-      },
-      "colliderOffset": {
-        "x": -4.25,
-        "y": 0
-      },
-      "triggerSize": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "hideCriteria": 0,
-      "sortingOrder": 0,
-      "image": [],
-      "script": "",
-      "manually_touchable": false
-    },
-    {
-      "title": "Map1/Dream_Trigger",
-      "position": {
-        "x": -22.64,
-        "y": 27.14
-      },
-      "size": {
-        "x": 0.6094725,
-        "y": 1.171812
-      },
-      "colliderShape": "box",
-      "colliderSize": {
-        "x": 0,
-        "y": 0
-      },
-      "colliderOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerSize": {
-        "x": 1,
-        "y": 1
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "hideCriteria": 0,
-      "sortingOrder": 0,
-      "image": [],
-      "script": "Inv_InteractionObj_Map1_Dream_Trigger",
-      "manually_touchable": false
-    },
-    {
       "title": "Map1/Guard1_Trigger",
       "position": {
         "x": 0,
@@ -268,8 +136,8 @@
     {
       "title": "Map1/Player",
       "position": {
-        "x": 0,
-        "y": -10
+        "x": 100,
+        "y": 100
       },
       "size": {
         "x": 1,
@@ -334,39 +202,6 @@
       "manually_touchable": false
     },
     {
-      "title": "Map1/Road",
-      "position": {
-        "x": 1.1,
-        "y": 8.1
-      },
-      "size": {
-        "x": 0.23024,
-        "y": 0.23024
-      },
-      "colliderShape": "box",
-      "colliderSize": {
-        "x": 0,
-        "y": 0
-      },
-      "colliderOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerSize": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "hideCriteria": 0,
-      "sortingOrder": 0,
-      "image": ["Map1_road"],
-      "script": "",
-      "manually_touchable": false
-    },
-    {
       "title": "Map1/Road_Running_Trigger",
       "position": {
         "x": 0,
@@ -400,14 +235,14 @@
       "manually_touchable": false
     },
     {
-      "title": "Map1/Starting_Trigger",
+      "title": "Map1/Dream_Trigger",
       "position": {
-        "x": 0,
-        "y": 10
+        "x": -22.6417,
+        "y": 27.1362
       },
       "size": {
-        "x": 3,
-        "y": 100
+        "x": 0.6094725,
+        "y": 1.171812
       },
       "colliderShape": "box",
       "colliderSize": {
@@ -429,7 +264,7 @@
       "hideCriteria": 0,
       "sortingOrder": 0,
       "image": [],
-      "script": "Inv_InteractionObj_Map1_Starting_Trigger",
+      "script": "Inv_InteractionObj_Map1_Dream_Trigger",
       "manually_touchable": false
     },
     {
@@ -633,41 +468,6 @@
       "manually_touchable": false
     },
     {
-      "title": "Map1/Cave_Back",
-      "position": {
-        "x": 50.11,
-        "y": 0.64
-      },
-      "size": {
-        "x": 10,
-        "y": 10
-      },
-      "colliderShape": "box",
-      "colliderSize": {
-        "x": 0,
-        "y": 0
-      },
-      "colliderOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerSize": {
-        "x": 0,
-        "y": 0
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "hideCriteria": 0,
-      "sortingOrder": 4,
-      "image": [
-        "cave_back"
-      ],
-      "script": "",
-      "manually_touchable": false
-    },
-    {
       "title": "Map1/House_Gathering",
       "position": {
         "x": -3.87,
@@ -701,42 +501,6 @@
       ],
       "script": "Inv_InteractionObj_Map1_House_Gathering",
       "manually_touchable": true
-    },
-    {
-      "title": "Map1/House_WitchMother",
-      "position": {
-        "x": -21.37,
-        "y": 28.02
-      },
-      "size": {
-        "x": 3,
-        "y": 3
-      },
-      "colliderShape": "box",
-      "colliderSize": {
-        "x": 1.15,
-        "y": 0.5
-      },
-      "colliderOffset": {
-        "x": 0,
-        "y": -0.2
-      },
-      "triggerSize": {
-        "x": 1.3,
-        "y": 1
-      },
-      "triggerOffset": {
-        "x": 0,
-        "y": 0
-      },
-      "hideCriteria": -1.5,
-      "sortingOrder": 2,
-      "image": [
-        "house1",
-        "Map1_Player_Sleeping_2A"
-      ],
-      "script": "Inv_InteractionObj_Map1_Houses",
-      "manually_touchable": false
     },
     {
       "title": "Map1/House1",
@@ -1189,6 +953,42 @@
       "sortingOrder": 2,
       "image": [
         "house1"
+      ],
+      "script": "Inv_InteractionObj_Map1_Houses",
+      "manually_touchable": false
+    },
+    {
+      "title": "Map1/House_WitchMother",
+      "position": {
+        "x": -21.37,
+        "y": 28.02
+      },
+      "size": {
+        "x": 3,
+        "y": 3
+      },
+      "colliderShape": "box",
+      "colliderSize": {
+        "x": 1.15,
+        "y": 0.5
+      },
+      "colliderOffset": {
+        "x": 0,
+        "y": -0.2
+      },
+      "triggerSize": {
+        "x": 1.3,
+        "y": 1
+      },
+      "triggerOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "hideCriteria": -1.5,
+      "sortingOrder": 2,
+      "image": [
+        "house1",
+        "Map1_Player_Sleeping_2A"
       ],
       "script": "Inv_InteractionObj_Map1_Houses",
       "manually_touchable": false
@@ -5549,16 +5349,16 @@
       },
       "colliderShape": "box",
       "colliderSize": {
-        "x": 6,
-        "y": 4
+        "x": 0.4,
+        "y": 0.4
       },
       "colliderOffset": {
         "x": 0,
         "y": -0.3
       },
       "triggerSize": {
-        "x": 9.5,
-        "y": 6
+        "x": 6.5,
+        "y": 6.5
       },
       "triggerOffset": {
         "x": 0,

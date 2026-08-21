@@ -7,7 +7,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using Unity.Cinemachine;
 
 namespace Investigation
 {
@@ -24,7 +23,6 @@ namespace Investigation
         [SerializeField] private AudioClip introBgmClip;
         [SerializeField] private AudioClip dreamBgmClip;
         [SerializeField, Range(0f, 1f)] private float bgmVolume = 0.65f;
-        [SerializeField] CinemachineCamera cam;
         List<AsyncOperationHandle<Sprite>> mapHandles = new List<AsyncOperationHandle<Sprite>>();
         BoxCollider2D footCollider;
         AudioSource bgmAudioSource;
@@ -113,9 +111,7 @@ namespace Investigation
         }
         IEnumerator SetScene()
         {
-            yield return new WaitUntil(() =>
-                saveManager != null &&
-                saveManager.isProgressLoaded);
+            if(!saveManager.isProgressLoaded) yield return null;
             string currScene = getID();
             PlayRelevantMapBgm(currScene);
 
@@ -129,34 +125,16 @@ namespace Investigation
                 // Dream_reference marker: left-hand character position.
                 playerCTRL.gameObject.transform.position = new Vector3(3.27f, 0.29f, 0f);
             }
-            print(currScene);
 
             string path = "Assets/Scripts/Investigation/Dialogue/Maps/" + currScene + ".json";
             string json = System.IO.File.ReadAllText(path);
             JObject data = JObject.Parse(json);
             List<InteractableObj> objects = JsonConvert.DeserializeObject<List<InteractableObj>>(data["interactables"].ToString());
             
-            bool isPlayerPosSaved = false;
-            if(playerCTRL != null)
-            {
-                footCollider = playerCTRL.gameObject.transform.Find("FootCollider").GetComponent<BoxCollider2D>();
-                if(saveManager.TryLoadCharacterPosition(currScene,"Player", out Vector3 savedPositionP))
-                {
-                    playerCTRL.gameObject.transform.position = savedPositionP;
-                    isPlayerPosSaved = true;
-                }
-            }
-
             GameObject interactableParent = GameObject.Find("Interactables");
             
             foreach(InteractableObj obj in objects)
             {
-                if(!isPlayerPosSaved && obj.title == currScene + "/Player")
-                {
-                    print("player");
-                    playerCTRL.gameObject.transform.position = Vector_2D_to_Vector3(obj.position);
-                    isPlayerPosSaved =true;
-                }
                 GameObject interactable;
                 Vector2 position = Vector_2D_to_Vector2(obj.position);
                 if(saveManager.TryLoadCharacterPosition(currScene,obj.title, out Vector3 savedPosition))
@@ -233,11 +211,6 @@ namespace Investigation
                 interactable.GetComponent<Inv_InteractionObj>().hideCriteria = obj.hideCriteria;
                 interactable.GetComponent<Inv_InteractionObj>().manuallyTouchable = obj.manually_touchable;
                 interactable.GetComponent<Inv_InteractionObj>().images = obj.image;
-                if (obj.image != null &&obj.image.Count > 0 && obj.image[0] == "fullblack")
-                {
-                    interactable.GetComponent<SpriteRenderer>().sortingOrder = -200;
-                    interactable.GetComponent<SpriteRenderer>().enabled = false;
-                }
                 //interactable.GetComponent<Inv_InteractionObj>().singleImage = obj.singleImage;
                 if (Mathf.Abs(obj.colliderSize.x) + Mathf.Abs(obj.colliderSize.y) > 0.00001f)
                 {
@@ -351,39 +324,6 @@ namespace Investigation
         public void ForceInteract(string title)
         {
             interactManager.ForceInteraction(title);
-        }
-        public void ChangeCamera(Transform target, float duration=1f)
-        {
-            StartCoroutine(MoveCameraTarget(target, duration));
-        }
-        IEnumerator MoveCameraTarget(Transform target, float duration)
-        {
-            GameObject cameraTarget = new GameObject();
-            Vector3 start = cam.Target.TrackingTarget.position;
-            Vector3 end = target.position;
-
-            cameraTarget.transform.position = start;
-            cam.Target.TrackingTarget = cameraTarget.transform;
-
-            float elapsed = 0f;
-
-            while (elapsed < duration)
-            {
-                elapsed += Time.deltaTime;
-
-                float t = Mathf.Clamp01(elapsed / duration);
-
-                // 시작/끝 부분을 부드럽게
-                t = Mathf.SmoothStep(0f, 1f, t);
-                end = target.position;
-                cameraTarget.transform.position =
-                    Vector3.Lerp(start, end, t);
-
-                yield return null;
-            }
-
-            cameraTarget.transform.position = end;
-            cam.Target.TrackingTarget = target;
         }
     }
 }

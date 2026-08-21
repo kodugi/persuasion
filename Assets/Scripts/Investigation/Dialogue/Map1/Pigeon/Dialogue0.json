@@ -1,5 +1,5 @@
 {
-    "title": "(보이면안됨)",
+    "title": "(소리)",
     "path": [
         {
             "description": "누군가 달려오는 소리가 들린다.",
@@ -8,6 +8,13 @@
                     "title": "(뭐지?)",
                     "next": -1,
                     "effects": [
+                        {
+                            "type": "variation",
+                            "target": "Map1/Guard1",
+                            "parameters":[
+                                "Chase"
+                            ]
+                        }
                     ]
                 }
             ]

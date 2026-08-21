@@ -24,7 +24,6 @@ namespace Investigation
         public bool isHiding = false;
         public bool canHide = false;
         string hidingBehind="";
-        [SerializeField] GameObject footCollider;
 
         void Awake()
         {
@@ -65,7 +64,6 @@ namespace Investigation
                 if(isHiding) {
                     isHiding=false;
                     Think("더이상 숨어 있지 않다.");//hidingBehind+"뒤에서 나왔다.");
-                    footCollider.GetComponent<BoxCollider2D>().enabled = true;
                 }
             }
 
@@ -165,10 +163,6 @@ namespace Investigation
         public void Hide(string id)
         {
             if(canHide) {
-                if(id=="") id = interactionScript.GetLastQueue();
-                Vector3 obstacleP = interactionScript.FindInteractableObj(id).position;
-                footCollider.GetComponent<BoxCollider2D>().enabled = false;
-                StartCoroutine(MoveSmoothly(new Vector3(obstacleP.x, gameObject.transform.position.y, gameObject.transform.position.z)));
                 isHiding = true;
                 hidingBehind = id;
                 Think("숨었다.");//hidingBehind+"뒤에 숨었다.");

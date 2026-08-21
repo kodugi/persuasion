@@ -7,14 +7,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using Unity.Cinemachine;
 
 namespace Investigation
 {
     public partial class Inv_GameManager : Utility
     {
         [SerializeField] GameObject screenHider;
-        [SerializeField] GameObject screenReddener;
         GameObject _staringPeople = null;
         GameObject staringPeople{
             get{
@@ -40,6 +38,7 @@ namespace Investigation
             switch (title)
             {
                 case "PeopleRunningAfterReceivingPen":
+                    //running
                     staringPeople.GetComponent<Inv_Obj_Staring_People>().StartRunning();
                     yield return new WaitForSeconds(10f);
                     Destroy(staringPeople);
@@ -100,7 +99,6 @@ namespace Investigation
                             GameObject obj = staringPeopleHandle.Result;
                             staringPeople = Instantiate(obj);
                             staringPeople.GetComponent<Inv_Obj_Staring_People>().player = playerCTRL.gameObject;
-                            staringPeople.GetComponent<Inv_Obj_Staring_People>().manager = this;
                             staringPeople.GetComponent<Inv_Obj_Staring_People>().house_gather = interactManager.FindInteractableObj("Map1/House_Gathering").gameObject;
                         }
                         else
@@ -120,13 +118,7 @@ namespace Investigation
                     playerCTRL.CanPlayerMove(false);
                     playerCTRL.gameObject.SetActive(false);
                     playerCTRL.gameObject.transform.position = interactManager.FindInteractableObj("Map1/House_WitchMother").position;
-                    yield return FadeScreen(true);
                     interactManager.FindInteractableObj("Map1/House_WitchMother").gameObject.GetComponent<Inv_InteractionObj>().FadeSwitch(0,1,0,0);
-                    interactManager.FindInteractableObj("Map1/BlackCover").GetComponent<SpriteRenderer>().enabled = true;
-                    interactManager.FindInteractableObj("Map1/BlackCover").GetComponent<SpriteRenderer>().sortingOrder = 200;
-                    interactManager.FindInteractableObj("Map1/House_WitchMother").GetComponent<SpriteRenderer>().sortingOrder = 300;
-                    playerCTRL.gameObject.GetComponent<SpriteRenderer>().sortingOrder = 400;
-                    yield return FadeScreen(false);
                     interactManager.ForceInteraction("Map1/Player");
                     break;
 
@@ -220,58 +212,16 @@ namespace Investigation
                     );
                     interactManager.ForceInteraction("Map1/Player");
                     break;
-                
-                case "screenRed":
-                    yield return FadeScreen(true, duration:0.5f, obj:screenReddener, highOpacity:0.3f);
-                    yield return FadeScreen(false, duration:0.5f, obj:screenReddener, highOpacity:0.3f);
-                    break;
-                
-                case "Map1_Cave_Hide":
-                    Vector3 caveHidingPos = new Vector3(41.7f, -1.7f, 0);
-                    yield return StartCoroutine(MoveSmoothly(caveHidingPos, obj:playerCTRL.gameObject));
-                    break;
-                case "Map1_Cave_GrannyShowup":
-                    Vector3 caveGrannyFinalPos = new Vector3(44f, -1.6f, 0);
-                    
-                    var caveGrannyPrefabHandle =
-                        Addressables.LoadAssetAsync<GameObject>("CaveGrannyPrefab");
-                    yield return caveGrannyPrefabHandle;
-                    if (caveGrannyPrefabHandle.Status != AsyncOperationStatus.Succeeded)
-                    {
-                        Debug.LogError("caveGrannyPrefab 로드 실패");
-                        Addressables.Release(caveGrannyPrefabHandle);
-                        yield break;
-                    }
-                    GameObject caveGrannyPrefab = caveGrannyPrefabHandle.Result;
-
-                    GameObject grannySD = Instantiate(caveGrannyPrefab,interactManager.FindInteractableObj("Map1/Cave").position, Quaternion.identity);
-                    grannySD.GetComponent<Animator>().SetBool("isWalking", true);
-                    yield return StartCoroutine(MoveSmoothly(caveGrannyFinalPos, obj:grannySD, duration:4));
-                    grannySD.GetComponent<Animator>().SetBool("isWalking", false);
-                    yield return new WaitForSeconds(2);
-
-                    break;
-                case "Map1_Cave_ShowUp":
-                    Vector3 caveShowupPos = new Vector3(43.2f, -3f, 0);
-                    yield return StartCoroutine(MoveSmoothly(caveShowupPos, obj:playerCTRL.gameObject));
-                    break;
-
-
-                case "cameraShake":
-                    GetComponent<CinemachineImpulseSource>().GenerateImpulse(1f);
-                    break;
             }
         }
-        public Coroutine FadeScreen(bool fadeIn, float delay=0f, float duration=1f, GameObject obj=null, float lowOpacity = 0f, float highOpacity = 1f)
+        Coroutine FadeScreen(bool fadeIn)
         {
-            return StartCoroutine(FadeScreenCoroutine(fadeIn, delay, duration, obj, lowOpacity, highOpacity));
+            return StartCoroutine(FadeScreenCoroutine(fadeIn));
         }
-        IEnumerator FadeScreenCoroutine(bool fadeIn, float delay, float duration, GameObject obj, float lowOpacity, float highOpacity){
-            if(obj==null) obj = screenHider;
-            
-            if(fadeIn) obj.SetActive(true);
-            yield return FadeObject(obj,fadeIn,delay, duration, false, lowOpacity, highOpacity);
-            if(!fadeIn) obj.SetActive(false);
+        IEnumerator FadeScreenCoroutine(bool fadeIn){
+            if(fadeIn) screenHider.SetActive(true);
+            yield return FadeObject(screenHider,fadeIn,0f, 1f, false);
+            if(!fadeIn) screenHider.SetActive(false);
         }
     }
 }

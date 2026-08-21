@@ -627,7 +627,6 @@ MonoBehaviour:
   thoughtObj: {fileID: 1873757237}
   isHiding: 0
   canHide: 0
-  footCollider: {fileID: 261632902}
 --- !u!61 &148256071
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1055,81 +1054,6 @@ MonoBehaviour:
       m_Calls: []
   selectedObjIdx: -1
   inventoryManager: {fileID: 0}
---- !u!1 &580898909
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 580898910}
-  - component: {fileID: 580898912}
-  - component: {fileID: 580898911}
-  m_Layer: 5
-  m_Name: ScreenReddener
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &580898910
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 580898909}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1274290563}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 20, y: 20}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &580898911
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 580898909}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &580898912
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 580898909}
-  m_CullTransparentMesh: 1
 --- !u!1 &611182683
 GameObject:
   m_ObjectHideFlags: 0
@@ -1810,7 +1734,6 @@ GameObject:
   - component: {fileID: 838975301}
   - component: {fileID: 838975302}
   - component: {fileID: 838975303}
-  - component: {fileID: 838975304}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1866,14 +1789,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Investigation.Inv_GameManager
   screenHider: {fileID: 2128851318}
-  screenReddener: {fileID: 580898909}
   interactablePrefab: {fileID: 3928896895775994901, guid: d7c96213b76894930a2512f0e2685c64, type: 3}
   backgroundPrefab: {fileID: 3928896895775994901, guid: 549f809be467848758824142f6978ca5, type: 3}
   timerObj: {fileID: 2498806758464416416}
   introBgmClip: {fileID: 8300000, guid: 25d2eaf225883bc41aa985d4c4701a36, type: 3}
   dreamBgmClip: {fileID: 8300000, guid: 250727027cf7ccb41a85c3337255adfc, type: 3}
   bgmVolume: 0.65
-  cam: {fileID: 1404489586}
   inventoryPanel: {fileID: 139109048}
   inventoryItemPrefab: {fileID: 5124437373693812359, guid: d095e0c82abe548aaa53a7e9b0bddd2a, type: 3}
   inventoryItemFloatingPrefab: {fileID: 5124437373693812359, guid: 2f60167f390524083b678a5dc6d2e87a, type: 3}
@@ -1881,59 +1802,6 @@ MonoBehaviour:
   notePanel: {fileID: 1405770748650178747}
   noteTitlePrefab: {fileID: 7569517289463913548, guid: 45fc8c4a290e04390864aa3f89f4edce, type: 3}
   noteContentPrefab: {fileID: 735144260935552970, guid: 20432788f82bf4aa08300f5f080871fb, type: 3}
---- !u!114 &838975304
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 838975299}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineImpulseSource
-  ImpulseDefinition:
-    ImpulseChannel: 1
-    ImpulseShape: 4
-    CustomImpulseShape:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    ImpulseDuration: 0.5
-    ImpulseType: 0
-    DissipationRate: 0.25
-    RawSignal: {fileID: 0}
-    AmplitudeGain: 1
-    FrequencyGain: 1
-    RepeatMode: 0
-    Randomize: 1
-    TimeEnvelope:
-      AttackShape:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      DecayShape:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      AttackTime: 0
-      SustainTime: 0.2
-      DecayTime: 0.7
-      ScaleWithImpact: 1
-      HoldForever: 0
-    ImpactRadius: 100
-    DirectionMode: 0
-    DissipationMode: 2
-    DissipationDistance: 100
-    PropagationSpeed: 343
-  DefaultVelocity: {x: 5, y: 5, z: 0}
 --- !u!1 &876362910
 GameObject:
   m_ObjectHideFlags: 0
@@ -2631,7 +2499,6 @@ RectTransform:
   - {fileID: 1032258472}
   - {fileID: 1587534959}
   - {fileID: 2128851319}
-  - {fileID: 580898910}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2650,7 +2517,6 @@ GameObject:
   - component: {fileID: 1404489587}
   - component: {fileID: 1404489586}
   - component: {fileID: 1404489588}
-  - component: {fileID: 1404489589}
   m_Layer: 0
   m_Name: CinemachineCamera
   m_TagString: Untagged
@@ -2747,30 +2613,6 @@ MonoBehaviour:
     Time: 0.3
     Smoothing: 30
     IgnoreY: 0
---- !u!114 &1404489589
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1404489585}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineImpulseListener
-  ApplyAfter: 2
-  ChannelMask: 1
-  Gain: 1
-  Use2DDistance: 0
-  UseCameraSpace: 1
-  SignalCombinationMode: 0
-  ReactionSettings:
-    m_SecondaryNoise: {fileID: 0}
-    AmplitudeGain: 1
-    FrequencyGain: 1
-    Duration: 1
-    m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &1466508535
 GameObject:
   m_ObjectHideFlags: 0
@@ -3941,7 +3783,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 20, y: 20}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2128851320
 MonoBehaviour:
@@ -4063,7 +3905,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 3.13
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a0e323d8c57e59a4b87aef184b1625d0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f920cb8c07bfe0f49bd6b424b9720a78, type: 2}
   m_sharedMaterial: {fileID: -3344085443583118590, guid: f920cb8c07bfe0f49bd6b424b9720a78, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -4130,7 +3972,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1300787620103074580

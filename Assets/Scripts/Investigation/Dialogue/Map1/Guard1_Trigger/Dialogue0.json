@@ -1,53 +1,11 @@
 {
-    "title": "",
+    "title": "(소리)",
     "path": [
         {
-            "description": "나는 마을 입구 근처에 서서 주위를 둘러보았다. 근처에 인기척은 느껴지지 않았다.",
-            "buttons": [
+            "description": "누군가 달려오는 소리가 들린다.",
+            "buttons":[
                 {
-                    "title": "",
-                    "next": 1,
-                    "effects": [
-                        {
-                            "type": "changeTitle",
-                            "title": "나"
-                        },
-                        {
-                            "type":"changeImage",
-                            "image":"LD_Player_8A",
-                            "position":2
-                        }
-                    
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "(일단 누군가를 만나야 할 것 같은데…. 아무도 없나?)",
-            "buttons": [
-                {
-                    "title": "",
-                    "next": 2,
-                    "effects": [
-                        {
-                            "type": "changeTitle",
-                            "title": ""
-                        },
-                        {
-                            "type":"changeImage",
-                            "image":"",
-                            "position":2
-                        }
-                    
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "그렇게 생각하며 내가 조심스럽게 마을 안에 발을 들여놓은 그때였다.",
-            "buttons": [
-                {
-                    "title": "",
+                    "title": "(뭐지?)",
                     "next": -1,
                     "effects": [
                         {
@@ -62,4 +20,5 @@
             ]
         }
     ]
+
 }
