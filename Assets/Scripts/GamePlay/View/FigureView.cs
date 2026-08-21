@@ -291,6 +291,7 @@ namespace GamePlay
             }
 
             _suspicionOverflowDefeatSequence = DOTween.Sequence();
+            ChiefManager.Instance?.PlayBGM(ChiefManager.JumpScareSoundId, _defeatShakeDuration);
             _suspicionOverflowDefeatSequence.Append(
                 _rectTransform
                     .DOShakeAnchorPos(
@@ -368,6 +369,7 @@ namespace GamePlay
             }
 
             _turnLimitDefeatSequence = DOTween.Sequence();
+            ChiefManager.Instance?.PlayBGM(ChiefManager.JumpScareSoundId, _defeatShakeDuration);
             _turnLimitDefeatSequence.Append(
                 _rectTransform
                     .DOShakeAnchorPos(
@@ -422,12 +424,14 @@ namespace GamePlay
         {
             _animator.SetTrigger(GlitchTrigger);
             _uiGlitchEffect.Play(_glitchEffectDuration, _glitchEffectIntensity);
+            ChiefManager.Instance?.PlayBGM(ChiefManager.GlitchSoundId);
         }
 
         private void TriggerGlitchFlash()
         {
             _animator.SetTrigger(GlitchFlashTrigger);
             _uiGlitchEffect.Play(_glitchFlashEffectDuration, _glitchFlashEffectIntensity);
+            ChiefManager.Instance?.PlayBGM(ChiefManager.GlitchSoundId);
         }
 
         private void HandleSetTutorialStateEvent(object sender, SetTutorialStateEventArgs e)
@@ -440,7 +444,15 @@ namespace GamePlay
 
         private void HandleSetDialogueEntryEvent(object sender, SetDialogueEntryEventArgs e)
         {
-            ApplyDialogueFigure(e.GetDialogueEntry());
+            DialogueEntry dialogueEntry = e.GetDialogueEntry();
+            ApplyDialogueFigure(dialogueEntry);
+
+            if (GetCurrentGameInfo()?.GetMapType() == GameInfo.MapType.Dream4 &&
+                dialogueEntry != null &&
+                dialogueEntry.StateToTrigger == TutorialState.Dream2)
+            {
+                ChiefManager.Instance?.PlayBGM(ChiefManager.LaughterSoundId);
+            }
         }
 
         private void ApplyDialogueFigure(DialogueEntry dialogueEntry)
