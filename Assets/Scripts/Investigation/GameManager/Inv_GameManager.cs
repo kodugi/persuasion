@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using Unity.Cinemachine;
+using UnityEngine.SceneManagement;
 
 namespace Investigation
 {
@@ -75,6 +76,21 @@ namespace Investigation
         }
         private void Update()
         {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (chiefManager != null)
+                {
+                    chiefManager.ReturnToStartScene();
+                }
+                else
+                {
+                    // Supports running Investigation directly without its persistent manager.
+                    SceneManager.LoadScene("StartScene");
+                }
+
+                return;
+            }
+
             if (!isDialogueOnlyScene)
             {
                 InventoryUpdate();
@@ -295,7 +311,9 @@ namespace Investigation
         public void LoadAnotherInvestigationScene(string id, string autoInteractionOnReturn=null)
         {
             print(id);
-            chiefManager.StartInvestigation(id);
+            // Moving to another investigation map must use that map's configured
+            // player position instead of carrying over the previous map position.
+            chiefManager.StartInvestigation(id, false);
         }
         public void ForceInteract(string title)
         {

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MapEditor.Model;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using SingletonUtils;
 using Vector2Int = VectorUtils.Vector2Int;
 
@@ -40,7 +41,25 @@ namespace GamePlay
 
         private void Update()
         {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                ReturnToStartScene();
+                return;
+            }
+
             _tutorialController?.Tick(Time.deltaTime);
+        }
+
+        private static void ReturnToStartScene()
+        {
+            if (ChiefManager.Instance != null)
+            {
+                ChiefManager.Instance.ReturnToStartScene();
+                return;
+            }
+
+            // Supports running GamePlayScene directly in the editor.
+            SceneManager.LoadScene("StartScene");
         }
         
         private void Initialize()

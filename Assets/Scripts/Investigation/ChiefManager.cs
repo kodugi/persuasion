@@ -47,6 +47,7 @@ public partial class ChiefManager : MonoBehaviour
     Coroutine laughterCoroutine;
     Coroutine jumpScareStopCoroutine;
     bool audioLockedForJumpScare;
+    bool isReturningToStartScene;
     string lastBGMId;
     Investigation.Inv_GameManager inv_GameManager;
     Investigation.Inv_PlayerCTRL inv_PlayerCTRL;
@@ -296,6 +297,33 @@ public partial class ChiefManager : MonoBehaviour
         ResetAudioAfterGameOver(false);
         SaveManager.ResetAllSaveData();
         LoadScene(0);
+    }
+
+    public void ReturnToStartScene()
+    {
+        if (isReturningToStartScene)
+        {
+            return;
+        }
+
+        isReturningToStartScene = true;
+        StartCoroutine(ReturnToStartSceneCoroutine());
+    }
+
+    IEnumerator ReturnToStartSceneCoroutine()
+    {
+        yield return StartCoroutine(ExitSceneCoroutine(true));
+
+        // This object also owns the persistent SaveManager and audio sources. Remove it
+        // before showing the start screen so a later game starts with fresh managers.
+        ResetAudioAfterGameOver(false);
+        bgmAudioSource.Stop();
+        bgmAudioSource.resource = null;
+        lastBGMId = null;
+        currScene = "Start";
+
+        Destroy(gameObject);
+        SceneManager.LoadScene("StartScene");
     }
 
     public void PlayBGM(string id, float maximumDuration = -1f)

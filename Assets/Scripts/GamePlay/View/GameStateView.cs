@@ -95,6 +95,7 @@ public class GameStateView : SelfInitializingMonoBehaviourSingleton<GameStateVie
     private void HandleSetTurnEvent(object sender, SetTurnEventArgs e)
     {
         SetCurrentTurnText(e.CurrentTurn, true);
+        SetTargetNumText();
     }
 
     private void HandleCellPlacementEvent(object sender, CellPlacementEventArgs e)
