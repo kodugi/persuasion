@@ -130,7 +130,13 @@
                 {
                     "title": "",
                     "next": 10,
-                    "effects": []
+                    "effects": [
+                        {
+                            "type": "shakeCharacter",
+                            "position": 2,
+                            "strength": 30
+                        }
+                    ]
                 }
             ]
         },
