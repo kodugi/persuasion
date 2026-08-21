@@ -13,6 +13,13 @@ public partial class ChiefManager : MonoBehaviour
 {
     public static ChiefManager Instance { get; private set; }
     [SerializeField] GameObject gameOverPanel;
+    [SerializeField] AudioClip persuasionEnteringSound;
+    [SerializeField] AudioClip introBGM;
+    [SerializeField] AudioClip map1_MainBGM;
+    [SerializeField] AudioClip dream_MainBGM;
+    [SerializeField] AudioClip guardBGM;
+    AudioSource audioSource;
+    AudioSource bgmAudioSource;
     Investigation.Inv_GameManager inv_GameManager;
     Investigation.Inv_PlayerCTRL inv_PlayerCTRL;
     SaveManager saveManager;
@@ -35,6 +42,8 @@ public partial class ChiefManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
+        audioSource = GetComponent<AudioSource>();
+        bgmAudioSource = transform.GetChild(0).GetComponent<AudioSource>();
         saveManager = GetComponent<SaveManager>();
         //currScene = "Start";
         //temporary
@@ -50,7 +59,9 @@ public partial class ChiefManager : MonoBehaviour
         {
             StartInvestigation((string)result);
         }
-        else StartInvestigation("Map1_Intro");
+        else {
+            StartInvestigation("Map1_Intro");
+        }
     }
     void FixedUpdate()
     {
@@ -155,14 +166,10 @@ public partial class ChiefManager : MonoBehaviour
         inv_GameManager = GameObject.FindFirstObjectByType<Inv_GameManager>();
         inv_PlayerCTRL = GameObject.FindFirstObjectByType<Inv_PlayerCTRL>();
 
-        // Ensure the loaded progress dictionary is applied before interaction objects initialize their state.
-        if (saveManager != null)
-        {
-            foreach (var obj in FindObjectsOfType<Inv_InteractionObj>())
-            {
-                obj.CheckState();
-            }
-        }
+        yield return new WaitUntil(() => FindFirstObjectByType<Inv_InteractionObj>() != null);
+
+        yield return new WaitUntil(() => FindFirstObjectByType<Inv_Interact>() != null);
+        yield return null;
         //print("6:"+autoInteractOnReturntoInv);
 
         if(invSceneLastPos != null) {
@@ -170,10 +177,26 @@ public partial class ChiefManager : MonoBehaviour
             inv_PlayerCTRL.gameObject.transform.position = (Vector3)invSceneLastPos;
         }
         //print("7:"+autoInteractOnReturntoInv);
-        if(autoInteractOnReturntoInv != null) inv_GameManager.ForceInteract(autoInteractOnReturntoInv);
+        if (!string.IsNullOrEmpty(autoInteractOnReturntoInv))
+        {
+            inv_GameManager.ForceInteract(autoInteractOnReturntoInv);
+        }
 
         invSceneLastPos = null;
         autoInteractOnReturntoInv = null;
+
+        switch(id){
+            case "Map1_Intro":
+                PlayBGM("Intro");
+                break;
+            case "Map1":
+                if(invSceneLastPos != null) PlayBGM("Map1_Main");
+                break;
+            case "Map_Dream":
+            case "Dream":
+                PlayBGM("Dream_Main");
+                break;
+        }
     }
     public void StartPersuasion(string id, string autoInteractionOnReturn, string returnInvestigationScene = null)
     {
@@ -189,6 +212,7 @@ public partial class ChiefManager : MonoBehaviour
             : returnInvestigationScene;
         inv_Scene_ID = "";
         per_Scene_ID = id;
+        audioSource.PlayOneShot(persuasionEnteringSound);
 
         LoadScene(1);
         //yield return new WaitUntil(() => FindFirstObjectByType<something>() != null);
@@ -214,5 +238,30 @@ public partial class ChiefManager : MonoBehaviour
     {
         SaveManager.ResetAllSaveData();
         LoadScene(0);
+    }
+    public void PlayBGM(string id){
+        AudioClip clip=null;
+        print(id);
+        switch(id){
+            case "Intro":
+                clip = introBGM;
+                break;
+            case "Map1_Main":
+                clip = map1_MainBGM;
+                break;
+            case "Dream_Main":
+                clip = dream_MainBGM;
+                break;
+            case "Guard":
+                clip = guardBGM;
+                break;
+        }
+        if(clip==null){
+            Debug.LogError("no clip");
+            return;
+        }
+        if(clip == bgmAudioSource.resource) return;
+        bgmAudioSource.resource = clip;
+        bgmAudioSource.Play();
     }
 }

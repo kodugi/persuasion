@@ -109,7 +109,13 @@
                             "type": "changeImage",
                             "image": "LD_Map1_Man2_3A",
                             "position": 1
+                        },
+                        {
+                            "type": "shakeCharacter",
+                            "position": 1,
+                            "strength": 30
                         }
+                    
                     
                     ]
                 }

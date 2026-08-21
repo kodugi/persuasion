@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Newtonsoft.Json.Linq;
 using System.IO;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -73,6 +74,43 @@ namespace Investigation
         {
             titleObj.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = title;
             titleObj.SetActive(title!="");
+        }
+        public void ShakeCharacter(int position, float strength)
+        {
+            StartCoroutine(ShakeImage(charactersObj.transform.GetChild(position).gameObject, strength:strength));
+        }
+        IEnumerator ShakeImage(
+            GameObject obj,
+            float duration = 0.5f,
+            float strength = 30f,
+            float speed = 30f
+        )
+        {
+            speed = strength;
+            RectTransform rect = obj.GetComponent<RectTransform>();
+            Vector2 originalPos = rect.anchoredPosition;
+
+            float elapsed = 0f;
+
+            // 실행할 때마다 패턴도 조금씩 달라짐
+            float phase1 = Random.Range(0f, Mathf.PI * 2f);
+            float phase2 = Random.Range(0f, Mathf.PI * 2f);
+
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+
+                float x =
+                    Mathf.Sin(elapsed * speed + phase1) * 0.7f +
+                    Mathf.Sin(elapsed * speed * 1.73f + phase2) * 0.3f;
+
+                rect.anchoredPosition =
+                    originalPos + Vector2.right * x * strength;
+
+                yield return null;
+            }
+
+            rect.anchoredPosition = originalPos;
         }
         void Update()
         {

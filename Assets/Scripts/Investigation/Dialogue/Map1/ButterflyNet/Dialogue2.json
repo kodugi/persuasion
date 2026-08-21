@@ -25,6 +25,10 @@
                             "type": "variation",
                             "target": "Map1/FishNet",
                             "parameters":["1"]
+                        },
+                        {
+                            "type": "thought",
+                            "thought": "아까 그 그물을 주으러 가야겠다."
                         }
                     ]
                 },

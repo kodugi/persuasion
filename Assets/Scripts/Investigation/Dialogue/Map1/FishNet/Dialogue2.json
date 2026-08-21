@@ -25,6 +25,10 @@
                             "type": "variation",
                             "target": "Map1/ButterflyNet",
                             "parameters":["1"]
+                        },
+                        {
+                            "type": "thought",
+                            "thought": "아까 그 잠자리채를 주으러 가야겠다."
                         }
                     ]
                 },

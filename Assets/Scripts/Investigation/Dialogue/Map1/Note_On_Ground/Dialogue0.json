@@ -20,6 +20,11 @@
                         {
                             "type": "delete",
                             "target": "Map1/Note_On_Ground"
+                        },
+                        {
+                            "type": "variation",
+                            "target":"Map1/Note_On_Ground",
+                            "parameters":["PickedUp"]
                         }
                     ]
                 },

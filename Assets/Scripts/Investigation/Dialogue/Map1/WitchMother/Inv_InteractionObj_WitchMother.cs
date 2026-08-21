@@ -122,6 +122,22 @@ public class Inv_InteractionObj_WitchMother: Inv_InteractionObj
                         state=3;
                         gameObject.GetComponent<BoxCollider2D>().size = new Vector2(0.4f, 1f);
                         gameObject.transform.GetChild(0).GetComponent<BoxCollider2D>().enabled=false;
+                        
+                        bool clothObtained = false;
+                        if(saveManager.TryLoadProgress("TrashCanClothObtained", out object result))
+                        {
+                            if((bool)result) clothObtained = true;
+                        }
+                        if (clothObtained)
+                        {
+                            interactManager.Effects(
+                                new JObject
+                                {
+                                    ["type"]="thought",
+                                    ["thought"]="아까 쓰레기통에서 주운 옷이 이 여자의 딸의 것일지도 모르겠다."
+                                }
+                            );
+                        }
                         break;
                     case "Dispersed":
                         FadeSwitch(2, 0, 0, 0f);

@@ -16,11 +16,12 @@ public class Inv_InteractionObj_Map1_Guard1: Inv_InteractionObj
         private Transform player;
         private AsyncOperationHandle<RuntimeAnimatorController> animatorHandle;
         private Animator animator;
+        AudioClip footstepSound=null;
+        AsyncOperationHandle<AudioClip> footstepSoundHandle;
         protected override void Starter()
         {
             interactManager = GameObject.FindFirstObjectByType<Inv_Interact>();
             player = GameObject.FindFirstObjectByType<Inv_PlayerCTRL>().transform;
-
             StartCoroutine(LoadAnim());
         }
 
@@ -63,6 +64,7 @@ public class Inv_InteractionObj_Map1_Guard1: Inv_InteractionObj
                 );*/
                 chasing = false;
                 animator.SetBool("Running", false);
+                StopFootstepSound();
                 interactManager.ForceInteraction(obj_name);
                 interactManager.Effects(
                     new JObject
@@ -84,7 +86,8 @@ public class Inv_InteractionObj_Map1_Guard1: Inv_InteractionObj
                     case "Chase":
                         if(state ==0) {
                             chasing = true;
-                            animator.SetBool("Running", true);/*
+                            animator.SetBool("Running", true);
+                            PlayFootstepSound();/*
                             interactManager.Effects(
                                 new JObject
                                 {
@@ -116,6 +119,33 @@ public class Inv_InteractionObj_Map1_Guard1: Inv_InteractionObj
                 }
             }
             base.variation();
+        }
+         void PlayFootstepSound()
+        {
+            StartCoroutine(PlayFootstepSoundC());
+        }
+        IEnumerator PlayFootstepSoundC()
+        {
+            if (footstepSound == null)
+            {
+                footstepSoundHandle=Addressables.LoadAssetAsync<AudioClip>("audio_map1_guard_footstep");
+                yield return footstepSoundHandle;
+                if (footstepSoundHandle.Status == AsyncOperationStatus.Succeeded)
+                {
+                    footstepSound = footstepSoundHandle.Result;
+                }
+            }
+            audioSource.PlayOneShot(footstepSound);
+            yield return null;
+        }
+         void StopFootstepSound()
+        {
+            audioSource.Stop();
+        }
+        void OnDestroy()
+        {
+            if(footstepSoundHandle.IsValid()) Addressables.Release(footstepSoundHandle);
+            if(animatorHandle.IsValid()) Addressables.Release(animatorHandle);
         }
     }
 }

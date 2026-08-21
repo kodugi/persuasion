@@ -244,7 +244,11 @@ namespace Investigation
                     dialogueScript.ChangeImage((string)effect["image"], int.Parse((string)effect["position"]));
                     break;
                 case "playSound":
-                    // play sound
+                    string audioSource = (string)effect["source"];
+                    string clipName = (string)effect["clip"];
+                    if(audioSource=="BGM") ChiefManager.Instance.PlayBGM(clipName);
+                    else if(audioSource=="Player") ; //playerCTRL.???(clipName)
+                    else ; //FindInteractableObj(audioSource).???(clipName);
                     break;
                 case "thought":
                     string thought = (string)effect["thought"];
@@ -276,6 +280,11 @@ namespace Investigation
                     float camMoveDuration = (float)effect["duration"];
                     if(camTarget == "Player") manager.ChangeCamera(playerCTRL.gameObject.transform,camMoveDuration);
                     else manager.ChangeCamera(FindInteractableObj(camTarget),camMoveDuration);
+                    break;
+                case "shakeCharacter":
+                    if(dialogueScript!=null){
+                        dialogueScript.ShakeCharacter(int.Parse((string)effect["position"]),float.Parse((string)effect["strength"]));
+                    }
                     break;
             }
         }
