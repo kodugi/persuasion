@@ -14,6 +14,7 @@ public partial class ChiefManager : MonoBehaviour
 {
     List<string> map1PuzzleList = new List<string>(){"Map1_Guard1", "Map1_Writer", "Map1_Granny", "Map1_WitchMother"};
     int currPuzzle = 0;
+    [SerializeField] bool onlyPuzzles = false;
 
     void TempSkipCheckerOnUpdate()
     {
@@ -31,7 +32,10 @@ public partial class ChiefManager : MonoBehaviour
                     {
                         Inv_GameOver("퍼즐 모두 끝냈습니다");
                     }
-                    else StartPersuasion(map1PuzzleList[currPuzzle], "");
+                    else {
+                        if(onlyPuzzles) StartPersuasion(map1PuzzleList[currPuzzle], "", "Map_Unicon_Temp");
+                        else StartPersuasion(map1PuzzleList[currPuzzle], "");
+                    }
                     break;
             }
         }

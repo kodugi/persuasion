@@ -92,6 +92,13 @@ public partial class ChiefManager : MonoBehaviour
     }
     public void GameStartFromMainScene()
     {
+        Debug.LogWarning("UniconTempCodeisRemaining");
+        if (onlyPuzzles)
+        {
+            StartInvestigation("Map_Unicon_Temp");
+            return;
+        }
+
         if(saveManager.TryLoadGeneralSave("FinalMap", out object result))
         {
             StartInvestigation((string)result);
@@ -195,7 +202,12 @@ public partial class ChiefManager : MonoBehaviour
 
         //print("2:"+autoInteractOnReturntoInv);
         saveManager.PrepareForInvestigationSceneLoad();
-        LoadScene(2);
+
+        //temp
+        Debug.LogWarning("UniconTempCodeisRemaining");
+        if(onlyPuzzles) LoadScene(3);
+        else LoadScene(2);
+
         //print("3:"+autoInteractOnReturntoInv);
         yield return null;
         ResetAudioAfterGameOver(false);
@@ -279,10 +291,13 @@ public partial class ChiefManager : MonoBehaviour
         PlayBGM(IsDreamPersuasion(id) ? DreamBGMId : MainBGMId);
         audioSource.PlayOneShot(persuasionEnteringSound);
 
+        //temp
+        Debug.LogWarning("UniconTempCodeisRemaining");
+        currPuzzle++;
         LoadScene(1);
         //yield return new WaitUntil(() => FindFirstObjectByType<something>() != null);
-        //temp
-        currPuzzle++;
+        
+
         yield return null;
     }
     public void Inv_GameOver(string reason)
