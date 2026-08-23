@@ -207,7 +207,7 @@ namespace Investigation
                 case "Teleport_After_Cave_Interaction":
                     playerCTRL.CanPlayerMove(false);
                     yield return FadeScreen(true);
-                    playerCTRL.gameObject.transform.position = new Vector2(0,0);
+                    playerCTRL.gameObject.transform.position = new Vector2(-1,11.8);
                     yield return new WaitForSeconds(1f);
                     yield return FadeScreen(false);
                     //playerCTRL.CanPlayerMove(true);
