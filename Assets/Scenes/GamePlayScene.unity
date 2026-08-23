@@ -1936,7 +1936,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3164257962247187525, guid: ca5380cf35ede2b45a99d5bf55c3b805, type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3670260974608907562, guid: ca5380cf35ede2b45a99d5bf55c3b805, type: 3}
       propertyPath: m_LocalScale.x
