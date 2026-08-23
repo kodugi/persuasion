@@ -290,13 +290,13 @@ public partial class ChiefManager : MonoBehaviour
         //temp
         yield return null;
     }
-    public void GameOver(string reason)
+    public void Inv_GameOver(string reason)
     {
         print("Game Over");
         LoadingMotion();
-        StartCoroutine(GameOverScene(reason));
+        StartCoroutine(Inv_GameOverScene(reason));
     }
-    IEnumerator GameOverScene(string reason)
+    IEnumerator Inv_GameOverScene(string reason)
     {
         inv_PlayerCTRL.gameObject.SetActive(false);
         GameObject _gameOverPanel = Instantiate(gameOverPanel, FindFirstObjectByType<Canvas>().transform);

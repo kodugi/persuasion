@@ -165,7 +165,7 @@ namespace Investigation
                     if (!playerCTRL.isHiding)
                     {
                         // 들키는 연출
-                        chiefManager.GameOver("엿듣고 있던 것을 들켜버렸다.");
+                        chiefManager.Inv_GameOver("엿듣고 있던 것을 들켜버렸다.");
                         break;
                     }
                     interactManager.Effects(
