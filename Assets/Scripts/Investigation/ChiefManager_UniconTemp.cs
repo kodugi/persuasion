@@ -18,7 +18,7 @@ public partial class ChiefManager : MonoBehaviour
 
     void TempSkipCheckerOnUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.Equals))
         {
             print("skipping");
             switch (currScene)
