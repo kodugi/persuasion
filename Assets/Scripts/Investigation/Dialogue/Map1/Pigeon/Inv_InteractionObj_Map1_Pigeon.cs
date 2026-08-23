@@ -55,7 +55,7 @@ public class Inv_InteractionObj_Map1_Pigeon: Inv_InteractionObj
                     new JObject
                     {
                         ["type"] = "thought",
-                        ["thought"] = "그물을 던질만큼 가까운 거리까지 가면 비둘기가 도망가 버릴 것 같다."
+                        ["thought"] = "그물을 던질만큼 가까이 가면 비둘기가 피할 것 같다. 좀 멀리서 잡을 수 있는 방법이 있을까?"
                     }
                 );
             }
