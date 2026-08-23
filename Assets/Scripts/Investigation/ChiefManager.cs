@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
@@ -299,13 +300,14 @@ public partial class ChiefManager : MonoBehaviour
     IEnumerator Inv_GameOverScene(string reason)
     {
         inv_PlayerCTRL.gameObject.SetActive(false);
-        GameObject _gameOverPanel = Instantiate(gameOverPanel, FindFirstObjectByType<Canvas>().transform);
+        GameObject _gameOverPanel = Instantiate(gameOverPanel, GameObject.Find("Canvas").transform);
         _gameOverPanel.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = reason;
+        _gameOverPanel.transform.Find("ReplayButton").GetComponent<Button>().onClick.AddListener(()=>RestartGame());
         _gameOverPanel.SetActive(true);
         print(_gameOverPanel);
         yield return null;
     }
-    public void ResetGame()
+    public void RestartGame()
     {
         ResetAudioAfterGameOver(false);
         SaveManager.ResetAllSaveData();
