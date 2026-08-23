@@ -181,23 +181,26 @@ namespace GamePlay
         private IEnumerator ResetCore()
         {
             yield return new WaitForSeconds(0.5f);
+
+            // Keep the cleared map active during the transition delay. Switching the
+            // shared GameInfo any earlier makes still-visible views use the next map.
+            GameInfoHolder.CommitPendingGameInfoChange();
+
             GamePlaySoundManager.Instance?.ResetAfterGameOver();
             _winConditionManager.BeginReset();
 
             _gameStateManager.ResetGame();
             _dialogueManager.ResetGame();
             _tutorialController.ResetGame();
-            _blockSelectionManager.ResetGame();
             _boardController.ResetGame();
-            _suspicionManager.ResetGame();
-            _turnManager.ResetGame();
-
-            _winConditionManager.EndReset();
 
             if (BoardView.Instance is BoardView boardView)
             {
                 boardView.ResetGame();
             }
+
+            _blockSelectionManager.ResetGame();
+            _suspicionManager.ResetGame();
 
             GameStateView.Instance?.ResetGame();
             BackgroundSuspicionView.Instance?.ResetGame();
@@ -206,6 +209,13 @@ namespace GamePlay
             FindAnyObjectByType<FigureView>()?.ResetGame();
             BlackOutPanelView.Instance?.ResetGame();
             GameOverPopupView.Instance?.ResetGame();
+
+            // Let the newly rendered map become visible before its starting turn can
+            // trigger dialogue, tutorial markers, or figure presentation events.
+            yield return null;
+
+            _turnManager.ResetGame();
+            _winConditionManager.EndReset();
         }
 
         public void QueueResetGame()

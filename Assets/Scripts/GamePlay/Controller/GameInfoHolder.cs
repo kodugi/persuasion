@@ -7,6 +7,7 @@ namespace GamePlay
     {
         private static List<GameInfo> _gameInfoList;
         private static int _currentIdx = 0;
+        private static int? _pendingIdx;
 
         public static GameInfo GetCurrentGameInfo()
         {
@@ -22,12 +23,14 @@ namespace GamePlay
         {
             _gameInfoList = new List<GameInfo>() { gameInfo };
             _currentIdx = 0;
+            _pendingIdx = null;
         }
 
         public static void SetGameInfoList(List<GameInfo> gameInfoList)
         {
             _gameInfoList = gameInfoList;
             _currentIdx = 0;
+            _pendingIdx = null;
         }
 
         public static bool HasMoreGameInfos()
@@ -37,11 +40,24 @@ namespace GamePlay
 
         public static void ToNext()
         {
-            SetCurrentIdx(_currentIdx + 1);
+            _pendingIdx = _currentIdx + 1;
+        }
+
+        public static void CommitPendingGameInfoChange()
+        {
+            if (!_pendingIdx.HasValue)
+            {
+                return;
+            }
+
+            int pendingIdx = _pendingIdx.Value;
+            _pendingIdx = null;
+            SetCurrentIdx(pendingIdx);
         }
 
         public static void SetCurrentIdx(int idx)
         {
+            _pendingIdx = null;
             _currentIdx = idx;
             if (_currentIdx >= _gameInfoList.Count)
             {

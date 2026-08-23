@@ -73,7 +73,10 @@ public class BoardView : BoardViewBase
         StopGameOverAnimation();
         ClearBoardCellSuspicionViews();
 
-        _allowedMarkers = _gameInfo.GetAllowedMarkers();
+        GameInfo gameInfo = GetGameInfo();
+        _allowedMarkers = gameInfo != null
+            ? gameInfo.GetAllowedMarkers()
+            : BoardCellMarker.None;
         _turnStateAfterTransition = TurnState.None;
         base.Refresh();
 
