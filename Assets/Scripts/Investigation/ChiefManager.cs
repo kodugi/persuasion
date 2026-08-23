@@ -102,14 +102,7 @@ public partial class ChiefManager : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if(currScene == "Persuasion")
-        {
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                print("Developer Option: Skipping the Puzzle");
-                StartInvestigation();
-            }
-        }
+        TempSkipCheckerOnUpdate();
     }
     void LoadScene(object id)
     {
@@ -289,6 +282,7 @@ public partial class ChiefManager : MonoBehaviour
         LoadScene(1);
         //yield return new WaitUntil(() => FindFirstObjectByType<something>() != null);
         //temp
+        currPuzzle++;
         yield return null;
     }
     public void Inv_GameOver(string reason)
