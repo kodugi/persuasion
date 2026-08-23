@@ -263,10 +263,23 @@ public partial class ChiefManager : MonoBehaviour
     }
     IEnumerator StartPersuasionScene(string id, string returnInvestigationScene)
     {
+        string sourceInvestigationId = inv_Scene_ID;
         yield return StartCoroutine(ExitSceneCoroutine(true));
         return_Inv_Scene_ID = string.IsNullOrEmpty(returnInvestigationScene)
-            ? inv_Scene_ID
+            ? sourceInvestigationId
             : returnInvestigationScene;
+
+        // A persuasion scene may return to a different investigation map.
+        // Only carry the last position back when returning to the same map;
+        // otherwise the destination's saved position (or JSON default) must win.
+        if (!string.Equals(
+                sourceInvestigationId,
+                return_Inv_Scene_ID,
+                StringComparison.Ordinal))
+        {
+            invSceneLastPos = null;
+        }
+
         inv_Scene_ID = "";
         per_Scene_ID = id;
         PlayBGM(IsDreamPersuasion(id) ? DreamBGMId : MainBGMId);
