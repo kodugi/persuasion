@@ -624,7 +624,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 729e97df2451b4efb8d17fe4b8c293dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Inv_PlayerCTRL
-  moveSpeed: 10
+  moveSpeed: 4
   thoughtObj: {fileID: 1873757237}
   footCollider: {fileID: 261632902}
   footstepSound1: {fileID: 8300000, guid: 280c4218009022c48a622d46c5823388, type: 3}
@@ -3773,7 +3773,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc1e554324f384bf0aa2112e214e442d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SaveManager
-  resetOnQuit: 1
+  resetOnQuit: 0
   saveWhilePlaying: 1
 --- !u!82 &1879756582
 AudioSource:
