@@ -155,7 +155,7 @@ namespace Investigation
         public void ItemClicked(int selectionIdx, GameObject selectionObj)
         {
             string item = inventoryItems[selectionIdx];
-            GameObject floatingItem = Instantiate(inventoryItemFloatingPrefab, selectionObj.transform.position, Quaternion.identity, FindFirstObjectByType<Canvas>().gameObject.transform);
+            GameObject floatingItem = Instantiate(inventoryItemFloatingPrefab, selectionObj.transform.position, Quaternion.identity, GameObject.Find("Canvas").gameObject.transform);
             floatingItem.name = item+"_"+selectionIdx.ToString()+"_Floating";
             SetSpriteImage<Image>(floatingItem, item, inventoryHandles);
             Inv_FloatItemCTRL obj_inv_FloatItemCTRL = floatingItem.AddComponent<Inv_FloatItemCTRL>();
