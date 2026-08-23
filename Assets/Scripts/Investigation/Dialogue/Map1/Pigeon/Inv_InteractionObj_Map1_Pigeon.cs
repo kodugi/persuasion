@@ -39,6 +39,26 @@ public class Inv_InteractionObj_Map1_Pigeon: Inv_InteractionObj
                 //Temp
                 Destroy(gameObject);
             }
+            else if (itemName == "Inventory_ButterflyNet_torn")
+            {
+                interactManager.Effects(
+                    new JObject
+                    {
+                        ["type"] = "thought",
+                        ["thought"] = "찢어진 잠자리채로는 비둘기를 잡을 수 없다."
+                    }
+                );
+            }
+            else if (itemName == "Inventory_FishNet")
+            {
+                interactManager.Effects(
+                    new JObject
+                    {
+                        ["type"] = "thought",
+                        ["thought"] = "그물을 던질만큼 가까운 거리까지 가면 비둘기가 도망가 버릴 것 같다."
+                    }
+                );
+            }
         }
         override public void CheckState()
         {
