@@ -82,19 +82,22 @@ namespace Investigation
             }
             layer_maxBehind = 0;
             int hidingCnt=0;
+            int maxSortingOrder_of_hidingObject = 0;
             foreach(GameObject obj in layer_consideredObjs)
             {
                 if(gameObject.transform.position.y <= obj.transform.position.y + obj.GetComponent<Inv_InteractionObj>().hideCriteria)
                 {
                     layer_maxBehind = Math.Max(layer_maxBehind, obj.GetComponent<SpriteRenderer>().sortingOrder);
-                }
+                }/*
                 else if(obj.GetComponent<SpriteRenderer>().color.a > 0.05)
                 {
                     hidingCnt++;
-                }
+                    maxSortingOrder_of_hidingObject = Math.Max(maxSortingOrder_of_hidingObject, obj.GetComponent<SpriteRenderer>().sortingOrder);
+                }*/
             }
-            canHide = (hidingCnt)>0;
             gameObject.GetComponent<SpriteRenderer>().sortingOrder = layer_maxBehind+1;
+            if(interactionScript.GetLastQueue() == null) canHide = false;
+            else canHide = gameObject.GetComponent<SpriteRenderer>().sortingOrder <= interactionScript.FindInteractableObj(interactionScript.GetLastQueue()).gameObject.GetComponent<SpriteRenderer>().sortingOrder; // (hidingCnt)>0 && //maxSortingOrder_of_hidingObject >= gameObject.GetComponent<SpriteRenderer>().sortingOrder;
         }
         public bool AlreadyHiding(GameObject obj)
         {
