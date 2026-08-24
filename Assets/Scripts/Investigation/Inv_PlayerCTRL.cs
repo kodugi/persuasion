@@ -175,7 +175,7 @@ namespace Investigation
             switch (itemName)
             {
                 case "Inventory_WitchesCloth":
-                    Think("어린 여자아이의 옷을 입었다.");
+                    Think("여자아이의 옷을 입었다.");
                     interactionScript.Effects(
                         new JObject
                         {
