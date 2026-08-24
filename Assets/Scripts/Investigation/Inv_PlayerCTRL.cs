@@ -128,8 +128,21 @@ namespace Investigation
                 }
             }
         }
-        public void Think(string thought)
+        public void Think(string thought, bool replaceCurrent = false)
         {
+            if (replaceCurrent)
+            {
+                if (thoughtCoroutine != null)
+                {
+                    StopCoroutine(thoughtCoroutine);
+                    thoughtCoroutine = null;
+                }
+
+                thoughtQueue.Clear();
+                thoughtObj.SetActive(false);
+                isThinking = false;
+            }
+
             thoughtQueue.Enqueue(thought);
             if (thoughtCoroutine == null)
             {
@@ -190,7 +203,7 @@ namespace Investigation
                 StartCoroutine(MoveSmoothly(new Vector3(obstacleP.x, gameObject.transform.position.y, gameObject.transform.position.z)));
                 isHiding = true;
                 hidingBehind = id;
-                Think("숨었다.");//hidingBehind+"뒤에 숨었다.");
+                Think("숨었다.", replaceCurrent: true);//hidingBehind+"뒤에 숨었다.");
             }
             else
             {
