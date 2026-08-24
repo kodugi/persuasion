@@ -3602,7 +3602,6 @@ GameObject:
   - component: {fileID: 1873757238}
   - component: {fileID: 1873757241}
   - component: {fileID: 1873757240}
-  - component: {fileID: 1873757239}
   m_Layer: 5
   m_Name: Thought
   m_TagString: Untagged
@@ -3630,25 +3629,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 10}
   m_SizeDelta: {x: -60, y: 60}
   m_Pivot: {x: 0.5, y: 0}
---- !u!114 &1873757239
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1873757237}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eda5f955034f946cfa6c8d5b1af8fcc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Inv_DialogueBox
-  interactionScript: {fileID: 0}
-  interactionName: 
-  buttonPrefab: {fileID: 7074669923880004495, guid: e6e6b1983a3f84ef0b3714b2187548a6, type: 3}
-  titleObj: {fileID: 0}
-  descriptionObj: {fileID: 0}
-  buttonsObj: {fileID: 0}
-  charactersObj: {fileID: 0}
 --- !u!114 &1873757240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3761,6 +3741,7 @@ MonoBehaviour:
   - Start
   - Persuasion
   - Investigation
+  onlyPuzzles: 0
 --- !u!114 &1879756581
 MonoBehaviour:
   m_ObjectHideFlags: 0
