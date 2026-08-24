@@ -88,7 +88,15 @@ public partial class ChiefManager : MonoBehaviour
     }
     void Start()
     {
-        GameStartFromMainScene();
+        switch (currScene)
+        {
+            case "Start":
+                Destroy(gameObject);
+                break;
+            case "Investigation":
+                GameStartFromMainScene();
+                break;
+        }
     }
     public void GameStartFromMainScene()
     {
@@ -320,7 +328,14 @@ public partial class ChiefManager : MonoBehaviour
     {
         ResetAudioAfterGameOver(false);
         SaveManager.ResetAllSaveData();
-        LoadScene(0);
+        inv_Scene_ID="";
+        per_Scene_ID="";
+        return_Inv_Scene_ID="";
+        invSceneLastPos=null;
+        autoInteractOnReturntoInv=null;
+        currScene = "Start";
+        SceneManager.LoadScene(0);
+        Destroy(gameObject);
     }
 
     public void ReturnToStartScene()
