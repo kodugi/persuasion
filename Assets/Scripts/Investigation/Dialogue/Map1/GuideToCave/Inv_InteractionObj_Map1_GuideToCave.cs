@@ -48,7 +48,7 @@ public class Inv_InteractionObj_Map1_GuideToCave: Inv_InteractionObj
         private float footprintIntervalMin = 0.3f;
         private float footprintIntervalMax = 1.5f;
         private float footprintLasting = 2000f;
-        private float sprintOutOfSight = 5f;
+        private float sprintOutOfSight = 10f;
         private float distanceFromPlayerCriteria = 10f;
         private IEnumerator WalkingMotion()
         {
