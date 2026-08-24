@@ -326,16 +326,17 @@ public partial class ChiefManager : MonoBehaviour
     }
     public void RestartGame()
     {
-        ResetAudioAfterGameOver(false);
-        SaveManager.ResetAllSaveData();
-        inv_Scene_ID="";
-        per_Scene_ID="";
-        return_Inv_Scene_ID="";
-        invSceneLastPos=null;
-        autoInteractOnReturntoInv=null;
-        currScene = "Start";
-        SceneManager.LoadScene(0);
-        Destroy(gameObject);
+        print("시간 내에 숨지 못해서 죽은 경우");
+        saveManager.AddProgress("Map1/Cavestate", 0);
+        saveManager.AddProgress("Map1/House_Gatheringstate", 3);
+        inv_PlayerCTRL.gameObject.transform.position=new Vector3(-1.68f,22.12f);
+        autoInteractOnReturntoInv="Map1/House_Gathering";
+
+        //currScene = "Start";
+        //ResetAudioAfterGameOver(false);
+        //SceneManager.LoadScene(0);
+        //Destroy(gameObject);
+        StartInvestigation("Map1");
     }
 
     public void ReturnToStartScene()
