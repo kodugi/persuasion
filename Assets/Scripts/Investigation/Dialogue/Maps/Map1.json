@@ -439,12 +439,12 @@
     {
       "title": "Map1/WitchMotherBlocker",
       "position": {
-        "x": -17.85,
-        "y": 27.71
+        "x": -24.8,
+        "y": 33.62
       },
       "size": {
-        "x": 6,
-        "y": 6
+        "x": 26.64,
+        "y": 18
       },
       "colliderShape": "box",
       "colliderSize": {
