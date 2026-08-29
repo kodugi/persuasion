@@ -1978,6 +1978,7 @@ MonoBehaviour:
   notePanel: {fileID: 1405770748650178747}
   noteTitlePrefab: {fileID: 7569517289463913548, guid: 45fc8c4a290e04390864aa3f89f4edce, type: 3}
   noteContentPrefab: {fileID: 735144260935552970, guid: 20432788f82bf4aa08300f5f080871fb, type: 3}
+  peopleStaringPrefab: {fileID: 3791889609765624360, guid: e0655f89d4be2414d93d6f3f7afc4064, type: 3}
 --- !u!114 &838975304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4486,7 +4487,6 @@ GameObject:
   - component: {fileID: 209459407035962903}
   - component: {fileID: 2183907572642183848}
   - component: {fileID: 188680360912256692}
-  - component: {fileID: 1737094545793878095}
   m_Layer: 5
   m_Name: Notes
   m_TagString: Untagged
@@ -4512,25 +4512,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1737094545793878095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1405770748650178747}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eda5f955034f946cfa6c8d5b1af8fcc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Inv_DialogueBox
-  interactionScript: {fileID: 0}
-  interactionName: 
-  buttonPrefab: {fileID: 7074669923880004495, guid: e6e6b1983a3f84ef0b3714b2187548a6, type: 3}
-  titleObj: {fileID: 0}
-  descriptionObj: {fileID: 0}
-  buttonsObj: {fileID: 0}
-  charactersObj: {fileID: 0}
 --- !u!224 &1917085899827519529
 RectTransform:
   m_ObjectHideFlags: 0

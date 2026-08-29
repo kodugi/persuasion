@@ -19,14 +19,7 @@ namespace Investigation
         Inv_DialogueBox _dialogueScript;
         public Inv_DialogueBox dialogueScript
         {
-            get
-            {
-                if (_dialogueScript == null)
-                {
-                    _dialogueScript = FindFirstObjectByType<Inv_DialogueBox>();
-                }
-                return _dialogueScript;
-            }
+            get => _dialogueScript;
             set
             {
                 _dialogueScript = value;
@@ -197,7 +190,18 @@ namespace Investigation
                     string topic = (string)effect["topic"];
                     List<string> notes = new List<string>();
                     foreach (var note in (JArray)effect["content"]) notes.Add((string)note);
-                    if(!((bool)saveManager.LoadProgress("noteLock"))) manager.AddNote(topic, notes);
+                    if (saveManager.TryLoadProgress("noteLock", out object noteLock0) && !(bool)noteLock0)
+                    {
+                        manager.AddNote(topic, notes);
+                    }
+                    break;
+                case "noteRemove":
+                    string topic_remove = (string)effect["topic"];
+                    string note_remove = (string)(((JArray)effect["content"])[0]);
+                    if (saveManager.TryLoadProgress("noteLock", out object noteLock1) && !(bool)noteLock1)
+                    {
+                        manager.RemoveNote(topic_remove, note_remove);
+                    }
                     break;
                 case "variation":
                     string target = (string)effect["target"];
