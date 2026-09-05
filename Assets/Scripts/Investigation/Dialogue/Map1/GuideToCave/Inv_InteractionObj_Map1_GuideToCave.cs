@@ -48,7 +48,7 @@ public class Inv_InteractionObj_Map1_GuideToCave: Inv_InteractionObj
         private float footprintIntervalMin = 0.3f;
         private float footprintIntervalMax = 1.5f;
         private float footprintLasting = 2000f;
-        private float sprintOutOfSight = 5f;
+        private float sprintOutOfSight = 10f;
         private float distanceFromPlayerCriteria = 10f;
         private IEnumerator WalkingMotion()
         {
@@ -110,26 +110,6 @@ public class Inv_InteractionObj_Map1_GuideToCave: Inv_InteractionObj
             colliderChild.SetActive(false);
 
 
-            // -------------------------
-            // FootprintPrefab 로드
-            // -------------------------
-
-            var footprintHandle =
-                Addressables.LoadAssetAsync<GameObject>("FootprintPrefab");
-
-            yield return footprintHandle;
-
-            if (footprintHandle.Status != AsyncOperationStatus.Succeeded)
-            {
-                Debug.LogError("FootprintPrefab 로드 실패");
-
-                Addressables.Release(footprintHandle);
-
-                yield break;
-            }
-
-            GameObject footprintPrefab = footprintHandle.Result;
-
             Animator animator = gameObject.AddComponent<Animator>();
             var animatorCTRLHandle = Addressables.LoadAssetAsync<RuntimeAnimatorController>("GuideToCaveAnimatorPrefab");
             yield return animatorCTRLHandle;
@@ -185,12 +165,22 @@ public class Inv_InteractionObj_Map1_GuideToCave: Inv_InteractionObj
                         Vector3 secondPositionDiff =
                             new Vector3(direction.y, direction.x * (1-Random.Range(0,2)*2),0) * secondFootprintDistance;
 
-                        GameObject footprint =
-                            Instantiate(
-                                footprintPrefab,
-                                transform.position + positionDiff+secondPositionDiff,
-                                Quaternion.Euler(0f, 0f, angle)
-                            );
+                        var footprintHandle = Addressables.InstantiateAsync(
+                            "FootprintPrefab",
+                            transform.position + positionDiff + secondPositionDiff,
+                            Quaternion.Euler(0f, 0f, angle)
+                        );
+                        yield return footprintHandle;
+
+                        if (footprintHandle.Status != AsyncOperationStatus.Succeeded)
+                        {
+                            Debug.LogError("FootprintPrefab 인스턴스 생성 실패");
+                            Addressables.Release(footprintHandle);
+                            footprintTimer = 0f;
+                            continue;
+                        }
+
+                        GameObject footprint = footprintHandle.Result;
 
                         footprintTimer = 0f;
                         shortenedTime += footprintInterval * (1-(1/modifier));
@@ -201,8 +191,12 @@ public class Inv_InteractionObj_Map1_GuideToCave: Inv_InteractionObj
                             false,
                             footprintLasting+shortenedTime,
                             1f,
-                            true
+                            false
                         );
+                        StartCoroutine(ReleaseFootprintAfterDelay(
+                            footprint,
+                            footprintLasting + shortenedTime + 1f
+                        ));
                     }
 
                     yield return null;
@@ -214,9 +208,6 @@ public class Inv_InteractionObj_Map1_GuideToCave: Inv_InteractionObj
 
             // Addressables 해제
             Addressables.Release(pathHandle);
-            Addressables.Release(footprintHandle);
-
-
             colliderChild.SetActive(true);
 
             spriteRenderer.sortingOrder = -1;
@@ -233,6 +224,16 @@ public class Inv_InteractionObj_Map1_GuideToCave: Inv_InteractionObj
             interactManager.ForceInteraction("Map1/Player");
 
             playerCTRL.CanPlayerMove(true);
+        }
+
+        private IEnumerator ReleaseFootprintAfterDelay(GameObject footprint, float delay)
+        {
+            yield return new WaitForSeconds(delay);
+
+            if (footprint != null)
+            {
+                Addressables.ReleaseInstance(footprint);
+            }
         }
     }
 }

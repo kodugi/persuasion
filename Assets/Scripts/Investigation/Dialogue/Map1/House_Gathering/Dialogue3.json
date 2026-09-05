@@ -1,0 +1,55 @@
+{
+    "title": "나",
+    "LD_images": ["","","LD_Player_6A"],
+    "path": [
+        {
+            "description": ".....!",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 1,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(잠깐만, 지금 나온다고? 내가 엿들었던 걸 들키면 큰일날 텐데.)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": 2,
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "description": "(빨리 어딘가에 숨어야....)",
+            "buttons": [
+                {
+                    "title": "",
+                    "next": -1,
+                    "effects": [
+                        {
+                            "type": "variation",
+                            "target": "Map1/Cave",
+                            "parameters": [
+                                "visible"
+                            ]
+                        },
+                        {
+                            "type": "variation",
+                            "target": "Map1/House_Gathering",
+                            "parameters": [
+                                "dispersed"
+                            ]
+                        },
+                        {
+                            "type": "cutScene",
+                            "title": "GuideLeavesHouse"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

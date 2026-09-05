@@ -63,6 +63,16 @@ namespace Investigation
             StartCoroutine(HighlightNoteButton());
             saveManager.SaveData("notes", notes);
         }
+        public void RemoveNote(string noteName, string contents)
+        {
+            if (!notes.TryGetValue(noteName, out List<string> noteContents)) return;
+
+            // Remove every matching entry so a duplicated objective cannot survive.
+            noteContents.RemoveAll(note => note == contents);
+            if (noteContents.Count == 0) notes.Remove(noteName);
+
+            saveManager.SaveData("notes", notes);
+        }
         private IEnumerator HighlightNoteButton()
         {
             yield return null;

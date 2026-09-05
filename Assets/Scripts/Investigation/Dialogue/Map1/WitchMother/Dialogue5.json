@@ -93,6 +93,11 @@
                             "parameters": [
                                 "Accepted"
                             ]
+                        },
+                        {
+                            "type": "noteRemove",
+                            "topic": "목표",
+                            "content": ["잠을 청할 장소를 제공해줄 만한 사람을 찾아보자."]
                         }
                     ]
                 }

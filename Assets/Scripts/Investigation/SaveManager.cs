@@ -93,12 +93,13 @@ public partial class SaveManager : MonoBehaviour
         Debug.Log("[SaveManager] InitializeEverything()");
 
         progress.Clear();
-        progress["noteLock"] = true;
+        progress["noteLock"] = false;
 
         SaveData("progress", progress);
         SaveData("general", new Dictionary<string, object>());
         SaveData("notes", new Dictionary<string, object>());
         SaveData("inventory", new List<string>());
+        SaveData("noteLock", true);
 
         InitializedBasedOnProgress();
     }

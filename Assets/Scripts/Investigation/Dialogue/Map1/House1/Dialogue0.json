@@ -405,6 +405,16 @@
                         {
                             "type": "thought",
                             "thought": "언니의 얼굴을 그려서 보여줘야겠다. 그림 그릴 수 있는 것을 찾아보자."
+                        },
+                        {
+                            "type": "noteRemove",
+                            "topic": "목표",
+                            "content": ["아무 집 문이나 두드려 보자."]
+                        },
+                        {
+                            "type": "note",
+                            "topic": "목표",
+                            "content": ["그림 그릴 수 있는 것을 찾아보자."]
                         }
                     ]
                 }

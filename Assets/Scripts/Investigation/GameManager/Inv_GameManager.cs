@@ -76,7 +76,7 @@ namespace Investigation
         }
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Slash))
             {
                 if (chiefManager != null)
                 {

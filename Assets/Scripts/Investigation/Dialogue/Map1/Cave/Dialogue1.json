@@ -12,6 +12,11 @@
                         {
                             "type": "changeTitle",
                             "title": "나"
+                        },
+                        {
+                            "type": "noteRemove",
+                            "topic": "목표",
+                            "content": ["발자국을 따라서 할머니를 찾아 가 보자."]
                         }
                     ]
                 }

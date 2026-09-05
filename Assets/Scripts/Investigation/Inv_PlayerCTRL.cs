@@ -82,19 +82,22 @@ namespace Investigation
             }
             layer_maxBehind = 0;
             int hidingCnt=0;
+            int maxSortingOrder_of_hidingObject = 0;
             foreach(GameObject obj in layer_consideredObjs)
             {
                 if(gameObject.transform.position.y <= obj.transform.position.y + obj.GetComponent<Inv_InteractionObj>().hideCriteria)
                 {
                     layer_maxBehind = Math.Max(layer_maxBehind, obj.GetComponent<SpriteRenderer>().sortingOrder);
-                }
+                }/*
                 else if(obj.GetComponent<SpriteRenderer>().color.a > 0.05)
                 {
                     hidingCnt++;
-                }
+                    maxSortingOrder_of_hidingObject = Math.Max(maxSortingOrder_of_hidingObject, obj.GetComponent<SpriteRenderer>().sortingOrder);
+                }*/
             }
-            canHide = (hidingCnt)>0;
             gameObject.GetComponent<SpriteRenderer>().sortingOrder = layer_maxBehind+1;
+            if(interactionScript.GetLastQueue() == null) canHide = false;
+            else canHide = gameObject.GetComponent<SpriteRenderer>().sortingOrder <= interactionScript.FindInteractableObj(interactionScript.GetLastQueue()).gameObject.GetComponent<SpriteRenderer>().sortingOrder; // (hidingCnt)>0 && //maxSortingOrder_of_hidingObject >= gameObject.GetComponent<SpriteRenderer>().sortingOrder;
         }
         public bool AlreadyHiding(GameObject obj)
         {
@@ -128,8 +131,21 @@ namespace Investigation
                 }
             }
         }
-        public void Think(string thought)
+        public void Think(string thought, bool replaceCurrent = false)
         {
+            if (replaceCurrent)
+            {
+                if (thoughtCoroutine != null)
+                {
+                    StopCoroutine(thoughtCoroutine);
+                    thoughtCoroutine = null;
+                }
+
+                thoughtQueue.Clear();
+                thoughtObj.SetActive(false);
+                isThinking = false;
+            }
+
             thoughtQueue.Enqueue(thought);
             if (thoughtCoroutine == null)
             {
@@ -162,6 +178,7 @@ namespace Investigation
             switch (itemName)
             {
                 case "Inventory_WitchesCloth":
+                    Think("여자아이의 옷을 입었다.");
                     interactionScript.Effects(
                         new JObject
                         {
@@ -177,7 +194,6 @@ namespace Investigation
                             ["name"] = "Inventory_WitchesCloth"
                         }
                     );
-                    Think("어린 여자아이의 옷을 입었다.");
                     break;
             }
         }
@@ -190,7 +206,7 @@ namespace Investigation
                 StartCoroutine(MoveSmoothly(new Vector3(obstacleP.x, gameObject.transform.position.y, gameObject.transform.position.z)));
                 isHiding = true;
                 hidingBehind = id;
-                Think("숨었다.");//hidingBehind+"뒤에 숨었다.");
+                Think("숨었다.", replaceCurrent: true);//hidingBehind+"뒤에 숨었다.");
             }
             else
             {

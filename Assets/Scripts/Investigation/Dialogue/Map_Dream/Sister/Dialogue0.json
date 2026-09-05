@@ -31,7 +31,7 @@
           "effects": [
             {
               "type": "changeImage",
-              "image": "LD_Player_5A",
+              "image": "LD_Player_9A",
               "position": 0
             }
           ]
@@ -147,7 +147,7 @@
             },
             {
               "type": "changeImage",
-              "image": "LD_Player_5A",
+              "image": "LD_Player_9A",
               "position": 0
             }
           ]

@@ -8,7 +8,7 @@
         "y": -0.12
       },
       "size": {
-        "x": 10,
+        "x": 1000,
         "y": 1000
       },
       "colliderShape": "box",
@@ -439,12 +439,12 @@
     {
       "title": "Map1/WitchMotherBlocker",
       "position": {
-        "x": -17.85,
-        "y": 27.71
+        "x": -24.8,
+        "y": 33.62
       },
       "size": {
-        "x": 6,
-        "y": 6
+        "x": 26.64,
+        "y": 19
       },
       "colliderShape": "box",
       "colliderSize": {
@@ -5617,7 +5617,7 @@
       },
       "colliderShape": "box",
       "colliderSize": {
-        "x": 1.2,
+        "x": 0.5,
         "y": 0.2
       },
       "colliderOffset": {
@@ -8065,7 +8065,7 @@
         "y": 0
       },
       "hideCriteria": 0,
-      "sortingOrder": 30,
+      "sortingOrder": 40,
       "image": [
         "cave_back"
       ],

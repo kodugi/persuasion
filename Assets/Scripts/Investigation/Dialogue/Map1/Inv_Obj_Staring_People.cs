@@ -37,22 +37,23 @@ public class Inv_Obj_Staring_People: Utility
         {
             foreach(Transform child in parent.transform)
             {
-                if (child.gameObject.CompareTag("Inv_Staring_People"))
+                // PeopleStaring is an Addressable prefab. Do not rely on custom
+                // project tags here: missing tags throw in a player build and
+                // abort this object's initialization.
+                if (child.TryGetComponent<Animator>(out _))
                 {
                     people[child.gameObject] = default;
+                    CheckEye(child.gameObject, child.gameObject);
                 }
-
-                CheckEye(child.gameObject, child.gameObject);
             }
         }
         void CheckEye(GameObject parent, GameObject idx)
         {
             foreach(Transform child in parent.transform)
             {
-                if (child.gameObject.CompareTag("Inv_Staring_People_Eye"))
+                if (child.name == "Eye")
                 {
                     people[idx] = (child.gameObject, child.localPosition);
-                    print(child.gameObject.transform.position);
                 }
                 else CheckEye(child.gameObject, idx);
             }

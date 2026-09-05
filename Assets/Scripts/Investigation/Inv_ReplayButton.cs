@@ -7,9 +7,9 @@ namespace Investigation
     {
         private void Start()
         {
-            GetComponent<Button>()?.onClick.AddListener(HandleReplayButtonClick);
+            //GetComponent<Button>()?.onClick.AddListener(HandleReplayButtonClick);
         }
-
+        /*
         private void HandleReplayButtonClick()
         {
             if (ChiefManager.Instance == null)
@@ -19,6 +19,6 @@ namespace Investigation
             }
 
             ChiefManager.Instance.ResetGame();
-        }
+        }*/
     }
 }

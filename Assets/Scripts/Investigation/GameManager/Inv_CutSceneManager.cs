@@ -15,6 +15,7 @@ namespace Investigation
     {
         [SerializeField] GameObject screenHider;
         [SerializeField] GameObject screenReddener;
+        [SerializeField] GameObject peopleStaringPrefab;
         GameObject _staringPeople = null;
         GameObject staringPeople{
             get{
@@ -51,15 +52,21 @@ namespace Investigation
                     bool penPossessed = false;
                     if (saveManager.TryLoadProgress("penPossessed", out object result0))
                     {
-                        penPossessed = (bool)result0;
+                        penPossessed = Convert.ToBoolean(result0);
                     }
                     bool notePossessed = false;
                     if (saveManager.TryLoadProgress("notePossessed", out object result1))
                     {
-                        notePossessed = (bool)result1;
+                        notePossessed = Convert.ToBoolean(result1);
                     }
                     if(penPossessed && notePossessed)
                     {
+                        // The objective must not depend on the Addressables load below.
+                        // In a build that load can fail or complete later, which previously
+                        // left this note in the saved note list indefinitely.
+                        RemoveNote("목표", "그림 그릴 수 있는 것을 찾아보자.");
+                        RemoveNote("목표", "아무 집 문이나 두드려 보자.");
+
                         interactManager.Effects(
                             new JObject
                             {
@@ -93,19 +100,30 @@ namespace Investigation
                                 }
                             }
                         );
-                        staringPeopleHandle = Addressables.LoadAssetAsync<GameObject>("PeopleStaring");
-                        yield return staringPeopleHandle;
-                        if (staringPeopleHandle.Status == AsyncOperationStatus.Succeeded)
+                        if (peopleStaringPrefab != null)
                         {
-                            GameObject obj = staringPeopleHandle.Result;
-                            staringPeople = Instantiate(obj);
+                            staringPeople = Instantiate(peopleStaringPrefab);
                             staringPeople.GetComponent<Inv_Obj_Staring_People>().player = playerCTRL.gameObject;
                             staringPeople.GetComponent<Inv_Obj_Staring_People>().manager = this;
                             staringPeople.GetComponent<Inv_Obj_Staring_People>().house_gather = interactManager.FindInteractableObj("Map1/House_Gathering").gameObject;
                         }
                         else
                         {
-                            Debug.LogError("Couldn't Load PeopleStaringAsset");
+                            // Fallback for scenes that have not assigned the direct reference yet.
+                            staringPeopleHandle = Addressables.LoadAssetAsync<GameObject>("PeopleStaring");
+                            yield return staringPeopleHandle;
+                            if (staringPeopleHandle.Status == AsyncOperationStatus.Succeeded)
+                            {
+                                GameObject obj = staringPeopleHandle.Result;
+                                staringPeople = Instantiate(obj);
+                                staringPeople.GetComponent<Inv_Obj_Staring_People>().player = playerCTRL.gameObject;
+                                staringPeople.GetComponent<Inv_Obj_Staring_People>().manager = this;
+                                staringPeople.GetComponent<Inv_Obj_Staring_People>().house_gather = interactManager.FindInteractableObj("Map1/House_Gathering").gameObject;
+                            }
+                            else
+                            {
+                                Debug.LogError($"Couldn't load PeopleStaring: {staringPeopleHandle.OperationException}");
+                            }
                         }
                     }
                     else
@@ -165,7 +183,7 @@ namespace Investigation
                     if (!playerCTRL.isHiding)
                     {
                         // 들키는 연출
-                        chiefManager.GameOver("엿듣고 있던 것을 들켜버렸다.");
+                        chiefManager.Inv_GameOver("엿듣고 있던 것을 들켜버렸다.");
                         break;
                     }
                     interactManager.Effects(
@@ -207,7 +225,7 @@ namespace Investigation
                 case "Teleport_After_Cave_Interaction":
                     playerCTRL.CanPlayerMove(false);
                     yield return FadeScreen(true);
-                    playerCTRL.gameObject.transform.position = new Vector2(0,0);
+                    playerCTRL.gameObject.transform.position = new Vector2(-1,11.8f);
                     yield return new WaitForSeconds(1f);
                     yield return FadeScreen(false);
                     //playerCTRL.CanPlayerMove(true);

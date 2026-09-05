@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
@@ -87,10 +88,25 @@ public partial class ChiefManager : MonoBehaviour
     }
     void Start()
     {
-        GameStartFromMainScene();
+        switch (currScene)
+        {
+            case "Start":
+                Destroy(gameObject);
+                break;
+            case "Investigation":
+                GameStartFromMainScene();
+                break;
+        }
     }
     public void GameStartFromMainScene()
     {
+        Debug.LogWarning("UniconTempCodeisRemaining");
+        if (onlyPuzzles)
+        {
+            StartInvestigation("Map_Unicon_Temp");
+            return;
+        }
+
         if(saveManager.TryLoadGeneralSave("FinalMap", out object result))
         {
             StartInvestigation((string)result);
@@ -101,14 +117,7 @@ public partial class ChiefManager : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if(currScene == "Persuasion")
-        {
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                print("Developer Option: Skipping the Puzzle");
-                StartInvestigation();
-            }
-        }
+        TempSkipCheckerOnUpdate();
     }
     void LoadScene(object id)
     {
@@ -201,7 +210,12 @@ public partial class ChiefManager : MonoBehaviour
 
         //print("2:"+autoInteractOnReturntoInv);
         saveManager.PrepareForInvestigationSceneLoad();
-        LoadScene(2);
+
+        //temp
+        Debug.LogWarning("UniconTempCodeisRemaining");
+        if(onlyPuzzles) LoadScene(3);
+        else LoadScene(2);
+
         //print("3:"+autoInteractOnReturntoInv);
         yield return null;
         ResetAudioAfterGameOver(false);
@@ -285,31 +299,44 @@ public partial class ChiefManager : MonoBehaviour
         PlayBGM(IsDreamPersuasion(id) ? DreamBGMId : MainBGMId);
         audioSource.PlayOneShot(persuasionEnteringSound);
 
+        //temp
+        Debug.LogWarning("UniconTempCodeisRemaining");
+        currPuzzle++;
         LoadScene(1);
         //yield return new WaitUntil(() => FindFirstObjectByType<something>() != null);
-        //temp
+        
+
         yield return null;
     }
-    public void GameOver(string reason)
+    public void Inv_GameOver(string reason)
     {
         print("Game Over");
         LoadingMotion();
-        StartCoroutine(GameOverScene(reason));
+        StartCoroutine(Inv_GameOverScene(reason));
     }
-    IEnumerator GameOverScene(string reason)
+    IEnumerator Inv_GameOverScene(string reason)
     {
         inv_PlayerCTRL.gameObject.SetActive(false);
-        GameObject _gameOverPanel = Instantiate(gameOverPanel, FindFirstObjectByType<Canvas>().transform);
+        GameObject _gameOverPanel = Instantiate(gameOverPanel, GameObject.Find("Canvas").transform);
         _gameOverPanel.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = reason;
+        _gameOverPanel.transform.Find("ReplayButton").GetComponent<Button>().onClick.AddListener(()=>RestartGame());
         _gameOverPanel.SetActive(true);
         print(_gameOverPanel);
         yield return null;
     }
-    public void ResetGame()
+    public void RestartGame()
     {
-        ResetAudioAfterGameOver(false);
-        SaveManager.ResetAllSaveData();
-        LoadScene(0);
+        print("시간 내에 숨지 못해서 죽은 경우");
+        saveManager.AddProgress("Map1/Cavestate", 0);
+        saveManager.AddProgress("Map1/House_Gatheringstate", 3);
+        inv_PlayerCTRL.gameObject.transform.position=new Vector3(-1.68f,22.12f);
+        autoInteractOnReturntoInv="Map1/House_Gathering";
+
+        //currScene = "Start";
+        //ResetAudioAfterGameOver(false);
+        //SceneManager.LoadScene(0);
+        //Destroy(gameObject);
+        StartInvestigation("Map1");
     }
 
     public void ReturnToStartScene()
