@@ -4,7 +4,7 @@ using SingletonUtils;
 
 namespace GamePlay
 {
-    public class WinConditionManager: Singleton<WinConditionManager>
+    public class WinConditionManager: Singleton<WinConditionManager>, IDisposable
     {
         private BoardController _boardController;
         private SuspicionManager _suspicionManager;
@@ -22,13 +22,18 @@ namespace GamePlay
 
         public event EventHandler<DefeatEventArgs> RaiseDefeatEvent;
         
-        public void Initialize()
+        public void Initialize(
+            BoardController boardController,
+            SuspicionManager suspicionManager,
+            GameStateManager gameStateManager,
+            TurnManager turnManager,
+            TutorialController tutorialController)
         {
-            _boardController = BoardController.Instance;
-            _suspicionManager = SuspicionManager.Instance;
-            _gameStateManager = GameStateManager.Instance;
-            _turnManager = TurnManager.Instance;
-            _tutorialController = TutorialController.Instance;
+            _boardController = boardController ?? throw new ArgumentNullException(nameof(boardController));
+            _suspicionManager = suspicionManager ?? throw new ArgumentNullException(nameof(suspicionManager));
+            _gameStateManager = gameStateManager ?? throw new ArgumentNullException(nameof(gameStateManager));
+            _turnManager = turnManager ?? throw new ArgumentNullException(nameof(turnManager));
+            _tutorialController = tutorialController ?? throw new ArgumentNullException(nameof(tutorialController));
             _isGameEnded = false;
             _lastDefeatReason = DefeatReason.None;
 
@@ -36,6 +41,37 @@ namespace GamePlay
             _suspicionManager.RaiseSetSuspicionEvent += HandleSetSuspicionEvent;
             _turnManager.RaiseSetTurnEvent += HandleSetTurnEvent;
             _tutorialController.RaiseSetTutorialStateEvent += HandleSetTutorialStateEvent;
+        }
+
+        public void Dispose()
+        {
+            if (_boardController != null)
+            {
+                _boardController.RaiseCellPlacementEvent -= HandleCellPlacementEvent;
+            }
+
+            if (_suspicionManager != null)
+            {
+                _suspicionManager.RaiseSetSuspicionEvent -= HandleSetSuspicionEvent;
+            }
+
+            if (_turnManager != null)
+            {
+                _turnManager.RaiseSetTurnEvent -= HandleSetTurnEvent;
+            }
+
+            if (_tutorialController != null)
+            {
+                _tutorialController.RaiseSetTutorialStateEvent -= HandleSetTutorialStateEvent;
+            }
+
+            RaiseDefeatEvent = null;
+            _boardController = null;
+            _suspicionManager = null;
+            _gameStateManager = null;
+            _turnManager = null;
+            _tutorialController = null;
+            ReleaseInstance();
         }
 
         public void BeginReset()
@@ -147,8 +183,8 @@ namespace GamePlay
                 return;
             }
 
-            _lastDefeatReason = DefeatReason.None;
-            GameManager.Instance.QueueResetGame();
+            _lastDefeatReason = DefeatReason.DreamAutoReset;
+            RaiseDefeatEvent?.Invoke(this, new DefeatEventArgs(DefeatReason.DreamAutoReset));
         }
 
         private static bool IsDreamRetryMap(GameInfo.MapType mapType)
@@ -175,6 +211,7 @@ namespace GamePlay
         SuspicionOverflow,
         TurnLimitExceeded,
         Scripted,
-        DreamRetry
+        DreamRetry,
+        DreamAutoReset
     }
 }

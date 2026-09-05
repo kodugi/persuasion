@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GamePlay
 {
-    public class SuspicionManager: Singleton<SuspicionManager>
+    public class SuspicionManager: Singleton<SuspicionManager>, IDisposable
     {
         private int _currentSuspicion;
         private int _currentSuspicionPreview;
@@ -18,19 +18,45 @@ namespace GamePlay
         public event EventHandler<SetSuspicionEventArgs> RaiseSetSuspicionPreviewEvent;
         public event EventHandler<SetSuspicionEventArgs> RaiseSuspicionOverflowEvent;
 
-        public void Initialize(int maxSuspicion, int decrementAmount)
+        public void Initialize(
+            int maxSuspicion,
+            int decrementAmount,
+            BlockSelectionManager blockSelectionManager,
+            TurnManager turnManager)
         {
             _currentSuspicion = 0;
             _maxSuspicion = maxSuspicion;
             _decrementAmount = decrementAmount;
-            _blockSelectionManager = BlockSelectionManager.Instance;
-            _turnManager = TurnManager.Instance;
+            _blockSelectionManager = blockSelectionManager ??
+                                     throw new ArgumentNullException(nameof(blockSelectionManager));
+            _turnManager = turnManager ?? throw new ArgumentNullException(nameof(turnManager));
 
             _blockSelectionManager.RaisePlaceBlock += HandlePlaceBlockEvent;
             _blockSelectionManager.RaiseSelectBlockEvent += HandleSelectBlockEvent;
             _turnManager.RaiseSetTurnEvent += HandleSetTurnEvent;
             SetSuspicion(0);
             SetSuspicionPreview(_blockSelectionManager.GetSelectedBlock().GetSuspicion());
+        }
+
+        public void Dispose()
+        {
+            if (_blockSelectionManager != null)
+            {
+                _blockSelectionManager.RaisePlaceBlock -= HandlePlaceBlockEvent;
+                _blockSelectionManager.RaiseSelectBlockEvent -= HandleSelectBlockEvent;
+            }
+
+            if (_turnManager != null)
+            {
+                _turnManager.RaiseSetTurnEvent -= HandleSetTurnEvent;
+            }
+
+            RaiseSetSuspicionEvent = null;
+            RaiseSetSuspicionPreviewEvent = null;
+            RaiseSuspicionOverflowEvent = null;
+            _blockSelectionManager = null;
+            _turnManager = null;
+            ReleaseInstance();
         }
 
         public int GetCurrentSuspicion()

@@ -5,11 +5,10 @@ using SingletonUtils;
 
 namespace GamePlay
 {
-    public class DialogueManager: Singleton<DialogueManager>
+    public class DialogueManager: Singleton<DialogueManager>, IDisposable
     {
         private Dictionary<int, Dictionary<TurnState, DialogueData>> _dialogueDataDict;
         private DialogueData _currentDialogueData;
-        private GameStateManager _gameStateManager;
         private int _currentPage;
         private int _currentEntry;
         private TurnState _resumeTurnState;
@@ -22,11 +21,11 @@ namespace GamePlay
         public event EventHandler<DialoguePageEndEventArgs> RaiseDialoguePageEndEvent;
 
         private TurnManager _turnManager;
-        
-        public void Initialize()
+        private TutorialController _tutorialController;
+
+        public void Initialize(TurnManager turnManager, TutorialController tutorialController)
         {
             _dialogueDataDict = GameInfoHolder.GetCurrentGameInfo().GetDialogueDataDict() ?? new Dictionary<int, Dictionary<TurnState, DialogueData>>();
-            _gameStateManager = GameStateManager.Instance;
             _currentDialogueData = null;
             _currentPage = 0;
             _currentEntry = 0;
@@ -37,8 +36,27 @@ namespace GamePlay
             _dialogueCompletedCallback = null;
             _playedDialogueSources = new HashSet<ScriptableObject>();
 
-            _turnManager = TurnManager.Instance;
+            _turnManager = turnManager ?? throw new ArgumentNullException(nameof(turnManager));
+            _tutorialController = tutorialController ?? throw new ArgumentNullException(nameof(tutorialController));
             _turnManager.RaiseSetTurnStateEvent += HandleSetTurnStateEvent;
+        }
+
+        public void Dispose()
+        {
+            if (_turnManager != null)
+            {
+                _turnManager.RaiseSetTurnStateEvent -= HandleSetTurnStateEvent;
+            }
+
+            ClearPlaybackHistory();
+            RaiseSetDialogueEntryEvent = null;
+            RaiseDialoguePageEndEvent = null;
+            _dialogueDataDict = null;
+            _currentDialogueData = null;
+            _dialogueCompletedCallback = null;
+            _turnManager = null;
+            _tutorialController = null;
+            ReleaseInstance();
         }
 
         public void ResetGame()
@@ -212,8 +230,8 @@ namespace GamePlay
                 return false;
             }
 
-            return TutorialController.Instance == null ||
-                   !TutorialController.Instance.IsWaitingForInteractionOutsideDialogue();
+            return _tutorialController == null ||
+                   !_tutorialController.IsWaitingForInteractionOutsideDialogue();
         }
 
         public bool HasDialogueData()

@@ -16,5 +16,13 @@ namespace SingletonUtils
 
             Instance = (T)this;
         }
+
+        protected void ReleaseInstance()
+        {
+            if (ReferenceEquals(Instance, this))
+            {
+                Instance = null;
+            }
+        }
     }
 }

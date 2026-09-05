@@ -11,7 +11,22 @@ namespace GamePlay
 
         public static GameInfo GetCurrentGameInfo()
         {
-            return _gameInfoList[_currentIdx];
+            TryGetCurrentGameInfo(out GameInfo gameInfo);
+            return gameInfo;
+        }
+
+        public static bool TryGetCurrentGameInfo(out GameInfo gameInfo)
+        {
+            gameInfo = null;
+            if (_gameInfoList == null ||
+                _currentIdx < 0 ||
+                _currentIdx >= _gameInfoList.Count)
+            {
+                return false;
+            }
+
+            gameInfo = _gameInfoList[_currentIdx];
+            return gameInfo != null;
         }
 
         public static List<GameInfo> GetGameInfoList()
@@ -21,26 +36,33 @@ namespace GamePlay
 
         public static void SetGameInfo(GameInfo gameInfo)
         {
-            _gameInfoList = new List<GameInfo>() { gameInfo };
+            _gameInfoList = gameInfo == null
+                ? new List<GameInfo>()
+                : new List<GameInfo> { gameInfo };
             _currentIdx = 0;
             _pendingIdx = null;
         }
 
         public static void SetGameInfoList(List<GameInfo> gameInfoList)
         {
-            _gameInfoList = gameInfoList;
+            _gameInfoList = gameInfoList == null
+                ? new List<GameInfo>()
+                : gameInfoList.FindAll(gameInfo => gameInfo != null);
             _currentIdx = 0;
             _pendingIdx = null;
         }
 
         public static bool HasMoreGameInfos()
         {
-            return _currentIdx < _gameInfoList.Count - 1;
+            return _gameInfoList != null && _currentIdx < _gameInfoList.Count - 1;
         }
 
         public static void ToNext()
         {
-            _pendingIdx = _currentIdx + 1;
+            if (HasMoreGameInfos())
+            {
+                _pendingIdx = _currentIdx + 1;
+            }
         }
 
         public static void CommitPendingGameInfoChange()
@@ -58,11 +80,13 @@ namespace GamePlay
         public static void SetCurrentIdx(int idx)
         {
             _pendingIdx = null;
-            _currentIdx = idx;
-            if (_currentIdx >= _gameInfoList.Count)
+            if (_gameInfoList == null || idx < 0 || idx >= _gameInfoList.Count)
             {
-                Debug.LogError("current index exceeded max gameInfo count");
+                Debug.LogError("GameInfo index is outside the available range: " + idx);
+                return;
             }
+
+            _currentIdx = idx;
         }
     }
 }

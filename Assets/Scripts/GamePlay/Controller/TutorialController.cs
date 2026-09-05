@@ -6,7 +6,7 @@ using Vector2Int = VectorUtils.Vector2Int;
 
 namespace GamePlay
 {
-    public class TutorialController: Singleton<TutorialController>
+    public class TutorialController: Singleton<TutorialController>, IDisposable
     {
         private Dictionary<TutorialState, List<TutorialEntry>> _tutorialEntriesDict;
         private TutorialState _currentState;
@@ -20,21 +20,49 @@ namespace GamePlay
 
         public event EventHandler<SetTutorialStateEventArgs> RaiseSetTutorialStateEvent;
 
-        public void Initialize(Dictionary<TutorialState, List<TutorialEntry>> tutorialEntries)
+        public void Initialize(
+            Dictionary<TutorialState, List<TutorialEntry>> tutorialEntries,
+            DialogueManager dialogueManager,
+            TurnManager turnManager,
+            BoardController boardController)
         {
             _tutorialEntriesDict = tutorialEntries ?? new Dictionary<TutorialState, List<TutorialEntry>>();
             _currentState = TutorialState.None;
             _currentStateWasTriggeredWithDialogue = false;
             _currentCellCoords = new List<Vector2Int>();
             _nextStateDelayRemaining = -1f;
-            _dialogueManager = DialogueManager.Instance;
-            _turnManager = TurnManager.Instance;
-            _boardController = BoardController.Instance;
+            _dialogueManager = dialogueManager ?? throw new ArgumentNullException(nameof(dialogueManager));
+            _turnManager = turnManager ?? throw new ArgumentNullException(nameof(turnManager));
+            _boardController = boardController ?? throw new ArgumentNullException(nameof(boardController));
             
             _dialogueManager.RaiseSetDialogueEntryEvent += HandleSetDialogueEntryEvent;
             _dialogueManager.RaiseDialoguePageEndEvent += HandleDialoguePageEndEvent;
             RaiseSetTutorialStateEvent += HandleSetTutorialStateEvent;
             _boardController.RaiseCellPlacementEvent += HandleCellPlacementEvent;
+        }
+
+        public void Dispose()
+        {
+            if (_dialogueManager != null)
+            {
+                _dialogueManager.RaiseSetDialogueEntryEvent -= HandleSetDialogueEntryEvent;
+                _dialogueManager.RaiseDialoguePageEndEvent -= HandleDialoguePageEndEvent;
+            }
+
+            RaiseSetTutorialStateEvent -= HandleSetTutorialStateEvent;
+
+            if (_boardController != null)
+            {
+                _boardController.RaiseCellPlacementEvent -= HandleCellPlacementEvent;
+            }
+
+            RaiseSetTutorialStateEvent = null;
+            _tutorialEntriesDict = null;
+            _currentCellCoords = null;
+            _dialogueManager = null;
+            _turnManager = null;
+            _boardController = null;
+            ReleaseInstance();
         }
 
         public void ResetGame()

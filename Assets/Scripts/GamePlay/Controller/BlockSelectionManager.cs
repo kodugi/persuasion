@@ -6,7 +6,7 @@ using Vector2Int = VectorUtils.Vector2Int;
 
 namespace GamePlay
 {
-    public class BlockSelectionManager : Singleton<BlockSelectionManager>
+    public class BlockSelectionManager : Singleton<BlockSelectionManager>, IDisposable
     {
         private TurnManager _turnManager;
         private BlockSelectionView _blockSelectionView;
@@ -37,29 +37,57 @@ namespace GamePlay
             RaiseSelectBlockEvent?.Invoke(this, new SelectBlockEventArgs(GetSelectedBlock().GetSuspicion()));
         }
 
-        public void SetSelectedBlockIdx(int selectedBlockIdx) {
-            if(_turnManager.GetTurnState() == TurnState.PlayerIdle)
+        public void SetSelectedBlockIdx(int selectedBlockIdx)
+        {
+            if (_turnManager.GetTurnState() == TurnState.PlayerIdle &&
+                selectedBlockIdx >= 0 &&
+                selectedBlockIdx < _blocks.Count)
             {
                 _selectedBlockIdx = selectedBlockIdx;
-                _blockSelectionView.SetSelectedBlockUI(selectedBlockIdx);
-                RaiseSelectBlockEvent.Invoke(this, new SelectBlockEventArgs(GetSelectedBlock().GetSuspicion()));
+                _blockSelectionView?.SetSelectedBlockUI(selectedBlockIdx);
+                RaiseSelectBlockEvent?.Invoke(this, new SelectBlockEventArgs(GetSelectedBlock().GetSuspicion()));
             }
         }
 
-        public void Initialize(List<IBlock> blockList)
+        public void Initialize(
+            List<IBlock> blockList,
+            TurnManager turnManager)
         {
+            if (blockList == null || blockList.Count == 0)
+            {
+                throw new ArgumentException("At least one block must be configured.", nameof(blockList));
+            }
+
             _selectedBlockIdx = 0;
             _blocks = new List<IBlock>(blockList);
             foreach(IBlock block in blockList)
             {
                 block.Reset();
             }
-            _turnManager = TurnManager.Instance;
-            _blockSelectionView = BlockSelectionView.Instance;
+            _turnManager = turnManager ?? throw new ArgumentNullException(nameof(turnManager));
 
             _turnManager.RaiseSetTurnStateEvent += HandleSetTurnStateEvent;
+        }
 
-            _blockSelectionView.SetBlockUI(_blocks);
+        public void AttachView(BlockSelectionView blockSelectionView)
+        {
+            _blockSelectionView = blockSelectionView;
+            _blockSelectionView?.SetBlockUI(_blocks);
+        }
+
+        public void Dispose()
+        {
+            if (_turnManager != null)
+            {
+                _turnManager.RaiseSetTurnStateEvent -= HandleSetTurnStateEvent;
+            }
+
+            RaiseSelectBlockEvent = null;
+            RaisePlaceBlock = null;
+            _blockSelectionView = null;
+            _blocks = null;
+            _turnManager = null;
+            ReleaseInstance();
         }
 
         public bool IsSelectedBlockAvailable()
@@ -96,7 +124,7 @@ namespace GamePlay
 
             RaisePlaceBlock?.Invoke(this, new PlaceBlockEventArgs(selectedBlock, incrementAmount));
             selectedBlock.RegisterPlacement(coord);
-            RaiseSelectBlockEvent.Invoke(this, new SelectBlockEventArgs(selectedBlock.GetSuspicion()));
+            RaiseSelectBlockEvent?.Invoke(this, new SelectBlockEventArgs(selectedBlock.GetSuspicion()));
         }
 
         public void PlaceContinuedBlock(Vector2Int coord)
