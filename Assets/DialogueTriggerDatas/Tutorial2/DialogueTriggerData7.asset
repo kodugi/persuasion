@@ -31,10 +31,15 @@ MonoBehaviour:
       DialogueText: "\uD558\uC9C0\uB9CC \uD55C \uBC88 \uC131\uACF5\uD588\uB2E4\uACE0
         \uD574\uC11C \uC88B\uC544\uD558\uBA74 \uC548\uB3FC. \uC0AC\uB78C\uC758 \uC758\uC2DD\uC5D0\uB294
         \uCE35\uC704\uAC00 \uC788\uC73C\uB2C8\uAE4C."
-      StateToTrigger: 21
+      StateToTrigger: 0
       StateTriggerTiming: 1
       FigurePosition: 3
       FigureSprite: {fileID: 21300000, guid: 9f7722c6ab0348b418d8400e510da437, type: 3}
+    - SpeakerName: 
+      DialogueText: "\uD37C\uC990\uC744 \uC77C\uC815 \uAC1C\uC218\uB9CC\uD07C \uD480\uBA74 \uB2E4\uC74C \uC0AC\uB78C\uC73C\uB85C \uB118\uC5B4\uAC08
+        \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+      StateToTrigger: 21
+      StateTriggerTiming: 1
     - SpeakerName: "\uB098"
       DialogueText: "\uC774\uC804 \uCE35\uC758 \uAC80\uC740 \uAC10\uC815\uB4E4\uC744
         \uBAA9\uD45C\uCE58\uB9CC\uD07C \uBCC0\uD658\uC2DC\uD0A4\uBA74 \uB354 \uAE4A\uC740

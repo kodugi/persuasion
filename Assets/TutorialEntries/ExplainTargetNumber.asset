@@ -16,4 +16,5 @@ MonoBehaviour:
   _cellX: 0
   _cellY: 0
   _cellType: 3
-  _gameObjectPath: Canvas/RightPanel/GameStatePanel/TargetNumText
+  _gameObjectPath: Canvas/RightPanel/GameStatePanel/TargetNumPanel/TargetNumText
+  _nextStateDelay: 1
