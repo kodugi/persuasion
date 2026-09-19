@@ -31,7 +31,7 @@
       "hideCriteria": -1.5,
       "sortingOrder": 2,
       "image": "집1",
-      "script": "Inv_InteractionObj_Map1_Houses",
+      "script": "InteractionObj_Map1_Houses",
       "manually_touchable": true
     }
   ]

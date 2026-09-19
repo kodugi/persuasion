@@ -528,7 +528,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eda5f955034f946cfa6c8d5b1af8fcc5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Inv_DialogueBox
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueBox
   interactionScript: {fileID: 0}
   buttonPrefab: {fileID: 7074669923880004495, guid: e6e6b1983a3f84ef0b3714b2187548a6, type: 3}
 --- !u!114 &139109051
@@ -676,7 +676,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 729e97df2451b4efb8d17fe4b8c293dc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Inv_PlayerCTRL
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCTRL
   moveSpeed: 10
   thoughtObj: {fileID: 1873757237}
   isHiding: 0
@@ -1798,7 +1798,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cab3e1de04ebc445b8873fc6eea724e2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Investigation.Inv_Interact
+  m_EditorClassIdentifier: Assembly-CSharp::Investigation.InteractionCTRL
   dialogueBox: {fileID: 6684414210696776756, guid: 58c0cd7e3029444ad8443094e5f1c78d, type: 3}
   interactionGuide: {fileID: 5443706658675615566}
   anchorPosition: 0000000055000000
@@ -1818,7 +1818,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7c9f1ceb054904ba18ed286ea9e20b28, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Investigation.Inv_GameManager
+  m_EditorClassIdentifier: Assembly-CSharp::Investigation.GameManager
   interactablePrefab: {fileID: 3928896895775994901, guid: d7c96213b76894930a2512f0e2685c64, type: 3}
   backgroundPrefab: {fileID: 3928896895775994901, guid: 549f809be467848758824142f6978ca5, type: 3}
   inventoryPanel: {fileID: 139109048}
@@ -2092,7 +2092,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eda5f955034f946cfa6c8d5b1af8fcc5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Inv_DialogueBox
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueBox
   interactionScript: {fileID: 0}
   buttonPrefab: {fileID: 7074669923880004495, guid: e6e6b1983a3f84ef0b3714b2187548a6, type: 3}
 --- !u!114 &1032258474
@@ -3275,7 +3275,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eda5f955034f946cfa6c8d5b1af8fcc5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Inv_DialogueBox
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueBox
   interactionScript: {fileID: 0}
   buttonPrefab: {fileID: 7074669923880004495, guid: e6e6b1983a3f84ef0b3714b2187548a6, type: 3}
 --- !u!114 &1873757240
@@ -3858,7 +3858,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eda5f955034f946cfa6c8d5b1af8fcc5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Inv_DialogueBox
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueBox
   interactionScript: {fileID: 0}
   buttonPrefab: {fileID: 7074669923880004495, guid: e6e6b1983a3f84ef0b3714b2187548a6, type: 3}
 --- !u!224 &1917085899827519529
@@ -3999,7 +3999,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eda5f955034f946cfa6c8d5b1af8fcc5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Inv_DialogueBox
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueBox
   interactionScript: {fileID: 0}
   buttonPrefab: {fileID: 7074669923880004495, guid: e6e6b1983a3f84ef0b3714b2187548a6, type: 3}
 --- !u!224 &4797310136710664156

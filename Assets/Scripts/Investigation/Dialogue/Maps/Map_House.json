@@ -133,7 +133,7 @@
       "hideCriteria": 0,
       "sortingOrder": 0,
       "image": [],
-      "script": "Inv_InteractionObj_Map_House_AfterDream",
+      "script": "InteractionObj_Map_House_AfterDream",
       "manually_touchable": false
     }
   ]

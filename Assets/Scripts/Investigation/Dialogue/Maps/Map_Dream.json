@@ -238,7 +238,7 @@
       "hideCriteria": 0,
       "sortingOrder": 5,
       "image": ["Sister"],
-      "script": "Inv_InteractionObj_Map_Dream_Sister",
+      "script": "InteractionObj_Map_Dream_Sister",
       "manually_touchable": true
     }
   ]

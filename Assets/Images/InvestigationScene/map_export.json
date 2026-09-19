@@ -97,7 +97,7 @@
       "hideCriteria": 0,
       "sortingOrder": 0,
       "image": "",
-      "script": "Inv_InteractionObj_Map1_Guard1_Trigger",
+      "script": "InteractionObj_Map1_Guard1_Trigger",
       "manually_touchable": false
     },
     {
@@ -163,7 +163,7 @@
       "hideCriteria": -100,
       "sortingOrder": 0,
       "image": "",
-      "script": "Inv_InteractionObj_Map1_WitchMotherBlocker",
+      "script": "InteractionObj_Map1_WitchMotherBlocker",
       "manually_touchable": false
     },
     {
@@ -196,7 +196,7 @@
       "hideCriteria": -1.5,
       "sortingOrder": 2,
       "image": "house1",
-      "script": "Inv_InteractionObj_Map1_Houses",
+      "script": "InteractionObj_Map1_Houses",
       "manually_touchable": true
     },
     {
@@ -262,7 +262,7 @@
       "hideCriteria": -1.5,
       "sortingOrder": 2,
       "image": "house1",
-      "script": "Inv_InteractionObj_Map1_House_Gathering",
+      "script": "InteractionObj_Map1_House_Gathering",
       "manually_touchable": true
     },
     {
@@ -295,7 +295,7 @@
       "hideCriteria": 0,
       "sortingOrder": 2,
       "image": "cave",
-      "script": "Inv_InteractionObj_Map1_Cave",
+      "script": "InteractionObj_Map1_Cave",
       "manually_touchable": false
     },
     {
@@ -328,7 +328,7 @@
       "hideCriteria": -1.5,
       "sortingOrder": 2,
       "image": "house1",
-      "script": "Inv_InteractionObj_Map1_Houses",
+      "script": "InteractionObj_Map1_Houses",
       "manually_touchable": false
     },
     {
@@ -361,7 +361,7 @@
       "hideCriteria": -1.5,
       "sortingOrder": 2,
       "image": "house1",
-      "script": "Inv_InteractionObj_Map1_Houses",
+      "script": "InteractionObj_Map1_Houses",
       "manually_touchable": false
     },
     {
@@ -394,7 +394,7 @@
       "hideCriteria": -1.5,
       "sortingOrder": 2,
       "image": "house1",
-      "script": "Inv_InteractionObj_Map1_Houses",
+      "script": "InteractionObj_Map1_Houses",
       "manually_touchable": false
     },
     {
@@ -427,7 +427,7 @@
       "hideCriteria": -1.5,
       "sortingOrder": 2,
       "image": "house1",
-      "script": "Inv_InteractionObj_Map1_Houses",
+      "script": "InteractionObj_Map1_Houses",
       "manually_touchable": false
     },
     {
@@ -460,7 +460,7 @@
       "hideCriteria": -1.5,
       "sortingOrder": 2,
       "image": "house1",
-      "script": "Inv_InteractionObj_Map1_Houses",
+      "script": "InteractionObj_Map1_Houses",
       "manually_touchable": false
     },
     {
@@ -493,7 +493,7 @@
       "hideCriteria": -1.5,
       "sortingOrder": 2,
       "image": "house1",
-      "script": "Inv_InteractionObj_Map1_Houses",
+      "script": "InteractionObj_Map1_Houses",
       "manually_touchable": false
     },
     {
@@ -526,7 +526,7 @@
       "hideCriteria": -1.5,
       "sortingOrder": 2,
       "image": "house1",
-      "script": "Inv_InteractionObj_Map1_Houses",
+      "script": "InteractionObj_Map1_Houses",
       "manually_touchable": false
     },
     {
@@ -559,7 +559,7 @@
       "hideCriteria": -1.5,
       "sortingOrder": 2,
       "image": "house1",
-      "script": "Inv_InteractionObj_Map1_Houses",
+      "script": "InteractionObj_Map1_Houses",
       "manually_touchable": false
     },
     {
@@ -592,7 +592,7 @@
       "hideCriteria": -1.5,
       "sortingOrder": 2,
       "image": "house1",
-      "script": "Inv_InteractionObj_Map1_Houses",
+      "script": "InteractionObj_Map1_Houses",
       "manually_touchable": false
     },
     {
@@ -625,7 +625,7 @@
       "hideCriteria": -1.5,
       "sortingOrder": 2,
       "image": "house1",
-      "script": "Inv_InteractionObj_Map1_Houses",
+      "script": "InteractionObj_Map1_Houses",
       "manually_touchable": false
     },
     {
@@ -658,7 +658,7 @@
       "hideCriteria": -1.5,
       "sortingOrder": 2,
       "image": "house1",
-      "script": "Inv_InteractionObj_Map1_Houses",
+      "script": "InteractionObj_Map1_Houses",
       "manually_touchable": false
     },
     {
@@ -691,7 +691,7 @@
       "hideCriteria": -1.5,
       "sortingOrder": 2,
       "image": "house1",
-      "script": "Inv_InteractionObj_Map1_Houses",
+      "script": "InteractionObj_Map1_Houses",
       "manually_touchable": false
     },
     {
@@ -724,7 +724,7 @@
       "hideCriteria": -1.5,
       "sortingOrder": 2,
       "image": "house1",
-      "script": "Inv_InteractionObj_Map1_Houses",
+      "script": "InteractionObj_Map1_Houses",
       "manually_touchable": false
     },
     {
@@ -823,7 +823,7 @@
       "hideCriteria": -0.5,
       "sortingOrder": 10,
       "image": "writer",
-      "script": "Inv_InteractionObj_Map1_Guard1",
+      "script": "InteractionObj_Map1_Guard1",
       "manually_touchable": true
     },
     {
@@ -856,7 +856,7 @@
       "hideCriteria": -0.5,
       "sortingOrder": 10,
       "image": "writer",
-      "script": "Inv_InteractionObj_Map1_Writer",
+      "script": "InteractionObj_Map1_Writer",
       "manually_touchable": true
     },
     {
@@ -889,7 +889,7 @@
       "hideCriteria": -0.5,
       "sortingOrder": 10,
       "image": "작가",
-      "script": "Inv_InteractionObj_Map1_GuideToCave",
+      "script": "InteractionObj_Map1_GuideToCave",
       "manually_touchable": false
     },
     {
@@ -922,7 +922,7 @@
       "hideCriteria": -0.5,
       "sortingOrder": 10,
       "image": "작가",
-      "script": "Inv_InteractionObj_WitchMother",
+      "script": "InteractionObj_WitchMother",
       "manually_touchable": true
     },
     {
@@ -955,7 +955,7 @@
       "hideCriteria": -100,
       "sortingOrder": 10,
       "image": "Player",
-      "script": "Inv_InteractionObj_Map1_SurroundingWitchMother",
+      "script": "InteractionObj_Map1_SurroundingWitchMother",
       "manually_touchable": false
     },
     {
@@ -988,7 +988,7 @@
       "hideCriteria": -100,
       "sortingOrder": 10,
       "image": "Player",
-      "script": "Inv_InteractionObj_Map1_SurroundingWitchMother",
+      "script": "InteractionObj_Map1_SurroundingWitchMother",
       "manually_touchable": false
     },
     {
@@ -1021,7 +1021,7 @@
       "hideCriteria": 0,
       "sortingOrder": 12,
       "image": "pigeon",
-      "script": "Inv_InteractionObj_Map1_Pigeon",
+      "script": "InteractionObj_Map1_Pigeon",
       "manually_touchable": false
     },
     {
@@ -1054,7 +1054,7 @@
       "hideCriteria": 0,
       "sortingOrder": 50,
       "image": "note_on_the_ground",
-      "script": "Inv_InteractionObj_Map1_Note_On_Ground",
+      "script": "InteractionObj_Map1_Note_On_Ground",
       "manually_touchable": true
     },
     {
@@ -1087,7 +1087,7 @@
       "hideCriteria": 0,
       "sortingOrder": 52,
       "image": "butterflynet_torn",
-      "script": "Inv_InteractionObj_Map1_ButterflyNet",
+      "script": "InteractionObj_Map1_ButterflyNet",
       "manually_touchable": true
     },
     {
@@ -1120,7 +1120,7 @@
       "hideCriteria": 0,
       "sortingOrder": 52,
       "image": "fishnet",
-      "script": "Inv_InteractionObj_Map1_FishNet",
+      "script": "InteractionObj_Map1_FishNet",
       "manually_touchable": true
     },
     {
@@ -1153,7 +1153,7 @@
       "hideCriteria": 0,
       "sortingOrder": 52,
       "image": "trashcan_w_cloth",
-      "script": "Inv_InteractionObj_Map1_Trashcan",
+      "script": "InteractionObj_Map1_Trashcan",
       "manually_touchable": true
     }
   ]

@@ -471,7 +471,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eda5f955034f946cfa6c8d5b1af8fcc5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Inv_DialogueBox
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueBox
   interactionScript: {fileID: 0}
   interactionName: 
   buttonPrefab: {fileID: 7074669923880004495, guid: e6e6b1983a3f84ef0b3714b2187548a6, type: 3}

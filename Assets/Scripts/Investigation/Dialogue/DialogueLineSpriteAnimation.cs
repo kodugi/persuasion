@@ -60,7 +60,7 @@ namespace Investigation
     }
 
     /// <summary>
-    /// Watches rendered dialogue text instead of depending on Inv_DialogueBox internals.
+    /// Watches rendered dialogue text instead of depending on DialogueBox internals.
     /// This keeps the effect isolated from the shared investigation scene and dialogue system.
     /// </summary>
     internal sealed class DialogueLineSpriteAnimationPlayer : MonoBehaviour

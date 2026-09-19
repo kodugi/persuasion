@@ -623,7 +623,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 729e97df2451b4efb8d17fe4b8c293dc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Inv_PlayerCTRL
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCTRL
   moveSpeed: 4
   thoughtObj: {fileID: 1873757237}
   footCollider: {fileID: 261632902}
@@ -1944,7 +1944,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cab3e1de04ebc445b8873fc6eea724e2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Investigation.Inv_Interact
+  m_EditorClassIdentifier: Assembly-CSharp::Investigation.InteractionCTRL
   dialogueBox: {fileID: 4313908671361744220, guid: 7cf6aa8d91ea444edb310df986c5dc86, type: 3}
   interactionGuide: {fileID: 5443706658675615566}
   anchorPosition: 0000000055000000
@@ -1964,7 +1964,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7c9f1ceb054904ba18ed286ea9e20b28, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Investigation.Inv_GameManager
+  m_EditorClassIdentifier: Assembly-CSharp::Investigation.GameManager
   screenHider: {fileID: 2128851318}
   screenReddener: {fileID: 580898909}
   interactablePrefab: {fileID: 3928896895775994901, guid: d7c96213b76894930a2512f0e2685c64, type: 3}
@@ -2297,7 +2297,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eda5f955034f946cfa6c8d5b1af8fcc5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Inv_DialogueBox
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueBox
   interactionScript: {fileID: 0}
   interactionName: 
   buttonPrefab: {fileID: 7074669923880004495, guid: e6e6b1983a3f84ef0b3714b2187548a6, type: 3}
@@ -4776,7 +4776,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eda5f955034f946cfa6c8d5b1af8fcc5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Inv_DialogueBox
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueBox
   interactionScript: {fileID: 0}
   interactionName: 
   buttonPrefab: {fileID: 7074669923880004495, guid: e6e6b1983a3f84ef0b3714b2187548a6, type: 3}

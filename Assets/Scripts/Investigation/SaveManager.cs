@@ -13,7 +13,7 @@ public partial class SaveManager : MonoBehaviour
     [SerializeField]
     public bool saveWhilePlaying = true;
 
-    private Inv_GameManager gameManager;
+    private GameManager gameManager;
 
     public Dictionary<string, object> progress =
         new Dictionary<string, object>();
@@ -57,7 +57,7 @@ public partial class SaveManager : MonoBehaviour
 
     public void OnInvestigationSceneStart()
     {
-        gameManager = GameObject.FindFirstObjectByType<Inv_GameManager>();
+        gameManager = GameObject.FindFirstObjectByType<GameManager>();
         //print("??");
         if (LoadData(
             "progress",
@@ -110,7 +110,7 @@ public partial class SaveManager : MonoBehaviour
         if (gameManager == null)
         {
             Debug.LogWarning(
-                "[SaveManager] Inv_GameManager was not found."
+                "[SaveManager] GameManager was not found."
             );
 
             return;

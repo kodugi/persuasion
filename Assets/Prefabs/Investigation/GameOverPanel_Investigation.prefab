@@ -544,7 +544,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 349cd86f7f5c34e6d901f1514c0df48f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Investigation.Inv_ReplayButton
+  m_EditorClassIdentifier: Assembly-CSharp::Investigation.ReplayButton
 --- !u!1 &9088813948073568748
 GameObject:
   m_ObjectHideFlags: 0

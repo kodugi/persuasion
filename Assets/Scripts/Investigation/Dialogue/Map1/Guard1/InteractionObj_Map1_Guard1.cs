@@ -1,0 +1,151 @@
+using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
+namespace Investigation
+{
+public class InteractionObj_Map1_Guard1: InteractionObj
+    {
+        [SerializeField] private float moveSpeed = 5f;
+        private InteractionCTRL interactManager;
+        private bool chasing = false;
+        private Transform player;
+        private AsyncOperationHandle<RuntimeAnimatorController> animatorHandle;
+        private Animator animator;
+        AudioClip footstepSound=null;
+        AsyncOperationHandle<AudioClip> footstepSoundHandle;
+        protected override void Starter()
+        {
+            interactManager = GameObject.FindFirstObjectByType<InteractionCTRL>();
+            player = GameObject.FindFirstObjectByType<PlayerCTRL>().transform;
+            StartCoroutine(LoadAnim());
+        }
+
+        IEnumerator LoadAnim()
+        {
+            var handle =
+                Addressables.LoadAssetAsync<RuntimeAnimatorController>("Map1_Guard_Animator");
+
+            yield return handle;
+
+            if (handle.Status == AsyncOperationStatus.Succeeded)
+            {
+                animator = gameObject.AddComponent<Animator>();
+                animator.runtimeAnimatorController = handle.Result;
+                animatorHandle = handle;
+            }
+            else
+            {
+                Debug.LogError("Failed to load Animator Controller");
+            }
+        }
+        void Update()
+        {
+            if(chasing) {
+                transform.position = Vector3.MoveTowards(transform.position,player.position,moveSpeed * Time.deltaTime);
+                player.gameObject.GetComponent<PlayerCTRL>().CanPlayerMove(false);
+
+            }
+        }
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.gameObject.CompareTag("Player") && chasing) {
+                /*interactManager.Effects(
+                    new JObject
+                    {
+                        ["type"]="changeCamera",
+                        ["target"]="Player",
+                        ["duration"]=0
+                    }
+                );*/
+                chasing = false;
+                animator.SetBool("Running", false);
+                StopFootstepSound();
+                interactManager.ForceInteraction(obj_name);
+                interactManager.Effects(
+                    new JObject
+                    {
+                        ["type"]= "variation",
+                        ["target"]= "Map1/Guard1",
+                        ["parameters"]= new JArray{"Pull"}
+                    }
+                );
+                SaveCurrPos();
+            }
+        }
+        override public void variation(List<string> parameters)
+        {
+            foreach(string parameter in parameters)
+            {
+                switch (parameter)
+                {
+                    case "Chase":
+                        if(state ==0) {
+                            chasing = true;
+                            animator.SetBool("Running", true);
+                            PlayFootstepSound();/*
+                            interactManager.Effects(
+                                new JObject
+                                {
+                                    ["type"]="changeCamera",
+                                    ["target"]="Map1/Guard1",
+                                    ["duration"]=0.5f
+                                }
+                            );*/
+                        }
+                        break;
+                    case "Caught":
+                        state = 1;
+                        break;
+                    case "Met":
+                        state = 2;
+                        break;
+                    case "Pull":
+                        animator.enabled = false;
+                        FadeSwitch(0,4, 0, 0f);
+                        FadeObject(player.gameObject, false, 0, 0f,false);
+                        if (animatorHandle.IsValid())
+                        {
+                            Addressables.Release(animatorHandle);
+                        }
+                        break;
+                    case "Throw":
+                        FadeSwitch(4,3, 0, 0f);
+                        break;
+                }
+            }
+            base.variation();
+        }
+         void PlayFootstepSound()
+        {
+            StartCoroutine(PlayFootstepSoundC());
+        }
+        IEnumerator PlayFootstepSoundC()
+        {
+            if (footstepSound == null)
+            {
+                footstepSoundHandle=Addressables.LoadAssetAsync<AudioClip>("audio_map1_guard_footstep");
+                yield return footstepSoundHandle;
+                if (footstepSoundHandle.Status == AsyncOperationStatus.Succeeded)
+                {
+                    footstepSound = footstepSoundHandle.Result;
+                }
+            }
+            audioSource.PlayOneShot(footstepSound);
+            yield return null;
+        }
+         void StopFootstepSound()
+        {
+            audioSource.Stop();
+        }
+        void OnDestroy()
+        {
+            if(footstepSoundHandle.IsValid()) Addressables.Release(footstepSoundHandle);
+            if(animatorHandle.IsValid()) Addressables.Release(animatorHandle);
+        }
+    }
+}

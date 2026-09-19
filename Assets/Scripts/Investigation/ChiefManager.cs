@@ -50,8 +50,8 @@ public partial class ChiefManager : MonoBehaviour
     bool audioLockedForJumpScare;
     bool isReturningToStartScene;
     string lastBGMId;
-    Investigation.Inv_GameManager inv_GameManager;
-    Investigation.Inv_PlayerCTRL inv_PlayerCTRL;
+    Investigation.GameManager inv_GameManager;
+    Investigation.PlayerCTRL inv_PlayerCTRL;
     SaveManager saveManager;
     public string currScene="";
     public string inv_Scene_ID="";
@@ -224,8 +224,8 @@ public partial class ChiefManager : MonoBehaviour
         saveManager.OnInvestigationSceneStart();
         //print("5:"+autoInteractOnReturntoInv);
 
-        inv_GameManager = GameObject.FindFirstObjectByType<Inv_GameManager>();
-        inv_PlayerCTRL = GameObject.FindFirstObjectByType<Inv_PlayerCTRL>();
+        inv_GameManager = GameObject.FindFirstObjectByType<GameManager>();
+        inv_PlayerCTRL = GameObject.FindFirstObjectByType<PlayerCTRL>();
 
         if (inv_GameManager == null || inv_PlayerCTRL == null)
         {
@@ -237,9 +237,9 @@ public partial class ChiefManager : MonoBehaviour
 
         inv_GameManager.FadeScreen(false);
 
-        yield return new WaitUntil(() => FindFirstObjectByType<Inv_InteractionObj>() != null);
+        yield return new WaitUntil(() => FindFirstObjectByType<InteractionObj>() != null);
 
-        yield return new WaitUntil(() => FindFirstObjectByType<Inv_Interact>() != null);
+        yield return new WaitUntil(() => FindFirstObjectByType<InteractionCTRL>() != null);
         yield return null;
         //print("6:"+autoInteractOnReturntoInv);
 

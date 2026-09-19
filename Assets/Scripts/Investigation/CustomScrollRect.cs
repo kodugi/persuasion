@@ -8,7 +8,7 @@ namespace Investigation
     public class CustomScrollRect : ScrollRect
     {
         public int selectedObjIdx=-1;
-        public Inv_GameManager inventoryManager;
+        public GameManager inventoryManager;
 
         public override void OnBeginDrag(PointerEventData eventData) { }
         public override void OnDrag(PointerEventData eventData) { }
