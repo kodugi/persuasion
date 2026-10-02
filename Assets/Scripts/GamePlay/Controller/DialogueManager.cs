@@ -17,6 +17,7 @@ namespace GamePlay
         private bool _playAllPagesContinuously;
         private Action _dialogueCompletedCallback;
         private HashSet<ScriptableObject> _playedDialogueSources;
+        private bool _usePuzzleOnlyDialogues;
         public event EventHandler<SetDialogueEntryEventArgs> RaiseSetDialogueEntryEvent;
         public event EventHandler<DialoguePageEndEventArgs> RaiseDialoguePageEndEvent;
 
@@ -25,7 +26,10 @@ namespace GamePlay
 
         public void Initialize(TurnManager turnManager, TutorialController tutorialController)
         {
-            _dialogueDataDict = GameInfoHolder.GetCurrentGameInfo().GetDialogueDataDict() ?? new Dictionary<int, Dictionary<TurnState, DialogueData>>();
+            ChiefManager chiefManager = ChiefManager.Instance;
+            _usePuzzleOnlyDialogues = chiefManager != null && chiefManager.IsPuzzleOnly;
+            _dialogueDataDict = GameInfoHolder.GetCurrentGameInfo().GetDialogueDataDict(_usePuzzleOnlyDialogues) ??
+                                new Dictionary<int, Dictionary<TurnState, DialogueData>>();
             _currentDialogueData = null;
             _currentPage = 0;
             _currentEntry = 0;
@@ -61,7 +65,8 @@ namespace GamePlay
 
         public void ResetGame()
         {
-            _dialogueDataDict = GameInfoHolder.GetCurrentGameInfo().GetDialogueDataDict() ?? new Dictionary<int, Dictionary<TurnState, DialogueData>>();
+            _dialogueDataDict = GameInfoHolder.GetCurrentGameInfo().GetDialogueDataDict(_usePuzzleOnlyDialogues) ??
+                                new Dictionary<int, Dictionary<TurnState, DialogueData>>();
             _currentDialogueData = null;
             _currentPage = 0;
             _currentEntry = 0;
@@ -272,7 +277,8 @@ namespace GamePlay
             if (!gameInfo.TryGetDialogueTrigger(
                     currentTurn,
                     e.turnState,
-                    out DialogueTriggerData dialogueTrigger) ||
+                    out DialogueTriggerData dialogueTrigger,
+                    _usePuzzleOnlyDialogues) ||
                 _playedDialogueSources.Contains(dialogueTrigger))
             {
                 return;

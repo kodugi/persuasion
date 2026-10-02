@@ -16,6 +16,8 @@ namespace GamePlay
         [SerializeField, Min(1)] private int _totalStageNum = 1;
         [SerializeField] private List<BoardRowData> _boardRows = new List<BoardRowData>();
         [SerializeField] private List<DialogueTriggerData> _dialogueTriggers = new List<DialogueTriggerData>();
+        [Tooltip("Dialogue triggers used only when entering from UniconTemp_PuzzleOnly.")]
+        [SerializeField] private List<DialogueTriggerData> _puzzleOnlyDialogueTriggers = new List<DialogueTriggerData>();
         [SerializeField] private GameOverDialogueData _gameOverDialogue;
         [SerializeField] private BoardViewBase.BoardCellMarker _allowedMarkers = new BoardViewBase.BoardCellMarker();
         [SerializeField] private MapType _mapType = MapType.Normal;
@@ -72,17 +74,18 @@ namespace GamePlay
             return _allowedMarkers;
         }
 
-        public Dictionary<int, Dictionary<TurnState, DialogueData>> GetDialogueDataDict()
+        public Dictionary<int, Dictionary<TurnState, DialogueData>> GetDialogueDataDict(bool puzzleOnly = false)
         {
             Dictionary<int, Dictionary<TurnState, DialogueData>> dialogueDataDict =
                 new Dictionary<int, Dictionary<TurnState, DialogueData>>();
 
-            if (_dialogueTriggers == null)
+            List<DialogueTriggerData> dialogueTriggers = GetDialogueTriggers(puzzleOnly);
+            if (dialogueTriggers == null)
             {
                 return dialogueDataDict;
             }
 
-            foreach (DialogueTriggerData trigger in _dialogueTriggers)
+            foreach (DialogueTriggerData trigger in dialogueTriggers)
             {
                 if (trigger == null || !trigger.TryCreateDialogueData(out DialogueData dialogueData))
                 {
@@ -104,15 +107,17 @@ namespace GamePlay
         public bool TryGetDialogueTrigger(
             int turn,
             TurnState turnState,
-            out DialogueTriggerData dialogueTrigger)
+            out DialogueTriggerData dialogueTrigger,
+            bool puzzleOnly = false)
         {
             dialogueTrigger = null;
-            if (_dialogueTriggers == null)
+            List<DialogueTriggerData> dialogueTriggers = GetDialogueTriggers(puzzleOnly);
+            if (dialogueTriggers == null)
             {
                 return false;
             }
 
-            foreach (DialogueTriggerData trigger in _dialogueTriggers)
+            foreach (DialogueTriggerData trigger in dialogueTriggers)
             {
                 if (trigger != null && trigger.Turn == turn && trigger.TurnState == turnState)
                 {
@@ -122,6 +127,11 @@ namespace GamePlay
             }
 
             return dialogueTrigger != null;
+        }
+
+        private List<DialogueTriggerData> GetDialogueTriggers(bool puzzleOnly)
+        {
+            return puzzleOnly ? _puzzleOnlyDialogueTriggers : _dialogueTriggers;
         }
 
         public MapType GetMapType()

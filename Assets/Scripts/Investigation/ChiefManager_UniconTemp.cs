@@ -16,6 +16,8 @@ public partial class ChiefManager : MonoBehaviour
     int currPuzzle = 0;
     [SerializeField] bool onlyPuzzles = false;
 
+    public bool IsPuzzleOnly => onlyPuzzles;
+
     void TempSkipCheckerOnUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Equals))
