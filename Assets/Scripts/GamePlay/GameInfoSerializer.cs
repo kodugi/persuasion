@@ -45,7 +45,7 @@ namespace GamePlay
     [Serializable]
     public class SerializableGameInfo
     {
-        public int Version = 2;
+        public int Version = 3;
         public int Width;
         public int Height;
         public int MaxTurns;
@@ -53,6 +53,7 @@ namespace GamePlay
         public List<RowData> BoardRows = new List<RowData>();
         public List<SerializableDialogueTriggerData> DialogueTriggers = new List<SerializableDialogueTriggerData>();
         public SerializableDialogueData GameOverDialogue;
+        public List<TutorialStep> TutorialSteps;
 
         public SerializableGameInfo()
         {
@@ -63,14 +64,15 @@ namespace GamePlay
             Cell[,] board = gameInfo.GetBoard();
             SerializableGameInfo serializableGameInfo = new SerializableGameInfo
             {
-                Version = 2,
+                Version = 3,
                 Width = gameInfo.GetWidth(),
                 Height = gameInfo.GetHeight(),
                 MaxTurns = gameInfo.GetMaxTurns(),
                 TargetNumber = gameInfo.GetTargetNumber(),
                 BoardRows = CreateRows(board),
                 DialogueTriggers = CreateDialogueTriggers(gameInfo.GetDialogueDataDict()),
-                GameOverDialogue = CreateGameOverDialogue(gameInfo)
+                GameOverDialogue = CreateGameOverDialogue(gameInfo),
+                TutorialSteps = gameInfo.GetTutorial()?.Steps
             };
 
             return serializableGameInfo;
@@ -86,7 +88,14 @@ namespace GamePlay
             GameOverDialogue?.TryCreateDialogueData(out gameOverDialogue);
 
             GameInfo gameInfo = ScriptableObject.CreateInstance<GameInfo>();
-            gameInfo.Initialize(width, height, board, MaxTurns, TargetNumber, dialogueData, gameOverDialogue);
+            TutorialSequence tutorial = null;
+            if (TutorialSteps != null && TutorialSteps.Count > 0)
+            {
+                tutorial = ScriptableObject.CreateInstance<TutorialSequence>();
+                tutorial.Steps = TutorialSteps;
+                tutorial.Validate();
+            }
+            gameInfo.Initialize(width, height, board, MaxTurns, TargetNumber, dialogueData, gameOverDialogue, tutorial);
             return gameInfo;
         }
 

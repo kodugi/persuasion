@@ -18,6 +18,9 @@ namespace GamePlay
         [SerializeField] private List<DialogueTriggerData> _dialogueTriggers = new List<DialogueTriggerData>();
         [Tooltip("Dialogue triggers used only when entering from UniconTemp_PuzzleOnly.")]
         [SerializeField] private List<DialogueTriggerData> _puzzleOnlyDialogueTriggers = new List<DialogueTriggerData>();
+        [Tooltip("Shared tutorial for story and puzzle-only entry. Replaces legacy tutorial dialogue triggers.")]
+        [SerializeField] private TutorialSequence _tutorial;
+        public TutorialSequence GetTutorial() => _tutorial;
         [SerializeField] private GameOverDialogueData _gameOverDialogue;
         [SerializeField] private BoardViewBase.BoardCellMarker _allowedMarkers = new BoardViewBase.BoardCellMarker();
         [SerializeField] private MapType _mapType = MapType.Normal;
@@ -131,6 +134,8 @@ namespace GamePlay
 
         private List<DialogueTriggerData> GetDialogueTriggers(bool puzzleOnly)
         {
+            // Migrated tutorials always use the shared sequence, regardless of entry mode.
+            if (_tutorial != null) return null;
             return puzzleOnly ? _puzzleOnlyDialogueTriggers : _dialogueTriggers;
         }
 
@@ -158,12 +163,14 @@ namespace GamePlay
             int maxTurns,
             int targetNumber,
             Dictionary<int, Dictionary<TurnState, DialogueData>> dialogueData = null,
-            DialogueData gameOverDialogue = null)
+            DialogueData gameOverDialogue = null,
+            TutorialSequence tutorial = null)
         {
             _width = Math.Max(1, width);
             _height = Math.Max(1, height);
             _maxTurns = Math.Max(0, maxTurns);
             _targetNumber = Math.Max(0, targetNumber);
+            _tutorial = tutorial;
             _allowedMarkers = BoardViewBase.BoardCellMarker.None | BoardViewBase.BoardCellMarker.OriginalBlack |
                               BoardViewBase.BoardCellMarker.Locked | BoardViewBase.BoardCellMarker.Preview;
 

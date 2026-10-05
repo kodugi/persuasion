@@ -16,8 +16,6 @@ namespace GamePlay
     {
         [Header("Game content")]
         [SerializeField] private List<GameInfo> _gameInfoList = new List<GameInfo>();
-        [SerializeField] private List<TutorialEntryGroup> _tutorialEntryGroups =
-            new List<TutorialEntryGroup>();
         [SerializeField] private List<StageEntry> _stageList = new List<StageEntry>();
         [SerializeField] private List<PlayableBlockType> _availableBlocks =
             new List<PlayableBlockType> { PlayableBlockType.Basic };
@@ -69,6 +67,7 @@ namespace GamePlay
             }
 
             _runtime?.Tutorial.Tick(Time.deltaTime);
+            _runtime?.Narrative.Tick(Time.deltaTime);
         }
 
         public void ResetGame()
@@ -121,14 +120,13 @@ namespace GamePlay
                 return false;
             }
 
-            return _runtime.Dialogue.TryPlayDialogue(dialogueData, onCompleted, false);
+            return _runtime.Narrative.TryPlayDialogue(dialogueData, onCompleted, false);
         }
 
         private void InitializeRuntime()
         {
             GamePlaySceneConfiguration configuration = new GamePlaySceneConfiguration(
                 _gameInfoList,
-                _tutorialEntryGroups,
                 _stageList);
 
             if (!configuration.SelectGameInfoForCurrentScene())
@@ -140,7 +138,6 @@ namespace GamePlay
             _runtime = new GamePlayRuntime();
             _runtime.Initialize(
                 GamePlaySceneConfiguration.CreateBlocks(_availableBlocks),
-                configuration.CreateTutorialLookup(),
                 _maxSuspicion,
                 _suspicionDecrementPerTurn);
 

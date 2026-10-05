@@ -107,6 +107,7 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
 
         yield return StartCoroutine(BeforeCellPlacement());
 
+        var animations = new List<Coroutine>();
         for (int i = 0; i < cellChangeList.Count; i++)
         {
             List<CellChange> cellChanges = cellChangeList[i];
@@ -124,12 +125,15 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
                     continue;
                 }
 
-                StartCoroutine(ReplaceCellObject(cellChanges[j]));
+                animations.Add(StartCoroutine(ReplaceCellObject(cellChanges[j])));
             }
 
             yield return new WaitForSeconds(0.2f);
         }
 
+        // A batch delay is not an animation-completed signal. Wait for every cell fade
+        // before releasing turn input or allowing the tutorial to replace the board.
+        foreach (var animation in animations) yield return animation;
         yield return StartCoroutine(AfterCellPlacement());
     }
 
@@ -187,17 +191,19 @@ public abstract class BoardViewBase : SelfInitializingMonoBehaviourSingleton<Boa
         }
     }
 
+    protected virtual Cell[,] GetRenderedBoard() => _gameInfo.GetBoard();
+
     protected void RenderBoard()
     {
-        Cell[,] board = _gameInfo.GetBoard();
+        Cell[,] board = GetRenderedBoard();
         if (board == null)
         {
             Debug.LogWarning("BoardView could not render because GameInfo board is null.", this);
             return;
         }
 
-        int width = _gameInfo.GetWidth();
-        int height = _gameInfo.GetHeight();
+        int width = board.GetLength(0);
+        int height = board.GetLength(1);
         if (width <= 0 || height <= 0)
         {
             if (!TryGetBoardDimensions(board, out width, out height))

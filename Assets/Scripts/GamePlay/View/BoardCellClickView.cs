@@ -14,9 +14,12 @@ public class BoardCellClickView : MonoBehaviour
         _coord = coord;
     }
 
-    private void OnMouseDown()
+    private void OnMouseDown() => HandlePointerDown(Input.mousePosition);
+
+    public void HandlePointerDown(Vector2 screenPoint)
     {
         if (_boardView == null ||
+            (DialogueView.Instance != null && DialogueView.Instance.ContainsScreenPoint(screenPoint)) ||
             (DialogueManager.Instance != null &&
              DialogueManager.Instance.ShouldBlockInteractionOutsideDialogue()))
         {

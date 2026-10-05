@@ -24,27 +24,29 @@ public class ButtonUIView : MonoBehaviourSingleton<ButtonUIView>
 
     private void OnEndTurnButtonClick()
     {
-        if (TutorialController.Instance != null && !TutorialController.Instance.CanClickEndTurn())
+        if (DialogueManager.Instance?.ShouldBlockInteractionOutsideDialogue() == true ||
+            (TutorialController.Instance != null && !TutorialController.Instance.CanClickEndTurn()))
         {
             return;
         }
 
         if(TurnManager.Instance.GetTurnState() == TurnState.PlayerIdle)
         {
-            TurnManager.Instance.SetTurnState(TurnState.EnemyIdle);
             TutorialController.Instance?.NotifyEndTurnClicked();
+            TurnManager.Instance.SetTurnState(TurnState.EnemyIdle);
         }
         else if(TurnManager.Instance.GetTurnState() == TurnState.PlayerPlacingContinue)
         {
             TurnManager.Instance.SetTurnState(TurnState.PlayerPlacingEnd);
-            TurnManager.Instance.SetTurnState(TurnState.EnemyIdle);
             TutorialController.Instance?.NotifyEndTurnClicked();
+            TurnManager.Instance.SetTurnState(TurnState.EnemyIdle);
         }
     }
 
     private void OnEndPlacementButtonClick()
     {
-        if (TutorialController.Instance != null && !TutorialController.Instance.CanClickEndPlacement())
+        if (DialogueManager.Instance?.ShouldBlockInteractionOutsideDialogue() == true ||
+            (TutorialController.Instance != null && !TutorialController.Instance.CanClickEndPlacement()))
         {
             return;
         }

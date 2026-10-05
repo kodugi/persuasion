@@ -26,4 +26,5 @@ MonoBehaviour:
   - Cells: 0100000000000000000000000000000001000000
   _dialogueTriggers:
   - {fileID: 11400000, guid: 9ea0bffc02108ca44890e522d1e927f4, type: 2}
+  _tutorial: {fileID: 11400000, guid: c7dfcd0e5da847b4894212ad437de1b5, type: 2}
   _allowedMarkers: 5

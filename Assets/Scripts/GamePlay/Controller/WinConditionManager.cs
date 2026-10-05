@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 using SingletonUtils;
 
@@ -11,6 +11,7 @@ namespace GamePlay
         private GameStateManager _gameStateManager;
         private TurnManager _turnManager;
         private TutorialController _tutorialController;
+        private DialogueManager _dialogue;
         private bool _isGameEnded;
         private bool _isResetting;
         private DefeatReason _lastDefeatReason;
@@ -27,7 +28,7 @@ namespace GamePlay
             SuspicionManager suspicionManager,
             GameStateManager gameStateManager,
             TurnManager turnManager,
-            TutorialController tutorialController)
+            TutorialController tutorialController, DialogueManager dialogue)
         {
             _boardController = boardController ?? throw new ArgumentNullException(nameof(boardController));
             _suspicionManager = suspicionManager ?? throw new ArgumentNullException(nameof(suspicionManager));
@@ -40,7 +41,8 @@ namespace GamePlay
             _boardController.RaiseCellPlacementEvent += HandleCellPlacementEvent;
             _suspicionManager.RaiseSetSuspicionEvent += HandleSetSuspicionEvent;
             _turnManager.RaiseSetTurnEvent += HandleSetTurnEvent;
-            _tutorialController.RaiseSetTutorialStateEvent += HandleSetTutorialStateEvent;
+            _dialogue = dialogue;
+            _dialogue.Cue += HandleDialogueCue;
         }
 
         public void Dispose()
@@ -60,10 +62,7 @@ namespace GamePlay
                 _turnManager.RaiseSetTurnEvent -= HandleSetTurnEvent;
             }
 
-            if (_tutorialController != null)
-            {
-                _tutorialController.RaiseSetTutorialStateEvent -= HandleSetTutorialStateEvent;
-            }
+            if (_dialogue != null) _dialogue.Cue -= HandleDialogueCue;
 
             RaiseDefeatEvent = null;
             _boardController = null;
@@ -103,7 +102,7 @@ namespace GamePlay
 
         private void EvaluateGameResult()
         {
-            if (_isGameEnded || _isResetting)
+            if (_isGameEnded || _isResetting || _tutorialController.IsActive)
             {
                 return;
             }
@@ -122,7 +121,7 @@ namespace GamePlay
                 return;
             }
 
-            if (_suspicionManager.GetCurrentSuspicion() > _suspicionManager.GetMaxSuspicion())
+            if (_suspicionManager.GetCurrentSuspicion() >= _suspicionManager.GetMaxSuspicion())
             {
                 switch (GameInfoHolder.GetCurrentGameInfo().GetMapType())
                 {
@@ -143,9 +142,9 @@ namespace GamePlay
             }
         }
 
-        private void HandleSetTutorialStateEvent(object sender, SetTutorialStateEventArgs e)
+        private void HandleDialogueCue(DialogueCue cue)
         {
-            if (e.CurrentState == TutorialState.Dream2)
+            if (cue == DialogueCue.ScriptedDefeat)
             {
                 Lose(DefeatReason.Scripted);
             }

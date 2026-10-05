@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,179 +6,200 @@ using SingletonUtils;
 
 namespace GamePlay
 {
-    public class DialogueView: SelfInitializingMonoBehaviourSingleton<DialogueView>
+    public sealed class DialogueView : SelfInitializingMonoBehaviourSingleton<DialogueView>
     {
         [SerializeField] private GameObject _dialoguePanel;
         [SerializeField] private Button _nextButton;
         [SerializeField] private TextMeshProUGUI _speakerNameText;
         [SerializeField] private TextMeshProUGUI _dialogueText;
-
-        private Coroutine _typeDialogueEntry;
-        private string _dialogueContent;
+        private DialogueManager _session;
         private Image _outsideInputBlocker;
-        
+        private float _visibleCharacters;
+        private int _characterCount;
+        private bool _typing;
+        private bool _layoutCaptured;
+        private RectLayout _originalPanelLayout;
+        private RectLayout _originalTextLayout;
+        private float _originalFontSize;
+        private float _originalLineSpacing;
+        private float _originalAspect;
+        private AspectRatioFitter _aspectFitter;
+        private bool _originalAspectEnabled;
+        private Color _originalTextColor;
+        private TextAlignmentOptions _originalAlignment;
+        private Image _panelBackground;
+        private bool _originalBackgroundEnabled;
+        private TutorialCalloutLayout _calloutLayout;
+
         protected override bool InitializeCore()
         {
-            if (_dialoguePanel == null)
-            {
-                Debug.LogError("Dialogue panel is null");
-                return false;
-            }
-
-            if (_nextButton == null)
-            {
-                Debug.LogError("Next button is null");
-                return false;
-            }
-
-            if (_speakerNameText == null)
-            {
-                Debug.LogError("Speaker name is null");
-                return false;
-            }
-
-            if (_dialogueText == null)
-            {
-                Debug.LogError("Dialogue text is null");
-                return false;
-            }
-
-            if (DialogueManager.Instance == null)
-            {
-                Debug.LogError("Dialogue Manager is null");
-                return false;
-            }
+            if (_dialoguePanel == null || _nextButton == null || _speakerNameText == null ||
+                _dialogueText == null || DialogueManager.Instance == null) return false;
+            Unsubscribe();
+            _session = DialogueManager.Instance;
             _nextButton.onClick.AddListener(OnNextButtonClick);
-            DialogueManager.Instance.RaiseSetDialogueEntryEvent += HandleSetDialogueEntryEvent;
-            DialogueManager.Instance.RaiseDialoguePageEndEvent += HandleDialogueEndEvent;
-
+            _session.RaiseSetDialogueEntryEvent += HandleSetDialogueEntryEvent;
+            _session.RaiseDialoguePageEndEvent += HandleDialogueEndEvent;
             EnsureOutsideInputBlocker();
-            Hide();
-
-            if (!DialogueManager.Instance.HasDialogueData())
-            {
-                return true;
-            }
-
-            if (DialogueManager.Instance.HasCurrentDialogueData())
-            {
-                DialogueManager.Instance.SetDialoguePage(0);
-            }
+            if (_session.GetCurrentDialogueEntry() is DialogueEntry entry) Present(entry);
+            else Hide();
             return true;
         }
 
         private void Update()
         {
+            if (_session == null || !_dialoguePanel.activeSelf) return;
             RefreshOutsideInputBlocker();
-
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (_typing)
             {
-                OnNextButtonClick();
+                _visibleCharacters += Time.unscaledDeltaTime / Mathf.Max(0.001f, _session.CharacterInterval);
+                _dialogueText.maxVisibleCharacters = Mathf.Min(_characterCount, (int)_visibleCharacters);
+                _typing = _dialogueText.maxVisibleCharacters < _characterCount;
             }
+            if (Input.GetKeyDown(KeyCode.Space)) OnNextButtonClick();
         }
 
         private void OnNextButtonClick()
         {
-            if (_typeDialogueEntry != null)
+            if (_session == null || !_dialoguePanel.activeSelf) return;
+            if (_typing)
             {
-                StopTypeDialogueEntry();
-                _dialogueText.text = _dialogueContent;
+                _typing = false;
+                _dialogueText.maxVisibleCharacters = _characterCount;
                 return;
             }
-            
-            if (!DialogueManager.Instance.HasCurrentDialogueData())
-            {
-                Hide();
-                return;
-            }
-
-            DialogueManager.Instance.ToNextEntry();
+            if (_session.CanAdvance) _session.ToNextEntry();
         }
 
-        private void HandleSetDialogueEntryEvent(object sender, SetDialogueEntryEventArgs e)
+        private void LateUpdate()
         {
-            DialogueEntry dialogueEntry = e.GetDialogueEntry();
-            if (dialogueEntry == null || dialogueEntry.DialogueText == "")
-            {
-                Hide();
-                return;
-            }
-            StopTypeDialogueEntry();
+            if (_session?.Presentation == DialoguePresentation.Tutorial && _dialoguePanel.activeInHierarchy)
+                _calloutLayout?.Refresh();
+        }
+
+        private void HandleSetDialogueEntryEvent(object sender, SetDialogueEntryEventArgs e) => Present(e.GetDialogueEntry());
+        private void HandleDialogueEndEvent(object sender, DialoguePageEndEventArgs e) => Hide();
+
+        private void Present(DialogueEntry entry)
+        {
+            if (entry == null || (string.IsNullOrEmpty(entry.DialogueText) && string.IsNullOrEmpty(_session.Instruction)))
+            { Hide(); return; }
             _dialoguePanel.SetActive(true);
+            ApplyPresentationLayout();
+            _speakerNameText.text = entry.SpeakerName;
+            _speakerNameText.transform.parent.gameObject.SetActive(!string.IsNullOrEmpty(entry.SpeakerName));
+            _dialogueText.text = entry.DialogueText;
+            string instruction = _session.Instruction;
+            if (string.IsNullOrEmpty(instruction) && _session.CanAdvance && _session.Presentation == DialoguePresentation.Tutorial)
+                instruction = "클릭 / Space로 계속";
+            if (!string.IsNullOrEmpty(instruction))
+                _dialogueText.text += (string.IsNullOrEmpty(entry.DialogueText) ? "" : "\n") +
+                    (_session.Presentation == DialoguePresentation.Tutorial ? "<size=75%><color=#FFFFFFCC>" : "<size=75%><color=#67447E>") +
+                    instruction + "</color></size>";
+            if (_session.Presentation == DialoguePresentation.Tutorial) _calloutLayout.Refresh();
+            _dialogueText.maxVisibleCharacters = int.MaxValue;
+            _dialogueText.ForceMeshUpdate();
+            _characterCount = _dialogueText.textInfo.characterCount;
+            _visibleCharacters = 0;
+            _dialogueText.maxVisibleCharacters = 0;
+            _typing = _characterCount > 0;
+            _nextButton.gameObject.SetActive(_session.CanAdvance);
+            // Keep text above tutorial dimming; interactive steps leave the board accessible.
+            _dialoguePanel.transform.SetAsLastSibling();
             RefreshOutsideInputBlocker();
-            _dialogueContent = dialogueEntry.DialogueText;
-            _speakerNameText.text = dialogueEntry.SpeakerName;
-            _speakerNameText.transform.parent.gameObject.SetActive(
-                !string.IsNullOrEmpty(dialogueEntry.SpeakerName));
-            if (dialogueEntry.StateToTrigger == TutorialState.Dream2)
+        }
+
+        private void ApplyPresentationLayout()
+        {
+            var panel = (RectTransform)_dialoguePanel.transform;
+            var text = _dialogueText.rectTransform;
+            if (!_layoutCaptured)
             {
-                _typeDialogueEntry = StartCoroutine(TypeDialogueEntry(_dialogueContent, 0.005f));
+                _originalPanelLayout = new RectLayout(panel);
+                _originalTextLayout = new RectLayout(text);
+                _originalFontSize = _dialogueText.fontSize;
+                _originalLineSpacing = _dialogueText.lineSpacing;
+                _aspectFitter = panel.GetComponent<AspectRatioFitter>();
+                _originalAspect = _aspectFitter == null ? 0 : _aspectFitter.aspectRatio;
+                _originalAspectEnabled = _aspectFitter != null && _aspectFitter.enabled;
+                _originalTextColor = _dialogueText.color;
+                _originalAlignment = _dialogueText.alignment;
+                _panelBackground = panel.GetComponent<Image>();
+                _originalBackgroundEnabled = _panelBackground != null && _panelBackground.enabled;
+                _calloutLayout = new TutorialCalloutLayout(panel, _dialogueText);
+                _layoutCaptured = true;
+            }
+            if (_session.Presentation == DialoguePresentation.Tutorial)
+            {
+                if (_aspectFitter != null) _aspectFitter.enabled = false;
+                if (_panelBackground != null) _panelBackground.enabled = false;
+                text.anchorMin = Vector2.zero;
+                text.anchorMax = Vector2.one;
+                text.offsetMin = text.offsetMax = Vector2.zero;
+                _dialogueText.fontSize = 17;
+                _dialogueText.lineSpacing = 10;
+                _dialogueText.color = Color.white;
+                _dialogueText.alignment = TextAlignmentOptions.TopLeft;
             }
             else
             {
-                _typeDialogueEntry = StartCoroutine(TypeDialogueEntry(_dialogueContent));
+                _originalPanelLayout.Apply(panel);
+                _originalTextLayout.Apply(text);
+                if (_aspectFitter != null) { _aspectFitter.aspectRatio = _originalAspect; _aspectFitter.enabled = _originalAspectEnabled; }
+                if (_panelBackground != null) _panelBackground.enabled = _originalBackgroundEnabled;
+                _dialogueText.fontSize = _originalFontSize;
+                _dialogueText.lineSpacing = _originalLineSpacing;
+                _dialogueText.color = _originalTextColor;
+                _dialogueText.alignment = _originalAlignment;
+                _calloutLayout.Hide();
+            }
+            Canvas.ForceUpdateCanvases();
+        }
+
+        private readonly struct RectLayout
+        {
+            private readonly Vector2 _min, _max, _pivot, _position, _size;
+            public RectLayout(RectTransform rect)
+            {
+                _min = rect.anchorMin; _max = rect.anchorMax; _pivot = rect.pivot;
+                _position = rect.anchoredPosition; _size = rect.sizeDelta;
+            }
+            public void Apply(RectTransform rect)
+            {
+                rect.anchorMin = _min; rect.anchorMax = _max; rect.pivot = _pivot;
+                rect.anchoredPosition = _position; rect.sizeDelta = _size;
             }
         }
 
-        private IEnumerator TypeDialogueEntry(string dialogueContent, float interval = 0.02f)
+        public bool ContainsScreenPoint(Vector2 screenPoint)
         {
-            _dialogueText.text = "";
-            if (interval <= 0.01f)
-            {
-                int i;
-                for (i = 0; i < dialogueContent.Length; i += 10)
-                {
-                    _dialogueText.text += dialogueContent.Substring(i, 10);
-                    yield return new WaitForSeconds(interval * 10);
-                }
-
-                if (i < dialogueContent.Length)
-                {
-                    _dialogueText.text += dialogueContent.Substring(i);
-                }
-            }
-            else
-            {
-                foreach (char c in dialogueContent)
-                {
-                    _dialogueText.text += c;
-                    yield return new WaitForSeconds(0.02f);
-                }
-            }
-            
-
-            _typeDialogueEntry = null;
-        }
-
-        private void StopTypeDialogueEntry()
-        {
-            if (_typeDialogueEntry == null)
-            {
-                return;
-            }
-
-            StopCoroutine(_typeDialogueEntry);
-            _typeDialogueEntry = null;
-        }
-
-        private void HandleDialogueEndEvent(object sender, EventArgs e)
-        {
-            Hide();
+            if (_dialoguePanel == null || !_dialoguePanel.activeInHierarchy) return false;
+            var canvas = _dialoguePanel.GetComponentInParent<Canvas>();
+            var camera = canvas != null && canvas.renderMode != RenderMode.ScreenSpaceOverlay ? canvas.worldCamera : null;
+            return RectTransformUtility.RectangleContainsScreenPoint((RectTransform)_dialoguePanel.transform, screenPoint, camera);
         }
 
         public void Hide()
         {
-            if (_dialoguePanel == null)
-            {
-                return;
-            }
+            _typing = false;
+            _calloutLayout?.Hide();
+            if (_outsideInputBlocker != null) _outsideInputBlocker.gameObject.SetActive(false);
+            if (_dialoguePanel != null) _dialoguePanel.SetActive(false);
+        }
 
-            StopTypeDialogueEntry();
-            if (_outsideInputBlocker != null)
-            {
-                _outsideInputBlocker.gameObject.SetActive(false);
-            }
-            _dialoguePanel.SetActive(false);
+        private void Unsubscribe()
+        {
+            if (_nextButton != null) _nextButton.onClick.RemoveListener(OnNextButtonClick);
+            if (_session == null) return;
+            _session.RaiseSetDialogueEntryEvent -= HandleSetDialogueEntryEvent;
+            _session.RaiseDialoguePageEndEvent -= HandleDialogueEndEvent;
+            _session = null;
+        }
+
+        protected override void OnDestroy()
+        {
+            Unsubscribe();
+            base.OnDestroy();
         }
 
         private void EnsureOutsideInputBlocker()

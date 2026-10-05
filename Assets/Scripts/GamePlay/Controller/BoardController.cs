@@ -17,6 +17,25 @@ namespace GamePlay
         private readonly BoardReachabilityAnalyzer _reachabilityAnalyzer = new BoardReachabilityAnalyzer();
 
         private Board _board;
+        private Cell[,] _originalBoard;
+        private int? _tutorialTarget;
+        public Cell[,] GetCurrentBoard() => _board.GetBoard();
+        public Cell[,] GetOriginalBoard() => _originalBoard;
+        public int GetTargetNumber() => _tutorialTarget ?? GameInfoHolder.GetCurrentGameInfo().GetTargetNumber();
+
+        public void SetTutorialBoard(TutorialBoard layout)
+        {
+            _board = new Board(layout.CreateCells());
+            _originalBoard = new Cell[_board.GetWidth(), _board.GetHeight()];
+            for (int x = 0; x < _board.GetWidth(); x++)
+            for (int y = 0; y < _board.GetHeight(); y++)
+                _originalBoard[x, y] = new EmptyCell(new Vector2Int(x, y));
+            foreach (var cell in layout.OriginalCells)
+                _originalBoard[cell.X, cell.Y] = new BlackCell(cell.ToCoord());
+            _tutorialTarget = layout.Target;
+            if (BoardView.Instance is BoardView view) view.ResetGame();
+            GameStateView.Instance?.ResetGame();
+        }
         private TurnManager _turnManager;
         private BlockSelectionManager _blockSelectionManager;
         private TutorialController _tutorialController;
@@ -33,6 +52,8 @@ namespace GamePlay
                                      throw new ArgumentNullException(nameof(blockSelectionManager));
             _tutorialController = tutorialController ?? throw new ArgumentNullException(nameof(tutorialController));
             _board = CreateBoardFromCurrentGameInfo();
+            _originalBoard = GameInfoHolder.GetCurrentGameInfo().GetBoard();
+            _tutorialTarget = null;
             _turnManager.RaiseSetTurnStateEvent += HandleSetTurnStateEvent;
         }
 
@@ -54,6 +75,8 @@ namespace GamePlay
         public void ResetGame()
         {
             _board = CreateBoardFromCurrentGameInfo();
+            _originalBoard = GameInfoHolder.GetCurrentGameInfo().GetBoard();
+            _tutorialTarget = null;
         }
 
         public void HandleCellPlacementInput(Vector2Int coord)
@@ -83,7 +106,9 @@ namespace GamePlay
 
         public bool CanPlaceBlock(IBlock block, Vector2Int coord)
         {
-            if (block == null || coord == null || !_board.IsWithinBound(coord))
+            if (block == null || coord == null || !_board.IsWithinBound(coord) ||
+                !_tutorialController.CanPlaceCellAt(coord) ||
+                DialogueManager.Instance?.ShouldBlockInteractionOutsideDialogue() == true)
             {
                 return false;
             }
@@ -101,7 +126,7 @@ namespace GamePlay
 
         public int GetConvertedBlackCellCount()
         {
-            Cell[,] originalBoard = GameInfoHolder.GetCurrentGameInfo().GetBoard();
+            Cell[,] originalBoard = _originalBoard;
             int convertedCount = 0;
 
             for (int x = 0; x < _board.GetWidth(); x++)
@@ -123,7 +148,7 @@ namespace GamePlay
         {
             IBlock selectedBlock = _blockSelectionManager.GetSelectedBlock();
             return _reachabilityAnalyzer.Analyze(
-                GameInfoHolder.GetCurrentGameInfo().GetBoard(),
+                _originalBoard,
                 selectedBlock.GetType(),
                 _turnManager.GetCurrentTurn());
         }
@@ -169,7 +194,8 @@ namespace GamePlay
                 return false;
             }
 
-            return _tutorialController.CanPlaceCellAt(coord);
+            return _tutorialController.CanPlaceCellAt(coord) &&
+                   DialogueManager.Instance?.ShouldBlockInteractionOutsideDialogue() != true;
         }
 
         private void TryPlaceInitialCell(IBlock selectedBlock, Vector2Int coord)
@@ -228,10 +254,11 @@ namespace GamePlay
             PresentCellChanges(changes, TurnState.End);
         }
 
-        private static void PresentCellChanges(List<CellChange> changes, TurnState nextState)
+        private void PresentCellChanges(List<CellChange> changes, TurnState nextState)
         {
             if (!(BoardView.Instance is BoardView boardView))
             {
+                _turnManager.SetTurnState(nextState);
                 return;
             }
 

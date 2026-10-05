@@ -634,8 +634,9 @@ MonoBehaviour:
   _leftDim: {fileID: 0}
   _rightDim: {fileID: 0}
   _clickCatcher: {fileID: 0}
-  _dimColor: {r: 0, g: 0, b: 0, a: 0.65}
-  _padding: 16
+  _dimColor: {r: 0, g: 0, b: 0, a: 0.82}
+  _padding: 6
+  _borderWidth: 1.5
 --- !u!1 &169103351
 GameObject:
   m_ObjectHideFlags: 0
@@ -3485,85 +3486,6 @@ MonoBehaviour:
   _gameInfoList:
   - {fileID: 11400000, guid: d26492b389615d843b54a04e41ef13ff, type: 2}
   - {fileID: 11400000, guid: 17244ccf19c3a3a43b615c6c7e849b41, type: 2}
-  _tutorialEntryGroups:
-  - State: 1
-    Entries:
-    - {fileID: 11400000, guid: a2bb76cd5be7e3640a926e2081c46f31, type: 2}
-  - State: 2
-    Entries:
-    - {fileID: 11400000, guid: 6dc42122f787dab49909ec48d69262ab, type: 2}
-  - State: 3
-    Entries:
-    - {fileID: 11400000, guid: 5d91d2f44899cc9469340bda99fcb6f8, type: 2}
-  - State: 4
-    Entries:
-    - {fileID: 11400000, guid: 3904cbb723abec54d8a1ea37fac8effb, type: 2}
-  - State: 5
-    Entries:
-    - {fileID: 11400000, guid: 87807df221f7c9649b369f27544fae89, type: 2}
-    - {fileID: 11400000, guid: 5a8ae94e8de4d144c99ad29fe822e21a, type: 2}
-    - {fileID: 11400000, guid: 96907e767e8adab41a372324fe7a4904, type: 2}
-    - {fileID: 11400000, guid: 5a1012fa907e66d4b98804c04b2e6cf7, type: 2}
-    - {fileID: 11400000, guid: 239516849329cbc4eab6e6ceb4d64961, type: 2}
-    - {fileID: 11400000, guid: 3db783a6b0e2adc43bfa7d29ff38878b, type: 2}
-    - {fileID: 11400000, guid: 3298a9de67ada1b43a71df8c0b7bfa1d, type: 2}
-    - {fileID: 11400000, guid: af34bc0031d91be41b8ba4738b352b79, type: 2}
-    - {fileID: 11400000, guid: 8548ee53711522d49b0b48fbfaa08d5a, type: 2}
-  - State: 6
-    Entries:
-    - {fileID: 11400000, guid: 5c1664f875096c048863debae18c046d, type: 2}
-  - State: 7
-    Entries:
-    - {fileID: 11400000, guid: 9a7d0f0ac6cbd1248ba73093073daa74, type: 2}
-  - State: 8
-    Entries:
-    - {fileID: 11400000, guid: 8fcc946ddd955a5438dfaa1fb0e90e9b, type: 2}
-    - {fileID: 11400000, guid: 2eb85c0ed1a4f1e4cad8f0c2bc4336f4, type: 2}
-    - {fileID: 11400000, guid: 713cc046bbd78964cbb802c769b85375, type: 2}
-    - {fileID: 11400000, guid: 87ef04282cfa0534abad3cf5e328ef66, type: 2}
-    - {fileID: 11400000, guid: 012179f7054a5164d87f206d4576d850, type: 2}
-  - State: 9
-    Entries:
-    - {fileID: 11400000, guid: 8d799ad5b0ba8784e8e85684edbdc8fb, type: 2}
-  - State: 10
-    Entries:
-    - {fileID: 11400000, guid: f3960d20197238e409e0aee45123623a, type: 2}
-    - {fileID: 11400000, guid: 679c452f9b0e7054d99bbffa3ab716ef, type: 2}
-    - {fileID: 11400000, guid: 87d7577b3571e3642860bac97c0292b7, type: 2}
-  - State: 11
-    Entries:
-    - {fileID: 11400000, guid: 3f24cadae338e4147aca9e71aad4a81b, type: 2}
-  - State: 12
-    Entries:
-    - {fileID: 11400000, guid: 482b49ac0e266684c80ef76f777e9c05, type: 2}
-  - State: 13
-    Entries:
-    - {fileID: 11400000, guid: f8ec8192160a9d341be817dc3fb51936, type: 2}
-    - {fileID: 11400000, guid: 265967fa48054fc44b5b5e96b4957845, type: 2}
-  - State: 14
-    Entries:
-    - {fileID: 11400000, guid: d1d217d61f39dab42ac546f9bb8604c9, type: 2}
-    - {fileID: 11400000, guid: 561e4542ee186e34b9c37fcff5a13a90, type: 2}
-  - State: 15
-    Entries:
-    - {fileID: 11400000, guid: a41dc7f63f5df7945bba7f9f6ac7ee70, type: 2}
-  - State: 16
-    Entries: []
-  - State: 17
-    Entries:
-    - {fileID: 11400000, guid: a045ddd801bff594f93335ecce0c6e97, type: 2}
-    - {fileID: 11400000, guid: 2781285dd374bef4a9ffed3506c7dc36, type: 2}
-    - {fileID: 11400000, guid: 6b0274e8deaebf54e967fb6b5386b2ba, type: 2}
-    - {fileID: 11400000, guid: 5e0feaa113187fa43b21f88b4ed21794, type: 2}
-    - {fileID: 11400000, guid: 845c073fcd60efa42af837f0c12a6b10, type: 2}
-  - State: 18
-    Entries: []
-  - State: 19
-    Entries:
-    - {fileID: 11400000, guid: 134bb605c9168824c9e74ca058e7286c, type: 2}
-  - State: 21
-    Entries:
-    - {fileID: 11400000, guid: 2584dafc2e7043eb8c5ecf42df902c43, type: 2}
   _stageList:
   - MapName: Map1_Guard1
     GameInfoList:

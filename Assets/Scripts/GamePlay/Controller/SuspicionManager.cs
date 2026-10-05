@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using SingletonUtils;
 using UnityEngine;
 
@@ -101,7 +101,7 @@ namespace GamePlay
             _currentSuspicionPreview = suspicion;
             RaiseSetSuspicionPreviewEvent?.Invoke(this, new SetSuspicionEventArgs(suspicion));
 
-            if (suspicion > _maxSuspicion && _currentSuspicion <= _maxSuspicion)
+            if (suspicion >= _maxSuspicion && _currentSuspicion < _maxSuspicion)
             {
                 RaiseSuspicionOverflowEvent?.Invoke(this, new SetSuspicionEventArgs(suspicion));
             }

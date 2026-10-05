@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -74,7 +74,7 @@ namespace GamePlay
             _slideSuspicionPreviewCoroutine = StartCoroutine(SlideSuspicionGauge(_suspicionPreviewGauge,
                 (float)suspicion / (float)SuspicionManager.Instance.GetMaxSuspicion()));
             _suspicionPreviewText.text = suspicion + "/" + SuspicionManager.Instance.GetMaxSuspicion();
-            if (suspicion > SuspicionManager.Instance.GetMaxSuspicion())
+            if (suspicion >= SuspicionManager.Instance.GetMaxSuspicion())
             {
                 if (_glowSuspicionPreviewCoroutine == null)
                 {

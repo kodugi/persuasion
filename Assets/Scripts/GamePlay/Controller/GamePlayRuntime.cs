@@ -17,12 +17,13 @@ namespace GamePlay
         public DialogueManager Dialogue { get; } = new DialogueManager();
         public TutorialController Tutorial { get; } = new TutorialController();
 
+        public DialogueDirector Narrative { get; private set; }
+
         public bool IsInitialized { get; private set; }
         public bool IsStarted { get; private set; }
 
         public void Initialize(
             List<IBlock> blocks,
-            Dictionary<TutorialState, List<TutorialEntry>> tutorialEntries,
             int maxSuspicion,
             int suspicionDecrementPerTurn)
         {
@@ -33,12 +34,12 @@ namespace GamePlay
 
             State.Initialize();
             Turn.Initialize(State);
-            Dialogue.Initialize(Turn, Tutorial);
+            Narrative = new DialogueDirector(Dialogue, Turn);
             BlockSelection.Initialize(blocks, Turn);
             Board.Initialize(Turn, BlockSelection, Tutorial);
             Suspicion.Initialize(maxSuspicion, suspicionDecrementPerTurn, BlockSelection, Turn);
-            Tutorial.Initialize(tutorialEntries, Dialogue, Turn, Board);
-            WinCondition.Initialize(Board, Suspicion, State, Turn, Tutorial);
+            Tutorial.Initialize(Dialogue, Turn, Board, BlockSelection, Suspicion);
+            WinCondition.Initialize(Board, Suspicion, State, Turn, Tutorial, Dialogue);
 
             IsInitialized = true;
         }
@@ -55,6 +56,7 @@ namespace GamePlay
             IsStarted = true;
             Turn.SetTurnState(TurnState.Start);
             State.SetGameState(GameState.Playing);
+            Tutorial.StartGame();
         }
 
         public void BeginReset()
@@ -62,7 +64,7 @@ namespace GamePlay
             EnsureInitialized();
             WinCondition.BeginReset();
             State.ResetGame();
-            Dialogue.ResetGame();
+            Narrative.ResetGame();
             Tutorial.ResetGame();
             Board.ResetGame();
             BlockSelection.ResetGame();
@@ -73,6 +75,7 @@ namespace GamePlay
         {
             EnsureInitialized();
             Turn.ResetGame();
+            Tutorial.StartGame();
             WinCondition.EndReset();
         }
 
@@ -83,6 +86,7 @@ namespace GamePlay
             Suspicion.Dispose();
             Board.Dispose();
             BlockSelection.Dispose();
+            Narrative.Dispose();
             Dialogue.Dispose();
             Turn.Dispose();
             State.Dispose();

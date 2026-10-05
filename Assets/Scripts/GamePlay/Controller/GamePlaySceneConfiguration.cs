@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using MapEditor.Model;
 using UnityEngine;
-using Vector2Int = VectorUtils.Vector2Int;
 
 namespace GamePlay
 {
@@ -12,13 +11,6 @@ namespace GamePlay
         Lie,
         Threat,
         Religious
-    }
-
-    [Serializable]
-    internal sealed class TutorialEntryGroup
-    {
-        public TutorialState State;
-        public List<TutorialEntry> Entries = new List<TutorialEntry>();
     }
 
     [Serializable]
@@ -34,16 +26,13 @@ namespace GamePlay
     internal sealed class GamePlaySceneConfiguration
     {
         private readonly List<GameInfo> _fallbackGameInfos;
-        private readonly List<TutorialEntryGroup> _tutorialGroups;
         private readonly Dictionary<string, List<GameInfo>> _gameInfosByStage;
 
         public GamePlaySceneConfiguration(
             List<GameInfo> fallbackGameInfos,
-            List<TutorialEntryGroup> tutorialGroups,
             List<StageEntry> stages)
         {
             _fallbackGameInfos = fallbackGameInfos;
-            _tutorialGroups = tutorialGroups;
             _gameInfosByStage = BuildStageLookup(stages);
         }
 
@@ -72,51 +61,6 @@ namespace GamePlay
             }
 
             return TrySelectFallbackOrExisting();
-        }
-
-        public Dictionary<TutorialState, List<TutorialEntry>> CreateTutorialLookup()
-        {
-            if (_tutorialGroups == null || _tutorialGroups.Count == 0)
-            {
-                return CreateFallbackTutorialLookup();
-            }
-
-            Dictionary<TutorialState, List<TutorialEntry>> result =
-                new Dictionary<TutorialState, List<TutorialEntry>>();
-
-            foreach (TutorialEntryGroup group in _tutorialGroups)
-            {
-                if (group == null)
-                {
-                    continue;
-                }
-
-                if (!result.TryGetValue(group.State, out List<TutorialEntry> entries))
-                {
-                    entries = new List<TutorialEntry>();
-                    result.Add(group.State, entries);
-                }
-
-                if (group.Entries == null)
-                {
-                    continue;
-                }
-
-                foreach (TutorialEntry entry in group.Entries)
-                {
-                    if (entry != null)
-                    {
-                        entries.Add(entry);
-                    }
-                }
-            }
-
-            if (!result.ContainsKey(TutorialState.None))
-            {
-                result.Add(TutorialState.None, new List<TutorialEntry>());
-            }
-
-            return result;
         }
 
         public static List<IBlock> CreateBlocks(List<PlayableBlockType> blockTypes)
@@ -238,33 +182,5 @@ namespace GamePlay
             }
         }
 
-        private static Dictionary<TutorialState, List<TutorialEntry>> CreateFallbackTutorialLookup()
-        {
-            return new Dictionary<TutorialState, List<TutorialEntry>>
-            {
-                {
-                    TutorialState.PlaceFirstCell,
-                    new List<TutorialEntry>
-                    {
-                        TutorialEntry.CreateCellEntry(new Vector2Int(2, 3), typeof(ConceptCell))
-                    }
-                },
-                {
-                    TutorialState.PlaceSecondCell,
-                    new List<TutorialEntry>
-                    {
-                        TutorialEntry.CreateCellEntry(new Vector2Int(4, 3), typeof(ConceptCell))
-                    }
-                },
-                {
-                    TutorialState.ExplainEndTurn,
-                    new List<TutorialEntry>
-                    {
-                        TutorialEntry.CreateGameObjectEntry("Canvas/RightPanel/ButtonsPanel/EndTurnButton")
-                    }
-                },
-                { TutorialState.None, new List<TutorialEntry>() }
-            };
-        }
     }
 }

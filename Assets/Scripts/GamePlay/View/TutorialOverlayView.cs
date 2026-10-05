@@ -14,15 +14,21 @@ namespace GamePlay
         [SerializeField] private Image _leftDim;
         [SerializeField] private Image _rightDim;
         [SerializeField] private Image _clickCatcher;
-        [SerializeField] private Color _dimColor = new Color(0f, 0f, 0f, 0.65f);
-        [SerializeField] private float _padding = 16f;
+        [SerializeField] private Color _dimColor = new Color(0f, 0f, 0f, 0.82f);
+        [SerializeField] private float _padding = 6f;
+        [SerializeField] private float _borderWidth = 1.5f;
 
         private const float MinRectSize = 0.1f;
 
         private readonly List<RectTransform> _focusedTargets = new List<RectTransform>();
         private readonly List<GameObject> _focusedWorldTargets = new List<GameObject>();
         private readonly List<Image> _dimPanels = new List<Image>();
+        private readonly List<Image> _borderPanels = new List<Image>();
+        private readonly List<Rect> _borderRects = new List<Rect>();
         private readonly List<Rect> _focusRects = new List<Rect>();
+        private readonly List<Rect> _lastFocusRects = new List<Rect>();
+        private Rect _lastRootRect;
+        private bool _layoutDirty = true;
         private readonly List<Rect> _dimRects = new List<Rect>();
         private readonly List<float> _xCuts = new List<float>();
         private readonly List<float> _yCuts = new List<float>();
@@ -126,18 +132,13 @@ namespace GamePlay
             AddTargets(targets, _focusedTargets);
             AddTargets(worldTargets, _focusedWorldTargets);
 
-            if (_focusedTargets.Count == 0 && _focusedWorldTargets.Count == 0)
-            {
-                Hide();
-                return;
-            }
-
             Show(blocksRaycasts, clickHandler);
         }
 
         private void Show(bool blocksRaycasts, Action clickHandler)
         {
             _isShowing = true;
+            _layoutDirty = true;
             _blocksRaycasts = blocksRaycasts;
             _clickHandler = clickHandler;
             transform.SetAsLastSibling();
@@ -152,10 +153,27 @@ namespace GamePlay
             _focusedWorldTargets.Clear();
             _focusRects.Clear();
             _isShowing = false;
+            _layoutDirty = true;
             _blocksRaycasts = false;
             _clickHandler = null;
             SetPanelsActive(false);
+            foreach (var border in _borderPanels) SetPanelActive(border, false);
             SetClickCatcherActive(false);
+        }
+
+        // Project into the dialogue canvas as it may use a different scale or camera.
+        public void GetFocusRects(RectTransform relativeTo, List<Rect> destination)
+        {
+            destination.Clear();
+            if (!_isShowing || _root == null || relativeTo == null) return;
+            foreach (var rect in _focusRects)
+            {
+                var screenMin = RectTransformUtility.WorldToScreenPoint(GetCanvasCamera(_root), _root.TransformPoint(rect.min));
+                var screenMax = RectTransformUtility.WorldToScreenPoint(GetCanvasCamera(_root), _root.TransformPoint(rect.max));
+                if (RectTransformUtility.ScreenPointToLocalPointInRectangle(relativeTo, screenMin, GetCanvasCamera(relativeTo), out var min) &&
+                    RectTransformUtility.ScreenPointToLocalPointInRectangle(relativeTo, screenMax, GetCanvasCamera(relativeTo), out var max))
+                    destination.Add(Rect.MinMaxRect(min.x, min.y, max.x, max.y));
+            }
         }
 
         private void EnsureInitialized()
@@ -340,11 +358,13 @@ namespace GamePlay
                 }
             }
 
-            if (_focusRects.Count == 0)
-            {
-                Hide();
-                return;
-            }
+            bool changed = _layoutDirty || rootRect != _lastRootRect || _focusRects.Count != _lastFocusRects.Count;
+            for (int i = 0; !changed && i < _focusRects.Count; i++) changed = _focusRects[i] != _lastFocusRects[i];
+            if (!changed) return;
+            _lastRootRect = rootRect;
+            _lastFocusRects.Clear();
+            _lastFocusRects.AddRange(_focusRects);
+            _layoutDirty = false;
 
             BuildDimRects(rootRect);
             EnsureDimPanelCount(_dimRects.Count);
@@ -360,6 +380,8 @@ namespace GamePlay
                     SetPanelActive(_dimPanels[i], false);
                 }
             }
+
+            UpdateBorders(rootRect);
 
             if (_clickCatcher != null && _clickCatcher.gameObject.activeSelf)
             {
@@ -436,7 +458,7 @@ namespace GamePlay
                 maxY = Mathf.Max(maxY, localPoint.y);
             }
 
-            return TryCreateFocusRect(rootRect, minX, minY, maxX, maxY, 10f, out focusRect);
+            return TryCreateFocusRect(rootRect, minX, minY, maxX, maxY, 2f, out focusRect);
         }
 
         private bool TryCreateFocusRect(
@@ -609,6 +631,41 @@ namespace GamePlay
             }
 
             cuts.Add(value);
+        }
+
+        private void UpdateBorders(Rect rootRect)
+        {
+            _borderRects.Clear();
+            float width = Mathf.Max(0.5f, _borderWidth);
+            // Draw the outside contour of the union, so adjacent cells share a clean outline.
+            // The same cuts used by the dim mask keep overlapping highlights free of seams.
+            for (int x = 0; x < _xCuts.Count - 1; x++)
+            for (int y = 0; y < _yCuts.Count - 1; y++)
+            {
+                var rect = Rect.MinMaxRect(_xCuts[x], _yCuts[y], _xCuts[x + 1], _yCuts[y + 1]);
+                if (!IsPointInsideAnyFocusRect(rect.center)) continue;
+                if (x == 0 || !IsPointInsideAnyFocusRect(new Vector2((_xCuts[x - 1] + rect.xMin) / 2, rect.center.y)))
+                    _borderRects.Add(new Rect(rect.xMin, rect.yMin, width, rect.height));
+                if (x == _xCuts.Count - 2 || !IsPointInsideAnyFocusRect(new Vector2((rect.xMax + _xCuts[x + 2]) / 2, rect.center.y)))
+                    _borderRects.Add(new Rect(rect.xMax - width, rect.yMin, width, rect.height));
+                if (y == 0 || !IsPointInsideAnyFocusRect(new Vector2(rect.center.x, (_yCuts[y - 1] + rect.yMin) / 2)))
+                    _borderRects.Add(new Rect(rect.xMin, rect.yMin, rect.width, width));
+                if (y == _yCuts.Count - 2 || !IsPointInsideAnyFocusRect(new Vector2(rect.center.x, (rect.yMax + _yCuts[y + 2]) / 2)))
+                    _borderRects.Add(new Rect(rect.xMin, rect.yMax - width, rect.width, width));
+            }
+            while (_borderPanels.Count < _borderRects.Count)
+            {
+                var border = EnsurePanel(null, "Tutorial White Outline " + _borderPanels.Count);
+                border.color = Color.white;
+                border.raycastTarget = false;
+                _borderPanels.Add(border);
+            }
+            for (int i = 0; i < _borderPanels.Count; i++)
+            {
+                if (i >= _borderRects.Count) { SetPanelActive(_borderPanels[i], false); continue; }
+                SetPanelRect(_borderPanels[i], _borderRects[i], rootRect);
+                _borderPanels[i].transform.SetAsLastSibling();
+            }
         }
 
         private bool IsPointInsideAnyFocusRect(Vector2 point)

@@ -1,416 +1,123 @@
-using System.Collections.Generic;
 using System;
-using UnityEngine;
 using SingletonUtils;
-using Vector2Int = VectorUtils.Vector2Int;
+using Coord = VectorUtils.Vector2Int;
 
 namespace GamePlay
 {
-    public class TutorialController: Singleton<TutorialController>, IDisposable
+    /// <summary>Adapts successful game events to the lesson runner. Presentation is handled by its view.</summary>
+    public sealed class TutorialController : Singleton<TutorialController>, IDisposable
     {
-        private Dictionary<TutorialState, List<TutorialEntry>> _tutorialEntriesDict;
-        private TutorialState _currentState;
-        private bool _currentStateWasTriggeredWithDialogue;
-        private List<Vector2Int> _currentCellCoords;
-        private float _nextStateDelayRemaining = -1f;
+        private readonly TutorialRunner _runner = new TutorialRunner();
+        private DialogueManager _dialogue;
+        private TurnManager _turn;
+        private BoardController _board;
+        private BlockSelectionManager _blocks;
+        private SuspicionManager _suspicion;
+        private TutorialPresenter _presenter;
+        private bool _started;
+        private bool _restoring;
+        private bool _hasPracticeBoard;
+        private int _generation;
+        public bool IsActive => _runner.IsActive || _restoring;
+        public TutorialStep CurrentStep => _runner.Current;
 
-        private DialogueManager _dialogueManager;
-        private TurnManager _turnManager;
-        private BoardController _boardController;
-
-        public event EventHandler<SetTutorialStateEventArgs> RaiseSetTutorialStateEvent;
-
-        public void Initialize(
-            Dictionary<TutorialState, List<TutorialEntry>> tutorialEntries,
-            DialogueManager dialogueManager,
-            TurnManager turnManager,
-            BoardController boardController)
+        public void Initialize(DialogueManager dialogue, TurnManager turn, BoardController board,
+            BlockSelectionManager blocks, SuspicionManager suspicion)
         {
-            _tutorialEntriesDict = tutorialEntries ?? new Dictionary<TutorialState, List<TutorialEntry>>();
-            _currentState = TutorialState.None;
-            _currentStateWasTriggeredWithDialogue = false;
-            _currentCellCoords = new List<Vector2Int>();
-            _nextStateDelayRemaining = -1f;
-            _dialogueManager = dialogueManager ?? throw new ArgumentNullException(nameof(dialogueManager));
-            _turnManager = turnManager ?? throw new ArgumentNullException(nameof(turnManager));
-            _boardController = boardController ?? throw new ArgumentNullException(nameof(boardController));
-            
-            _dialogueManager.RaiseSetDialogueEntryEvent += HandleSetDialogueEntryEvent;
-            _dialogueManager.RaiseDialoguePageEndEvent += HandleDialoguePageEndEvent;
-            RaiseSetTutorialStateEvent += HandleSetTutorialStateEvent;
-            _boardController.RaiseCellPlacementEvent += HandleCellPlacementEvent;
+            _dialogue = dialogue;
+            _turn = turn;
+            _board = board;
+            _blocks = blocks;
+            _suspicion = suspicion;
+            _presenter = new TutorialPresenter(board);
+            _runner.StepChanged += PresentStep;
+            _runner.Completed += Complete;
+            _board.RaiseCellPlacementEvent += HandlePlacement;
         }
 
-        public void Dispose()
+        public void StartGame()
         {
-            if (_dialogueManager != null)
-            {
-                _dialogueManager.RaiseSetDialogueEntryEvent -= HandleSetDialogueEntryEvent;
-                _dialogueManager.RaiseDialoguePageEndEvent -= HandleDialoguePageEndEvent;
-            }
-
-            RaiseSetTutorialStateEvent -= HandleSetTutorialStateEvent;
-
-            if (_boardController != null)
-            {
-                _boardController.RaiseCellPlacementEvent -= HandleCellPlacementEvent;
-            }
-
-            RaiseSetTutorialStateEvent = null;
-            _tutorialEntriesDict = null;
-            _currentCellCoords = null;
-            _dialogueManager = null;
-            _turnManager = null;
-            _boardController = null;
-            ReleaseInstance();
-        }
-
-        public void ResetGame()
-        {
-            _currentState = TutorialState.None;
-            _currentStateWasTriggeredWithDialogue = false;
-            _currentCellCoords = new List<Vector2Int>();
-            _nextStateDelayRemaining = -1f;
-            RaiseSetTutorialStateEvent?.Invoke(
-                this,
-                new SetTutorialStateEventArgs(TutorialState.None, GetTutorialEntries(TutorialState.None)));
+            if (_started) return;
+            _started = true;
+            var sequence = GameInfoHolder.GetCurrentGameInfo().GetTutorial();
+            if (sequence == null) return;
+            sequence.Validate();
+            _runner.Start(sequence.Steps);
         }
 
         public void Tick(float deltaTime)
         {
-            if (_nextStateDelayRemaining < 0f)
-            {
-                return;
-            }
-
-            _nextStateDelayRemaining -= Mathf.Max(0f, deltaTime);
-            if (_nextStateDelayRemaining > 0f)
-            {
-                return;
-            }
-
-            _nextStateDelayRemaining = -1f;
-            ToNextState();
+            // Consume only after every board/turn listener and animation has finished its current event.
+            if (_turn.GetTurnState() == TurnState.PlayerIdle) _runner.BoardSettled();
         }
 
-        public bool CanPlaceCellAt(Vector2Int coord)
-        {
-            if (_currentState == TutorialState.None)
-            {
-                return true;
-            }
+        public bool CanPlaceCellAt(Coord coord) => !IsActive || _runner.CanPlace(coord);
+        public bool CanClickEndTurn() => !IsActive ||
+            (!_runner.IsWaitingForBoard && CurrentStep?.Completion == TutorialCompletion.EndTurn);
+        public bool CanClickEndPlacement() => !IsActive;
+        public void NotifyEndTurnClicked() => _runner.EndTurn();
 
-            return _currentCellCoords != null && _currentCellCoords.Contains(coord);
+        public void ResetGame()
+        {
+            _generation++;
+            _runner.Cancel();
+            _started = false;
+            _restoring = false;
+            _hasPracticeBoard = false;
+            _presenter?.Clear();
+            _dialogue.Hide();
         }
 
-        public bool CanClickEndTurn()
+        public void Dispose()
         {
-            return _currentState == TutorialState.None
-                || _currentState == TutorialState.ExplainEndTurn;
+            ResetGame();
+            _runner.StepChanged -= PresentStep;
+            _runner.Completed -= Complete;
+            _board.RaiseCellPlacementEvent -= HandlePlacement;
+            ReleaseInstance();
         }
 
-        public bool CanClickEndPlacement()
+        private void HandlePlacement(object sender, CellPlacementEventArgs e) => _runner.Placed(e.GetCoord());
+
+        private void PresentStep(TutorialStep step)
         {
-            return _currentState == TutorialState.None;
+            _presenter.Clear();
+            if (step.Board != null && step.Board.Rows.Count > 0)
+            {
+                _hasPracticeBoard = true;
+                _board.SetTutorialBoard(step.Board);
+            }
+            if (step.ResetPracticeCounters)
+            {
+                _blocks.ResetGame();
+                _suspicion.ResetGame();
+            }
+            _presenter.Show(step);
+            int generation = ++_generation;
+            if (string.IsNullOrEmpty(step.Text) && string.IsNullOrEmpty(step.Instruction)) _dialogue.Hide();
+            else _dialogue.Show(new DialogueEntry("", step.Text, TutorialState.None),
+                step.Completion == TutorialCompletion.Next
+                    ? (Action)(() => { if (generation == _generation) _runner.Next(); }) : null,
+                step.Completion == TutorialCompletion.Next, instruction: step.Instruction, presentation: DialoguePresentation.Tutorial);
         }
 
-        public bool IsWaitingForInteractionOutsideDialogue()
+        private void Complete()
         {
-            if (_currentState == TutorialState.None || _currentStateWasTriggeredWithDialogue)
+            _restoring = true;
+            _generation++;
+            _dialogue.Hide();
+            _presenter.Clear();
+            if (_hasPracticeBoard)
             {
-                return false;
+                _board.ResetGame();
+                _blocks.ResetGame();
+                _suspicion.ResetGame();
+                if (BoardView.Instance is BoardView view) view.ResetGame();
+                _turn.ResetGame();
+                GameStateView.Instance?.ResetGame();
             }
-
-            if (_currentCellCoords != null && _currentCellCoords.Count > 0)
-            {
-                return true;
-            }
-
-            return _currentState == TutorialState.ExplainEndTurn ||
-                   GetOverlayClickHandler(_currentState) != null;
-        }
-
-        public void NotifyEndTurnClicked()
-        {
-            if (_currentState == TutorialState.ExplainEndTurn)
-            {
-                SetTutorialState(TutorialState.None);
-            }
-        }
-
-        public void NotifyScreenClicked()
-        {
-            ToNextState();
-        }
-
-        private void HandleSetDialogueEntryEvent(object sender, SetDialogueEntryEventArgs e)
-        {
-            DialogueEntry dialogueEntry = e.GetDialogueEntry();
-            if (_currentStateWasTriggeredWithDialogue)
-            {
-                SetTutorialState(TutorialState.None);
-            }
-
-            if (ShouldTriggerTutorialState(dialogueEntry, TutorialStateTriggerTiming.WithDialogue))
-            {
-                SetTutorialState(dialogueEntry.StateToTrigger, true);
-            }
-        }
-
-        private void HandleDialoguePageEndEvent(object sender, DialoguePageEndEventArgs e)
-        {
-            DialogueEntry lastDialogueEntry = e.GetLastDialogueEntry();
-            if (_currentStateWasTriggeredWithDialogue)
-            {
-                SetTutorialState(TutorialState.None);
-            }
-
-            if (ShouldTriggerTutorialState(lastDialogueEntry, TutorialStateTriggerTiming.AfterDialogue))
-            {
-                SetTutorialState(lastDialogueEntry.StateToTrigger);
-            }
-        }
-
-        private bool ShouldTriggerTutorialState(
-            DialogueEntry dialogueEntry,
-            TutorialStateTriggerTiming triggerTiming)
-        {
-            return dialogueEntry != null &&
-                   dialogueEntry.StateToTrigger != TutorialState.None &&
-                   dialogueEntry.StateTriggerTiming == triggerTiming;
-        }
-
-        private void SetTutorialState(TutorialState tutorialState, bool triggeredWithDialogue = false)
-        {
-            _nextStateDelayRemaining = -1f;
-            _currentState = tutorialState;
-            _currentStateWasTriggeredWithDialogue = tutorialState != TutorialState.None && triggeredWithDialogue;
-            Debug.Log("set tutorial state to " + tutorialState);
-            List<TutorialEntry> tutorialEntries = GetTutorialEntries(tutorialState);
-            RaiseSetTutorialStateEvent?.Invoke(this, new SetTutorialStateEventArgs(tutorialState, tutorialEntries));
-            ScheduleNextStateAfterDelay(tutorialState, tutorialEntries);
-        }
-
-        private void ScheduleNextStateAfterDelay(TutorialState tutorialState, List<TutorialEntry> tutorialEntries)
-        {
-            if (tutorialState == TutorialState.None || tutorialEntries == null)
-            {
-                return;
-            }
-
-            foreach (TutorialEntry tutorialEntry in tutorialEntries)
-            {
-                if (tutorialEntry == null || tutorialEntry.NextStateDelay < 0f)
-                {
-                    continue;
-                }
-
-                _nextStateDelayRemaining = tutorialEntry.NextStateDelay;
-                return;
-            }
-        }
-
-        private void HandleSetTutorialStateEvent(object sender, SetTutorialStateEventArgs e)
-        {
-            _currentCellCoords = new List<Vector2Int>();
-            List<RectTransform> focusTargets = new List<RectTransform>();
-            List<GameObject> focusWorldTargets = new List<GameObject>();
-            RectTransform defaultFocusTarget = GetDefaultFocusTarget(e.CurrentState);
-            bool shouldBlockOverlayRaycasts = !_currentStateWasTriggeredWithDialogue &&
-                                               ShouldBlockOverlayRaycasts(e.CurrentState);
-            BoardView boardView = BoardView.Instance as BoardView;
-
-            if (defaultFocusTarget != null)
-            {
-                focusTargets.Add(defaultFocusTarget);
-            }
-
-            if (TutorialOverlayView.Instance != null)
-            {
-                TutorialOverlayView.Instance.Hide();
-            }
-
-            if (boardView != null)
-            {
-                boardView.ClearTutorialHints();
-            }
-
-            if (e.CurrentState == TutorialState.None)
-            {
-                return;
-            }
-
-            foreach(TutorialEntry tutorialEntry in e.TutorialEntries)
-            {
-                if (tutorialEntry == null)
-                {
-                    continue;
-                }
-
-                Vector2Int cellCoord = tutorialEntry.CellCoord;
-                Type cellType = tutorialEntry.CellType;
-                Vector2Int highlightedCellCoord = tutorialEntry.HighlightedCellCoord;
-                GameObject gameObjectToMark = tutorialEntry.GameObjectToMark;
-
-                if (cellCoord != null && cellType != null)
-                {
-                    _currentCellCoords.Add(cellCoord);
-                    if (boardView != null)
-                    {
-                        boardView.ShowTutorialHint(cellCoord, cellType);
-                    }
-                }
-                else if (highlightedCellCoord != null)
-                {
-                    if (boardView != null && boardView.TryGetCellObject(highlightedCellCoord, out GameObject cellObject))
-                    {
-                        focusWorldTargets.Add(cellObject);
-                    }
-                }
-                else if (gameObjectToMark != null)
-                {
-                    RectTransform rectTransform = gameObjectToMark.GetComponent<RectTransform>();
-                    if (rectTransform != null)
-                    {
-                        focusTargets.Add(rectTransform);
-                    }
-                    else
-                    {
-                        focusWorldTargets.Add(gameObjectToMark);
-                    }
-                }
-            }
-
-            if (TutorialOverlayView.Instance != null && (focusTargets.Count > 0 || focusWorldTargets.Count > 0))
-            {
-                TutorialOverlayView.Instance.Focus(
-                    focusTargets,
-                    focusWorldTargets,
-                    shouldBlockOverlayRaycasts,
-                    GetOverlayClickHandler(e.CurrentState));
-            }
-        }
-
-        private void HandleCellPlacementEvent(object sender, CellPlacementEventArgs e)
-        {
-            if (_currentState == TutorialState.None)
-            {
-                return;
-            }
-
-            if (_currentCellCoords == null || _currentCellCoords.Count == 0)
-            {
-                return;
-            }
-
-            if (!_currentCellCoords.Remove(e.GetCoord()))
-            {
-                return;
-            }
-
-            if (_currentCellCoords.Count == 0)
-            {
-                ToNextState();
-            }
-        }
-
-        private void ToNextState()
-        {
-            switch (_currentState)
-            {
-                case TutorialState.BeforeExplainSuspicionManagement1:
-                    SetTutorialState(TutorialState.BeforeExplainSuspicionManagement2);
-                    break;
-                default:
-                    SetTutorialState(TutorialState.None);
-                    _dialogueManager.ToNextPage();
-                    break;
-            }
-        }
-
-        private List<TutorialEntry> GetTutorialEntries(TutorialState tutorialState)
-        {
-            if (_tutorialEntriesDict != null && _tutorialEntriesDict.TryGetValue(tutorialState, out List<TutorialEntry> tutorialEntries))
-            {
-                return tutorialEntries;
-            }
-
-            return new List<TutorialEntry>();
-        }
-
-        private RectTransform GetDefaultFocusTarget(TutorialState tutorialState)
-        {
-            switch (tutorialState)
-            {
-                case TutorialState.ExplainSuspicion:
-                    return SuspicionView.Instance == null ? null : SuspicionView.Instance.GetFocusTarget();
-                case TutorialState.ExplainEndTurn:
-                    return ButtonUIView.Instance == null ? null : ButtonUIView.Instance.GetEndTurnButtonTarget();
-                default:
-                    return null;
-            }
-        }
-
-        private bool ShouldBlockOverlayRaycasts(TutorialState tutorialState)
-        {
-            return tutorialState == TutorialState.ExplainEndTurn;
-        }
-
-        private Action GetOverlayClickHandler(TutorialState tutorialState)
-        {
-            if (_currentStateWasTriggeredWithDialogue)
-            {
-                return null;
-            }
-
-            switch (tutorialState)
-            {
-                case TutorialState.ExplainSuspicion:
-                case TutorialState.ExplainTargetNumber:
-                case TutorialState.ExplainOriginalBlack:
-                    return NotifyScreenClicked;
-                default:
-                    return null;
-            }
+            _hasPracticeBoard = false;
+            _restoring = false;
         }
     }
-
-    public enum TutorialState
-    {
-        PlaceFirstCell = 1,
-        PlaceSecondCell = 2,
-        ExplainSuspicion = 3,
-        ExplainEndTurn = 4,
-        ExplainWeakThought = 5,
-        PlaceWeakThought = 6,
-        ExplainTargetNumber = 7,
-        ExplainOriginalBlack = 8,
-        ExplainEnemyCellFlip = 9,
-        ExplainEnemyCellInBetween = 10,
-        ExplainDiagonal = 11,
-        ExplainWeakThoughtIsBlack1 = 12,
-        ExplainWeakThoughtIsBlack2 = 13,
-        BeforeExplainSuspicionManagement1 = 14,
-        BeforeExplainSuspicionManagement2 = 15,
-        ExplainSuspicionManagement = 16,
-        BeforeExplainLock = 17,
-        ExplainLock = 18,
-        Dream1 = 19,
-        Dream2 = 20,
-        ExplainStage = 21,
-        None = 0
-    }
-
-    public class SetTutorialStateEventArgs : EventArgs
-    {
-        public TutorialState CurrentState { get; private set; }
-        public List<TutorialEntry> TutorialEntries { get; private set; }
-
-        public SetTutorialStateEventArgs(TutorialState tutorialState, List<TutorialEntry> tutorialEntries)
-        {
-            CurrentState = tutorialState;
-            TutorialEntries = tutorialEntries;
-        }
-    }
-
 }

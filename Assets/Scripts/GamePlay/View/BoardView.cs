@@ -11,7 +11,6 @@ public class BoardView : BoardViewBase
     [SerializeField] private GameObject _boardCellSuspicionPrefab;
     
     private BlockSelectionManager _subscribedBlockSelectionManager;
-    private TutorialController _tutorialController;
     private SuspicionManager _suspicionManager;
     private TurnManager _turnManager;
 
@@ -43,17 +42,17 @@ public class BoardView : BoardViewBase
         
         SubscribeToBlockSelectionEvents();
         _allowedMarkers = _gameInfo.GetAllowedMarkers();
-        _tutorialController = TutorialController.Instance;
-        _tutorialController.RaiseSetTutorialStateEvent += HandleSetTutorialStateEvent;
         _suspicionManager = SuspicionManager.Instance;
         _suspicionManager.RaiseSetSuspicionPreviewEvent += HandleSetSuspicionPreviewEvent;
         _turnManager = TurnManager.Instance;
         _turnManager.RaiseSetTurnStateEvent += HandleSetTurnStateEvent;
         GameStateManager.Instance.RaiseSetGameStateEvent += HandleSetGameStateEvent;
-        _spawnedBoardCellSuspicionViewsByCoord = new SuspicionPrefabView[GetGameInfo().GetWidth(), GetGameInfo().GetHeight()];
+        _spawnedBoardCellSuspicionViewsByCoord = new SuspicionPrefabView[_spawnedCellsByCoord.GetLength(0), _spawnedCellsByCoord.GetLength(1)];
         SpawnBoardCellSuspicionViews();
         return true;
     }
+
+    protected override Cell[,] GetRenderedBoard() => BoardController.Instance?.GetCurrentBoard() ?? base.GetRenderedBoard();
 
     protected override GameInfo GetGameInfo()
     {
@@ -80,14 +79,14 @@ public class BoardView : BoardViewBase
         _turnStateAfterTransition = TurnState.None;
         base.Refresh();
 
-        _spawnedBoardCellSuspicionViewsByCoord = new SuspicionPrefabView[GetGameInfo().GetWidth(), GetGameInfo().GetHeight()];
+        _spawnedBoardCellSuspicionViewsByCoord = new SuspicionPrefabView[_spawnedCellsByCoord.GetLength(0), _spawnedCellsByCoord.GetLength(1)];
         SpawnBoardCellSuspicionViews();
     }
 
     private void SpawnBoardCellSuspicionViews()
     {
-        int width = GetGameInfo().GetWidth();
-        int height = GetGameInfo().GetHeight();
+        int width = _spawnedCellsByCoord.GetLength(0);
+        int height = _spawnedCellsByCoord.GetLength(1);
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
@@ -134,7 +133,7 @@ public class BoardView : BoardViewBase
 
     private void HandleSetSuspicionPreviewEvent(object sender, SetSuspicionEventArgs e)
     {
-        if (_suspicionManager.GetCurrentSuspicionPreview() > _suspicionManager.GetMaxSuspicion() && _suspicionManager.GetCurrentSuspicion() <= _suspicionManager.GetMaxSuspicion())
+        if (_suspicionManager.GetCurrentSuspicionPreview() >= _suspicionManager.GetMaxSuspicion() && _suspicionManager.GetCurrentSuspicion() < _suspicionManager.GetMaxSuspicion())
         {
             if (_isPlayingPreGameOverAnimation)
             {
@@ -277,7 +276,6 @@ public class BoardView : BoardViewBase
 
     protected override IEnumerator AfterCellPlacement()
     {
-        // this is probably the worst way to code ever imaginable
         if (_turnStateAfterTransition == TurnState.None)
         {
             Debug.LogError("Turn state is None");
@@ -296,7 +294,7 @@ public class BoardView : BoardViewBase
     {
         base.RefreshCellMarkers();
         
-        Cell[,] originalBoard = _gameInfo.GetBoard();
+        Cell[,] originalBoard = BoardController.Instance.GetOriginalBoard();
         if (_allowedMarkers == BoardCellMarker.None)
         {
             _allowedMarkers = _gameInfo.GetAllowedMarkers();
@@ -530,17 +528,6 @@ public class BoardView : BoardViewBase
 
         sprite = _tutorialHintSpritesByCoord[coord.X, coord.Y];
         return sprite != null;
-    }
-
-    private void HandleSetTutorialStateEvent(object sender, SetTutorialStateEventArgs e)
-    {
-        switch (e.CurrentState)
-        {
-            case TutorialState.ExplainLock:
-                _allowedMarkers |= BoardCellMarker.Locked;
-                RefreshCellMarkers();
-                break;
-        }
     }
 
     private void HandleSetTurnStateEvent(object sender, SetTurnStateEventArgs e)

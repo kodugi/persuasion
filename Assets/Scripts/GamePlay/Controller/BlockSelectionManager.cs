@@ -39,7 +39,9 @@ namespace GamePlay
 
         public void SetSelectedBlockIdx(int selectedBlockIdx)
         {
-            if (_turnManager.GetTurnState() == TurnState.PlayerIdle &&
+            if (TutorialController.Instance?.IsActive != true &&
+                DialogueManager.Instance?.ShouldBlockInteractionOutsideDialogue() != true &&
+                _turnManager.GetTurnState() == TurnState.PlayerIdle &&
                 selectedBlockIdx >= 0 &&
                 selectedBlockIdx < _blocks.Count)
             {

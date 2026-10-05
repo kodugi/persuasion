@@ -1,0 +1,284 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 445423f60b0b43c49a4b904a02c49646, type: 3}
+  m_Name: RulesTutorial
+  m_EditorClassIdentifier: Assembly-CSharp::GamePlay.TutorialSequence
+  Steps:
+  - Id: straight-lines
+    Text: "보라-검정-보라가 가로, 세로, 대각선 형태를 이루어야 검정 블록이 변환됩니다."
+    Instruction: ""
+    Completion: 0
+    PlacementCount: 1
+    AllowedCells: []
+    ExcludedCells: []
+    Focus: 1
+    FocusCells:
+    - X: 0
+      Y: 1
+    - X: 1
+      Y: 1
+    - X: 2
+      Y: 1
+    - X: 1
+      Y: 2
+    - X: 1
+      Y: 3
+    - X: 1
+      Y: 4
+    - X: 2
+      Y: 4
+    - X: 3
+      Y: 3
+    - X: 4
+      Y: 2
+    Board:
+      Rows:
+      - "B...B"
+      - "PBPB."
+      - ".P..P"
+      - ".B.B."
+      - "BPP.B"
+      OriginalCells:
+      - X: 0
+        Y: 0
+      - X: 4
+        Y: 0
+      - X: 1
+        Y: 1
+      - X: 3
+        Y: 1
+      - X: 1
+        Y: 3
+      - X: 3
+        Y: 3
+      - X: 0
+        Y: 4
+      - X: 4
+        Y: 4
+      Target: 5
+    ResetPracticeCounters: 0
+  - Id: bent-line
+    Text: "이외의 형태로 검정 블록을 감쌀 경우에는 블록이 변환되지 않습니다."
+    Instruction: ""
+    Completion: 0
+    PlacementCount: 1
+    AllowedCells: []
+    ExcludedCells: []
+    Focus: 1
+    FocusCells:
+    - X: 0
+      Y: 3
+    - X: 1
+      Y: 3
+    - X: 1
+      Y: 4
+    Board:
+      Rows:
+      - "B...B"
+      - ".B.B."
+      - "....."
+      - "PB.B."
+      - "BP..B"
+      OriginalCells:
+      - X: 0
+        Y: 0
+      - X: 4
+        Y: 0
+      - X: 1
+        Y: 1
+      - X: 3
+        Y: 1
+      - X: 1
+        Y: 3
+      - X: 3
+        Y: 3
+      - X: 0
+        Y: 4
+      - X: 4
+        Y: 4
+      Target: 5
+    ResetPracticeCounters: 0
+  - Id: gap
+    Text: "보라 블록과 검정 블록 사이에 공간이 있을 경우에도 블록이 변환되지 않습니다."
+    Instruction: ""
+    Completion: 0
+    PlacementCount: 1
+    AllowedCells: []
+    ExcludedCells: []
+    Focus: 1
+    FocusCells:
+    - X: 3
+      Y: 0
+    - X: 3
+      Y: 1
+    - X: 3
+      Y: 2
+    - X: 3
+      Y: 3
+    - X: 3
+      Y: 4
+    Board:
+      Rows:
+      - "B..PB"
+      - ".B.B."
+      - "....."
+      - ".B.B."
+      - "B..PB"
+      OriginalCells:
+      - X: 0
+        Y: 0
+      - X: 4
+        Y: 0
+      - X: 1
+        Y: 1
+      - X: 3
+        Y: 1
+      - X: 1
+        Y: 3
+      - X: 3
+        Y: 3
+      - X: 0
+        Y: 4
+      - X: 4
+        Y: 4
+      Target: 5
+    ResetPracticeCounters: 0
+  - Id: enemy-lines
+    Text: "해당 조건들은 보라 블록이 검정 블록으로 변환될 때도 같습니다."
+    Instruction: ""
+    Completion: 0
+    PlacementCount: 1
+    AllowedCells: []
+    ExcludedCells: []
+    Focus: 1
+    FocusCells:
+    - X: 1
+      Y: 1
+    - X: 1
+      Y: 2
+    - X: 1
+      Y: 3
+    - X: 2
+      Y: 2
+    - X: 2
+      Y: 3
+    - X: 3
+      Y: 3
+    Board:
+      Rows:
+      - "B...B"
+      - ".B.B."
+      - ".PP.."
+      - ".BPB."
+      - "B...B"
+      OriginalCells:
+      - X: 0
+        Y: 0
+      - X: 4
+        Y: 0
+      - X: 1
+        Y: 1
+      - X: 3
+        Y: 1
+      - X: 1
+        Y: 3
+      - X: 3
+        Y: 3
+      - X: 0
+        Y: 4
+      - X: 4
+        Y: 4
+      Target: 5
+    ResetPracticeCounters: 0
+  - Id: target-count
+    Text: "목표치는 검은 블록의 수와 일치하지 않을 때도 있으며, 다 변환하지 않아도 목표치만 채우면 승리합니다."
+    Instruction: ""
+    Completion: 0
+    PlacementCount: 1
+    AllowedCells: []
+    ExcludedCells: []
+    Focus: 4
+    FocusCells: []
+    Board:
+      Rows: []
+      OriginalCells: []
+      Target: 1
+    ResetPracticeCounters: 0
+  - Id: weak-as-black
+    Text: "회색 블록은 검은 블록과 같은 취급을 받습니다."
+    Instruction: ""
+    Completion: 0
+    PlacementCount: 1
+    AllowedCells: []
+    ExcludedCells: []
+    Focus: 1
+    FocusCells:
+    - X: 2
+      Y: 2
+    Board:
+      Rows:
+      - "....."
+      - "....."
+      - ".BWB."
+      - "....."
+      - "....."
+      OriginalCells:
+      - X: 1
+        Y: 2
+      - X: 3
+        Y: 2
+      Target: 2
+    ResetPracticeCounters: 0
+  - Id: weak-neighbours
+    Text: "회색 블록의 경우, 가로 세로 대각선으로 인접한 곳에 보라색 영혼을 하나만 배치해도 바로 보라색으로 변합니다."
+    Instruction: ""
+    Completion: 0
+    PlacementCount: 1
+    AllowedCells: []
+    ExcludedCells: []
+    Focus: 7
+    FocusCells: []
+    Board:
+      Rows: []
+      OriginalCells: []
+      Target: 1
+    ResetPracticeCounters: 0
+  - Id: weak-placement
+    Text: "회색 블록의 경우, 가로 세로 대각선으로 인접한 곳에 보라색 영혼을 하나만 배치해도 바로 보라색으로 변합니다."
+    Instruction: "표시된 칸에 배치"
+    Completion: 1
+    PlacementCount: 1
+    AllowedCells:
+    - X: 2
+      Y: 3
+    ExcludedCells: []
+    Focus: 7
+    FocusCells: []
+    Board:
+      Rows: []
+      OriginalCells: []
+      Target: 1
+    ResetPracticeCounters: 0
+  - Id: stage
+    Text: "퍼즐을 일정 개수만큼 풀면 다음 사람으로 넘어갈 수 있습니다."
+    Instruction: ""
+    Completion: 0
+    PlacementCount: 1
+    AllowedCells: []
+    ExcludedCells: []
+    Focus: 5
+    FocusCells: []
+    Board:
+      Rows: []
+      OriginalCells: []
+      Target: 1
+    ResetPracticeCounters: 0

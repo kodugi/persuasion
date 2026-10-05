@@ -12,13 +12,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f40073349d7ab8444a9679efaa0c7c3f, type: 3}
   m_Name: PuzzleOnly_DialogueTriggerData2
   m_EditorClassIdentifier: Assembly-CSharp::GamePlay.DialogueTriggerData
-  _turn: 0
+  _turn: 1
   _turnState: 1
   _pages:
   - Entries:
     - SpeakerName: 
-      DialogueText: "\uD37C\uC990 1: \uACBD\uBE44\uC6D0"
-      StateToTrigger: 1
+      DialogueText: "\uC2DC\uC2A4\uD15C\uC758 \uD134\uC5D0\uC11C\uB294 \uAC80\uC740\uC0C9
+        \uBE14\uB85D \uC0AC\uC774\uC5D0 \uB07C\uC778 \uBCF4\uB77C\uC0C9 \uBE14\uB85D\uC774
+        \uD68C\uC0C9\uC73C\uB85C \uBCC0\uD658\uB429\uB2C8\uB2E4."
+      StateToTrigger: 9
+      StateTriggerTiming: 1
+      FigurePosition: 0
+      FigureSprite: {fileID: 0}
+      AdditionalFigurePosition: 0
+      AdditionalFigureSprite: {fileID: 0}
+      TertiaryFigurePosition: 0
+      TertiaryFigureSprite: {fileID: 0}
+      HideFiguresAfterDialogue: 1
+    - SpeakerName: 
+      DialogueText: "\uD68C\uC0C9 \uBE14\uB85D\uC740 \uAC80\uC740 \uBE14\uB85D\uACFC
+        \uAC19\uC740 \uCDE8\uAE09\uC744 \uBC1B\uC2B5\uB2C8\uB2E4."
+      StateToTrigger: 9
+      StateTriggerTiming: 1
+      FigurePosition: 0
+      FigureSprite: {fileID: 0}
+      AdditionalFigurePosition: 0
+      AdditionalFigureSprite: {fileID: 0}
+      TertiaryFigurePosition: 0
+      TertiaryFigureSprite: {fileID: 0}
+      HideFiguresAfterDialogue: 1
+  - Entries:
+    - SpeakerName: 
+      DialogueText: "\uD68C\uC0C9 \uBE14\uB85D\uC758 \uACBD\uC6B0, \uAC00\uB85C \uC138\uB85C
+        \uB300\uAC01\uC120\uC73C\uB85C \uC778\uC811\uD55C \uACF3\uC5D0 \uBCF4\uB77C\uC0C9
+        \uC601\uD63C\uC744 \uD558\uB098\uB9CC \uBC30\uCE58\uD574\uB3C4 \uBC14\uB85C
+        \uBCF4\uB77C\uC0C9\uC73C\uB85C \uBCC0\uD569\uB2C8\uB2E4."
+      StateToTrigger: 5
+      StateTriggerTiming: 1
+      FigurePosition: 0
+      FigureSprite: {fileID: 0}
+      AdditionalFigurePosition: 0
+      AdditionalFigureSprite: {fileID: 0}
+      TertiaryFigurePosition: 0
+      TertiaryFigureSprite: {fileID: 0}
+      HideFiguresAfterDialogue: 1
+    - SpeakerName: 
+      DialogueText: "\uD45C\uC2DC\uB41C \uC704\uCE58\uC5D0 \uBE14\uB85D\uC744 \uBC30\uCE58\uD574
+        \uBCF4\uC138\uC694."
+      StateToTrigger: 6
       StateTriggerTiming: 0
       FigurePosition: 0
       FigureSprite: {fileID: 0}
@@ -29,68 +70,51 @@ MonoBehaviour:
       HideFiguresAfterDialogue: 1
   - Entries:
     - SpeakerName: 
-      DialogueText: "\uD074\uB9AD\uC744 \uD1B5\uD574 \uD770 \uACF5\uAC04\uC5D0 \uBCF4\uB77C\uC0C9
-        \uBE14\uB85D\uC744 \uC2EC\uC744 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
-      StateToTrigger: 2
-      StateTriggerTiming: 0
+      DialogueText: "\uBAA9\uD45C\uCE58\uB9CC\uD07C \uAC80\uC740 \uBE14\uB85D\uC744
+        \uBCC0\uD658\uD558\uBA74 \uC774\uAE41\uB2C8\uB2E4."
+      StateToTrigger: 7
+      StateTriggerTiming: 1
       FigurePosition: 0
       FigureSprite: {fileID: 0}
       AdditionalFigurePosition: 0
       AdditionalFigureSprite: {fileID: 0}
       TertiaryFigurePosition: 0
       TertiaryFigureSprite: {fileID: 0}
-      HideFiguresAfterDialogue: 1
-  - Entries:
+      HideFiguresAfterDialogue: 0
     - SpeakerName: 
-      DialogueText: "\uBCF4\uB77C\uC0C9 \uBE14\uB85D \uB450 \uAC1C \uC0AC\uC774\uC5D0
-        \uAC00\uB85C, \uC138\uB85C, \uB610\uB294 \uB300\uAC01\uC120\uC73C\uB85C \uB07C\uC778
-        \uAC80\uC740\uC0C9 \uBE14\uB85D\uC740 \uBCF4\uB77C\uC0C9\uC73C\uB85C \uBC14\uB01D\uB2C8\uB2E4."
-      StateToTrigger: 3
-      StateTriggerTiming: 0
+      DialogueText: "\uAE30\uC874\uC5D0 \uAC80\uC740 \uBE14\uB85D\uC774 \uC704\uCE58\uD588\uB358
+        \uCE78\uB4E4\uC744 \uBCF4\uB77C\uC0C9\uC73C\uB85C \uBC14\uAFC0 \uB54C\uC5D0\uB9CC
+        \uCE74\uC6B4\uD2B8\uAC00 \uC62C\uB77C\uAC11\uB2C8\uB2E4."
+      StateToTrigger: 8
+      StateTriggerTiming: 1
       FigurePosition: 0
       FigureSprite: {fileID: 0}
       AdditionalFigurePosition: 0
       AdditionalFigureSprite: {fileID: 0}
       TertiaryFigurePosition: 0
       TertiaryFigureSprite: {fileID: 0}
-      HideFiguresAfterDialogue: 1
-  - Entries:
+      HideFiguresAfterDialogue: 0
     - SpeakerName: 
-      DialogueText: "\uBCF4\uB77C\uC0C9 \uBE14\uB85D\uC744 \uC2EC\uC744 \uB54C\uB9C8\uB2E4
-        \uC758\uC2EC\uB3C4\uAC00 \uC624\uB974\uBA70, \uD55C \uD134\uC5D0 \uBE14\uB85D\uC744
-        \uB9CE\uC774 \uB193\uC744\uC218\uB85D \uC758\uC2EC\uB3C4\uAC00 \uD070 \uD3ED\uC73C\uB85C
-        \uC624\uB985\uB2C8\uB2E4."
-      StateToTrigger: 0
-      StateTriggerTiming: 0
+      DialogueText: "\uD574\uB2F9 \uCE78\uB4E4\uC740 \uD551\uD06C\uC0C9 \uD14C\uB450\uB9AC\uB85C
+        \uAD6C\uBD84\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+      StateToTrigger: 8
+      StateTriggerTiming: 1
       FigurePosition: 0
       FigureSprite: {fileID: 0}
       AdditionalFigurePosition: 0
       AdditionalFigureSprite: {fileID: 0}
       TertiaryFigurePosition: 0
       TertiaryFigureSprite: {fileID: 0}
-      HideFiguresAfterDialogue: 1
+      HideFiguresAfterDialogue: 0
     - SpeakerName: 
-      DialogueText: "\uC758\uC2EC\uB3C4\uAC00 100\uC774 \uB418\uBA74 \uAC8C\uC784
-        \uC624\uBC84\uAC00 \uB429\uB2C8\uB2E4."
-      StateToTrigger: 0
-      StateTriggerTiming: 0
+      DialogueText: "\uD37C\uC990\uC744 \uC77C\uC815 \uAC1C\uC218\uB9CC\uD07C \uD480\uBA74
+        \uB2E4\uC74C \uC0AC\uB78C\uC73C\uB85C \uB118\uC5B4\uAC08 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+      StateToTrigger: 21
+      StateTriggerTiming: 1
       FigurePosition: 0
       FigureSprite: {fileID: 0}
       AdditionalFigurePosition: 0
       AdditionalFigureSprite: {fileID: 0}
       TertiaryFigurePosition: 0
       TertiaryFigureSprite: {fileID: 0}
-      HideFiguresAfterDialogue: 1
-    - SpeakerName: 
-      DialogueText: "\uD134 \uC885\uB8CC\uB97C \uB204\uB974\uBA74 \uC2DC\uC2A4\uD15C\uC758
-        \uD134\uC73C\uB85C \uB118\uC5B4\uAC00\uAC8C \uB418\uBA70, \uC758\uC2EC\uB3C4\uAC00
-        \uD558\uB77D\uD569\uB2C8\uB2E4."
-      StateToTrigger: 4
-      StateTriggerTiming: 0
-      FigurePosition: 0
-      FigureSprite: {fileID: 0}
-      AdditionalFigurePosition: 0
-      AdditionalFigureSprite: {fileID: 0}
-      TertiaryFigurePosition: 0
-      TertiaryFigureSprite: {fileID: 0}
-      HideFiguresAfterDialogue: 1
+      HideFiguresAfterDialogue: 0

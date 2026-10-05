@@ -29,6 +29,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f8fda310b7240de4fb1502f100e09e5c, type: 2}
   _puzzleOnlyDialogueTriggers:
   - {fileID: 11400000, guid: 84802836bb08fe64e89aa10c9a570eed, type: 2}
+  - {fileID: 11400000, guid: a43d6416388fdaa4cb684d5b7df130c8, type: 2}
+  _tutorial: {fileID: 11400000, guid: 5c4b4cf349084e4fb15b960d9b5cc042, type: 2}
   _gameOverDialogue: {fileID: 0}
   _allowedMarkers: 5
   _mapType: 0

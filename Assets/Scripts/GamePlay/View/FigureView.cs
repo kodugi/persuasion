@@ -153,7 +153,7 @@ namespace GamePlay
         {
             SuspicionManager.Instance.RaiseSuspicionOverflowEvent += HandleSuspicionOverflowEvent;
             SuspicionManager.Instance.RaiseSetSuspicionEvent += HandleSetSuspicionEvent;
-            TutorialController.Instance.RaiseSetTutorialStateEvent += HandleSetTutorialStateEvent;
+            DialogueManager.Instance.Cue += HandleDialogueCue;
             WinConditionManager.Instance.RaiseDefeatEvent += HandleDefeatEvent;
             DialogueManager.Instance.RaiseSetDialogueEntryEvent += HandleSetDialogueEntryEvent;
             DialogueManager.Instance.RaiseDialoguePageEndEvent += HandleDialoguePageEndEvent;
@@ -168,10 +168,7 @@ namespace GamePlay
                 SuspicionManager.Instance.RaiseSetSuspicionEvent -= HandleSetSuspicionEvent;
             }
 
-            if (TutorialController.Instance != null)
-            {
-                TutorialController.Instance.RaiseSetTutorialStateEvent -= HandleSetTutorialStateEvent;
-            }
+            if (DialogueManager.Instance != null) DialogueManager.Instance.Cue -= HandleDialogueCue;
 
             if (WinConditionManager.Instance != null)
             {
@@ -520,9 +517,9 @@ namespace GamePlay
             GamePlaySoundManager.Instance?.Play(GamePlaySoundId.Glitch);
         }
 
-        private void HandleSetTutorialStateEvent(object sender, SetTutorialStateEventArgs e)
+        private void HandleDialogueCue(DialogueCue cue)
         {
-            if (e.CurrentState == TutorialState.Dream1)
+            if (cue == DialogueCue.DreamReveal)
             {
                 _animator.SetTrigger(DreamGameOverTrigger);
             }

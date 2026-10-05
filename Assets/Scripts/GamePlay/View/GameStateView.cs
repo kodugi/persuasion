@@ -69,7 +69,7 @@ public class GameStateView : SelfInitializingMonoBehaviourSingleton<GameStateVie
 
         TurnManager.Instance.RaiseSetTurnEvent += HandleSetTurnEvent;
         BoardController.Instance.RaiseCellPlacementEvent += HandleCellPlacementEvent;
-        SetCurrentTurnText(0, false);
+        SetCurrentTurnText(TurnManager.Instance.GetCurrentTurn(), false);
         SetTargetNumText();
         SetCurrentStageText();
         return true;
@@ -110,7 +110,7 @@ public class GameStateView : SelfInitializingMonoBehaviourSingleton<GameStateVie
             return;
         }
 
-        SetCurrentTurnText(0, false);
+        SetCurrentTurnText(TurnManager.Instance.GetCurrentTurn(), false);
         SetTargetNumText();
         SetCurrentStageText();
     }
@@ -282,15 +282,18 @@ public class GameStateView : SelfInitializingMonoBehaviourSingleton<GameStateVie
         _outgoingTurnText = null;
     }
 
+    public RectTransform GetTargetFocusTarget() => _targetNumText?.rectTransform;
+    public RectTransform GetStageFocusTarget() => _currentStageText?.rectTransform;
+
     private void SetTargetNumText()
     {
-        if (GameInfoHolder.GetCurrentGameInfo().GetTargetNumber() == 0)
+        if (BoardController.Instance.GetTargetNumber() == 0)
         {
             _targetNumText.text = "0/∞";
         }
         else
         {
-            _targetNumText.text = BoardController.Instance.GetConvertedBlackCellCount() + "/" + GameInfoHolder.GetCurrentGameInfo().GetTargetNumber();
+            _targetNumText.text = BoardController.Instance.GetConvertedBlackCellCount() + "/" + BoardController.Instance.GetTargetNumber();
         }
     }
 
