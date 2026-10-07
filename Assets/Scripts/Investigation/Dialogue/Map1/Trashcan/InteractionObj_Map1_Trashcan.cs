@@ -20,7 +20,7 @@ public class InteractionObj_Map1_Trashcan: InteractionObj
             {
                 state = 1;
                 bool haveMetWitch =
-                    saveManager.TryLoadProgress("MetWitchMother", out object result)
+                    gameManager.TryGetProgress("MetWitchMother", out object result)
                     && result is bool metWitch
                     && metWitch;
 

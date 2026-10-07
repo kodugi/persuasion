@@ -62,16 +62,17 @@ namespace Investigation
             chiefManager = GameObject.FindFirstObjectByType<ChiefManager>();
             interactManager = GameObject.FindFirstObjectByType<InteractionCTRL>();
             playerCTRL = GameObject.FindFirstObjectByType<PlayerCTRL>();
-            NoteAwake();
-            InventoryAwake();
 
         }
         private void Start()
         {
+            NoteAwake();
+            InventoryAwake();
             inputAction = new InputActions();
             inputAction.Player.Enable();
             NoteStart();
             InventoryStart();
+            ProgressStart();
             StartCoroutine(SetScene());
         }
         private void Update()
@@ -107,7 +108,7 @@ namespace Investigation
                 return;
             }
 
-            saveManager.SaveCharacterPosition(getID(),"Player",playerCTRL.gameObject.transform.position);
+            SaveCharacterPosition("Player",playerCTRL.gameObject.transform.position);
             NoteOnApplicationQuit();
             InventoryOnApplicationQuit();
         }
@@ -128,7 +129,7 @@ namespace Investigation
         {
             yield return new WaitUntil(() =>
                 saveManager != null &&
-                saveManager.IsProgressLoaded);
+                IsProgressLoaded);
             string currScene = getID();
             print(currScene);
 
@@ -140,7 +141,7 @@ namespace Investigation
             if(playerCTRL != null)
             {
                 footCollider = playerCTRL.gameObject.transform.Find("FootCollider").GetComponent<BoxCollider2D>();
-                if(saveManager.TryLoadCharacterPosition(currScene,"Player", out Vector3 savedPositionP))
+                if(TryLoadCharacterPosition("Player", out Vector3 savedPositionP))
                 {
                     playerCTRL.gameObject.transform.position = savedPositionP;
                     isPlayerPosSaved = true;
@@ -159,7 +160,7 @@ namespace Investigation
                 }
                 GameObject interactable;
                 Vector2 position = Vector_2D_to_Vector2(obj.position);
-                if(saveManager.TryLoadCharacterPosition(currScene,obj.title, out Vector3 savedPosition))
+                if(TryLoadCharacterPosition(obj.title, out Vector3 savedPosition))
                 {
                     position = savedPosition;
                 }
@@ -355,6 +356,12 @@ namespace Investigation
                 cam.Target.TrackingTarget = target;
                 lastCameraMovementTarget = null;
             }
+        }
+        public void ClearSaveData()
+        {
+            progress.Clear();
+            notes.Clear();
+            inventoryItems.Clear();
         }
     }
 }

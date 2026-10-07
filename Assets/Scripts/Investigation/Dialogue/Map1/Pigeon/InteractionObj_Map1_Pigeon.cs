@@ -35,7 +35,7 @@ public class InteractionObj_Map1_Pigeon: InteractionObj
                     }
                 );
                 interactManager.ForceInteraction("Map1/Writer");
-                saveManager.AddProgress("pigeonCaught", true);
+                gameManager.AddProgress("pigeonCaught", true);
                 //Temp
                 Destroy(gameObject);
             }
@@ -63,7 +63,7 @@ public class InteractionObj_Map1_Pigeon: InteractionObj
         override public void CheckState()
         {
             base.CheckState();
-            object pigeonCaught = saveManager.LoadProgress("pigeonCaught");
+            gameManager.TryGetProgress("pigeonCaught", out object pigeonCaught);
             if(pigeonCaught != null && ((bool)pigeonCaught)==true)
             {
                 Destroy(gameObject);

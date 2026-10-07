@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine.AddressableAssets;
@@ -24,6 +25,7 @@ public class InteractionObj : Utility
             }
         }
         protected SaveManager saveManager;
+        protected GameManager gameManager;
         protected InteractionCTRL interactionManager;
         public bool manuallyTouchable = true;
         public List<string> images = null;
@@ -36,13 +38,16 @@ public class InteractionObj : Utility
             obj_name = gameObject.name;
             saveManager = GameObject.FindFirstObjectByType<SaveManager>();
             interactionManager = FindFirstObjectByType<InteractionCTRL>();
+            gameManager = FindFirstObjectByType<GameManager>();
             if(gameObject.TryGetComponent<AudioSource>(out var audio_s)){
                 audioSource = audio_s;
             }
-            /*if (saveManager != null)
-            {
-                CheckState();
-            }*/
+            StartCoroutine(InitializeAfterProgressLoads());
+        }
+        private IEnumerator InitializeAfterProgressLoads()
+        {
+            yield return new WaitUntil(() => gameManager != null && gameManager.IsProgressLoaded);
+
             CheckState();
             Starter();
         }
@@ -67,9 +72,9 @@ public class InteractionObj : Utility
             }*/
             string check_name = obj_name;
             int original_state = state;
-            if (saveManager != null && saveManager.progress != null && saveManager.progress.ContainsKey(check_name + "state"))
+            if (gameManager != null && gameManager.TryGetProgress(check_name + "state", out object result))
             {
-                state = Convert.ToInt32(saveManager.progress[check_name + "state"]);
+                state = Convert.ToInt32(result);
                 //dbg+="yes, "+state;
             }
             else
@@ -89,9 +94,9 @@ public class InteractionObj : Utility
         }
         virtual public void variation(List<string> parameters=null)
         {
-            if (saveManager != null)
+            if (gameManager != null)
             {
-                saveManager.AddProgress(obj_name + "state", state);
+                gameManager.AddProgress(obj_name + "state", state);
             }
         }
         virtual public void InventoryItemDraggedOn(string itemName)

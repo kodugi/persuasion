@@ -14,7 +14,7 @@ public class InteractionObj_Map1_ButterflyNet: InteractionObj
         override public void CheckState()
         {
             base.CheckState();
-            object bfNetPossessed = saveManager.LoadProgress("bfNetPossessed");
+            gameManager.TryGetProgress("bfNetPossessed", out object bfNetPossessed);
             if(bfNetPossessed != null && ((bool)bfNetPossessed)==true)
             {
                 //print("Butterfly net possessed");

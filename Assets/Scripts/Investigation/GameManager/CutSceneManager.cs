@@ -50,12 +50,12 @@ namespace Investigation
 
                 case "PeopleStaringAfterReceivingPen":
                     bool penPossessed = false;
-                    if (saveManager.TryLoadProgress("penPossessed", out object result0))
+                    if (TryGetProgress("penPossessed", out object result0))
                     {
                         penPossessed = Convert.ToBoolean(result0);
                     }
                     bool notePossessed = false;
-                    if (saveManager.TryLoadProgress("notePossessed", out object result1))
+                    if (TryGetProgress("notePossessed", out object result1))
                     {
                         notePossessed = Convert.ToBoolean(result1);
                     }

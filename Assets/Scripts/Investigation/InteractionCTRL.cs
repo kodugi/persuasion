@@ -179,7 +179,7 @@ namespace Investigation
         }
         public void SaveObjPos(string obj_name, Vector3 currPos)
         {
-            saveManager.SaveCharacterPosition(manager.getID(), obj_name, currPos);
+            manager.SaveCharacterPosition(obj_name, currPos);
         }
         public void Effects(JObject effect)
         {
@@ -190,7 +190,7 @@ namespace Investigation
                     string topic = (string)effect["topic"];
                     List<string> notes = new List<string>();
                     foreach (var note in (JArray)effect["content"]) notes.Add((string)note);
-                    if (saveManager.TryLoadProgress("noteLock", out object noteLock0) && !(bool)noteLock0)
+                    if (saveManager.TryGetGeneralData("noteLock", out object noteLock0) && !(bool)noteLock0)
                     {
                         manager.AddNote(topic, notes);
                     }
@@ -198,7 +198,7 @@ namespace Investigation
                 case "noteRemove":
                     string topic_remove = (string)effect["topic"];
                     string note_remove = (string)(((JArray)effect["content"])[0]);
-                    if (saveManager.TryLoadProgress("noteLock", out object noteLock1) && !(bool)noteLock1)
+                    if (saveManager.TryGetGeneralData("noteLock", out object noteLock1) && !(bool)noteLock1)
                     {
                         manager.RemoveNote(topic_remove, note_remove);
                     }
@@ -259,7 +259,7 @@ namespace Investigation
                 case "progress":
                     string key = (string)effect["key"];
                     object value = effect["value"];
-                    saveManager.AddProgress(key, value);
+                    manager.AddProgress(key, value);
                     break;
                 case "cutScene":
                     manager.CutScene((string)effect["title"]);
@@ -275,7 +275,7 @@ namespace Investigation
                     playerCTRL.Hide((string)effect["name"]);
                     break;
                 case "FinalMap":
-                    saveManager.AddGeneralSave("FinalMap", (string)effect["title"]);
+                    saveManager.AddGeneralData("FinalMap", (string)effect["title"]);
                     break;
                 case "changeCamera":
                     string camTarget = (string)effect["target"];

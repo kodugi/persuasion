@@ -18,7 +18,7 @@ namespace Investigation
         [SerializeField] private GameObject noteContentPrefab;
         void NoteAwake()
         {
-            saveManager.LoadData<Dictionary<string, List<string>>>("notes", out notes);
+            saveManager.TryLoadData<Dictionary<string, List<string>>>("notes", out notes);
         }
         void NoteStart()
         {
@@ -35,6 +35,11 @@ namespace Investigation
             }
 
             button.onClick.AddListener(ViewNotes);
+
+            if(saveManager.TryGetGeneralData("noteLock", out object result))
+            {
+                NoteLock((bool)result);
+            }
         }
         void NoteOnApplicationQuit()
         {
@@ -61,7 +66,7 @@ namespace Investigation
                 notes[noteName].AddRange(contents);
             }
             StartCoroutine(HighlightNoteButton());
-            saveManager.SaveData("notes", notes);
+            saveManager.SaveData("notes", data:notes);
         }
         public void RemoveNote(string noteName, string contents)
         {
@@ -71,7 +76,7 @@ namespace Investigation
             noteContents.RemoveAll(note => note == contents);
             if (noteContents.Count == 0) notes.Remove(noteName);
 
-            saveManager.SaveData("notes", notes);
+            saveManager.SaveData("notes", data:notes);
         }
         private IEnumerator HighlightNoteButton()
         {

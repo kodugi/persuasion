@@ -10,7 +10,7 @@ public class InteractionObj_Map1_Note_On_Ground: InteractionObj
         override public void CheckState()
         {
             base.CheckState();
-            object notePossessed = saveManager.LoadProgress("notePossessed");
+            gameManager.TryGetProgress("notePossessed", out object notePossessed);
             if(notePossessed != null && ((bool)notePossessed)==true)
             {
                 Destroy(gameObject);
@@ -21,7 +21,7 @@ public class InteractionObj_Map1_Note_On_Ground: InteractionObj
             if (parameters[0] == "PickedUp")
             {
                 bool havePen = false;
-                if(saveManager.TryLoadProgress("penPossessed", out object result))
+                if(gameManager.TryGetProgress("penPossessed", out object result))
                 {
                     if((bool)result) havePen = true;
                 }

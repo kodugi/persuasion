@@ -11,7 +11,7 @@ public class InteractionObj_Map1_Writer: InteractionObj
                 switch (parameter)
                 {
                     case "Met":
-                        if(saveManager.progress.ContainsKey("notePossessed") && (bool)saveManager.progress["notePossessed"] == true) state = 5;
+                        if(gameManager.TryGetProgress("notePossessed", out object result) && (bool)result == true) state = 5;
                         else state=4;
                         break;
                     case "PenGiven":

@@ -14,7 +14,7 @@ public class InteractionObj_Map1_FishNet: InteractionObj
         override public void CheckState()
         {
             base.CheckState();
-            object fishNetPossessed = saveManager.LoadProgress("fishNetPossessed");
+            gameManager.TryGetProgress("fishNetPossessed", out object fishNetPossessed);
             if(fishNetPossessed != null && ((bool)fishNetPossessed)==true)
             {
                 Destroy(gameObject);

@@ -107,7 +107,7 @@ public partial class ChiefManager : MonoBehaviour
             return;
         }
 
-        if(saveManager.TryLoadGeneralSave("FinalMap", out object result))
+        if(saveManager.TryGetGeneralData("FinalMap", out object result))
         {
             StartInvestigation((string)result);
         }
@@ -150,7 +150,7 @@ public partial class ChiefManager : MonoBehaviour
     {
         string sourceInvestigationId = inv_Scene_ID;
 
-        if(saveProgress) saveManager.SaveProgress();
+        //if(saveProgress) inv_GameManager.SaveProgress();
         switch (currScene)
         {
             case "Investigation":
@@ -166,8 +166,7 @@ public partial class ChiefManager : MonoBehaviour
 
                     if (!string.IsNullOrEmpty(sourceInvestigationId))
                     {
-                        saveManager.SaveCharacterPosition(
-                            sourceInvestigationId,
+                        inv_GameManager.SaveCharacterPosition(
                             "Player",
                             (Vector3)invSceneLastPos
                         );
@@ -208,9 +207,6 @@ public partial class ChiefManager : MonoBehaviour
         per_Scene_ID = "";
         inv_Scene_ID = id;
 
-        //print("2:"+autoInteractOnReturntoInv);
-        saveManager.PrepareForInvestigationSceneLoad();
-
         //temp
         Debug.LogWarning("UniconTempCodeisRemaining");
         if(onlyPuzzles) LoadScene(3);
@@ -219,10 +215,6 @@ public partial class ChiefManager : MonoBehaviour
         //print("3:"+autoInteractOnReturntoInv);
         yield return null;
         ResetAudioAfterGameOver(false);
-        //print("Investigation scene loaded");
-        //print("4:"+autoInteractOnReturntoInv);
-        saveManager.OnInvestigationSceneStart();
-        //print("5:"+autoInteractOnReturntoInv);
 
         inv_GameManager = GameObject.FindFirstObjectByType<GameManager>();
         inv_PlayerCTRL = GameObject.FindFirstObjectByType<PlayerCTRL>();
@@ -327,8 +319,8 @@ public partial class ChiefManager : MonoBehaviour
     public void RestartGame()
     {
         print("시간 내에 숨지 못해서 죽은 경우");
-        saveManager.AddProgress("Map1/Cavestate", 0);
-        saveManager.AddProgress("Map1/House_Gatheringstate", 3);
+        inv_GameManager.AddProgress("Map1/Cavestate", 0);
+        inv_GameManager.AddProgress("Map1/House_Gatheringstate", 3);
         inv_PlayerCTRL.gameObject.transform.position=new Vector3(-1.68f,22.12f);
         autoInteractOnReturntoInv="Map1/House_Gathering";
 

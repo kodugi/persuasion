@@ -44,7 +44,7 @@ public class InteractionObj_WitchMother: InteractionObj
             }
             else if (state ==3)
             {
-                object possessed = saveManager.LoadProgress("possessedWitchsCloth");
+                gameManager.TryGetProgress("possessedWitchsCloth", out object possessed);
                 bool isPossessed = possessed switch
                 {
                     bool b => b,
@@ -61,7 +61,7 @@ public class InteractionObj_WitchMother: InteractionObj
                 gameObject.GetComponent<BoxCollider2D>().size = new Vector2(0.4f, 1f);
                 gameObject.transform.GetChild(0).GetComponent<BoxCollider2D>().enabled=false;
             }
-            saveManager.AddProgress(obj_name + "state", state);
+            gameManager.AddProgress(obj_name + "state", state);
             if(amIInteracting && original_state != state && !(state==1 && !haveWarned))
             {
                 interactManager.ForceInteraction(obj_name);
@@ -125,7 +125,7 @@ public class InteractionObj_WitchMother: InteractionObj
                         gameObject.transform.GetChild(0).GetComponent<BoxCollider2D>().enabled=false;
                         
                         bool clothObtained = false;
-                        if(saveManager.TryLoadProgress("TrashCanClothObtained", out object result))
+                        if(gameManager.TryGetProgress("TrashCanClothObtained", out object result))
                         {
                             if((bool)result) clothObtained = true;
                         }

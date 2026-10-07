@@ -24,7 +24,7 @@ namespace Investigation
         bool autoClose = false;
         void InventoryAwake()
         {
-            saveManager.LoadData<List<string>>("inventory", out inventoryItems);
+            saveManager.TryLoadData("inventory", out inventoryItems);
         }
         void InventoryStart()
         {
@@ -129,7 +129,7 @@ namespace Investigation
             bool doQuit = AddItemException(itemName);
             if(doQuit) return;
             inventoryItems.Add(itemName);
-            saveManager.SaveData("inventory", inventoryItems);
+            saveManager.SaveData("inventory", data:inventoryItems);
             if(doPreview) PreviewInventory();
         }
         bool AddItemException(string itemName)
@@ -138,7 +138,7 @@ namespace Investigation
             switch (itemName)
             {
                 case "note":
-                    saveManager.AddProgress("notePossessed", true);
+                    AddProgress("notePossessed", true);
                     return true;
                     //break;
                 default:
@@ -149,7 +149,7 @@ namespace Investigation
         public void RemoveItem(string itemName, bool doPreview=true)
         {
             inventoryItems.Remove(itemName);
-            saveManager.SaveData("inventory", inventoryItems);
+            saveManager.SaveData("inventory", data:inventoryItems);
             if(doPreview) PreviewInventory();
         }
         public void ItemClicked(int selectionIdx, GameObject selectionObj)
