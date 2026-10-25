@@ -25,12 +25,23 @@ namespace GamePlay
                     step.PlacementCount > step.AllowedCells.Count)
                     throw new InvalidOperationException(step.Id + ": not enough allowed cells.");
                 if (step.Board != null && step.Board.Rows.Count > 0) step.Board.Validate();
+                if (step.Lines == null) continue;
+                foreach (var line in step.Lines)
+                {
+                    if (line.Start.X == line.End.X && line.Start.Y == line.End.Y)
+                        throw new InvalidOperationException(step.Id + ": connection needs two different cells.");
+                    if (step.Board == null || step.Board.Rows.Count == 0 ||
+                        !line.Start.IsInside(step.Board) || !line.End.IsInside(step.Board))
+                        throw new InvalidOperationException(step.Id + ": connection must be inside its example board.");
+                    if (line.EndInset < 0f || line.EndInset >= 0.45f)
+                        throw new InvalidOperationException(step.Id + ": connection inset must be between 0 and 0.45.");
+                }
             }
         }
     }
 
     public enum TutorialCompletion { Next, PlaceCells, EndTurn }
-    public enum TutorialFocus { None, Cells, Suspicion, EndTurn, Target, Stage, OriginalCells, WeakNeighbours }
+    public enum TutorialFocus { None, Cells, Suspicion, EndTurn, Target, Stage, OriginalCells }
 
     [Serializable]
     public sealed class TutorialStep
@@ -45,6 +56,7 @@ namespace GamePlay
         public List<TutorialCell> ExcludedCells = new List<TutorialCell>();
         public TutorialFocus Focus;
         public List<TutorialCell> FocusCells = new List<TutorialCell>();
+        public List<TutorialLine> Lines = new List<TutorialLine>();
         public TutorialBoard Board = new TutorialBoard();
         public bool ResetPracticeCounters;
     }
@@ -57,12 +69,22 @@ namespace GamePlay
         public TutorialCell(int x, int y) { X = x; Y = y; }
         public Coord ToCoord() => new Coord(X, Y);
         public bool Matches(Coord coord) => coord != null && X == coord.X && Y == coord.Y;
+        public bool IsInside(TutorialBoard board) => X >= 0 && Y >= 0 &&
+            Y < board.Rows.Count && X < board.Rows[0].Length;
+    }
+
+    [Serializable]
+    public struct TutorialLine
+    {
+        public TutorialCell Start;
+        public TutorialCell End;
+        [Range(0f, 0.44f)] public float EndInset;
     }
 
     [Serializable]
     public sealed class TutorialBoard
     {
-        [Tooltip("Rows in board coordinate order. . empty, B black, P purple, W weak/gray.")]
+        [Tooltip("Rows in board coordinate order. . empty, B black, P purple.")]
         public List<string> Rows = new List<string>();
         public List<TutorialCell> OriginalCells = new List<TutorialCell>();
         [Min(1)] public int Target = 1;
@@ -76,7 +98,7 @@ namespace GamePlay
                 if (row == null || row.Length != Rows[0].Length)
                     throw new InvalidOperationException("Tutorial board rows must be rectangular.");
                 foreach (char cell in row)
-                    if (".BPW".IndexOf(cell) < 0)
+                    if (".BP".IndexOf(cell) < 0)
                         throw new InvalidOperationException("Unknown tutorial cell: " + cell);
             }
             foreach (var cell in OriginalCells)
@@ -96,7 +118,6 @@ namespace GamePlay
                 {
                     case 'B': cells[x, y] = new BlackCell(coord); break;
                     case 'P': cells[x, y] = new ConceptCell(0, coord); break;
-                    case 'W': cells[x, y] = new WeakBlackCell(coord); break;
                     default: cells[x, y] = new EmptyCell(coord); break;
                 }
             }

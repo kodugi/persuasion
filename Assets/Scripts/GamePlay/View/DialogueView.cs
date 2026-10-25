@@ -14,6 +14,7 @@ namespace GamePlay
         [SerializeField] private TextMeshProUGUI _dialogueText;
         private DialogueManager _session;
         private Image _outsideInputBlocker;
+        private Button _outsideInputButton;
         private float _visibleCharacters;
         private int _characterCount;
         private bool _typing;
@@ -91,9 +92,9 @@ namespace GamePlay
             _dialogueText.text = entry.DialogueText;
             string instruction = _session.Instruction;
             if (string.IsNullOrEmpty(instruction) && _session.CanAdvance && _session.Presentation == DialoguePresentation.Tutorial)
-                instruction = "클릭 / Space로 계속";
+                instruction = "화면 아무 곳이나 클릭 / Space로 계속";
             if (!string.IsNullOrEmpty(instruction))
-                _dialogueText.text += (string.IsNullOrEmpty(entry.DialogueText) ? "" : "\n") +
+                _dialogueText.text += (string.IsNullOrEmpty(entry.DialogueText) ? "" : "\n\n") +
                     (_session.Presentation == DialoguePresentation.Tutorial ? "<size=75%><color=#FFFFFFCC>" : "<size=75%><color=#67447E>") +
                     instruction + "</color></size>";
             if (_session.Presentation == DialoguePresentation.Tutorial) _calloutLayout.Refresh();
@@ -227,6 +228,9 @@ namespace GamePlay
             _outsideInputBlocker = blockerObject.GetComponent<Image>();
             _outsideInputBlocker.color = Color.clear;
             _outsideInputBlocker.raycastTarget = true;
+            _outsideInputButton = blockerObject.AddComponent<Button>();
+            _outsideInputButton.transition = Selectable.Transition.None;
+            _outsideInputButton.onClick.AddListener(OnNextButtonClick);
 
             RectTransform blockerRect = _outsideInputBlocker.rectTransform;
             blockerRect.anchorMin = Vector2.zero;
@@ -248,6 +252,9 @@ namespace GamePlay
             bool shouldBlock = _dialoguePanel.activeSelf &&
                                DialogueManager.Instance != null &&
                                DialogueManager.Instance.ShouldBlockInteractionOutsideDialogue();
+            _outsideInputButton.interactable = shouldBlock &&
+                                              _session.Presentation == DialoguePresentation.Tutorial &&
+                                              _session.CanAdvance;
             _outsideInputBlocker.gameObject.SetActive(shouldBlock);
             if (shouldBlock)
             {

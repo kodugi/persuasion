@@ -42,7 +42,7 @@ namespace GamePlay
             return appliedChanges;
         }
 
-        public List<CellChange> ApplyEnemyTurn(Board board, int currentTurn)
+        public List<CellChange> ApplyEnemyTurn(Board board, int currentTurn, bool useWeakBlackCells = true)
         {
             List<CellChange> pendingChanges = new List<CellChange>();
             for (int x = 0; x < board.GetWidth(); x++)
@@ -58,8 +58,13 @@ namespace GamePlay
             }
 
             List<CellChange> appliedChanges = new List<CellChange>();
-            foreach (CellChange change in pendingChanges)
+            foreach (CellChange pendingChange in pendingChanges)
             {
+                // The lesson presents a plain black reversal; regular play keeps weak black cells.
+                CellChange change = !useWeakBlackCells && pendingChange.CellType == typeof(WeakBlackCell)
+                    ? new CellChange(pendingChange.Coord, typeof(BlackCell),
+                        pendingChange.OriginalCellCoord, pendingChange.OtherCellCoord)
+                    : pendingChange;
                 if (board.GetCell(change.Coord).GetType() == change.CellType)
                 {
                     continue;

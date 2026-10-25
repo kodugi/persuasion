@@ -20,6 +20,7 @@ namespace GamePlay
         {
             var ui = new List<RectTransform>();
             var world = new List<GameObject>();
+            var lines = new List<(GameObject Start, GameObject End, float EndInset)>();
             var view = BoardView.Instance as BoardView;
             RectTransform target = null;
             switch (step.Focus)
@@ -50,17 +51,17 @@ namespace GamePlay
                         coords.Add((x, y));
                     if (step.Focus == TutorialFocus.OriginalCells && originals[x, y] is BlackCell)
                         coords.Add((x, y));
-                    if (step.Focus != TutorialFocus.WeakNeighbours || !(cells[x, y] is WeakBlackCell)) continue;
-                    for (int dx = -1; dx <= 1; dx++)
-                    for (int dy = -1; dy <= 1; dy++)
-                        if (x + dx >= 0 && y + dy >= 0 && x + dx < cells.GetLength(0) && y + dy < cells.GetLength(1))
-                            coords.Add((x + dx, y + dy));
                 }
                 foreach (var coord in coords)
                     if (view.TryGetCellObject(new Coord(coord.Item1, coord.Item2), out var obj)) world.Add(obj);
+                if (step.Lines != null)
+                    foreach (var line in step.Lines)
+                        if (view.TryGetCellObject(line.Start.ToCoord(), out var start) &&
+                            view.TryGetCellObject(line.End.ToCoord(), out var end))
+                            lines.Add((start, end, line.EndInset));
             }
             // The runner enforces board input; raycast holes only guide the user's attention.
-            TutorialOverlayView.Instance?.Focus(ui, world, step.Completion != TutorialCompletion.Next, null);
+            TutorialOverlayView.Instance?.Focus(ui, world, lines, step.Completion != TutorialCompletion.Next, null);
         }
     }
 }

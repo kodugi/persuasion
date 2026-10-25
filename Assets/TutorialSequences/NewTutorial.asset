@@ -56,7 +56,7 @@ MonoBehaviour:
     ResetPracticeCounters: 0
   - Id: free-practice
     Text: ""
-    Instruction: "자유 배치 · 2회"
+    Instruction: ""
     Completion: 1
     PlacementCount: 2
     AllowedCells: []
@@ -231,6 +231,25 @@ MonoBehaviour:
       Y: 3
     - X: 4
       Y: 2
+    Lines:
+    - Start:
+        X: 0
+        Y: 1
+      End:
+        X: 2
+        Y: 1
+    - Start:
+        X: 1
+        Y: 2
+      End:
+        X: 1
+        Y: 4
+    - Start:
+        X: 2
+        Y: 4
+      End:
+        X: 4
+        Y: 2
     Board:
       Rows:
       - "B...B"
@@ -364,6 +383,28 @@ MonoBehaviour:
       Y: 3
     - X: 3
       Y: 3
+    Lines:
+    - Start:
+        X: 1
+        Y: 3
+      End:
+        X: 3
+        Y: 3
+      EndInset: 0.1
+    - Start:
+        X: 1
+        Y: 1
+      End:
+        X: 1
+        Y: 3
+      EndInset: 0.1
+    - Start:
+        X: 1
+        Y: 1
+      End:
+        X: 3
+        Y: 3
+      EndInset: 0.1
     Board:
       Rows:
       - "B...B"
@@ -398,61 +439,6 @@ MonoBehaviour:
     AllowedCells: []
     ExcludedCells: []
     Focus: 4
-    FocusCells: []
-    Board:
-      Rows: []
-      OriginalCells: []
-      Target: 1
-    ResetPracticeCounters: 0
-  - Id: weak-as-black
-    Text: "회색 블록은 검은 블록과 같은 취급을 받습니다."
-    Instruction: ""
-    Completion: 0
-    PlacementCount: 1
-    AllowedCells: []
-    ExcludedCells: []
-    Focus: 1
-    FocusCells:
-    - X: 2
-      Y: 2
-    Board:
-      Rows:
-      - "....."
-      - "....."
-      - ".BWB."
-      - "....."
-      - "....."
-      OriginalCells:
-      - X: 1
-        Y: 2
-      - X: 3
-        Y: 2
-      Target: 2
-    ResetPracticeCounters: 0
-  - Id: weak-neighbours
-    Text: "회색 블록의 경우, 가로 세로 대각선으로 인접한 곳에 보라색 영혼을 하나만 배치해도 바로 보라색으로 변합니다."
-    Instruction: ""
-    Completion: 0
-    PlacementCount: 1
-    AllowedCells: []
-    ExcludedCells: []
-    Focus: 7
-    FocusCells: []
-    Board:
-      Rows: []
-      OriginalCells: []
-      Target: 1
-    ResetPracticeCounters: 0
-  - Id: weak-placement
-    Text: "회색 블록의 경우, 가로 세로 대각선으로 인접한 곳에 보라색 영혼을 하나만 배치해도 바로 보라색으로 변합니다."
-    Instruction: "표시된 칸에 배치"
-    Completion: 1
-    PlacementCount: 1
-    AllowedCells:
-    - X: 2
-      Y: 3
-    ExcludedCells: []
-    Focus: 7
     FocusCells: []
     Board:
       Rows: []

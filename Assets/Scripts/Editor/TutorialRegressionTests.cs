@@ -23,6 +23,7 @@ public static class TutorialRegressionTests
         CheckDialogueSessions();
         CheckDreamNarrative();
         CheckSuspicionBoundary();
+        CheckNormalEnemyFlipKeepsWeak();
         CheckSerializedTutorial();
         Debug.Log("TUTORIAL_TESTS_PASSED: " + _assertions + " assertions");
     }
@@ -76,6 +77,14 @@ public static class TutorialRegressionTests
             var info = Load(name);
             Assert(info != null && info.GetTutorial() != null, name + " uses the shared sequence");
             info.GetTutorial().Validate();
+            foreach (var step in info.GetTutorial().Steps)
+            {
+                Assert(string.IsNullOrEmpty(step.Text) || !step.Text.Contains("회색"),
+                    name + " tutorial does not explain gray cells");
+                if (step.Board != null)
+                    foreach (string row in step.Board.Rows)
+                        Assert(!row.Contains("W"), name + " tutorial example contains no gray cell");
+            }
             Assert(info.GetDialogueDataDict(false).Count == 0 && info.GetDialogueDataDict(true).Count == 0,
                 name + " cannot select old mode-specific tutorials");
             using (var runtime = CreateRuntime(info))
@@ -117,8 +126,6 @@ public static class TutorialRegressionTests
                     Assert(runtime.Tutorial.CanPlaceCellAt(coord), "authored placement is permitted");
                     runtime.Board.HandleCellPlacementInput(coord);
                 }
-                if (step.Id == "weak-placement")
-                    Assert(runtime.Board.GetCurrentBoard()[2, 2] is ConceptCell, "adjacent placement flips gray block");
                 runtime.Tutorial.Tick(0.02f);
             }
             else
@@ -126,7 +133,8 @@ public static class TutorialRegressionTests
                 Assert(runtime.Tutorial.CanClickEndTurn(), "end turn gate permits the button");
                 runtime.Tutorial.NotifyEndTurnClicked();
                 runtime.Turn.SetTurnState(TurnState.EnemyIdle);
-                Assert(runtime.Board.GetCurrentBoard()[2, 2] is WeakBlackCell, "enemy flanks produce weak black");
+                Assert(runtime.Board.GetCurrentBoard()[2, 2].GetType() == typeof(BlackCell),
+                    "tutorial enemy flanks produce ordinary black");
                 runtime.Tutorial.Tick(0.02f);
             }
             Assert(runtime.State.GetGameState() == GameState.Playing, "lesson cannot trigger a stage transition");
@@ -201,17 +209,42 @@ public static class TutorialRegressionTests
         }
         finally { UnityEngine.Object.DestroyImmediate(info); }
     }
+    private static void CheckNormalEnemyFlipKeepsWeak()
+    {
+        var info = ScriptableObject.CreateInstance<GameInfo>();
+        info.Initialize(new TutorialBoard { Rows = new List<string> { "...", "BPB", "..." } }.CreateCells(), 10, 1);
+        try
+        {
+            using (var runtime = CreateRuntime(info))
+            {
+                runtime.Turn.SetTurnState(TurnState.EnemyIdle);
+                Assert(runtime.Board.GetCurrentBoard()[1, 1] is WeakBlackCell,
+                    "normal gameplay still produces a weak black cell");
+            }
+        }
+        finally { UnityEngine.Object.DestroyImmediate(info); }
+    }
     private static void CheckSerializedTutorial()
     {
         var original = Load("Guard1");
         var copy = GameInfoSerializer.DeserializeGameInfo(GameInfoSerializer.SerializeGameInfo(original));
         try
         {
-            Assert(copy.GetTutorial() != null && copy.GetTutorial().Steps.Count == 20, "JSON preserves all lesson steps");
-            for (int i = 0; i < 20; i++)
+            Assert(copy.GetTutorial() != null && copy.GetTutorial().Steps.Count == 17, "JSON preserves all lesson steps");
+            for (int i = 0; i < original.GetTutorial().Steps.Count; i++)
             {
                 Assert(copy.GetTutorial().Steps[i].Text == original.GetTutorial().Steps[i].Text, "JSON preserves Korean dialogue");
                 Assert(copy.GetTutorial().Steps[i].Completion == original.GetTutorial().Steps[i].Completion, "JSON preserves completion gates");
+                var expectedLines = original.GetTutorial().Steps[i].Lines ?? new List<TutorialLine>();
+                var actualLines = copy.GetTutorial().Steps[i].Lines ?? new List<TutorialLine>();
+                Assert(actualLines.Count == expectedLines.Count, "JSON preserves tutorial connection count");
+                for (int j = 0; j < expectedLines.Count; j++)
+                    Assert(actualLines[j].Start.X == expectedLines[j].Start.X &&
+                           actualLines[j].Start.Y == expectedLines[j].Start.Y &&
+                           actualLines[j].End.X == expectedLines[j].End.X &&
+                           actualLines[j].End.Y == expectedLines[j].End.Y &&
+                           actualLines[j].EndInset == expectedLines[j].EndInset,
+                        "JSON preserves tutorial connection endpoints");
             }
             using (var runtime = CreateRuntime(copy)) PlayLesson(runtime);
         }

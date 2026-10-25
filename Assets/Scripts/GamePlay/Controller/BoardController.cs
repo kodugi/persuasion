@@ -250,7 +250,8 @@ namespace GamePlay
         {
             List<CellChange> changes = _transitionResolver.ApplyEnemyTurn(
                 _board,
-                _turnManager.GetCurrentTurn());
+                _turnManager.GetCurrentTurn(),
+                useWeakBlackCells: !_tutorialController.IsActive);
             PresentCellChanges(changes, TurnState.End);
         }
 

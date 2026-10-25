@@ -17,13 +17,16 @@ namespace GamePlay
         [SerializeField] private Color _dimColor = new Color(0f, 0f, 0f, 0.82f);
         [SerializeField] private float _padding = 6f;
         [SerializeField] private float _borderWidth = 1.5f;
+        [SerializeField] private float _connectionWidth = 3f;
 
         private const float MinRectSize = 0.1f;
 
         private readonly List<RectTransform> _focusedTargets = new List<RectTransform>();
         private readonly List<GameObject> _focusedWorldTargets = new List<GameObject>();
+        private readonly List<(GameObject Start, GameObject End, float EndInset)> _focusedLines = new List<(GameObject Start, GameObject End, float EndInset)>();
         private readonly List<Image> _dimPanels = new List<Image>();
         private readonly List<Image> _borderPanels = new List<Image>();
+        private readonly List<Image> _linePanels = new List<Image>();
         private readonly List<Rect> _borderRects = new List<Rect>();
         private readonly List<Rect> _focusRects = new List<Rect>();
         private readonly List<Rect> _lastFocusRects = new List<Rect>();
@@ -90,6 +93,7 @@ namespace GamePlay
             EnsureInitialized();
             _focusedTargets.Clear();
             _focusedWorldTargets.Clear();
+            _focusedLines.Clear();
             _focusedWorldTargets.Add(target);
             Show(blocksRaycasts, clickHandler);
         }
@@ -115,6 +119,7 @@ namespace GamePlay
             EnsureInitialized();
             _focusedTargets.Clear();
             _focusedWorldTargets.Clear();
+            _focusedLines.Clear();
             _focusedTargets.Add(target);
             Show(blocksRaycasts, clickHandler);
         }
@@ -122,15 +127,18 @@ namespace GamePlay
         public void Focus(
             IList<RectTransform> targets,
             IList<GameObject> worldTargets,
+            IList<(GameObject Start, GameObject End, float EndInset)> lines,
             bool blocksRaycasts,
             Action clickHandler)
         {
             EnsureInitialized();
             _focusedTargets.Clear();
             _focusedWorldTargets.Clear();
+            _focusedLines.Clear();
 
             AddTargets(targets, _focusedTargets);
             AddTargets(worldTargets, _focusedWorldTargets);
+            if (lines != null) _focusedLines.AddRange(lines);
 
             Show(blocksRaycasts, clickHandler);
         }
@@ -151,6 +159,7 @@ namespace GamePlay
         {
             _focusedTargets.Clear();
             _focusedWorldTargets.Clear();
+            _focusedLines.Clear();
             _focusRects.Clear();
             _isShowing = false;
             _layoutDirty = true;
@@ -158,6 +167,7 @@ namespace GamePlay
             _clickHandler = null;
             SetPanelsActive(false);
             foreach (var border in _borderPanels) SetPanelActive(border, false);
+            foreach (var line in _linePanels) SetPanelActive(line, false);
             SetClickCatcherActive(false);
         }
 
@@ -382,6 +392,7 @@ namespace GamePlay
             }
 
             UpdateBorders(rootRect);
+            UpdateConnectionLines(rootRect);
 
             if (_clickCatcher != null && _clickCatcher.gameObject.activeSelf)
             {
@@ -665,6 +676,50 @@ namespace GamePlay
                 if (i >= _borderRects.Count) { SetPanelActive(_borderPanels[i], false); continue; }
                 SetPanelRect(_borderPanels[i], _borderRects[i], rootRect);
                 _borderPanels[i].transform.SetAsLastSibling();
+            }
+        }
+
+        private void UpdateConnectionLines(Rect rootRect)
+        {
+            while (_linePanels.Count < _focusedLines.Count)
+            {
+                var line = EnsurePanel(null, "Tutorial White Connection " + _linePanels.Count);
+                line.color = Color.white;
+                line.raycastTarget = false;
+                _linePanels.Add(line);
+            }
+            var worldCamera = Camera.main;
+            var rootCamera = GetCanvasCamera(_root);
+            for (int i = 0; i < _linePanels.Count; i++)
+            {
+                var image = _linePanels[i];
+                if (i >= _focusedLines.Count || worldCamera == null ||
+                    _focusedLines[i].Start == null || _focusedLines[i].End == null)
+                {
+                    SetPanelActive(image, false);
+                    continue;
+                }
+                var startScreen = worldCamera.WorldToScreenPoint(_focusedLines[i].Start.transform.position);
+                var endScreen = worldCamera.WorldToScreenPoint(_focusedLines[i].End.transform.position);
+                if (startScreen.z <= 0 || endScreen.z <= 0 ||
+                    !RectTransformUtility.ScreenPointToLocalPointInRectangle(_root, startScreen, rootCamera, out var start) ||
+                    !RectTransformUtility.ScreenPointToLocalPointInRectangle(_root, endScreen, rootCamera, out var end))
+                {
+                    SetPanelActive(image, false);
+                    continue;
+                }
+                var direction = end - start;
+                var inset = direction * Mathf.Clamp(_focusedLines[i].EndInset, 0f, 0.44f);
+                start += inset;
+                direction = end - inset - start;
+                var rect = image.rectTransform;
+                rect.anchorMin = rect.anchorMax = Vector2.zero;
+                rect.pivot = new Vector2(0, 0.5f);
+                rect.anchoredPosition = start - rootRect.min;
+                rect.sizeDelta = new Vector2(direction.magnitude, Mathf.Max(0.5f, _connectionWidth));
+                rect.localRotation = Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
+                image.gameObject.SetActive(true);
+                image.transform.SetAsLastSibling();
             }
         }
 
